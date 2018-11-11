@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
+    <StartupObject />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Github\CSharpSpeed\Builds\CSharpSpeed.xml</DocumentationFile>
+    <OutputPath>C:\Github\CSharpSpeed\Builds\</OutputPath>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\Github\CSharpSpeed\Builds\CSharpSpeed.xml</DocumentationFile>
+    <OutputPath>C:\Github\CSharpSpeed\Builds\</OutputPath>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Github\CSharpSpeed\Builds\InstrumentedLibrary.xml</DocumentationFile>
+    <OutputPath>C:\Github\CSharpSpeed\Builds</OutputPath>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>C:\Github\CSharpSpeed\Builds\InstrumentedLibrary.xml</DocumentationFile>
+    <OutputPath>C:\Github\CSharpSpeed\Builds\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CSharpSpeed\CSharpSpeed.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Numerics.Vectors">
+      <HintPath>..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.netcore.app\2.1.0\ref\netcoreapp2.1\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
