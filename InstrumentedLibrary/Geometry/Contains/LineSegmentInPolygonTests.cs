@@ -23,7 +23,7 @@ namespace InstrumentedLibrary
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
-        [DisplayName(nameof(Point2DInPolygonSetTests))]
+        [DisplayName(nameof(LineSegmentInPolygonTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
@@ -31,7 +31,7 @@ namespace InstrumentedLibrary
             var pointB = new Point2D(2, 2);
             var polygon = new PolygonContour(new List<Point2D> { new Point2D(0, 0), new Point2D(2, 0), new Point2D(0, 2) });
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { pointA, pointB, polygon }, new TestCaseResults(description:"polygon, point.", trials:trials, expectedReturnValue:true, epsilon:double.Epsilon) }
+                { new object[] { pointA, pointB, polygon }, new TestCaseResults(description:"polygon, point.", trials:trials, expectedReturnValue:true, epsilon:double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -133,7 +133,7 @@ namespace InstrumentedLibrary
                 }
             }
 
-            return Point2DInPolygonContourTests.PointInPolygonContourAlienRyderFlex(polygon.Points.ToList(), new Point2D(start.X + (end.X * 0.5d), start.Y + (end.Y * 0.5d)));
+            return PolygonContourContainsPointTests.PointInPolygonContourAlienRyderFlex(polygon.Points.ToList(), new Point2D(start.X + (end.X * 0.5d), start.Y + (end.Y * 0.5d)));
         }
     }
 }

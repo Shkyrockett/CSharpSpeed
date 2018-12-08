@@ -85,7 +85,7 @@ namespace CSharpSpeedConsole
                 sb.AppendLine();
             }
 
-            // Present the machine spects for evaluation.
+            // Present the machine specs for evaluation.
             sb.AppendLine("> ## Machine Specs for this Runs Results");
             sb.AppendLine("> The test cases below were run on a system with the following hardware specifications. Results will vary on the same system depending on current processing work load. So, take the numbers in the tables with a grain of salt.  ");
             sb.AppendLine($"> **Processor:**  ");

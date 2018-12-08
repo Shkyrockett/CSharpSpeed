@@ -27,7 +27,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 3d, 4d, 0d.ToRadians(), 0.5d }, new TestCaseResults(description:"Find the point halfway around an ellipse 3:4 centered about the origin.", trials:trials, expectedReturnValue:(2.6327476856711183d, 1.917702154416812d), epsilon:DoubleEpsilon) }
+                { new object[] { 0d, 0d, 3d, 4d, 0d.ToRadians(), 0.5d }, new TestCaseResults(description:"Find the point halfway around an ellipse 3:4 centered about the origin.", trials:trials, expectedReturnValue:(2.6327476856711183d, 1.917702154416812d), epsilon:DoubleEpsilon) },
             };
 
             var results = new List<SpeedTester>();

@@ -21,12 +21,12 @@ namespace InstrumentedLibrary
         /// Set of tests to run testing methods that calculate the 1D cubic interpolation of a point.
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
-        [DisplayName(nameof(InterpolateLinear3DTests))]
+        [DisplayName(nameof(InterpolateCubic1DTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 1d, 2d, 3d, 0.5d }, new TestCaseResults(description:"", trials:trials, expectedReturnValue:1.5d, epsilon:DoubleEpsilon) }
+                { new object[] { 0d, 1d, 2d, 3d, 0.5d }, new TestCaseResults(description:"", trials:trials, expectedReturnValue:1.5d, epsilon:DoubleEpsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -65,6 +65,31 @@ namespace InstrumentedLibrary
             var a3 = v1;
 
             return (a0 * t * mu2) + (a1 * mu2) + (a2 * t) + a3;
+        }
+
+        /// <summary>
+        /// The EvalBez method.
+        /// </summary>
+        /// <param name="p0">The p0.</param>
+        /// <param name="p1">The p1.</param>
+        /// <param name="p2">The p2.</param>
+        /// <param name="p3">The p3.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="double"/>.</returns>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/24809978/calculating-the-bounding-box-of-cubic-bezier-curve
+        /// http://floris.briolas.nl/floris/2009/10/bounding-box-of-cubic-bezier/
+        /// http://jsfiddle.net/SalixAlba/QQnvm/4/
+        /// </acknowledgment>
+        [DisplayName("Cubic Interpolate EvalBez")]
+        [Description("Simple Cubic Interpolation.")]
+        [Acknowledgment("http://stackoverflow.com/questions/24809978/calculating-the-bounding-box-of-cubic-bezier-curve", "http://floris.briolas.nl/floris/2009/10/bounding-box-of-cubic-bezier/", "http://jsfiddle.net/SalixAlba/QQnvm/4/")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double EvalBez(double p0, double p1, double p2, double p3, double t)
+        {
+            return (p0 * (1 - t) * (1 - t) * (1 - t)) + (3 * p1 * t * (1 - t) * (1 - t)) + (3 * p2 * t * t * (1 - t)) + (p3 * t * t * t);
         }
     }
 }

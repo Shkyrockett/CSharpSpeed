@@ -22,13 +22,13 @@ namespace InstrumentedLibrary
         /// Set of tests to run testing methods that calculate the wrapped angle of an angle.
         /// </summary>
         /// <returns></returns>
-        [DisplayName(nameof(AngleBetween2DTests))]
+        [DisplayName(nameof(WrapAngleTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 100000;
             var tests = new Dictionary<object[], TestCaseResults> {
                 { new object[] { 480d.ToRadians() }, new TestCaseResults(description:"An angle that wraps more than 360 degrees.", trials:trials, expectedReturnValue:-4.1887902047863914d, epsilon:DoubleEpsilon) },
-                { new object[] { 45d.ToRadians() }, new TestCaseResults(description:"An angle that wraps less than 360 degrees.", trials:trials, expectedReturnValue:-5.497787143782138d, epsilon:DoubleEpsilon) }
+                { new object[] { 45d.ToRadians() }, new TestCaseResults(description:"An angle that wraps less than 360 degrees.", trials:trials, expectedReturnValue:-5.497787143782138d, epsilon:DoubleEpsilon) },
             };
 
             var results = new List<SpeedTester>();

@@ -10,9 +10,9 @@ namespace InstrumentedLibrary
     /// <summary>
     /// The cross product3vector2d tests class.
     /// </summary>
-    [DisplayName("Dot Product Tests")]
-    [Description("Returns the Angle of a line that runs between two points.")]
-    [Signature("public static double DotProduct2D(double x1, double y1, double x2, double y2, double x3, double y3)")]
+    [DisplayName("Cross Product 3 Vector2D Tests")]
+    [Description("Returns the cross product of three 2D vectors.")]
+    [Signature("public static double CrossProduct2D(double ia, double ja, double ib, double jb, double ic, double jc)")]
     [SourceCodeLocationProvider]
     public static class CrossProduct3Vector2DTests
     {
@@ -25,7 +25,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 1d, 0d, 1d, 1d }, new TestCaseResults(description:"0, 0, 1, 0, 1, 1.", trials:trials, expectedReturnValue:-1d, epsilon:double.Epsilon) }
+                { new object[] { 0d, 0d, 1d, 0d, 1d, 1d }, new TestCaseResults(description:"0, 0, 1, 0, 1, 1.", trials:trials, expectedReturnValue:-1d, epsilon:double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

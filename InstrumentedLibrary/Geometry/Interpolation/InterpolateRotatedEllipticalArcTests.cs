@@ -26,7 +26,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 3d, 4d, 30d.ToRadians(), 0d.ToRadians(), 30d.ToRadians(), 0.5d }, new TestCaseResults(description:"Find the point in the middle of a rotated elliptical arc of 3:4 centered about the origin.", trials:trials, expectedReturnValue:(2.1531054250780892d, 2.1531054250780888d), epsilon:DoubleEpsilon) }
+                { new object[] { 0d, 0d, 3d, 4d, 30d.ToRadians(), 0d.ToRadians(), 30d.ToRadians(), 0.5d }, new TestCaseResults(description:"Find the point in the middle of a rotated elliptical arc of 3:4 centered about the origin.", trials:trials, expectedReturnValue:(2.1531054250780892d, 2.1531054250780888d), epsilon:DoubleEpsilon) },
             };
 
             var results = new List<SpeedTester>();

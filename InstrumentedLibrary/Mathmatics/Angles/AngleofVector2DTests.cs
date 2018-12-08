@@ -22,13 +22,13 @@ namespace InstrumentedLibrary
         /// Set of tests to run testing methods that calculate the angle between Two 3D points.
         /// </summary>
         /// <returns></returns>
-        [DisplayName(nameof(AngleBetween2DTests))]
+        [DisplayName(nameof(AngleofVector2DTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
                 { new object[] { 0d, 1d }, new TestCaseResults(description:" 0, 1.", trials:trials, expectedReturnValue:7.8539816339744828d, epsilon:DoubleEpsilon) },
-                { new object[] { 0.25d, 0.75d }, new TestCaseResults(description:"0, 1", trials:trials, expectedReturnValue:7.5322310795778407d, epsilon:DoubleEpsilon) }
+                { new object[] { 0.25d, 0.75d }, new TestCaseResults(description:"0, 1", trials:trials, expectedReturnValue:7.5322310795778407d, epsilon:DoubleEpsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -102,6 +102,31 @@ namespace InstrumentedLibrary
         public static double GetAngle(double i, double j)
         {
             return Tau + ((j > 0.0d ? 1.0d : -1.0d) * Acos(i / Sqrt((i * i) + (j * j))) % Tau);
+        }
+
+        /// <summary>
+        /// Determine the radian angle of the specified vector (as it relates to the origin).
+        /// Warning: Do not pass zero in both parameters, as this will cause a division-by-zero.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        [DisplayName("Angle of Vector")]
+        [Description("Get the angle.")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double AngleOf(double x, double y)
+        {
+            var dist = Sqrt((x * x) + (y * y));
+            if (y >= 0d)
+            {
+                return Acos(x / dist);
+            }
+            else
+            {
+                return Acos(-x / dist) + PI;
+            }
         }
     }
 }

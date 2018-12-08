@@ -23,7 +23,7 @@ namespace InstrumentedLibrary
         [DisplayName(nameof(QuadraticBezierCoefficientsTests))]
         public static List<SpeedTester> TestHarness()
         {
-            var trials = 10000;
+            var trials = 1000;
             var tests = new Dictionary<object[], TestCaseResults> {
                 { new object[] { 1d, 2d, 3d }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:null, epsilon:double.Epsilon) },
             };

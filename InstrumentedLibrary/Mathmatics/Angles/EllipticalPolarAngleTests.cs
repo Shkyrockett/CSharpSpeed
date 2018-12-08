@@ -22,12 +22,12 @@ namespace InstrumentedLibrary
         /// Set of tests to run testing methods that calculate the angle between Two 3D points.
         /// </summary>
         /// <returns></returns>
-        [DisplayName(nameof(AngleBetween2DTests))]
+        [DisplayName(nameof(EllipticalPolarAngleTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 30d.ToRadians(), 3d, 2d }, new TestCaseResults(description:"Find the angle on a 3:2 ellipse a 30 polar degrees.", trials:trials, expectedReturnValue:0.71372437894476559d, epsilon:DoubleEpsilon) }
+                { new object[] { 30d.ToRadians(), 3d, 2d }, new TestCaseResults(description:"Find the angle on a 3:2 ellipse a 30 polar degrees.", trials:trials, expectedReturnValue:0.71372437894476559d, epsilon:DoubleEpsilon) },
             };
 
             var results = new List<SpeedTester>();

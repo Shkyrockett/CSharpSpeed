@@ -23,7 +23,7 @@ namespace InstrumentedLibrary
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
-        [DisplayName(nameof(Distance2DTests))]
+        [DisplayName(nameof(PolygonSetContainsPointsTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
@@ -31,7 +31,7 @@ namespace InstrumentedLibrary
             var pointB = new Point2D(2, 2);
             var polygon = new Polygon(new List<PolygonContour> { new PolygonContour(new List<Point2D> { new Point2D(0, 0), new Point2D(2, 0), new Point2D(0, 2) }) });
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { polygon, pointA, pointB ,Epsilon }, new TestCaseResults(".", trials, 1d, double.Epsilon) }
+                { new object[] { polygon, pointA, pointB ,Epsilon }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:1d, epsilon:double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

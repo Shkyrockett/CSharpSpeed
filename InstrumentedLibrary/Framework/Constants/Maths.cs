@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using static System.Math;
@@ -590,6 +591,112 @@ namespace InstrumentedLibrary
         public static readonly double InverseLogTwo = 1d / LogTwo;
         #endregion Logarithms
 
+        #region Gauss Tables
+        /// <summary>
+        /// Gauss abscissa table
+        /// </summary>
+        /// <acknowledgment>
+        /// https://code.google.com/archive/p/degrafa/source/default/source
+        /// </acknowledgment>
+        public static double[] abscissa = new double[]
+        {
+            // N=2
+            -0.5773502692d,
+                0.5773502692d,
+            // N=3
+            -0.7745966692d,
+                0.7745966692d,
+                0.0000000000d,
+            // N=4
+            -0.8611363116d,
+                0.8611363116d,
+            -0.3399810436d,
+                0.3399810436d,
+            // N=5
+            -0.9061798459d,
+                0.9061798459d,
+            -0.5384693101d,
+                0.5384693101d,
+                0.0000000000d,
+            // N=6
+            -0.9324695142d,
+                0.9324695142d,
+            -0.6612093865d,
+                0.6612093865d,
+            -0.2386191861d,
+                0.2386191861d,
+            // N=7
+            -0.9491079123d,
+                0.9491079123d,
+            -0.7415311856d,
+                0.7415311856d,
+            -0.4058451514d,
+                0.4058451514d,
+                0.0000000000d,
+            // N=8
+            -0.9602898565d,
+                0.9602898565d,
+            -0.7966664774d,
+                0.7966664774d,
+            -0.5255324099d,
+                0.5255324099d,
+            -0.1834346425d,
+                0.1834346425d
+        };
+
+        /// <summary>
+        /// Gauss weight table
+        /// </summary>
+        /// <acknowledgment>
+        /// https://code.google.com/archive/p/degrafa/source/default/source
+        /// </acknowledgment>
+        public static double[] weight = new double[]
+        {
+            // N=2
+            1.0000000000d,
+            1.0000000000d,
+            // N=3
+            0.5555555556d,
+            0.5555555556d,
+            0.8888888888d,
+            // N=4
+            0.3478548451d,
+            0.3478548451d,
+            0.6521451549d,
+            0.6521451549d,
+            // N=5
+            0.2369268851d,
+            0.2369268851d,
+            0.4786286705d,
+            0.4786286705d,
+            0.5688888888d,
+            // N=6
+            0.1713244924d,
+            0.1713244924d,
+            0.3607615730d,
+            0.3607615730d,
+            0.4679139346d,
+            0.4679139346d,
+            // N=7
+            0.1294849662d,
+            0.1294849662d,
+            0.2797053915d,
+            0.2797053915d,
+            0.3818300505d,
+            0.3818300505d,
+            0.4179591837d,
+            // N=8
+            0.1012285363d,
+            0.1012285363d,
+            0.2223810345d,
+            0.2223810345d,
+            0.3137066459d,
+            0.3137066459d,
+            0.3626837834d,
+            0.3626837834d
+        };
+        #endregion Gauss Tables
+
         /// <summary>
         /// Initialize random number generator with seed based on time.
         /// </summary>
@@ -624,5 +731,21 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ToDegrees(this double radiens)
             => radiens * Degree;
+
+        /// <summary>
+        /// Get a the value for a key. If the key does not exist, return null;
+        /// </summary>
+        /// <typeparam name="TKey">The type of the keys in the dictionary.</typeparam>
+        /// <typeparam name="TValue">The type of the values in the dictionary.</typeparam>
+        /// <param name="dic">The dictionary to call this method on.</param>
+        /// <param name="key">The key to look up.</param>
+        /// <returns>The key value. null if this key is not in the dictionary.</returns>
+        /// <remarks>
+        /// http://blogs.windward.net/davidt/2012/01/12/c-dictionary-getvalueordefault/
+        /// </remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static TValue GetValueOrDefault<TKey, TValue>(this Dictionary<TKey, TValue> dic, TKey key)
+            => dic.TryGetValue(key, out var result) ? result : default;
     }
 }

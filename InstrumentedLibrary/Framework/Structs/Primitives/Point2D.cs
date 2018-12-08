@@ -9,6 +9,11 @@ namespace InstrumentedLibrary
     public struct Point2D
     {
         /// <summary>
+        /// The empty (readonly).
+        /// </summary>
+        public static readonly Point2D Empty = new Point2D(0, 0);
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Point2D"/> class.
         /// </summary>
         /// <param name="x">The x.</param>

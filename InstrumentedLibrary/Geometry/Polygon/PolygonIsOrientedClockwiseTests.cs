@@ -20,13 +20,13 @@ namespace InstrumentedLibrary
         /// The polygon centroid test.
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
-        [DisplayName(nameof(PolygonCentroidTests))]
+        [DisplayName(nameof(PolygonIsOrientedClockwiseTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 1000;
             var polygon = new List<Point2D> { new Point2D(0d, 0d), new Point2D(1d, 0d), new Point2D(1d, 1d) };
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { polygon }, new TestCaseResults(description:"polygon.", trials:trials, expectedReturnValue:true, epsilon:double.Epsilon) }
+                { new object[] { polygon }, new TestCaseResults(description:"polygon.", trials:trials, expectedReturnValue:true, epsilon:double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

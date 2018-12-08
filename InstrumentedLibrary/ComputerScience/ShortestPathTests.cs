@@ -13,7 +13,7 @@ namespace InstrumentedLibrary
     /// The shortest path tests class.
     /// </summary>
     [DisplayName("Shortest Path Polygon Tests")]
-    [Description("Find the shortest pth from one point to another through a polygon.")]
+    [Description("Find the shortest path from one point to another through a polygon.")]
     [Signature("public static Point2D EnvelopeDistort(Point2D point, Rectangle2D bounds, Point2D topLeft, Point2D topLeftH, Point2D topLeftV, Point2D topRight, Point2D topRightH, Point2D topRightV, Point2D bottomRight, Point2D bottomRightH, Point2D bottomRightV, Point2D bottomLeft, Point2D bottomLeftH, Point2D bottomLeftV)")]
     [SourceCodeLocationProvider]
     public static class ShortestPathTests
@@ -22,7 +22,7 @@ namespace InstrumentedLibrary
         /// Set of tests to run testing methods that calculate the wrapped angle of an angle.
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
-        [DisplayName(nameof(Point2DInCircle2DTests))]
+        [DisplayName(nameof(ShortestPathTests))]
         public static List<SpeedTester> TestHarness()
         {
             var set = new Polygon(
@@ -59,7 +59,7 @@ namespace InstrumentedLibrary
             );
             var trials = 100;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { set, new Point2D(20, 20), new Point2D(200, 200) }, new TestCaseResults(description:"Warp a point", trials:trials, expectedReturnValue:new Point2D(1.625d, 1.25d), DoubleEpsilon) }
+                { new object[] { set, new Point2D(20, 20), new Point2D(200, 200) }, new TestCaseResults(description:"Warp a point", trials:trials, expectedReturnValue:new Point2D(1.625d, 1.25d), epsilon:DoubleEpsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -151,9 +151,9 @@ namespace InstrumentedLibrary
                 {
                     for (j = treeCount; j < pointCount; j++)
                     {
-                        if (LineSegmentInPolygonSetTests.LineInPolygonSet(polygons, (Point2D)pointList[i], (Point2D)pointList[j]))
+                        if (LineSegmentInPolygonSetTests.LineInPolygonSet(polygons, pointList[i], pointList[j]))
                         {
-                            newDist = pointList[i].TotalDistance + Distance2Point2DTests.Distance(((double, double))pointList[i], ((double, double))pointList[j]);
+                            newDist = pointList[i].TotalDistance + Distance2Point2DTests.Distance(pointList[i], pointList[j]);
                             if (newDist < bestDist)
                             {
                                 bestDist = newDist;
@@ -286,7 +286,7 @@ namespace InstrumentedLibrary
                 {
                     for (var tj = treeCount; tj < pointCount; tj++)
                     {
-                        if (Point2DInPolygonSetTests.PointInPolygonSetAlienRyderFlex(polygons, (Point2D)pointList[ti]) && Point2DInPolygonSetTests.PointInPolygonSetAlienRyderFlex(polygons, (Point2D)pointList[tj]))
+                        if (Point2DInPolygonSetTests.PointInPolygonSetAlienRyderFlex(polygons, pointList[ti]) && Point2DInPolygonSetTests.PointInPolygonSetAlienRyderFlex(polygons, pointList[tj]))
                         {
                             newDist = pointList[ti].TotalDistance + Distance2Point2DTests.Distance((Point2D)pointList[ti], (Point2D)pointList[tj]);
                             if (newDist < bestDist)
@@ -328,7 +328,7 @@ namespace InstrumentedLibrary
             while (j >= 0)
             {
                 i = pointList[i].PreviousIndex;
-                solution.Insert(1, (Point2D)pointList[i]);
+                solution.Insert(1, pointList[i]);
                 j--;
             }
             solution.Add(end);

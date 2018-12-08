@@ -8,7 +8,7 @@ using CSharpSpeed;
 using static System.Math;
 using static InstrumentedLibrary.Maths;
 
-namespace InstrumentedLibrary.Geometry
+namespace InstrumentedLibrary
 {
     /// <summary>
     /// The bounds of rotated elliptical arc tests class.
@@ -28,7 +28,7 @@ namespace InstrumentedLibrary.Geometry
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0, 0, 3, 4, 30d.ToRadians(), -30d.ToRadians(), 90d.ToRadians() }, new TestCaseResults(description:" Test for bounding box of elliptical arc.", trials:trials, expectedReturnValue: new Rectangle2D(2.2204460492503131E-16,-2.2204460492503131E-16,3.1788776569561055,3.6599656879825124), epsilon:DoubleEpsilon) }
+                { new object[] { 0, 0, 3, 4, 30d.ToRadians(), -30d.ToRadians(), 90d.ToRadians() }, new TestCaseResults(description:" Test for bounding box of elliptical arc.", trials:trials, expectedReturnValue: new Rectangle2D(2.2204460492503131E-16,-2.2204460492503131E-16,3.1788776569561055,3.6599656879825124), epsilon:DoubleEpsilon) },
             };
 
             var results = new List<SpeedTester>();

@@ -24,7 +24,7 @@ namespace InstrumentedLibrary
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
-        [DisplayName(nameof(PolynomialRealOrderTests))]
+        [DisplayName(nameof(CubicRootsTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
@@ -64,7 +64,10 @@ namespace InstrumentedLibrary
         public static IList<double> CubicRootsStephenRSchmitt(double a, double b, double c, double d, double epsilon = Epsilon)
         {
             // If a is 0 the polynomial is quadratic.
-            if (a is 0d) return QuadraticRootsTests.QuadraticRootsKevinLinDev(b, c, d, epsilon);
+            if (a is 0d)
+            {
+                return QuadraticRootsTests.QuadraticRootsKevinLinDev(b, c, d, epsilon);
+            }
 
             var A = b / a;
             var B = c / a;
@@ -146,7 +149,10 @@ namespace InstrumentedLibrary
         public static IList<double> CubicRootsKevinLinDev(double a, double b, double c, double d, double epsilon = Epsilon)
         {
             // If a is 0 the polynomial is quadratic.
-            if (a is 0d) return QuadraticRootsTests.QuadraticRootsKevinLinDev(b, c, d, epsilon);
+            if (a is 0d)
+            {
+                return QuadraticRootsTests.QuadraticRootsKevinLinDev(b, c, d, epsilon);
+            }
 
             var results = new List<double>();
             var c2 = b / a;

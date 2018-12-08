@@ -20,12 +20,12 @@ namespace InstrumentedLibrary
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
-        [DisplayName(nameof(PolynomialRealOrderTests))]
+        [DisplayName(nameof(SortSpecialTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { new double[] { 1d, 2d, -3d, 4d, 5d } }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:PolynomialDegree.Quadratic, epsilon:double.Epsilon) }
+                { new object[] { new double[] { 1d, 2d, -3d, 4d, 5d } }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:PolynomialDegree.Quadratic, epsilon:double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -38,7 +38,7 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// Special sorting routine designed to place negitive values at the back.
+        /// Special sorting routine designed to place negative values at the back.
         /// </summary>
         /// <param name="a"></param>
         /// <returns></returns>

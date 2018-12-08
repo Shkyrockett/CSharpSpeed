@@ -21,12 +21,12 @@ namespace InstrumentedLibrary
         /// Set of tests to run testing methods that calculate whether a point is within a circle.
         /// </summary>
         /// <returns></returns>
-        [DisplayName(nameof(Point2DInCircle2DTests))]
+        [DisplayName(nameof(AngleWithinAngleTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 90d.ToRadians(), 0d.ToRadians(), 180d.ToRadians() }, new TestCaseResults(description:"Angle lies inside of sweep angle.", trials:trials, expectedReturnValue:true) }
+                { new object[] { 90d.ToRadians(), 0d.ToRadians(), 180d.ToRadians() }, new TestCaseResults(description:"Angle lies inside of sweep angle.", trials:trials, expectedReturnValue:true) },
             };
 
             var results = new List<SpeedTester>();

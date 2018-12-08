@@ -28,7 +28,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 1d, 1d, 0.5d }, new TestCaseResults(description:"", trials:trials, expectedReturnValue:(0.5d, 0.5d), epsilon:DoubleEpsilon) }
+                { new object[] { 0d, 0d, 1d, 1d, 0.5d }, new TestCaseResults(description:"", trials:trials, expectedReturnValue:(0.5d, 0.5d), epsilon:DoubleEpsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -38,6 +38,28 @@ namespace InstrumentedLibrary
                 results.Add(new SpeedTester(method, methodDescription, tests));
             }
             return results;
+        }
+
+        /// <summary>
+        /// The linear interpolation method.
+        /// </summary>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
+        [DisplayName("Lerp")]
+        [Description("Simple Linear Interpolation.")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y) Lerp(
+            double x0, double y0,
+            double x1, double y1,
+            double t)
+        {
+            return (x0 + (x1 - x0) * t, y0 + (y1 - y0) * t);
         }
 
         /// <summary>

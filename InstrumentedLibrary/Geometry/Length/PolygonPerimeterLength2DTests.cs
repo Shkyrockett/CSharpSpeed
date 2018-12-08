@@ -22,12 +22,12 @@ namespace InstrumentedLibrary
         /// Set of tests to run testing methods that calculate the cross product of three 2D points.
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
-        [DisplayName(nameof(Distance2DTests))]
+        [DisplayName(nameof(PolygonPerimeterLength2DTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { new List<(double X, double Y)> {(0,0), (1,0), (0,1)} }, new TestCaseResults("Circle test case.", trials, Tau, double.Epsilon) },
+                { new object[] { new List<(double X, double Y)> {(0d, 0d), (1d, 0d), (0d, 1d)} }, new TestCaseResults(description:"Circle test case.", trials:trials, expectedReturnValue:Tau, epsilon:double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -44,7 +44,7 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="points">The points.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        [DisplayName("Perimiter of Polygon")]
+        [DisplayName("Perimeter of Polygon")]
         [Description("Find Perimeter length of a polygon.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]

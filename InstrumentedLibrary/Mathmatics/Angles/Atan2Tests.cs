@@ -22,13 +22,13 @@ namespace InstrumentedLibrary
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
-        [DisplayName(nameof(Angle2DTests))]
+        [DisplayName(nameof(Atan2Tests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 100000;
             var tests = new Dictionary<object[], TestCaseResults> {
                 { new object[] { 1d, 0d }, new TestCaseResults(description:" 0, 1.", trials:trials, expectedReturnValue:1.5707963267948966d, epsilon:DoubleEpsilon) },
-                { new object[] { 0.25d, 0.75d }, new TestCaseResults(description:"0, 1", trials:trials, expectedReturnValue:0.32175055439664219d, epsilon:double.Epsilon) }
+                { new object[] { 0.25d, 0.75d }, new TestCaseResults(description:"0, 1", trials:trials, expectedReturnValue:0.32175055439664219d, epsilon:double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -85,11 +85,6 @@ namespace InstrumentedLibrary
         /// The INV ATAN2 DIM MINUS 1 (readonly). Value: 1.0f / (ATAN2_DIM - 1).
         /// </summary>
         private static readonly double INV_ATAN2_DIM_MINUS_1 = 1.0f / (ATAN2_DIM - 1);
-
-        /// <summary>
-        /// The DEG (readonly). Value: 180d / PI.
-        /// </summary>
-        private static readonly double DEG = 180d / PI;
 
         /// <summary>
         /// The atan2 (readonly). Value: Atan2_1Setup().

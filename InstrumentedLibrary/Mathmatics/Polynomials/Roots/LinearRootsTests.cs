@@ -23,7 +23,7 @@ namespace InstrumentedLibrary
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
-        [DisplayName(nameof(PolynomialRealOrderTests))]
+        [DisplayName(nameof(LinearRootsTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
@@ -60,7 +60,10 @@ namespace InstrumentedLibrary
         public static IList<double> LinearRoots(double a, double b, double epsilon = Epsilon)
         {
             // If a is 0 the polynomial is a constant expression.
-            if (a is 0d) return new List<double> { b };
+            if (a is 0d)
+            {
+                return new List<double> { b };
+            }
 
             var result = new HashSet<double>();
             if (!(Abs(a) <= epsilon))

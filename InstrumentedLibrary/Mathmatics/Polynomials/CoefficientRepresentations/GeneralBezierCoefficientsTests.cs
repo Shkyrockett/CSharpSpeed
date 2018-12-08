@@ -21,10 +21,10 @@ namespace InstrumentedLibrary
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
-        [DisplayName(nameof(QuadraticBezierCoefficientsTests))]
+        [DisplayName(nameof(GeneralBezierCoefficientsTests))]
         public static List<SpeedTester> TestHarness()
         {
-            var trials = 10000;
+            var trials = 1000;
             var tests = new Dictionary<object[], TestCaseResults> {
                 { new object[] { new double[]{ 1d } }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:null, epsilon:double.Epsilon) },
                 { new object[] { new double[]{ 1d, 2d } }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:null, epsilon:double.Epsilon) },

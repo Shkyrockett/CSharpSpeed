@@ -21,12 +21,12 @@ namespace InstrumentedLibrary
         /// Set of tests to run testing methods that calculate the 2D cubic interpolation of a point.
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
-        [DisplayName(nameof(InterpolateCubicBezier1DTests))]
+        [DisplayName(nameof(InterpolateQuadraticBezier2DTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 1d, 2d, 3d, 4d, 5d, 0.5d }, new TestCaseResults(description:"", trials:trials, expectedReturnValue:(2d, 3d), epsilon:DoubleEpsilon) }
+                { new object[] { 0d, 1d, 2d, 3d, 4d, 5d, 0.5d }, new TestCaseResults(description:"", trials:trials, expectedReturnValue:(2d, 3d), epsilon:DoubleEpsilon) },
             };
 
             var results = new List<SpeedTester>();

@@ -93,7 +93,7 @@ namespace CSharpSpeed
 
             foreach (var testCase in TestCases)
             {
-                // Run once before timing, to make sure it is comipled.
+                // Run once before timing, to make sure it is compiled.
                 testCase.Value.ReturnValue = methodDelegate.DynamicInvoke(testCase.Key);
 
                 // Run garbage collection to try to keep each test in about the same conditions. 
@@ -107,7 +107,7 @@ namespace CSharpSpeed
                 RuntimeHelpers.PrepareConstrainedRegions();
                 GCSettings.LatencyMode = GCLatencyMode.LowLatency;
 
-                // Indenting for clarity of where the testing is occuring.
+                // Indenting for clarity of where the testing is occurring.
                 {
                     watch.Reset();
                     watch.Start();
@@ -215,7 +215,7 @@ namespace CSharpSpeed
             var sb = new Dictionary<object[], string>();
             foreach (var testcase in TestCases)
             {
-                sb.Add(testcase.Key, $"| [{Member}({testcase.Key.ArrayToString()})](#{((DisplayNameAttribute)Method?.GetCustomAttribute(typeof(DisplayNameAttribute)))?.DisplayName.Replace(" ", "-")}) | {ObjectValueToString(testcase.Value.ReturnValue)} {Equivelency(testcase)} {ObjectValueToString(testcase.Value.ExpectedReturnValue)} | {testcase.Value.Trials} in {testcase.Value.TotalRunningTime} ms. {testcase.Value.AverageRunningTime:R} ms. average | {testcase.Value.Description} |");
+                sb.Add(testcase.Key, $"| [{Member}({testcase.Key.ArrayToString()})](#{((DisplayNameAttribute)Method?.GetCustomAttribute(typeof(DisplayNameAttribute)))?.DisplayName.Replace(" ", "-")}) | {ObjectValueToString(testcase.Value.ReturnValue)} {Equivalency(testcase)} {ObjectValueToString(testcase.Value.ExpectedReturnValue)} | {testcase.Value.Trials} in {testcase.Value.TotalRunningTime} ms. {testcase.Value.AverageRunningTime:R} ms. average | {testcase.Value.Description} |");
             }
             return sb;
         }
@@ -228,7 +228,7 @@ namespace CSharpSpeed
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static string ObjectValueToString(object value)
         {
-            // This mess is to make sure to print reproducable floating point values in order to be able to correct test cases.
+            // This mess is to make sure to print reproducible floating point values in order to be able to correct test cases.
             switch (value)
             {
                 case double d:
@@ -264,7 +264,7 @@ namespace CSharpSpeed
                 case List<Complex> l:
                     return $"List\\<Complex\\> {{{string.Join(", ", l.Select(x => $"{x:R}"))}}}";
                 case IList<Complex> l:
-                    return $"IList<\\Complex\\> {{{string.Join(", ", l.Select(x => $"{x:R}"))}}}";
+                    return $"IList\\<Complex\\> {{{string.Join(", ", l.Select(x => $"{x:R}"))}}}";
                 case object[] l:
                     return string.Join(", ", l.Select(x => x.ToString()));
                 case null:
@@ -275,32 +275,32 @@ namespace CSharpSpeed
         }
 
         /// <summary>
-        /// The equivelency.
+        /// Special equivalency tests.
         /// </summary>
-        /// <param name="testcase">The testcase.</param>
+        /// <param name="testcase">The test-case.</param>
         /// <returns>The <see cref="string"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static string Equivelency(KeyValuePair<object[], TestCaseResults> testcase)
+        private static string Equivalency(KeyValuePair<object[], TestCaseResults> testcase)
         {
             const string equal = "==";
             const string notEqual = "!=";
-            var equivelency = string.Empty;
+            var equivalency = string.Empty;
             switch (testcase.Value.ReturnValue)
             {
                 case int i:
                     switch (testcase.Value.ExpectedReturnValue)
                     {
                         case int j:
-                            equivelency = Math.Abs(i - j) <= testcase.Value.Epsilon ? equal : notEqual;
+                            equivalency = Math.Abs(i - j) <= testcase.Value.Epsilon ? equal : notEqual;
                             break;
                         case float f:
-                            equivelency = Math.Abs(i - f) <= testcase.Value.Epsilon ? equal : notEqual;
+                            equivalency = Math.Abs(i - f) <= testcase.Value.Epsilon ? equal : notEqual;
                             break;
                         case double d:
-                            equivelency = Math.Abs(i - d) <= testcase.Value.Epsilon ? equal : notEqual;
+                            equivalency = Math.Abs(i - d) <= testcase.Value.Epsilon ? equal : notEqual;
                             break;
                         default:
-                            equivelency = Equals(i, testcase.Value.ExpectedReturnValue) ? equal : notEqual;
+                            equivalency = Equals(i, testcase.Value.ExpectedReturnValue) ? equal : notEqual;
                             break;
                     }
                     break;
@@ -308,30 +308,30 @@ namespace CSharpSpeed
                     switch (testcase.Value.ExpectedReturnValue)
                     {
                         case int i:
-                            equivelency = Math.Abs(f - i) <= testcase.Value.Epsilon ? equal : notEqual;
+                            equivalency = Math.Abs(f - i) <= testcase.Value.Epsilon ? equal : notEqual;
                             break;
                         case float g:
                             if (float.IsNaN(f))
                             {
-                                equivelency = float.IsNaN(g) ? equal : notEqual;
+                                equivalency = float.IsNaN(g) ? equal : notEqual;
                             }
                             else
                             {
-                                equivelency = Math.Abs(f - g) <= testcase.Value.Epsilon ? equal : notEqual;
+                                equivalency = Math.Abs(f - g) <= testcase.Value.Epsilon ? equal : notEqual;
                             }
                             break;
                         case double e:
                             if (float.IsNaN(f))
                             {
-                                equivelency = double.IsNaN(e) ? equal : notEqual;
+                                equivalency = double.IsNaN(e) ? equal : notEqual;
                             }
                             else
                             {
-                                equivelency = Math.Abs(f - e) <= testcase.Value.Epsilon ? equal : notEqual;
+                                equivalency = Math.Abs(f - e) <= testcase.Value.Epsilon ? equal : notEqual;
                             }
                             break;
                         default:
-                            equivelency = Equals(f, testcase.Value.ExpectedReturnValue) ? equal : notEqual;
+                            equivalency = Equals(f, testcase.Value.ExpectedReturnValue) ? equal : notEqual;
                             break;
                     }
                     break;
@@ -339,30 +339,30 @@ namespace CSharpSpeed
                     switch (testcase.Value.ExpectedReturnValue)
                     {
                         case int i:
-                            equivelency = Math.Abs(d - i) <= testcase.Value.Epsilon ? equal : notEqual;
+                            equivalency = Math.Abs(d - i) <= testcase.Value.Epsilon ? equal : notEqual;
                             break;
                         case float f:
                             if (double.IsNaN(d))
                             {
-                                equivelency = float.IsNaN(f) ? equal : notEqual;
+                                equivalency = float.IsNaN(f) ? equal : notEqual;
                             }
                             else
                             {
-                                equivelency = Math.Abs(d - f) <= testcase.Value.Epsilon ? equal : notEqual;
+                                equivalency = Math.Abs(d - f) <= testcase.Value.Epsilon ? equal : notEqual;
                             }
                             break;
                         case double e:
                             if (double.IsNaN(d))
                             {
-                                equivelency = double.IsNaN(e) ? equal : notEqual;
+                                equivalency = double.IsNaN(e) ? equal : notEqual;
                             }
                             else
                             {
-                                equivelency = Math.Abs(d - e) <= testcase.Value.Epsilon ? equal : notEqual;
+                                equivalency = Math.Abs(d - e) <= testcase.Value.Epsilon ? equal : notEqual;
                             }
                             break;
                         default:
-                            equivelency = Equals(d, testcase.Value.ExpectedReturnValue) ? equal : notEqual;
+                            equivalency = Equals(d, testcase.Value.ExpectedReturnValue) ? equal : notEqual;
                             break;
                     }
                     break;
@@ -370,10 +370,10 @@ namespace CSharpSpeed
                     switch (testcase.Value.ExpectedReturnValue)
                     {
                         case IList<int> k:
-                            equivelency = equal;
+                            equivalency = equal;
                             if (l.Count != k.Count)
                             {
-                                equivelency = notEqual;
+                                equivalency = notEqual;
                             }
                             else
                             {
@@ -381,14 +381,14 @@ namespace CSharpSpeed
                                 {
                                     if (l[i] != k[i])
                                     {
-                                        equivelency = notEqual;
+                                        equivalency = notEqual;
                                         break;
                                     }
                                 }
                             }
                             break;
                         default:
-                            equivelency = Equals(testcase.Value.ReturnValue, testcase.Value.ExpectedReturnValue) ? equal : notEqual;
+                            equivalency = Equals(testcase.Value.ReturnValue, testcase.Value.ExpectedReturnValue) ? equal : notEqual;
                             break;
                     }
                     break;
@@ -396,10 +396,10 @@ namespace CSharpSpeed
                     switch (testcase.Value.ExpectedReturnValue)
                     {
                         case IList<float> k:
-                            equivelency = equal;
+                            equivalency = equal;
                             if (l.Count != k.Count)
                             {
-                                equivelency = notEqual;
+                                equivalency = notEqual;
                             }
                             else
                             {
@@ -407,14 +407,14 @@ namespace CSharpSpeed
                                 {
                                     if (l[i] != k[i])
                                     {
-                                        equivelency = notEqual;
+                                        equivalency = notEqual;
                                         break;
                                     }
                                 }
                             }
                             break;
                         default:
-                            equivelency = Equals(testcase.Value.ReturnValue, testcase.Value.ExpectedReturnValue) ? equal : notEqual;
+                            equivalency = Equals(testcase.Value.ReturnValue, testcase.Value.ExpectedReturnValue) ? equal : notEqual;
                             break;
                     }
                     break;
@@ -422,10 +422,10 @@ namespace CSharpSpeed
                     switch (testcase.Value.ExpectedReturnValue)
                     {
                         case IList<double> k:
-                            equivelency = equal;
+                            equivalency = equal;
                             if (l.Count != k.Count)
                             {
-                                equivelency = notEqual;
+                                equivalency = notEqual;
                             }
                             else
                             {
@@ -433,23 +433,23 @@ namespace CSharpSpeed
                                 {
                                     if (l[i] != k[i])
                                     {
-                                        equivelency = notEqual;
+                                        equivalency = notEqual;
                                         break;
                                     }
                                 }
                             }
                             break;
                         default:
-                            equivelency = Equals(testcase.Value.ReturnValue, testcase.Value.ExpectedReturnValue) ? equal : notEqual;
+                            equivalency = Equals(testcase.Value.ReturnValue, testcase.Value.ExpectedReturnValue) ? equal : notEqual;
                             break;
                     }
                     break;
                 default:
-                    equivelency = Equals(testcase.Value.ReturnValue, testcase.Value.ExpectedReturnValue) ? equal : notEqual;
+                    equivalency = Equals(testcase.Value.ReturnValue, testcase.Value.ExpectedReturnValue) ? equal : notEqual;
                     break;
             }
 
-            return equivelency;
+            return equivalency;
         }
     }
 }

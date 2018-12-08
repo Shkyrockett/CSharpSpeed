@@ -23,7 +23,7 @@ namespace InstrumentedLibrary
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
-        [DisplayName(nameof(PolynomialRealOrderTests))]
+        [DisplayName(nameof(QuadraticRootsTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
@@ -65,7 +65,10 @@ namespace InstrumentedLibrary
         public static IList<double> QuadraticRootsKevinLinDev(double a, double b, double c, double epsilon = Epsilon)
         {
             // If a is 0 the polynomial is linear.
-            if (a is 0d) return LinearRootsTests.LinearRoots(b, c, epsilon);
+            if (a is 0d)
+            {
+                return LinearRootsTests.LinearRoots(b, c, epsilon);
+            }
 
             var b_ = b / a;
             var c_ = c / a;
@@ -88,7 +91,7 @@ namespace InstrumentedLibrary
             }
             else if (discriminant == 0)
             {
-                // There should acctually be two roots with same value, but we will only return one.
+                // There should actually be two roots with same value, but we will only return one.
                 results.Add(OneHalf * -b_);
             }
 
@@ -103,7 +106,7 @@ namespace InstrumentedLibrary
         /// <param name="c">The c.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="T:List{double}"/>.</returns>
-        [DisplayName("Quadratic Quadratic Equation")]
+        [DisplayName("Quadratic Equation")]
         [Description("Quadratic Equation.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
@@ -111,7 +114,10 @@ namespace InstrumentedLibrary
         public static IList<double> QuadraticEquation(double a, double b, double c, double epsilon = Epsilon)
         {
             // If a is 0 the polynomial is linear.
-            if (a is 0d) return LinearRootsTests.LinearRoots(b, c, epsilon);
+            if (a is 0d)
+            {
+                return LinearRootsTests.LinearRoots(b, c, epsilon);
+            }
 
             return new List<double>{
                 (-b - Sqrt((b * b) - (4d * a * c))) / (2d * a),

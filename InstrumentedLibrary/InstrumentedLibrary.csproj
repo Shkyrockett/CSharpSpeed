@@ -9,11 +9,13 @@
     <DocumentationFile>C:\Github\CSharpSpeed\Builds\InstrumentedLibrary.xml</DocumentationFile>
     <OutputPath>C:\Github\CSharpSpeed\Builds</OutputPath>
     <Optimize>false</Optimize>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>C:\Github\CSharpSpeed\Builds\InstrumentedLibrary.xml</DocumentationFile>
     <OutputPath>C:\Github\CSharpSpeed\Builds\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>

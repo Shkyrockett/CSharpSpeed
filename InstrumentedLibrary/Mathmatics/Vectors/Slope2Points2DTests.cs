@@ -22,12 +22,12 @@ namespace InstrumentedLibrary
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
-        [DisplayName(nameof(Distance2DTests))]
+        [DisplayName(nameof(Slope2Points2DTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 1d, 1d }, new TestCaseResults("Circle test case.", trials, Tau, double.Epsilon) },
+                { new object[] { 0d, 0d, 1d, 1d }, new TestCaseResults(description:"Circle test case.", trials:trials, expectedReturnValue:Tau, epsilon:double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

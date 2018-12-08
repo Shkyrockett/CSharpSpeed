@@ -22,7 +22,7 @@ namespace InstrumentedLibrary
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
-        [DisplayName(nameof(PolynomialRealOrderTests))]
+        [DisplayName(nameof(QuinticRootsTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
@@ -68,7 +68,10 @@ namespace InstrumentedLibrary
         public static IList<double> QuinticRoots(double a, double b, double c, double d, double e, double f, double epsilon = Epsilon)
         {
             // If a is 0 the polynomial is quartic.
-            if (a is 0d) return QuarticRootsTests.QuarticRoots(b, c, d, e, f, epsilon);
+            if (a is 0d)
+            {
+                return QuarticRootsTests.QuarticRoots(b, c, d, e, f, epsilon);
+            }
 
             var A = b / a;
             var B = c / a;

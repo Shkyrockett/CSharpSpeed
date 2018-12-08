@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using static System.Math;
 
 namespace InstrumentedLibrary
 {
@@ -19,6 +20,22 @@ namespace InstrumentedLibrary
         {
             this.I = i;
             this.J = j;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Vector2D"/> class.
+        /// </summary>
+        /// <param name="aI">The aI.</param>
+        /// <param name="aJ">The aJ.</param>
+        /// <param name="bI">The bI.</param>
+        /// <param name="bJ">The bJ.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector2D(double aI, double aJ, double bI, double bJ)
+        {
+            (var i, var j) = (bI - aI, bJ - aJ);
+            I = i * 1d / Sqrt((i * i) + (j * j));
+            J = j * 1d / Sqrt((i * i) + (j * j));
         }
 
         /// <summary>
@@ -59,7 +76,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="value"></param>
         /// <param name="addend"></param>
-        /// <returns></returns>        [DebuggerStepThrough]
+        /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator +(Vector2D value, double addend)
             => new Vector2D(value.I + addend, value.J + addend);
@@ -69,7 +87,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="value"></param>
         /// <param name="addend"></param>
-        /// <returns></returns>        [DebuggerStepThrough]
+        /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator +(Vector2D value, Point2D addend)
             => new Point2D(value.I + addend.X, value.J + addend.Y);
@@ -79,7 +98,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="value"></param>
         /// <param name="addend"></param>
-        /// <returns></returns>        [DebuggerStepThrough]
+        /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator +(Vector2D value, Vector2D addend)
             => new Vector2D(value.I + addend.I, value.J + addend.J);
@@ -99,7 +119,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="value"></param>
         /// <param name="subend"></param>
-        /// <returns></returns>        [DebuggerStepThrough]
+        /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator -(Vector2D value, double subend)
             => new Vector2D(value.I - subend, value.J - subend);
@@ -109,7 +130,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="value"></param>
         /// <param name="subend"></param>
-        /// <returns></returns>        [DebuggerStepThrough]
+        /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator -(Vector2D value, Point2D subend)
             => new Point2D(value.I + subend.X, value.J + subend.Y);
@@ -119,7 +141,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="value"></param>
         /// <param name="subend"></param>
-        /// <returns></returns>        [DebuggerStepThrough]
+        /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator -(Vector2D value, Vector2D subend)
             => new Vector2D(value.I + subend.I, value.J + subend.J);
@@ -129,7 +152,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="value">The Point</param>
         /// <param name="factor">The Multiplier</param>
-        /// <returns>A Point Multiplied by the Multiplier</returns>        [DebuggerStepThrough]
+        /// <returns>A Point Multiplied by the Multiplier</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator *(Vector2D value, double factor)
             => new Vector2D(value.I * factor, value.J * factor);
@@ -139,7 +163,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="factor">The Multiplier</param>
         /// <param name="value">The Point</param>
-        /// <returns>A Point Multiplied by the Multiplier</returns>        [DebuggerStepThrough]
+        /// <returns>A Point Multiplied by the Multiplier</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator *(double factor, Vector2D value)
             => new Vector2D(value.I * factor, value.J * factor);
@@ -149,7 +174,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="value">The Point</param>
         /// <param name="factor">The Multiplier</param>
-        /// <returns>A Point Multiplied by the Multiplier</returns>        [DebuggerStepThrough]
+        /// <returns>A Point Multiplied by the Multiplier</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator *(Vector2D value, Size2D factor)
             => new Vector2D(value.I * factor.Width, value.J * factor.Height);
@@ -159,7 +185,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="divisor">The Vector2D</param>
         /// <param name="divedend">The divisor</param>
-        /// <returns>A Vector2D divided by the divisor</returns>        [DebuggerStepThrough]
+        /// <returns>A Vector2D divided by the divisor</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator /(Vector2D divisor, double divedend)
             => new Vector2D(divisor.I / divedend, divisor.J / divedend);
@@ -169,7 +196,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="divisor">The Vector2D</param>
         /// <param name="dividend">The divisor</param>
-        /// <returns>A Vector2D divided by the divisor</returns>        [DebuggerStepThrough]
+        /// <returns>A Vector2D divided by the divisor</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator /(double divisor, Vector2D dividend)
             => new Vector2D(divisor / dividend.I, divisor / dividend.I);

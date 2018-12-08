@@ -22,7 +22,7 @@ namespace InstrumentedLibrary
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
-        [DisplayName(nameof(PolynomialRealOrderTests))]
+        [DisplayName(nameof(QuadraticDRootsTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
@@ -65,7 +65,10 @@ namespace InstrumentedLibrary
         public static IList<double> QuadraticDRootsPoMax(double a, double b, double c, double epsilon = Epsilon)
         {
             // If a is 0 the polynomial is linear.
-            if (a is 0d) return LinearRootsTests.LinearRoots(b, c, epsilon);
+            if (a is 0d)
+            {
+                return LinearRootsTests.LinearRoots(b, c, epsilon);
+            }
 
             var d = a - (2d * b) + c;
             if (d != 0)

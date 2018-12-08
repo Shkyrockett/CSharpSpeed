@@ -26,7 +26,7 @@ namespace InstrumentedLibrary
             var trials = 1000;
             var polygon = new List<Point2D> { new Point2D(0, 0), new Point2D(1, 0), new Point2D(1, 1) };
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { polygon }, new TestCaseResults(description:"polygon.", trials:trials, expectedReturnValue:new Point2D(0.66666666666666663d, 0.33333333333333331d), epsilon:double.Epsilon) }
+                { new object[] { polygon }, new TestCaseResults(description:"polygon.", trials:trials, expectedReturnValue:new Point2D(0.66666666666666663d, 0.33333333333333331d), epsilon:double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

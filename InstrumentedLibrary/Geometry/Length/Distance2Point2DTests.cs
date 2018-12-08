@@ -21,12 +21,12 @@ namespace InstrumentedLibrary
         /// Set of tests to run testing methods that calculate the distance between two 2D points.
         /// </summary>
         /// <returns></returns>
-        [DisplayName(nameof(Distance2DTests))]
+        [DisplayName(nameof(Distance2Point2DTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { (0d, 0d), (1d, 0d) }, new TestCaseResults("Horizontal Line.", trials, 1d, double.Epsilon) }
+                { new object[] { (0d, 0d), (1d, 0d) }, new TestCaseResults(description:"Horizontal Line.", trials:trials, expectedReturnValue:1d, epsilon:double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

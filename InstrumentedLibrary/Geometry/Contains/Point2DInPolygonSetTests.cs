@@ -28,7 +28,7 @@ namespace InstrumentedLibrary
             var polygon = new List<List<Point2D>> { new List<Point2D> { new Point2D(0, 0), new Point2D(2, 0), new Point2D(0, 2) } };
             //var PatrickMullenValues = PrecalcPointInPolygonContourPatrickMullenValues(polygon);
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { polygon, point }, new TestCaseResults(description:"polygon, point.", trials:trials, expectedReturnValue:true, epsilon:double.Epsilon) }
+                { new object[] { polygon, point }, new TestCaseResults(description:"polygon, point.", trials:trials, expectedReturnValue:true, epsilon:double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -123,7 +123,7 @@ namespace InstrumentedLibrary
             {
                 // Use alternating rule with XOR to determine if the point is in a polygon or a hole.
                 // If the point is in an odd number of polygons, it is inside. If even, it is a hole.
-                returnValue ^= Point2DInPolygonContourTests.PointInPolygonContourHormannAgathosExpanded(poly, point);
+                returnValue ^= PolygonContourContainsPointTests.PointInPolygonContourHormannAgathosExpanded(poly, point);
 
                 // Any point on any boundary is on a boundary.
                 if (returnValue == Inclusion.Boundary)

@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
             : this()
         {
             state = State;
-            Points = new List<Point2D>();
+            Points = new List<(double X, double Y)>();
         }
 
         /// <summary>
@@ -30,8 +30,8 @@ namespace InstrumentedLibrary
         /// <param name="points">The points.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Intersection(IntersectionState state, params Point2D[] points)
-            : this(state, points as IList<Point2D>)
+        public Intersection(IntersectionState state, params (double X, double Y)[] points)
+            : this(state, points as IList<(double X, double Y)>)
         { }
 
         /// <summary>
@@ -41,8 +41,8 @@ namespace InstrumentedLibrary
         /// <param name="points">The points.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Intersection(IntersectionState state, IEnumerable<Point2D> points)
-            : this(state, points as IList<Point2D>)
+        public Intersection(IntersectionState state, IEnumerable<(double X, double Y)> points)
+            : this(state, points as IList<(double X, double Y)>)
         { }
 
         /// <summary>
@@ -52,10 +52,10 @@ namespace InstrumentedLibrary
         /// <param name="points">The points.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Intersection(IntersectionState state, IList<Point2D> points)
+        public Intersection(IntersectionState state, IList<(double X, double Y)> points)
         {
             State = state;
-            Points = points as List<Point2D>;
+            Points = points as List<(double X, double Y)>;
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace InstrumentedLibrary
         /// <param name="points">The points.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Deconstruct(out IntersectionState state, out IList<Point2D> points)
+        public void Deconstruct(out IntersectionState state, out IList<(double X, double Y)> points)
         {
             state = State;
             points = Points;
@@ -76,7 +76,7 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="index">The index index.</param>
         /// <returns>One element of type Point2D.</returns>
-        public Point2D this[int index]
+        public (double X, double Y) this[int index]
         {
             get { return Points[index]; }
             set { Points[index] = value; }
@@ -90,7 +90,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets or sets the points.
         /// </summary>
-        public List<Point2D> Points { get; set; }
+        public List<(double X, double Y)> Points { get; set; }
 
         /// <summary>
         /// Gets the count.
@@ -130,11 +130,11 @@ namespace InstrumentedLibrary
         /// <param name="point">The point.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AppendPoint(Point2D point)
+        public void AppendPoint((double X, double Y) point)
         {
             if (Points is null)
             {
-                Points = new List<Point2D>();
+                Points = new List<(double X, double Y)>();
             }
 
             Points.Add(point);
@@ -146,7 +146,7 @@ namespace InstrumentedLibrary
         /// <param name="points">The points.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AppendPoints(List<Point2D> points)
+        public void AppendPoints(List<(double X, double Y)> points)
         {
             if (points is null)
             {
@@ -169,7 +169,7 @@ namespace InstrumentedLibrary
         /// <param name="points">The points.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AppendPoints(HashSet<Point2D> points)
+        public void AppendPoints(HashSet<(double X, double Y)> points)
         {
             if (Points is null)
             {

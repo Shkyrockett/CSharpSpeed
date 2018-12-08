@@ -23,7 +23,7 @@ namespace InstrumentedLibrary
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
-        [DisplayName(nameof(PolynomialRealOrderTests))]
+        [DisplayName(nameof(QuarticRootsTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
@@ -62,7 +62,10 @@ namespace InstrumentedLibrary
         public static IList<double> QuarticRoots(double a, double b, double c, double d, double e, double epsilon = Epsilon)
         {
             // If a is 0 the polynomial is cubic.
-            if (a is 0d) return CubicRootsTests.CubicRootsStephenRSchmitt(b, c, d, e, epsilon);
+            if (a is 0d)
+            {
+                return CubicRootsTests.CubicRootsStephenRSchmitt(b, c, d, e, epsilon);
+            }
 
             var A = b / a;
             var B = c / a;
@@ -270,7 +273,10 @@ namespace InstrumentedLibrary
         public static IList<double> QuarticRootsStephanSmola(double a, double b, double c, double d, double e, double epsilon = Epsilon)
         {
             // If a is 0 the polynomial is cubic.
-            if (a is 0d) return CubicRootsTests.CubicRootsStephenRSchmitt(b, c, d, e, epsilon);
+            if (a is 0d)
+            {
+                return CubicRootsTests.CubicRootsStephenRSchmitt(b, c, d, e, epsilon);
+            }
 
             var delta = (256d * a * a * a * e * e * e) - (192d * a * a * b * d * e * e) - (128d * a * a * c * c * e * e) + (144d * a * a * c * d * d * e) - (27d * a * a * d * d * d * d) + (144d * a * b * b * c * e * e) - (6d * a * b * b * d * d * e) - (80d * a * b * c * c * d * e) + (18d * a * b * c * d * d * d) + (16d * a * c * c * c * c * e) - (4d * a * c * c * c * d * d) - (27d * b * b * b * b * e * e) + (18d * b * b * b * c * d * e) - (4d * b * b * b * d * d * d) - (4d * b * b * c * c * c * e) + (b * b * c * c * d * d);
             var P = (8d * a * c) - (3d * b * b);
