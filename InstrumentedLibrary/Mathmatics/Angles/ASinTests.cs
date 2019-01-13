@@ -41,6 +41,16 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double ASin(double d)
+            => ASin0(d);
+
+        /// <summary>
         /// Returns the angle whose sine is the specified number.
         /// </summary>
         /// <param name="d">A number representing a sine, where d must be greater than or equal to -1, but less than or equal to 1.</param>
@@ -52,7 +62,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ASin(double d)
+        public static double ASin0(double d)
         {
             return Asin(d);
         }

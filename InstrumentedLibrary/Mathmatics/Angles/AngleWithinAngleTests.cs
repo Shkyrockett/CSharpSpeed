@@ -39,6 +39,18 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool Within(double angle, double startAngle, double sweepAngle)
+            => Within0(angle, startAngle, sweepAngle);
+
+        /// <summary>
         /// Check whether an angle lies within the sweep angle.
         /// </summary>
         /// <param name="angle">Angle of rotation to check.</param>
@@ -54,7 +66,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Within(double angle, double startAngle, double sweepAngle)
+        public static bool Within0(double angle, double startAngle, double sweepAngle)
         {
             // If the sweep angle is greater than 360 degrees it is overlapping, so any angle would intersect the sweep angle.
             if (sweepAngle > Tau)

@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Point On Line Segment Tests")]
     [Description("Determines whether a point is on a line segment.")]
-    [Signature("public static double PointOnLineSegment(double value1, double value2, double value3, double amount1, double amount2)")]
+    [Signature("public static bool PointOnLineSegment(double segmentAX, double segmentAY, double segmentBX, double segmentBY, double pointX, double pointY)")]
     [SourceCodeLocationProvider]
     public static class PointOnLineSegmentTests
     {
@@ -40,6 +40,21 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="segmentAX"></param>
+        /// <param name="segmentAY"></param>
+        /// <param name="segmentBX"></param>
+        /// <param name="segmentBY"></param>
+        /// <param name="pointX"></param>
+        /// <param name="pointY"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool PointOnLineSegment(double segmentAX, double segmentAY, double segmentBX, double segmentBY, double pointX, double pointY)
+            => PointOnLineSegment1(segmentAX, segmentAY, segmentBX, segmentBY, pointX, pointY);
+
+        /// <summary>
         /// The point on line segment.
         /// </summary>
         /// <param name="segmentAX">The segmentAX.</param>
@@ -49,7 +64,7 @@ namespace InstrumentedLibrary
         /// <param name="pointX">The pointX.</param>
         /// <param name="pointY">The pointY.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public static bool PointOnLineSegment(
+        public static bool PointOnLineSegment1(
             double segmentAX,
             double segmentAY,
             double segmentBX,
@@ -128,7 +143,7 @@ namespace InstrumentedLibrary
             double pointX,
             double pointY)
         {
-            return DistanceToLineSegmentTests.DistFromSeg(pointX, pointY, segmentAX, segmentAY, segmentBX, segmentBY) < Epsilon;
+            return DistanceToLineSegmentTests.DistanceToSegment(pointX, pointY, segmentAX, segmentAY, segmentBX, segmentBY) < Epsilon;
         }
 
         /// <summary>
@@ -154,11 +169,11 @@ namespace InstrumentedLibrary
             double pointX,
             double pointY)
         {
-            var Length1 = Distance2DTests.Distance2D_1(pointX, pointY, segmentBX, segmentBY);
+            var Length1 = Distance2DTests.Distance2D(pointX, pointY, segmentBX, segmentBY);
             // Sqrt((Point.X - Line.B.X) ^ 2 + (Point.Y - Line.B.Y))
-            var Length2 = Distance2DTests.Distance2D_1(pointX, pointY, segmentAX, segmentAY);
+            var Length2 = Distance2DTests.Distance2D(pointX, pointY, segmentAX, segmentAY);
             // Sqrt((Point.X - Line.A.X) ^ 2 + (Point.Y - Line.A.Y))
-            return Abs(Distance2DTests.Distance2D_1(segmentAX, segmentAY, segmentBX, segmentBY) - Length1 + Length2) < DoubleEpsilon;
+            return Abs(Distance2DTests.Distance2D(segmentAX, segmentAY, segmentBX, segmentBY) - Length1 + Length2) < DoubleEpsilon;
         }
     }
 }

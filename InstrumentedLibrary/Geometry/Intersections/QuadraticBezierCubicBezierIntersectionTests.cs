@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Intersection of Quadratic Bezier and Cubic Bezier")]
     [Description("Finds the intersection points of a Quadratic Bezier and Cubic Bezier.")]
-    [Signature("public static double QuadraticBezierCubicBezierIntersection(double value1, double value2, double value3, double amount1, double amount2)")]
+    [Signature("public static Intersection QuadraticBezierSegmentCubicBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class QuadraticBezierCubicBezierIntersectionTests
     {
@@ -38,6 +38,30 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a1X"></param>
+        /// <param name="a1Y"></param>
+        /// <param name="a2X"></param>
+        /// <param name="a2Y"></param>
+        /// <param name="a3X"></param>
+        /// <param name="a3Y"></param>
+        /// <param name="b1X"></param>
+        /// <param name="b1Y"></param>
+        /// <param name="b2X"></param>
+        /// <param name="b2Y"></param>
+        /// <param name="b3X"></param>
+        /// <param name="b3Y"></param>
+        /// <param name="b4X"></param>
+        /// <param name="b4Y"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Intersection QuadraticBezierSegmentCubicBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)
+            => QuadraticBezierSegmentCubicBezierSegmentIntersection1(a1X, a1Y, a2X, a2Y, a3X, a3Y, b1X, b1Y, b2X, b2Y, b3X, b3Y, b4X, b4Y, epsilon);
 
         /// <summary>
         /// Find the intersection between a quadratic bezier and a cubic bezier.
@@ -67,7 +91,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection QuadraticBezierSegmentCubicBezierSegmentIntersection(
+        public static Intersection QuadraticBezierSegmentCubicBezierSegmentIntersection1(
             double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y,
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y,
             double epsilon = Epsilon)

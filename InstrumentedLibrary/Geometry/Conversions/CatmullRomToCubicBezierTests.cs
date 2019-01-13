@@ -12,7 +12,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Catmull-Rom to Cubic Bézier Tests")]
     [Description("Convert a Catmull-Rom curve to a Cubic Bézier segment.")]
-    [Signature("public static double CatmullRomToCubicBezier(double v0, double v1, double v2, double v3, double t)")]
+    [Signature("public static (double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY) CatmullRomToBezier(double aX, double aY, double bX, double bY, double cX, double cY)")]
     [SourceCodeLocationProvider]
     public static class CatmullRomToCubicBezierTests
     {
@@ -38,6 +38,21 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY) CatmullRomToBezier(double aX, double aY, double bX, double bY, double cX, double cY)
+            => CatmullRomToBezier0(aX, aY, bX, bY, cX, cY);
+
+        /// <summary>
         /// Converts a list of points on a Catmull Rom Curve to a list of Cubic Bézier curves.
         /// </summary>
         /// <param name="aX"></param>
@@ -56,7 +71,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY) CatmullRomToBezier(
+        public static (double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY) CatmullRomToBezier0(
             double aX, double aY,
             double bX, double bY,
             double cX, double cY

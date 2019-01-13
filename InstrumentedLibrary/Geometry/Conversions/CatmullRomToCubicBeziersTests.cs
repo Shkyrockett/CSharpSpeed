@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Reflection;
 using static InstrumentedLibrary.Maths;
 using System.Runtime.CompilerServices;
+using System.Diagnostics;
 
 namespace InstrumentedLibrary
 {
@@ -12,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Catmull-Rom to Cubic Bézier List Tests")]
     [Description("Convert a Catmull-Rom curve to a list of Cubic Bézier segments.")]
-    [Signature("public static double CatmullRomToCubicBeziers(double v0, double v1, double v2, double v3, double t)")]
+    [Signature("public static List<(double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)> CatmullRomToBezier((double X, double Y)[] points)")]
     [SourceCodeLocationProvider]
     public static class CatmullRomToCubicBeziersTests
     {
@@ -38,6 +39,16 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static List<(double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)> CatmullRomToBezier((double X, double Y)[] points)
+            => CatmullRomToBezier0(points);
+
+        /// <summary>
         /// Converts a list of points on a Catmull Rom Curve to a list of Cubic Bézier curves.
         /// </summary>
         /// <param name="points">The list of points.</param>
@@ -51,7 +62,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<(double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)> CatmullRomToBezier(
+        public static List<(double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)> CatmullRomToBezier0(
             (double X, double Y)[] points)
         {
             var d = new List<(double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)>();

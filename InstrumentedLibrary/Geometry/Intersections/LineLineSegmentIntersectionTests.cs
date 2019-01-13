@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Intersection of a line and a line segment")]
     [Description("Find the intersection between a line and a line segment.")]
-    [Signature("public static double LineLineSegmentIntersection(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4, double epsilon = Epsilon)")]
+    [Signature("public static Intersection LineLineSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double b1X, double b1Y, double b2X, double b2Y, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class LineLineSegmentIntersectionTests
     {
@@ -38,6 +38,24 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a1X"></param>
+        /// <param name="a1Y"></param>
+        /// <param name="a2X"></param>
+        /// <param name="a2Y"></param>
+        /// <param name="b1X"></param>
+        /// <param name="b1Y"></param>
+        /// <param name="b2X"></param>
+        /// <param name="b2Y"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Intersection LineLineSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double b1X, double b1Y, double b2X, double b2Y, double epsilon = Epsilon)
+            => LineLineSegmentIntersection1(a1X, a1Y, a2X, a2Y, b1X, b1Y, b2X, b2Y, epsilon);
 
         /// <summary>
         /// The line line segment intersection0.

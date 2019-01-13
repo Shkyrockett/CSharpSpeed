@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Circle center from Three Points Tests")]
     [Description("Find the center of a circle that intersects three points.")]
-    [Signature("public static double CircleCenterFromPoints(double aX, double aY, double bX, double bY, double cX, double cY)")]
+    [Signature("public static (double X, double Y)? CircleCenterFromPoints(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y)")]
     [SourceCodeLocationProvider]
     public static class CircleCenterFromThreePointsTests
     {
@@ -38,6 +38,21 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p1X"></param>
+        /// <param name="p1Y"></param>
+        /// <param name="p2X"></param>
+        /// <param name="p2Y"></param>
+        /// <param name="p3X"></param>
+        /// <param name="p3Y"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y)? CircleCenterFromPoints(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y)
+            => CircleCenterFromPoints0(p1X, p1Y, p2X, p2Y, p3X, p3Y);
 
         /// <summary>
         /// Find the Center of A Circle from Three Points
@@ -90,7 +105,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y)? CircleCenterFromPoints(
+        public static (double X, double Y)? CircleCenterFromPoints0(
             double p1X, double p1Y,
             double p2X, double p2Y,
             double p3X, double p3Y)

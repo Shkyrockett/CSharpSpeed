@@ -38,6 +38,21 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double SignedTriangleArea(double aX, double aY, double bX, double bY, double cX, double cY)
+            => SignedTriangleAreaVelcroPhysics(aX, aY, bX, bY, cX, cY);
+
+        /// <summary>
         /// Returns a positive number if c is to the left of the line going from a to b.
         /// </summary>
         /// <param name="aX"></param>
@@ -59,7 +74,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SignedTriangleArea(double aX, double aY, double bX, double bY, double cX, double cY)
+        public static double SignedTriangleAreaVelcroPhysics(double aX, double aY, double bX, double bY, double cX, double cY)
         {
             return aX * (bY - cY) + bX * (cY - aY) + cX * (aY - bY);
         }

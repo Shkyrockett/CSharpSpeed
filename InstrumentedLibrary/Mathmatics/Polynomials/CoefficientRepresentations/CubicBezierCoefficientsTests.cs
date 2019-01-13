@@ -12,7 +12,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cubic Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a Cubic Bezier Curve.")]
-    [Signature("public static IList<double> CubicBezierCoefficients(double a, double b, double c, double d)")]
+    [Signature("public static (double A, double B, double C, double D) CubicBezierCoefficients(double a, double b, double c, double d)")]
     [SourceCodeLocationProvider]
     public static class CubicBezierCoefficientsTests
     {
@@ -25,7 +25,7 @@ namespace InstrumentedLibrary
         {
             var trials = 1000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 1d, 2d, 3d, 4d }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:null, epsilon:double.Epsilon) },
+                { new object[] { 1d, 2d, 3d, 4d }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue: (0d, 0d, 3d, 1d), epsilon:double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -36,6 +36,19 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double A, double B, double C, double D) CubicBezierCoefficients(double a, double b, double c, double d)
+            => CubicBezierCoefficients0(a, b, c, d);
 
         /// <summary>
         /// Coefficients for a Cubic Bézier curve.
@@ -56,7 +69,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D) CubicBezierCoefficients(double a, double b, double c, double d)
+        public static (double A, double B, double C, double D) CubicBezierCoefficients0(double a, double b, double c, double d)
         {
             return (d - (3d * c) + (3d * b) - a,
                     (3d * c) - (6d * b) + (3d * a),
@@ -101,9 +114,10 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial CubicBezierCoefficientsGeneral(double a, double b, double c, double d)
+        public static (double A, double B, double C, double D) CubicBezierCoefficientsGeneral(double a, double b, double c, double d)
         {
-            return GeneralBezierCoefficientsTests.BezierCoefficientsRecursive(a, b, c, d);
+            Polynomial polynomial = RecursiveBezierCoefficientsTests.BezierCoefficientsRecursive(a, b, c, d);
+            return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d]);
         }
 
         /// <summary>
@@ -123,9 +137,10 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial CubicBezierCoefficientsRecursive(double a, double b, double c, double d)
+        public static (double A, double B, double C, double D) CubicBezierCoefficientsRecursive(double a, double b, double c, double d)
         {
-            return (Polynomial.OneMinusT * QuadraticBezierCoefficientsTests.QuadraticBezierCoefficients(a, b, c)) + (Polynomial.T * QuadraticBezierCoefficientsTests.QuadraticBezierCoefficients(b, c, d));
+            Polynomial polynomial = (Polynomial.OneMinusT * QuadraticBezierCoefficientsTests.QuadraticBezierCoefficients(a, b, c)) + (Polynomial.T * QuadraticBezierCoefficientsTests.QuadraticBezierCoefficients(b, c, d));
+            return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d]);
         }
     }
 }

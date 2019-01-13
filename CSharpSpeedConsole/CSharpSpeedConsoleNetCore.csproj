@@ -3,9 +3,14 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>8.0</LangVersion>
     <ApplicationIcon />
     <StartupObject />
+    <Version>0.0.0.1</Version>
+    <Authors>Shkyrockett</Authors>
+    <Copyright>Copyright © 2016 - 2019 Shkyrockett</Copyright>
+    <Description>Creates reports profiling the speeds of methods.</Description>
+    <RepositoryUrl>https://github.com/Shkyrockett/CSharpSpeed</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

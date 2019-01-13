@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace InstrumentedLibrary
+﻿namespace InstrumentedLibrary
 {
     /// <summary>
     /// The trim polynomial leading zeros tests class.

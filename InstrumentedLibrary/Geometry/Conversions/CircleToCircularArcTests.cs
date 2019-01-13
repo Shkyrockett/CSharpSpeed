@@ -13,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Circle to Circular Arc Tests")]
     [Description("Convert a Circle to a Circular Arc.")]
-    [Signature("public static double CircleToCircularArc(double v0, double v1, double v2, double v3, double t)")]
+    [Signature("public static (double X, double Y, double R, double startEngle, double SweepAngle) CircleToCircularArc(double x, double y, double r)")]
     [SourceCodeLocationProvider]
     public static class CircleToCircularArcTests
     {
@@ -39,6 +39,18 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="r"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y, double R, double startEngle, double SweepAngle) CircleToCircularArc(double x, double y, double r)
+            => CircleToCircularArc0(x, y, r);
+
+        /// <summary>
         /// Converts a Circle to a Circular arc.
         /// </summary>
         /// <param name="x">The x-component of the center point.</param>
@@ -50,7 +62,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double R, double startEngle, double SweepAngle) CircleToCircularArc(
+        public static (double X, double Y, double R, double startEngle, double SweepAngle) CircleToCircularArc0(
             double x, double y,
             double r)
         {

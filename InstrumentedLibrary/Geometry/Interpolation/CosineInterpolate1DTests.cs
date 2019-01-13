@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cosine Interpolate Tests")]
     [Description("Find a point on a Cosine curve.")]
-    [Signature("public static double CosineInterpolate1D(double v0, double v1, double v2, double v3, double t)")]
+    [Signature("public static double CosineInterpolate1D(double v1, double v2, double t)")]
     [SourceCodeLocationProvider]
     public static class CosineInterpolate1DTests
     {
@@ -40,6 +40,18 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double CosineInterpolate1D(double v1, double v2, double t)
+            => CosineInterpolate1D_(v1, v2, t);
+
+        /// <summary>
         /// The cosine interpolate1d.
         /// </summary>
         /// <param name="v1">The v1.</param>
@@ -55,7 +67,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CosineInterpolate1D(double v1, double v2, double t)
+        public static double CosineInterpolate1D_(double v1, double v2, double t)
         {
             var mu2 = (1d - Cos(t * PI)) / 2d;
             return v1 * (1d - mu2) + v2 * mu2;

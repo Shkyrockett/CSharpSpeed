@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Linear Interpolate Tests")]
     [Description("Find a point on a line.")]
-    [Signature("public static double LinearInterpolate2D(double v1, double v2, double t)")]
+    [Signature("public static double LinearInterpolate1D(double v1, double v2, double t)")]
     [SourceCodeLocationProvider]
     public static class InterpolateLinear1DTests
     {
@@ -38,6 +38,18 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double LinearInterpolate1D(double v1, double v2, double t)
+            => LinearInterpolate1D_0(v1, v2, t);
 
         /// <summary>
         /// Precise method which guarantees v = v1 when t = 1.

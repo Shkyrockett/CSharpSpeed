@@ -39,6 +39,20 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v0"></param>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <param name="v3"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double CubicBezier(double v0, double v1, double v2, double v3, double t)
+            => CubicBezier_(v0, v1, v2, v3, t);
+
+        /// <summary>
         /// The cubic bezier.
         /// </summary>
         /// <param name="v0">The v0.</param>
@@ -56,7 +70,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CubicBezier(
+        public static double CubicBezier_(
             double v0,
             double v1,
             double v2,

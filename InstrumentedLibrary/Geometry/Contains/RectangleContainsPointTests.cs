@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Rectangle Contains Point")]
     [Description("Determine whether a point is contained within a Rectangle.")]
-    [Signature("public static double PointInPolygonSet(List<Point2D> polygon, Point2D point)")]
+    [Signature("public static Inclusion RectangleContainsPoint2D(Rectangle2D rectangle, Point2D point)")]
     [SourceCodeLocationProvider]
     public static class RectangleContainsPointTests
     {
@@ -40,6 +40,17 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rectangle"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Inclusion RectangleContainsPoint2D(Rectangle2D rectangle, Point2D point)
+            => Contains(rectangle, point);
 
         /// <summary>
         /// Determines whether the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/>.

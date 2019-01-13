@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Ellipse Line Segment Intersection Tests")]
     [Description("Finds the intersection points of an Ellipse and a Line Segment Intersection.")]
-    [Signature("public static Inclusion PointInEllipse(double x, double y, double rX, double rY, double pX, double pY)")]
+    [Signature("public static Intersection EllipseLineSegmentIntersection(double cx, double cy, double rx, double ry, double angle, double x0, double y0, double x1, double y1, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class EllipseLineSegmentIntersectionTests
     {
@@ -40,6 +40,25 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="angle"></param>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Intersection EllipseLineSegmentIntersection(double cx, double cy, double rx, double ry, double angle, double x0, double y0, double x1, double y1, double epsilon = Epsilon)
+            => EllipseLineSegmentIntersection_(cx, cy, rx, ry, angle, x0, y0, x1, y1, epsilon);
+
+        /// <summary>
         /// Find the points of the intersection of an unrotated ellipse and a line segment.
         /// </summary>
         /// <param name="cx"></param>
@@ -62,7 +81,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection EllipseLineSegmentIntersection(
+        public static Intersection EllipseLineSegmentIntersection_(
             double cx, double cy,
             double rx, double ry,
             double angle,

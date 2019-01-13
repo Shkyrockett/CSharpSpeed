@@ -13,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("2 Point 2D Distance Tests")]
     [Description("Find the distance between two points.")]
-    [Signature("public static double Distance2D(double x1, double y1, double x2, double y2)")]
+    [Signature("public static double Distance2D((double X, double Y) a, (double X, double Y) b)")]
     [SourceCodeLocationProvider]
     public static class Distance2Point2DTests
     {
@@ -37,6 +37,17 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double Distance2D((double X, double Y) a, (double X, double Y) b)
+            => Distance2D_1(a, b);
 
         /// <summary>
         /// Distance between two 2D points.
@@ -67,7 +78,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(
+        public static double Distance_2(
             (double X, double Y) a,
             (double X, double Y) b)
         {

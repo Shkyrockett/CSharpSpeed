@@ -6,6 +6,8 @@
     public enum PolynomialDegree
         : sbyte
     {
+        // The usual values of degree.
+
         /// <summary>
         /// The Polynomial or curve is <see cref="Empty"/>.
         /// </summary>
@@ -76,7 +78,7 @@
         /// </acknowledgment>
         Decic = 10,
 
-        // Note: Degrees beyond here may be completely wrong.
+        // Note: Degrees with values beyond here may be completely wrong.
 
         /// <summary>
         /// The polynomial or curve is of 11th degree.
@@ -789,6 +791,8 @@
         /// May be incorrect. See: https://en.wikipedia.org/wiki/Numeral_prefix
         /// </acknowledgment>
         Novennonagintic = 99,
+
+        // The following value of degree is supposedly official. 
 
         /// <summary>
         /// The polynomial or curve is <see cref="Hectic"/>, having one hundred terms.

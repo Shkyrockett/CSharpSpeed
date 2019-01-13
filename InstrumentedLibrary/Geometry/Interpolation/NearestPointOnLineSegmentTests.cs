@@ -12,7 +12,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Nearest Point on Line Segment")]
     [Description("Find the nearest point on a line segment to a point.")]
-    [Signature("public static int Sign(double value)")]
+    [Signature("public static (double X, double Y) ClosestPointOnLineSegment(double aX, double aY, double bX, double bY, double pX, double pY)")]
     [SourceCodeLocationProvider]
     public static class NearestPointOnLineSegmentTests
     {
@@ -36,6 +36,21 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="pX"></param>
+        /// <param name="pY"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y) ClosestPointOnLineSegment(double aX, double aY, double bX, double bY, double pX, double pY)
+            => ClosestPointOnLineSegmentDarienPardinas(aX, aY, bX, bY, pX, pY);
 
         /// <summary>
         /// The closest point on line segment mv g.
@@ -62,10 +77,10 @@ namespace InstrumentedLibrary
             double pX, double pY)
         {
             // Vector A->B
-            var diffAB = (X:aX - bX,Y: aY - bY);
+            var diffAB = (X: aX - bX, Y: aY - bY);
             var det = aY * bX - aX * bY;
             var dot = diffAB.X * pX + diffAB.Y * pY;
-            var val = (X:dot * diffAB.X + det * diffAB.Y,Y: dot * diffAB.Y - det * diffAB.X);
+            var val = (X: dot * diffAB.X + det * diffAB.Y, Y: dot * diffAB.Y - det * diffAB.X);
             var magnitude = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
             var inverseDist = 1 / magnitude;
             return (val.X * inverseDist, val.Y * inverseDist);

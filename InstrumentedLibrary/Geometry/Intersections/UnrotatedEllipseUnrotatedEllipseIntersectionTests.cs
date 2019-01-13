@@ -15,7 +15,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Ellipse, Ellipse Intersection Tests")]
     [Description("Finds the intersection points of two Ellipse.")]
-    [Signature("public static Inclusion EllipseEllipse(double x, double y, double rX, double rY, double pX, double pY)")]
+    [Signature("public static Intersection UnrotatedEllipseUnrotatedEllipseIntersection(double acX, double acY, double arX, double arY, double bcX, double bcY, double brX, double brY, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class UnrotatedEllipseUnrotatedEllipseIntersectionTests
     {
@@ -39,6 +39,24 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="acX"></param>
+        /// <param name="acY"></param>
+        /// <param name="arX"></param>
+        /// <param name="arY"></param>
+        /// <param name="bcX"></param>
+        /// <param name="bcY"></param>
+        /// <param name="brX"></param>
+        /// <param name="brY"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Intersection UnrotatedEllipseUnrotatedEllipseIntersection(double acX, double acY, double arX, double arY, double bcX, double bcY, double brX, double brY, double epsilon = Epsilon)
+            => Intersect(acX, acY, arX, arY, bcX, bcY, brX, brY, epsilon);
 
         /// <summary>
         /// Finds Intersection of two Ellipse'

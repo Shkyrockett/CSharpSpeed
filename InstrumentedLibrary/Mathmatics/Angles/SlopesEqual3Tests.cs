@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Slopes Equal Tests")]
     [Description("Determines whether slopes are Equal.")]
-    [Signature("public static bool SlopesEqual(Point2D a, Point2D b, Point2D c, double distSqrd)")]
+    [Signature("public static bool SlopesEqual(Point2D a, Point2D b, Point2D c, bool UseFullRange = false)")]
     [SourceCodeLocationProvider]
     public static class SlopesEqual3Tests
     {
@@ -40,6 +40,19 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="UseFullRange"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool SlopesEqual(Point2D a, Point2D b, Point2D c, bool UseFullRange = false)
+            => SlopesEqual0(a, b, c, UseFullRange);
+
+        /// <summary>
         /// The slopes equal.
         /// </summary>
         /// <param name="a">The a.</param>
@@ -56,7 +69,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool SlopesEqual(Point2D a, Point2D b, Point2D c, bool UseFullRange = false)
+        public static bool SlopesEqual0(Point2D a, Point2D b, Point2D c, bool UseFullRange = false)
         {
             return UseFullRange ? BigInteger.Multiply((BigInteger)(a.Y - b.Y), (BigInteger)(b.X - c.X)) == BigInteger.Multiply((BigInteger)(a.X - b.X), (BigInteger)(b.Y - c.Y))
                 : (a.Y - b.Y) * (b.X - c.X) - (a.X - b.X) * (b.Y - c.Y) == 0;

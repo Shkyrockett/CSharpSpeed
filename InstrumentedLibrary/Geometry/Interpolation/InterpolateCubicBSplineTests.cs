@@ -6,7 +6,6 @@ using System.Runtime.CompilerServices;
 using System.Diagnostics;
 using static System.Math;
 using static InstrumentedLibrary.Maths;
-using System;
 
 namespace InstrumentedLibrary
 {
@@ -15,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cubic B-Spline Interpolate 2D Tests")]
     [Description("Find a point on a 2D Cubic B-Spline curve.")]
-    [Signature("public static (double X, double Y) CubicBezierInterpolate2D(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4, double t)")]
+    [Signature("public static (double X, double Y) InterpolateBSpline(IList<(double X, double Y)> points, double index)")]
     [SourceCodeLocationProvider]
     public static class InterpolateCubicBSplineTests
     {
@@ -41,6 +40,17 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y) InterpolateBSpline(IList<(double X, double Y)> points, double index)
+            => InterpolateBSpline_(points, index);
+
+        /// <summary>
         /// Function to Interpolate a Cubic Bezier Spline
         /// </summary>
         /// <param name="points"></param>
@@ -51,7 +61,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) InterpolateBSpline(IList<(double X, double Y)> points, double index)
+        public static (double X, double Y) InterpolateBSpline_(IList<(double X, double Y)> points, double index)
         {
             if (points.Count >= 4)
             {

@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Point In Elliptical Arc Sector Tests")]
     [Description("Determines whether a point is in an Elliptical Arc Sector.")]
-    [Signature("public static Inclusion EllipticalArcSectorContainsPoint(double x, double y, double rX, double rY, double angle, double pX, double pY)")]
+    [Signature("public static Inclusion EllipticalArcSectorContainsPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class EllipticalArcSectorContainsPointTests
     {
@@ -40,7 +40,26 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
+        /// 
+        /// </summary>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="r1"></param>
+        /// <param name="r2"></param>
+        /// <param name="angle"></param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        /// <param name="pX"></param>
+        /// <param name="pY"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Inclusion EllipticalArcSectorContainsPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY, double epsilon = Epsilon)
+            => EllipticalArcSectorContainsPointSC(cX, cY, r1, r2, angle, startAngle, sweepAngle, pX, pY, epsilon);
+
+        /// <summary>
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc2D"/>.
         /// </summary>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
@@ -62,7 +81,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipticalArcSectorContainsPoint(
+        public static Inclusion EllipticalArcSectorContainsPointSC(
             double cX, double cY,
             double r1, double r2,
             double angle,
@@ -71,11 +90,11 @@ namespace InstrumentedLibrary
             double pX, double pY,
             double epsilon = Epsilon)
         {
-            return EllipticalArcSectorContainsPoint(cX, cY, r1, r2, Cos(angle), Sin(angle), Cos(startAngle), Sin(startAngle), Cos(sweepAngle), Sin(sweepAngle), pX, pY, epsilon);
+            return EllipticalArcSectorContainsPointSC(cX, cY, r1, r2, Cos(angle), Sin(angle), Cos(startAngle), Sin(startAngle), Cos(sweepAngle), Sin(sweepAngle), pX, pY, epsilon);
         }
 
         /// <summary>
-        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc2D"/>.
         /// </summary>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
@@ -96,7 +115,7 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipticalArcSectorContainsPoint(
+        public static Inclusion EllipticalArcSectorContainsPointSC(
             double cX, double cY,
             double r1, double r2,
             double cosT, double sinT,
@@ -115,8 +134,8 @@ namespace InstrumentedLibrary
             var endCosT = sweepCosT * startCosT - sweepSinT * startSinT;
 
             // Find the start and end angles.
-            var sa = EllipticalPolarVectorTests. EllipticalPolarVector(startCosT, startSinT, r1, r2);
-            var ea = EllipticalPolarVectorTests. EllipticalPolarVector(endCosT, endSinT, r1, r2);
+            var sa = EllipticalPolarVectorTests.EllipticalPolarVector(startCosT, startSinT, r1, r2);
+            var ea = EllipticalPolarVectorTests.EllipticalPolarVector(endCosT, endSinT, r1, r2);
 
             // Ellipse equation for an ellipse at origin for the chord end points.
             var u1 = r1 * sa.cosT;
@@ -166,7 +185,7 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc2D"/>.
         /// </summary>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
@@ -201,7 +220,7 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc2D"/>.
         /// </summary>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
@@ -288,7 +307,7 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc2D"/>.
         /// </summary>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
@@ -323,7 +342,7 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc2D"/>.
         /// </summary>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
@@ -413,7 +432,7 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc2D"/>.
         /// </summary>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
@@ -448,7 +467,7 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc2D"/>.
         /// </summary>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>

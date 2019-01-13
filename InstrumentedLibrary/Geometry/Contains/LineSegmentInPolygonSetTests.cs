@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Line Segment In Polygon Tests")]
     [Description("Determine whether a line segment is contained within a Polygon set.")]
-    [Signature("public static double PointInPolygonSet(List<List<Point2D>> polygon, Point2D point)")]
+    [Signature("public static bool LineInPolygonSet(Polygon2D allPolys, Point2D start, Point2D end)")]
     [SourceCodeLocationProvider]
     public static class LineSegmentInPolygonSetTests
     {
@@ -28,7 +28,7 @@ namespace InstrumentedLibrary
             var trials = 10000;
             var pointA = new Point2D(1, 1);
             var pointB = new Point2D(2, 2);
-            var polygon = new Polygon(new List<PolygonContour> { new PolygonContour(new List<Point2D> { new Point2D(0, 0), new Point2D(2, 0), new Point2D(0, 2) }) });
+            var polygon = new Polygon2D(new List<PolygonContour2D> { new PolygonContour2D(new List<Point2D> { new Point2D(0, 0), new Point2D(2, 0), new Point2D(0, 2) }) });
             var tests = new Dictionary<object[], TestCaseResults> {
                 { new object[] {  polygon, pointA, pointB}, new TestCaseResults(description:"polygon, point.", trials:trials, expectedReturnValue:true, epsilon:double.Epsilon) },
             };
@@ -42,6 +42,18 @@ namespace InstrumentedLibrary
 
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="allPolys"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool LineInPolygonSet(Polygon2D allPolys, Point2D start, Point2D end)
+            => LineInPolygonSet1( allPolys,  start,  end);
 
         /// <summary>
         /// This function should be called with the full set of *all* relevant polygons.
@@ -64,7 +76,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool LineInPolygonSet(Polygon allPolys, Point2D start, Point2D end)
+        public static bool LineInPolygonSet1(Polygon2D allPolys, Point2D start, Point2D end)
         {
             double theCos, theSin, dist, sX, sY, eX, eY, rotSX, rotSY, rotEX, rotEY, crossX;
             int i, j, polyI;
@@ -77,18 +89,18 @@ namespace InstrumentedLibrary
 
             for (polyI = 0; polyI < allPolys.Count; polyI++)
             {
-                for (i = 0; i < ((allPolys.Contours as List<PolygonContour>)[polyI].Points as List<Point2D>).Count; i++)
+                for (i = 0; i < ((allPolys.Contours as List<PolygonContour2D>)[polyI].Points as List<Point2D>).Count; i++)
                 {
                     j = i + 1;
-                    if (j == ((allPolys.Contours as List<PolygonContour>)[polyI].Points as List<Point2D>).Count)
+                    if (j == ((allPolys.Contours as List<PolygonContour2D>)[polyI].Points as List<Point2D>).Count)
                     {
                         j = 0;
                     }
 
-                    sX = ((allPolys.Contours as List<PolygonContour>)[polyI].Points as List<Point2D>)[i].X - start.X;
-                    sY = ((allPolys.Contours as List<PolygonContour>)[polyI].Points as List<Point2D>)[i].Y - start.Y;
-                    eX = ((allPolys.Contours as List<PolygonContour>)[polyI].Points as List<Point2D>)[j].X - start.X;
-                    eY = ((allPolys.Contours as List<PolygonContour>)[polyI].Points as List<Point2D>)[j].Y - start.Y;
+                    sX = ((allPolys.Contours as List<PolygonContour2D>)[polyI].Points as List<Point2D>)[i].X - start.X;
+                    sY = ((allPolys.Contours as List<PolygonContour2D>)[polyI].Points as List<Point2D>)[i].Y - start.Y;
+                    eX = ((allPolys.Contours as List<PolygonContour2D>)[polyI].Points as List<Point2D>)[j].X - start.X;
+                    eY = ((allPolys.Contours as List<PolygonContour2D>)[polyI].Points as List<Point2D>)[j].Y - start.Y;
                     if (Abs(sX) < DoubleEpsilon
                         && Abs(sY) < DoubleEpsilon
                         && Abs(eX - end.X) < DoubleEpsilon

@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cubic Interpolate 2D Tests")]
     [Description("Find a point on a 2D Cubic curve.")]
-    [Signature("public static (double X, double Y) CubicInterpolate2D(double x1, double y1, double x2, double y2, double t)")]
+    [Signature("public static (double X, double Y) CubicInterpolate2D(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3, double t)")]
     [SourceCodeLocationProvider]
     public static class InterpolateCubic2DTests
     {
@@ -40,6 +40,24 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y) CubicInterpolate2D(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3, double t)
+            => CubicInterpolate2D_(x0, y0, x1, y1, x2, y2, x3, y3, t);
+
+        /// <summary>
         /// The cubic interpolate2d.
         /// </summary>
         /// <param name="x0">The x0.</param>
@@ -61,7 +79,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) CubicInterpolate2D(
+        public static (double X, double Y) CubicInterpolate2D_(
             double x0, double y0,
             double x1, double y1,
             double x2, double y2,

@@ -39,6 +39,25 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="dX"></param>
+        /// <param name="dY"></param>
+        /// <param name="tension"></param>
+        /// <param name="bias"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY) HermiteToCubicBezier(double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY, double tension, double bias)
+            => ToCubicBezier(aX, aY, bX, bY, cX, cY, dX, dY, tension, bias);
+
+        /// <summary>
         /// The to cubic Bézier.
         /// </summary>
         /// <param name="aX"></param>

@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Shortest Path Polygon Tests")]
     [Description("Find the shortest path from one point to another through a polygon.")]
-    [Signature("public static Point2D EnvelopeDistort(Point2D point, Rectangle2D bounds, Point2D topLeft, Point2D topLeftH, Point2D topLeftV, Point2D topRight, Point2D topRightH, Point2D topRightV, Point2D bottomRight, Point2D bottomRightH, Point2D bottomRightV, Point2D bottomLeft, Point2D bottomLeftH, Point2D bottomLeftV)")]
+    [Signature("public static Polyline2D? ShortestPath(Polygon2D polygons, Point2D start, Point2D end)")]
     [SourceCodeLocationProvider]
     public static class ShortestPathTests
     {
@@ -25,10 +25,10 @@ namespace InstrumentedLibrary
         [DisplayName(nameof(ShortestPathTests))]
         public static List<SpeedTester> TestHarness()
         {
-            var set = new Polygon(
-                new List<PolygonContour>(
-                    new List<PolygonContour> {
-                        new PolygonContour( // Boundary
+            var set = new Polygon2D(
+                new List<PolygonContour2D>(
+                    new List<PolygonContour2D> {
+                        new PolygonContour2D( // Boundary
                             new List<Point2D> {
                                 new Point2D(10, 10),
                                 new Point2D(300, 10),
@@ -40,14 +40,14 @@ namespace InstrumentedLibrary
                                 new Point2D(10, 150)
                             }
                         ),
-                        new PolygonContour( // First inner triangle
+                        new PolygonContour2D( // First inner triangle
                             new List<Point2D> {
                                 new Point2D(20, 100),
                                 new Point2D(175, 60),
                                 new Point2D(40, 30)
                             }
                         ),
-                        new PolygonContour( // Second inner triangle
+                        new PolygonContour2D( // Second inner triangle
                             new List<Point2D> {
                                 new Point2D(250, 150),
                                 new Point2D(150, 150),
@@ -70,6 +70,18 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygons"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Polyline2D? ShortestPath(Polygon2D polygons, Point2D start, Point2D end)
+            => ShortestPath0(polygons, start, end);
 
         /// <summary>
         /// Finds the shortest path from sX,sY to eX,eY that stays within the polygon set.
@@ -95,7 +107,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polyline? ShortestPath0(Polygon polygons, Point2D start, Point2D end)
+        public static Polyline2D? ShortestPath0(Polygon2D polygons, Point2D start, Point2D end)
         {
             // (larger than total solution dist could ever be)
             const double maxLength = double.MaxValue;// 9999999.0;
@@ -118,7 +130,7 @@ namespace InstrumentedLibrary
             //  If there is a straight-line solution, return with it immediately.
             if (LineSegmentInPolygonSetTests.LineInPolygonSet(polygons, start, end))
             {
-                return new Polyline(new List<Point2D> { start, end });
+                return new Polyline2D(new List<Point2D> { start, end });
             }
 
             //  Build a point list that refers to the corners of the
@@ -127,9 +139,9 @@ namespace InstrumentedLibrary
             pointCount = 1;
             for (polyI = 0; polyI < polygons.Count; polyI++)
             {
-                for (i = 0; i < ((polygons.Contours as List<PolygonContour>)[polyI].Points as List<Point2D>).Count; i++)
+                for (i = 0; i < ((polygons.Contours as List<PolygonContour2D>)[polyI].Points as List<Point2D>).Count; i++)
                 {
-                    pointList.Add(((polygons.Contours as List<PolygonContour>)[polyI].Points as List<Point2D>)[i]);
+                    pointList.Add(((polygons.Contours as List<PolygonContour2D>)[polyI].Points as List<Point2D>)[i]);
                     pointCount++;
                 }
             }
@@ -153,7 +165,7 @@ namespace InstrumentedLibrary
                     {
                         if (LineSegmentInPolygonSetTests.LineInPolygonSet(polygons, pointList[i], pointList[j]))
                         {
-                            newDist = pointList[i].TotalDistance + Distance2Point2DTests.Distance(pointList[i], pointList[j]);
+                            newDist = pointList[i].TotalDistance + Distance2Point2DTests.Distance2D(pointList[i], pointList[j]);
                             if (newDist < bestDist)
                             {
                                 bestDist = newDist;
@@ -199,7 +211,7 @@ namespace InstrumentedLibrary
             solution.Add(end);
 
             //  Success.
-            return new Polyline(solution);
+            return new Polyline2D(solution);
         }
 
         /// <summary>
@@ -226,7 +238,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polyline? ShortestPath1(Polygon polygons, Point2D start, Point2D end)
+        public static Polyline2D? ShortestPath1(Polygon2D polygons, Point2D start, Point2D end)
         {
             // (larger than total solution dist could ever be)
             const double maxLength = double.MaxValue;
@@ -253,14 +265,14 @@ namespace InstrumentedLibrary
             //  If there is a straight-line solution, return with it immediately.
             if (LineSegmentInPolygonSetTests.LineInPolygonSet(polygons, start, end))
             {
-                return new Polyline(new List<Point2D> { start, end });
+                return new Polyline2D(new List<Point2D> { start, end });
             }
 
             //  Build a point list that refers to the corners of the
             //  polygons, as well as to the start point and endpoint.
             pointList.Add(start);
             pointCount = 1;
-            foreach (PolygonContour poly in polygons.Contours)
+            foreach (PolygonContour2D poly in polygons.Contours)
             {
                 foreach (Point2D point in poly.Points)
                 {
@@ -288,7 +300,7 @@ namespace InstrumentedLibrary
                     {
                         if (Point2DInPolygonSetTests.PointInPolygonSetAlienRyderFlex(polygons, pointList[ti]) && Point2DInPolygonSetTests.PointInPolygonSetAlienRyderFlex(polygons, pointList[tj]))
                         {
-                            newDist = pointList[ti].TotalDistance + Distance2Point2DTests.Distance((Point2D)pointList[ti], (Point2D)pointList[tj]);
+                            newDist = pointList[ti].TotalDistance + Distance2Point2DTests.Distance2D((Point2D)pointList[ti], (Point2D)pointList[tj]);
                             if (newDist < bestDist)
                             {
                                 bestDist = newDist;
@@ -334,7 +346,7 @@ namespace InstrumentedLibrary
             solution.Add(end);
 
             //  Success.
-            return new Polyline(solution);
+            return new Polyline2D(solution);
         }
 
         /// <summary>
@@ -355,7 +367,7 @@ namespace InstrumentedLibrary
         /// Public-domain code by Darel Rex Finley, 2006.
         /// http://alienryderflex.com/shortest_path/
         /// </acknowledgment>
-        public static Polyline? ShortestPath2(Polygon polygons, Point2D start, Point2D end)
+        public static Polyline2D? ShortestPath2(Polygon2D polygons, Point2D start, Point2D end)
         {
             // Fail if either the start point or endpoint is outside the polygon set.
             if (!Point2DInPolygonSetTests.PointInPolygonSetAlienRyderFlex(polygons, start)
@@ -367,7 +379,7 @@ namespace InstrumentedLibrary
             // If there is a straight-line solution, return with it immediately.
             if (LineSegmentInPolygonSetTests.LineInPolygonSet(polygons, start, end))
             {
-                return new Polyline(new List<Point2D> { start, end });
+                return new Polyline2D(new List<Point2D> { start, end });
             }
 
             // (larger than total solution dist could ever be)
@@ -387,7 +399,7 @@ namespace InstrumentedLibrary
             // Build a point list that refers to the corners of the
             // polygons, as well as to the start point and endpoint.
             pointList.Add((start.X, start.Y, 0, 0));
-            foreach (PolygonContour poly in polygons.Contours)
+            foreach (PolygonContour2D poly in polygons.Contours)
             {
                 foreach (Point2D point in poly.Points)
                 {
@@ -413,7 +425,7 @@ namespace InstrumentedLibrary
                     {
                         if (PolygonSetContainsPointsTests.PolygonSetContainsPoints(polygons, new Point2D(pointList[ti].X, pointList[ti].Y), new Point2D(pointList[tj].X, pointList[tj].Y)) == Inclusion.Inside)
                         {
-                            newDist = pointList[ti].TotalDistance + Distance2Point2DTests.Distance(new Point2D(pointList[ti].X, pointList[ti].Y), new Point2D(pointList[tj].X, pointList[tj].Y));
+                            newDist = pointList[ti].TotalDistance + Distance2Point2DTests.Distance2D(new Point2D(pointList[ti].X, pointList[ti].Y), new Point2D(pointList[tj].X, pointList[tj].Y));
                             if (newDist < bestDist)
                             {
                                 bestDist = newDist;
@@ -461,7 +473,7 @@ namespace InstrumentedLibrary
             solution.Add(end);
 
             // Success.
-            return new Polyline(solution);
+            return new Polyline2D(solution);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Point Near Orthogonal Ellipse Tests")]
     [Description("Determines whether a point is near an Orthogonal Ellipse.")]
-    [Signature("public static Inclusion PointNearEllipse(double x, double y, double rX, double rY, double pX, double pY)")]
+    [Signature("public static bool PointNearEllipse(double x1, double y1, double x2, double y2, double px, double py, double close_distance)")]
     [SourceCodeLocationProvider]
     public static class PointNearUnrotatedEllipseTests
     {
@@ -40,6 +40,22 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="px"></param>
+        /// <param name="py"></param>
+        /// <param name="close_distance"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool PointNearEllipse(double x1, double y1, double x2, double y2, double px, double py, double close_distance)
+            => PointNearEllipse0(x1, y1, x2, y2, px, py, close_distance);
+
+        /// <summary>
         /// Return True if the point is inside the ellipse
         /// (expanded by distance close_distance vertically
         /// and horizontally).
@@ -57,7 +73,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointNearEllipse(double x1, double y1, double x2, double y2, double px, double py, double close_distance)
+        public static bool PointNearEllipse0(double x1, double y1, double x2, double y2, double px, double py, double close_distance)
         {
             var a = (Abs(x2 - x1) / 2d) + close_distance;
             var b = (Abs(y2 - y1) / 2d) + close_distance;

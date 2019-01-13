@@ -13,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Square Distance between two points")]
     [Description("Calculates the square distance between two points.")]
-    [Signature("public static double PointOnLineSegment(double value1, double value2, double value3, double amount1, double amount2)")]
+    [Signature("public static double SquareDistance(double x1, double y1, double x2, double y2)")]
     [SourceCodeLocationProvider]
     public static class SquareDistanceTests
     {
@@ -39,6 +39,19 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double SquareDistance(double x1, double y1, double x2, double y2)
+            => SquareDistance0(x1, y1, x2, y2);
+
+        /// <summary>
         /// The square of the distance between two points.
         /// </summary>
         /// <param name="x1"></param>
@@ -51,7 +64,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SquareDistance(
+        public static double SquareDistance0(
             double x1, double y1,
             double x2, double y2)
         {

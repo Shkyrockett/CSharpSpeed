@@ -41,6 +41,16 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double WrapAngle(this double angle)
+            => WrapAngle00(angle);
+
+        /// <summary>
         /// Reduces a given angle to a value between 2π and -2π.
         /// </summary>
         /// <param name="angle">The angle to reduce, in radians.</param>
@@ -50,7 +60,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double WrapAngle(this double angle)
+        public static double WrapAngle00(double angle)
         {
             if (double.IsNaN(angle))
             {

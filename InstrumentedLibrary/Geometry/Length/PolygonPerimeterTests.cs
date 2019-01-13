@@ -13,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Polygon Perimeter Tests")]
     [Description("Calculate the Perimeter of a polygon.")]
-    [Signature("public static double PolygonPerimeter(IEnumerable<(double X, double Y)> points)")]
+    [Signature("public static List<(double X, double Y)> PolygonPerimeter(List<(double X, double Y)> points)")]
     [SourceCodeLocationProvider]
     public static class PolygonPerimeterTests
     {
@@ -39,6 +39,16 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static List<(double X, double Y)> PolygonPerimeter(List<(double X, double Y)> points)
+            => PolygonPerimeter0(points);
+
+        /// <summary>
         ///  Returns the perimeter polygon.
         ///  If for any reason the procedure fails, it will return null.
         /// </summary>
@@ -53,7 +63,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<(double X, double Y)> PolygonPerimeter(List<(double X, double Y)> points)
+        public static List<(double X, double Y)> PolygonPerimeter0(List<(double X, double Y)> points)
         {
             var corners = points.Count;
 
@@ -100,7 +110,7 @@ namespace InstrumentedLibrary
             {
                 for (j = i + 1; j < segs; j++)
                 {
-                    var (intersects, point) = LineSegmentLineSegmentIntersectionTests.Intersection0(
+                    var (intersects, point) = LineSegmentLineSegmentIntersectionTests.LineSegmentLineSegmentIntersection(
                     segS[i].X, segS[i].Y, segE[i].X, segE[i].Y,
                     segS[j].X, segS[j].Y, segE[j].X, segE[j].Y);
                     intersect = point;
@@ -137,7 +147,7 @@ namespace InstrumentedLibrary
             //  Calculate the angle of each segment.
             for (var i = 0; i < segs; i++)
             {
-                segAngle[i] = AngleofVector2DTests.AngleOf(segE[i].X - segS[i].X, segE[i].Y - segS[i].Y);
+                segAngle[i] = AngleofVector2DTests.AngleOfVector2D(segE[i].X - segS[i].X, segE[i].Y - segS[i].Y);
             }
 
             //  4.  Build the perimeter polygon.

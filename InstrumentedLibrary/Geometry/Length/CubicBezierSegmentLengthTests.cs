@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cubic Bezier Curve Segment Length Tests")]
     [Description("Estimations on the length of the Perimeter of an ellipse.")]
-    [Signature("public static double EllipsePerimeterLength(double a, double b)")]
+    [Signature("public static double CubicBezierArcLength(double ax, double ay, double bx, double by, double cx, double cy, double dx, double dy)")]
     [SourceCodeLocationProvider]
     public static class CubicBezierSegmentLengthTests
     {
@@ -40,6 +40,23 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ax"></param>
+        /// <param name="ay"></param>
+        /// <param name="bx"></param>
+        /// <param name="by"></param>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="dx"></param>
+        /// <param name="dy"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double CubicBezierArcLength(double ax, double ay, double bx, double by, double cx, double cy, double dx, double dy)
+            => CubicBezierArcLength0(ax, ay, bx, by, cx, cy, dx, dy);
+
+        /// <summary>
         /// Calculates the arc length of a Cubic Bézier curve.
         /// </summary>
         /// <param name="ax">The starting x-coordinate for the Cubic Bezier curve.</param>
@@ -60,7 +77,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CubicBezierArcLength(
+        public static double CubicBezierArcLength0(
             double ax, double ay,
             double bx, double by,
             double cx, double cy,

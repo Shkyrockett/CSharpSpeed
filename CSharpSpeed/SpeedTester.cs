@@ -181,7 +181,7 @@ namespace CSharpSpeed
         /// <param name="lineNumber">The lineNumber.</param>
         /// <returns>The <see cref="string"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static string GetMethodCode(string fileName, int lineNumber)
+        internal static string GetMethodCode(string fileName, int lineNumber)
         {
             var sb = new StringBuilder();
             var path = Path.Combine(Environment.CurrentDirectory, fileName);
@@ -201,6 +201,29 @@ namespace CSharpSpeed
                         break;
                     }
                 }
+            }
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Get the method code.
+        /// </summary>
+        /// <param name="fileName">The fileName.</param>
+        /// <param name="lineNumber">The lineNumber.</param>
+        /// <returns>The <see cref="string"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static string GetMethodCodeSignature(string fileName, int lineNumber)
+        {
+            var sb = new StringBuilder();
+            var path = Path.Combine(Environment.CurrentDirectory, fileName);
+            using (var fileStream = File.Open(path, FileMode.Open))
+            using (var reader = new StreamReader(fileStream))
+            {
+                for (var i = 0; i < lineNumber; ++i)
+                {
+                    reader.ReadLine();
+                }
+                var line = reader.ReadLine();
             }
             return sb.ToString();
         }

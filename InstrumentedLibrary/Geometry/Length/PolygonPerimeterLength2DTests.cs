@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Polygon Perimeter Length Tests")]
     [Description("Calculate the length of the Perimeter of a polygon.")]
-    [Signature("public static double PolygonPerimeter(IEnumerable<(double X, double Y)> points)")]
+    [Signature("public static double PolygonPerimeterLength2D(IEnumerable<(double X, double Y)> points)")]
     [SourceCodeLocationProvider]
     public static class PolygonPerimeterLength2DTests
     {
@@ -40,6 +40,16 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double PolygonPerimeterLength2D(IEnumerable<(double X, double Y)> points)
+            => Perimeter0(points);
+
+        /// <summary>
         /// The perimeter0.
         /// </summary>
         /// <param name="points">The points.</param>
@@ -55,7 +65,7 @@ namespace InstrumentedLibrary
             double dist = 0;
             foreach (var cur in points.Skip(1))
             {
-                dist += Distance2DTests.Distance2D_1(last.X, last.Y, cur.X, cur.Y);
+                dist += Distance2DTests.Distance2D(last.X, last.Y, cur.X, cur.Y);
                 last = cur;
             }
             return dist;

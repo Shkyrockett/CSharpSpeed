@@ -12,7 +12,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Linear Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a Linear Bezier Curve.")]
-    [Signature("public static IList<double> LinearBezierCoefficients(double a, double b)")]
+    [Signature("public static (double A, double B) LinearBezierCoefficients(double a, double b)")]
     [SourceCodeLocationProvider]
     public static class LinearBezierCoefficientsTests
     {
@@ -25,7 +25,7 @@ namespace InstrumentedLibrary
         {
             var trials = 1000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 1d, 2d }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:null, epsilon:double.Epsilon) },
+                { new object[] { 1d, 2d }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue: (1d, 1d), epsilon:double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -36,6 +36,17 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double A, double B) LinearBezierCoefficients(double a, double b)
+            => LinearBezierCoefficients0(a, b);
 
         /// <summary>
         /// Coefficients for a Linear Bézier curve.
@@ -52,7 +63,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B) LinearBezierCoefficients(double a, double b)
+        public static (double A, double B) LinearBezierCoefficients0(double a, double b)
         {
             return (b - a, a);
         }
@@ -69,9 +80,10 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial LinearBezierCoefficientsGeneral(double a, double b)
+        public static (double A, double B) LinearBezierCoefficientsGeneral(double a, double b)
         {
-            return GeneralBezierCoefficientsTests.BezierCoefficientsRecursive(a, b);
+            Polynomial polynomial = RecursiveBezierCoefficientsTests.BezierCoefficientsRecursive(a, b);
+            return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b]);
         }
 
         /// <summary>
@@ -89,9 +101,10 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial LinearBezierCoefficientsRecursive(double a, double b)
+        public static (double A, double B) LinearBezierCoefficientsRecursive(double a, double b)
         {
-            return (Polynomial.OneMinusT * a) + (Polynomial.T * b);
+            Polynomial polynomial = (Polynomial.OneMinusT * a) + (Polynomial.T * b);
+            return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b]);
         }
     }
 }

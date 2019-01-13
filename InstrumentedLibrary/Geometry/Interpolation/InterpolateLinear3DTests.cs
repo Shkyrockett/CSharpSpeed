@@ -15,7 +15,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Linear Interpolate Tests")]
     [Description("Find a point on a line.")]
-    [Signature("public static (double X, double Y, double Z) LinearInterpolate2D(double x1, double y1, double z1, double x2, double y2, double z2, double t)")]
+    [Signature("public static (double X, double Y, double Z) LinearInterpolate3D(double x1, double y1, double z1, double x2, double y2, double z2, double t)")]
     [SourceCodeLocationProvider]
     public static class InterpolateLinear3DTests
     {
@@ -39,6 +39,22 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y, double Z) LinearInterpolate3D(double x1, double y1, double z1, double x2, double y2, double z2, double t)
+            => LinearInterpolate3D_0(x1, y1, z1, x2, y2, z2, t);
 
         /// <summary>
         /// Precise method which guarantees v = v1 when t = 1.
@@ -125,9 +141,9 @@ namespace InstrumentedLibrary
             double t)
         {
             return (
-                InterpolateLinear1DTests.LinearInterpolate1D_0(x1, x2, t),
-                InterpolateLinear1DTests.LinearInterpolate1D_0(y1, y2, t),
-                InterpolateLinear1DTests.LinearInterpolate1D_0(z1, z2, t)
+                InterpolateLinear1DTests.LinearInterpolate1D(x1, x2, t),
+                InterpolateLinear1DTests.LinearInterpolate1D(y1, y2, t),
+                InterpolateLinear1DTests.LinearInterpolate1D(z1, z2, t)
                 );
         }
 

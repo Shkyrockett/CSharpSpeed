@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Interpolate Unrotated Elliptical Arc Tests")]
     [Description("Find a point on an unrotated elliptical arc.")]
-    [Signature("public static double EllipticalArc(double cX, double cY, double r1, double r2, double startAngle, double sweepAngle, double t)")]
+    [Signature("public static (double X, double Y) EllipticalArc(double cX, double cY, double r1, double r2, double startAngle, double sweepAngle, double t)")]
     [SourceCodeLocationProvider]
     public static class InterpolateUnrotatedEllipticalArcTests
     {
@@ -40,6 +40,22 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="r1"></param>
+        /// <param name="r2"></param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y) EllipticalArc(double cX, double cY, double r1, double r2, double startAngle, double sweepAngle, double t)
+            => EllipticalArc_(cX, cY, r1, r2, startAngle, sweepAngle, t);
+
+        /// <summary>
         /// Interpolates the unrotated elliptical Arc.
         /// </summary>
         /// <param name="cX">Center x-coordinate.</param>
@@ -55,7 +71,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) EllipticalArc(
+        public static (double X, double Y) EllipticalArc_(
             double cX, double cY,
             double r1, double r2,
             double startAngle, double sweepAngle,

@@ -42,6 +42,16 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// The polygon area0.
+        /// </summary>
+        /// <param name="polygon">The polygon.</param>
+        /// <returns>The <see cref="double"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double PolygonArea(List<Point2D> polygon)
+            => PolygonAreaAngusJ(polygon);
+
+        /// <summary>
         /// The polygon area00.
         /// </summary>
         /// <param name="polygon">The polygon.</param>
@@ -55,7 +65,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double PolygonArea00(List<Point2D> polygon)
+        public static double PolygonAreaAngusJ(List<Point2D> polygon)
         {
             var cnt = polygon.Count;
             if (cnt < 3)
@@ -87,7 +97,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double PolygonArea0(IEnumerable<Point2D> polygon)
+        public static double PolygonAreaAlienRyderFlex(IEnumerable<Point2D> polygon)
         {
             var points = polygon as List<Point2D>;
             var j = points.Count - 1;
@@ -114,7 +124,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double PolygonArea1(List<Point2D> polygon)
+        public static double PolygonAreaPaulBourke(List<Point2D> polygon)
         {
             var area = 0d;
 
@@ -187,7 +197,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double PolygonArea4(List<Point2D> polygon)
+        public static double PolygonAreaOnlyUser(List<Point2D> polygon)
         {
             if (polygon.Count < 3)
             {
@@ -229,7 +239,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double PolygonArea5(IEnumerable<Point2D> polygon)
         {
-            return Abs(PolygonSignedAreaTests.SignedPolygonArea5(polygon as List<Point2D>));
+            return Abs(PolygonSignedAreaTests.SignedPolygonArea(polygon as List<Point2D>));
         }
     }
 }

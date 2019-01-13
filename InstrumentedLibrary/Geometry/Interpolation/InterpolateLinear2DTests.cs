@@ -15,7 +15,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Linear Interpolate Tests")]
     [Description("Find a point on a line.")]
-    [Signature("public static (double X, double Y) LinearInterpolate2D(double x1, double y1, double x2, double y2, double t)")]
+    [Signature("public static (double X, double Y) LinearInterpolate2D(double x0, double y0, double x1, double y1, double t)")]
     [SourceCodeLocationProvider]
     public static class InterpolateLinear2DTests
     {
@@ -41,6 +41,20 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y) LinearInterpolate2D(double x0, double y0, double x1, double y1, double t)
+            => Lerp_(x0, y0, x1, y1, t);
+
+        /// <summary>
         /// The linear interpolation method.
         /// </summary>
         /// <param name="x0">The x0.</param>
@@ -54,7 +68,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Lerp(
+        public static (double X, double Y) Lerp_(
             double x0, double y0,
             double x1, double y1,
             double t)
@@ -141,8 +155,8 @@ namespace InstrumentedLibrary
             double t)
         {
             return (
-                InterpolateLinear1DTests.LinearInterpolate1D_0(x1, x2, t),
-                InterpolateLinear1DTests.LinearInterpolate1D_0(y1, y2, t)
+                InterpolateLinear1DTests.LinearInterpolate1D(x1, x2, t),
+                InterpolateLinear1DTests.LinearInterpolate1D(y1, y2, t)
                 );
         }
 

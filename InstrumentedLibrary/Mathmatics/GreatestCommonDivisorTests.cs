@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using static System.Math;
 
 namespace InstrumentedLibrary
 {

@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cubic Bezier Curve Segment Length Tests")]
     [Description("Estimations on the length of the Perimeter of an ellipse.")]
-    [Signature("public static double EllipsePerimeterLength(double a, double b)")]
+    [Signature("public static double QuadraticBezierArcLength(double ax, double ay, double bx, double by, double cx, double cy)")]
     [SourceCodeLocationProvider]
     public static class QuadraticBezierSegmentLengthTests
     {
@@ -38,6 +38,21 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ax"></param>
+        /// <param name="ay"></param>
+        /// <param name="bx"></param>
+        /// <param name="by"></param>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double QuadraticBezierArcLength(double ax, double ay, double bx, double by, double cx, double cy)
+            => QuadraticBezierArcLengthByIntegral(ax, ay, bx, by, cx, cy);
 
         /// <summary>
         /// Calculates the closed-form solution to elliptic integral for arc length.
@@ -107,12 +122,12 @@ namespace InstrumentedLibrary
             double cx, double cy)
         {
             var length = 0d;
-            var p = InterpolateQuadraticBezier2DTests.QuadraticBezierInterpolate2D_0(ax, ay, bx, by, cx, cy, 0);
+            var p = InterpolateQuadraticBezier2DTests.QuadraticBezierInterpolate2D(ax, ay, bx, by, cx, cy, 0);
             var prevX = p.X;
             var prevY = p.Y;
             for (var t = 0.005; t <= 1.0; t += 0.005)
             {
-                p = InterpolateQuadraticBezier2DTests.QuadraticBezierInterpolate2D_0(ay, ax, by, bx, cx, cy, t);
+                p = InterpolateQuadraticBezier2DTests.QuadraticBezierInterpolate2D(ay, ax, by, bx, cx, cy, t);
                 var deltaX = p.X - prevX;
                 var deltaY = p.Y - prevY;
                 length += Sqrt((deltaX * deltaX) + (deltaY * deltaY));

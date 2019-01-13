@@ -39,6 +39,21 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double AngleVector(double x1, double y1, double x2, double y2, double x3, double y3)
+            => AngleVector_0(x1, y1, x2, y2, x3, y3);
+
+        /// <summary>
         /// The angle vector 0.
         /// </summary>
         /// <param name="x1">The x1.</param>

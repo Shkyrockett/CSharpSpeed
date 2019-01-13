@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Self Intersection of Cubic Bezier")]
     [Description("Finds the self intersection points of a Cubic Bezier.")]
-    [Signature("public static double CubicBezierLineSegmentIntersection(double value1, double value2, double value3, double amount1, double amount2)")]
+    [Signature("public static (double X, double Y)? CubicBezierSelfIntersection(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)")]
     [SourceCodeLocationProvider]
     public static class CubicBezierSelfIntersectionTests
     {
@@ -40,6 +40,23 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y)? CubicBezierSelfIntersection(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
+            => CubicBezierSelfIntersectionX(x0, y0, x1, y1, x2, y2, x3, y3);
+
+        /// <summary>
         /// The cubic bezier self intersection x.
         /// </summary>
         /// <param name="x0">The x0.</param>
@@ -59,7 +76,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y)? CubicBezierSelfIntersectionX(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
         {
-            return CubicBezierSelfIntersection(
+            return CubicBezierSelfIntersectionX(
                 CubicBezierCoefficientsTests.CubicBezierCoefficients(x0, x1, x2, x3),
                 CubicBezierCoefficientsTests.CubicBezierCoefficients(y0, y1, y2, y3));
         }
@@ -76,7 +93,7 @@ namespace InstrumentedLibrary
         //[SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y)? CubicBezierSelfIntersection(Polynomial xCurve, Polynomial yCurve)
+        public static (double X, double Y)? CubicBezierSelfIntersectionX(Polynomial xCurve, Polynomial yCurve)
         {
             (var a, var b) = (xCurve[0] == 0d) ? (xCurve[1], xCurve[2]) : (xCurve[1] / xCurve[0], xCurve[2] / xCurve[0]);
             (var p, var q) = (yCurve[0] == 0d) ? (yCurve[1], yCurve[2]) : (yCurve[1] / yCurve[0], yCurve[2] / yCurve[0]);
@@ -129,7 +146,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y)? CubicBezierSelfIntersection(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
+        public static (double X, double Y)? CubicBezierSelfIntersection_(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
         {
             var (xCurveA, xCurveB, xCurveC, xCurveD) = CubicBezierCoefficientsTests.CubicBezierCoefficients(x0, x1, x2, x3);
             (var a, var b) = (xCurveD == 0d) ? (xCurveC, xCurveB) : (xCurveC / xCurveD, xCurveB / xCurveD);

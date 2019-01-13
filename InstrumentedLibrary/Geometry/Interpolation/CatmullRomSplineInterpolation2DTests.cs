@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cubic Catmull-Rom Interpolate Tests")]
     [Description("Find a point on a Cubic CatmullRom curve.")]
-    [Signature("public static double CatmullRomInterpolate2D(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4, double t)")]
+    [Signature("public static (double X, double Y) CatmullRomInterpolate2D(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4, double t)")]
     [SourceCodeLocationProvider]
     public static class CatmullRomSplineInterpolation2DTests
     {
@@ -39,6 +39,24 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <param name="x4"></param>
+        /// <param name="y4"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y) CatmullRomInterpolate2D(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4, double t)
+            => InterpolateCatmullRom(x1, y1, x2, y2, x3, y3, x4, y4, t);
 
         /// <summary>
         /// Calculates interpolated point between two points using Catmull-Rom Spline

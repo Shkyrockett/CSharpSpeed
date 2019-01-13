@@ -1,4 +1,7 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using static System.Math;
 
 namespace InstrumentedLibrary
@@ -9,19 +12,26 @@ namespace InstrumentedLibrary
     public struct Rectangle2D
     {
         /// <summary>
+        /// The empty.
+        /// </summary>
+        public static Rectangle2D Empty = new Rectangle2D(0, 0, 0, 0);
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle2D"/> class.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Rectangle2D(double x, double y, double width, double height)
             : this()
         {
-            this.X = x;
-            this.Y = y;
-            this.Width = width;
-            this.Height = height;
+            X = x;
+            Y = y;
+            Width = width;
+            Height = height;
         }
 
         /// <summary>
@@ -29,6 +39,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="point1">The point1.</param>
         /// <param name="point2">The point2.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Rectangle2D(Point2D point1, Point2D point2)
             : this()
         {
@@ -45,6 +57,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="point1">The point1.</param>
         /// <param name="point2">The point2.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Rectangle2D((double X, double Y) point1, (double X, double Y) point2)
             : this()
         {
@@ -112,18 +126,21 @@ namespace InstrumentedLibrary
         public Size2D Size { get { return new Size2D(Width, Height); } set { (Width, Height) = value; } }
 
         /// <summary>
-        /// The deconstruct.
+        /// Deconstruct this <see cref="Rectangle2D"/> to a <see cref="ValueTuple{T1, T2, T3, T4}"/>.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="top">The top.</param>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void Deconstruct(out double left, out double top, out double width, out double height)
         {
             left = X;
             top = Y;
-            width = this.Width;
-            height = this.Height;
+            width = Width;
+            height = Height;
         }
 
         /// <summary>
@@ -134,16 +151,18 @@ namespace InstrumentedLibrary
         /// <param name="right">The right.</param>
         /// <param name="bottom">The bottom.</param>
         /// <returns>The <see cref="Rectangle2D"/>.</returns>
-        public static Rectangle2D FromLTRB(double left, double top, double right, double bottom)
-            => new Rectangle2D(left, top, right - left, bottom - top);
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D FromLTRB(double left, double top, double right, double bottom) => new Rectangle2D(left, top, right - left, bottom - top);
 
         /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="obj">The obj.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool Equals(object obj)
-            => obj is Rectangle2D && Equals(this, (Rectangle2D)obj);
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj) => obj is Rectangle2D && Equals(this, (Rectangle2D)obj);
 
         /// <summary>
         /// The equals.
@@ -151,24 +170,24 @@ namespace InstrumentedLibrary
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Rectangle2D left, Rectangle2D right)
-            => left.X == right.X && left.Y == right.Y && left.Width == right.Width && left.Height == right.Height;
+        public static bool Equals(Rectangle2D left, Rectangle2D right) => left.X == right.X && left.Y == right.Y && left.Width == right.Width && left.Height == right.Height;
 
         /// <summary>
         /// Get the hash code.
         /// </summary>
         /// <returns>The <see cref="int"/>.</returns>
-        public override int GetHashCode()
-            => unchecked(X.GetHashCode()
-            ^ ((Y.GetHashCode() << 13) | (Y.GetHashCode() >> 19))
-            ^ ((Width.GetHashCode() << 26) | (Width.GetHashCode() >> 6))
-            ^ ((Height.GetHashCode() << 7) | (Height.GetHashCode() >> 25)));
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override int GetHashCode() => HashCode.Combine(X, Y, Width, Height);
 
         /// <summary>
         /// The to string.
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString() => $"{nameof(Rectangle2D)}{{{nameof(X)}:{X:R}, {nameof(Y)}:{Y:R}, {nameof(Width)}:{Width:R}, {nameof(Height)}:{Height:R} }}";
     }
 }

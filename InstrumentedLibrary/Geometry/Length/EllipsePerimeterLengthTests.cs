@@ -44,6 +44,17 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double EllipsePerimeterLength(double a, double b)
+            => EllipsePerimeter1(a, b);
+
+        /// <summary>
         /// AGM algorithm contributed by Charles Karney and based upon Carlson, B. C. (1995). 
         /// "Computation of real or complex elliptic integrals". Numerical Algorithms 10. 
         /// This algorithm converses quadratically, that is, the number of correct digits 

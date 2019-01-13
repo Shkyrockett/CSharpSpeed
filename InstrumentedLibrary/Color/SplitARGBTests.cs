@@ -13,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Split Int Color to ARGB")]
     [Description("Split an integer based ARGB color into the individual components.")]
-    [Signature("public static (byte Red, byte Green, byte Blue, byte Alpha) SplitARGB(int color)")]
+    [Signature("public static (byte Red, byte Green, byte Blue, byte Alpha) SplitARGB(uint color)")]
     [SourceCodeLocationProvider]
     public static class SplitARGBTests
     {
@@ -44,6 +44,16 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (byte Red, byte Green, byte Blue, byte Alpha) SplitARGB(uint color)
+            => SplitARGBBitShifting(color);
+
+        /// <summary>
         /// The split ARGB. 
         /// </summary>
         /// <param name="color">The color.</param>
@@ -57,7 +67,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (byte Alpha, byte Red, byte Green, byte Blue) SplitARGB(uint color)
+        public static (byte Alpha, byte Red, byte Green, byte Blue) SplitARGBBitShifting(uint color)
         {
             return (
                 Alpha: (byte)((color >> 24) & 0xFF),
@@ -71,7 +81,7 @@ namespace InstrumentedLibrary
         /// The split ARGB bit converter.
         /// </summary>
         /// <param name="color">The color.</param>
-        /// <returns>The <see cref="TS:(byte Alpha, byte Red, byte Green, byte Blue)"/>.</returns>
+        /// <returns>The <see cref="T:(byte Alpha, byte Red, byte Green, byte Blue)"/>.</returns>
         [DisplayName("Split Int Color to ARGB")]
         [Description("Split an integer based ARGB color into the individual components.")]
         [Acknowledgment("https://stackoverflow.com/a/1318948")]
@@ -81,7 +91,7 @@ namespace InstrumentedLibrary
         public static (byte Alpha, byte Red, byte Green, byte Blue) SplitARGBBitConverter(uint color)
         {
             var buffer = BitConverter.GetBytes(color);
-            return (buffer[0], buffer[1], buffer[2], buffer[3]);
+            return (buffer[3], buffer[2], buffer[1], buffer[0]);
         }
 
         /// <summary>
@@ -101,7 +111,7 @@ namespace InstrumentedLibrary
             {
                 *(uint*)bufferRef = color;
             }
-            return (buffer[0], buffer[1], buffer[2], buffer[3]);
+            return (buffer[3], buffer[2], buffer[1], buffer[0]);
         }
 
         //public static unsafe (byte Alpha, byte Red, byte Green, byte Blue) SplitARGBGetBytess(uint color)

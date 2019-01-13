@@ -12,7 +12,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Polygon Clockwise")]
     [Description("Determine the winding order of a polygon.")]
-    [Signature("public static bool PolygonIsOrientedClockwise(List<List<Point2D>> polygon)")]
+    [Signature("public static bool PolygonIsOrientedClockwise(List<Point2D> polygon)")]
     [SourceCodeLocationProvider]
     public static class PolygonIsOrientedClockwiseTests
     {
@@ -39,6 +39,16 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool PolygonIsOrientedClockwise(List<Point2D> polygon)
+            => PolygonIsOrientedClockwise0(polygon);
+
+        /// <summary>
         /// The polygon is oriented clockwise.
         /// </summary>
         /// <param name="polygon">The polygon.</param>
@@ -52,9 +62,9 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PolygonIsOrientedClockwise(List<Point2D> polygon)
+        public static bool PolygonIsOrientedClockwise0(List<Point2D> polygon)
         {
-            return PolygonSignedAreaTests.SignedPolygonArea5(polygon) < 0d;
+            return PolygonSignedAreaTests.SignedPolygonArea(polygon) < 0d;
         }
     }
 }

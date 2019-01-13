@@ -15,7 +15,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Distance to line segment from point")]
     [Description("Calculates the distance from a point to the nearest point on a line segment.")]
-    [Signature("public static double PointOnLineSegment(double value1, double value2, double value3, double amount1, double amount2)")]
+    [Signature("public static double DistanceToSegment(double px, double py, double x1, double y1, double x2, double y2)")]
     [SourceCodeLocationProvider]
     public static class DistanceToLineSegmentTests
     {
@@ -41,6 +41,21 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="px"></param>
+        /// <param name="py"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double DistanceToSegment(double px, double py, double x1, double y1, double x2, double y2)
+            => DistToSegment2(px, py, x1, y1, x2, y2);
+
+        /// <summary>
         /// Calculate the distance between the point and the segment.
         /// </summary>
         /// <param name="px">The px.</param>
@@ -55,7 +70,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double distance, (double, double)) DistanceToSegment(double px, double py, double x1, double y1, double x2, double y2)
+        public static (double distance, (double, double)) DistanceToSegment1(double px, double py, double x1, double y1, double x2, double y2)
         {
             var RetNear = (X: 0d, Y: 0d);
             var Delta = (X: x2 - x1, Y: y2 - y1);

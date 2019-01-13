@@ -13,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Polygon Contour Bounds Tests")]
     [Description("Calculate bounding rectangle of a polygon contour.")]
-    [Signature("public static double PolygonContourBounds(IEnumerable<(double X, double Y)> points)")]
+    [Signature("public static Rectangle2D? PolygonBounds(List<(double X, double Y)> path)")]
     [SourceCodeLocationProvider]
     public static class BoundsOfPolygonContourTests
     {
@@ -37,6 +37,16 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Rectangle2D? PolygonBounds(List<(double X, double Y)> path)
+            => PolygonBounds0(path);
 
         /// <summary>
         /// Calculate the external bounding rectangle of a Polygon.

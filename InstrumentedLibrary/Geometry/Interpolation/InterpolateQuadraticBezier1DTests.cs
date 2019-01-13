@@ -39,6 +39,19 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v0"></param>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double QuadraticBezierInterpolate1D(double v0, double v1, double v2, double t)
+            => QuadraticBezierInterpolate1D_0(v0, v1, v2, t);
+
+        /// <summary>
         /// Three control point Bézier interpolation mu ranges from 0 to 1, start to end of the curve.
         /// </summary>
         /// <param name="v0"></param>
@@ -88,13 +101,13 @@ namespace InstrumentedLibrary
             double t)
         {
             // point between a and b
-            var ab = InterpolateLinear1DTests.LinearInterpolate1D_0(v0, v1, t);
+            var ab = InterpolateLinear1DTests.LinearInterpolate1D(v0, v1, t);
 
             // point between b and c
-            var bc = InterpolateLinear1DTests.LinearInterpolate1D_0(v1, v2, t);
+            var bc = InterpolateLinear1DTests.LinearInterpolate1D(v1, v2, t);
 
             // point on the bezier-curve
-            return InterpolateLinear1DTests.LinearInterpolate1D_0(ab, bc, t);
+            return InterpolateLinear1DTests.LinearInterpolate1D(ab, bc, t);
         }
     }
 }

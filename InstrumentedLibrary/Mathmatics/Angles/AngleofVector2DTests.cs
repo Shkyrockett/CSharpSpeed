@@ -41,6 +41,17 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double AngleOfVector2D(double i, double j)
+            => AngleOf(i, j);
+
+        /// <summary>
         /// Angle with tangent opp/hyp
         /// </summary>
         /// <param name="i">opposite component.</param>

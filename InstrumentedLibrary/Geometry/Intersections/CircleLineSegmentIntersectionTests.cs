@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Intersection of Circle and Line Segment")]
     [Description("Finds the intersection points of a circle and a line segment.")]
-    [Signature("public static double CircleLineSegmentIntersection(double value1, double value2, double value3, double amount1, double amount2)")]
+    [Signature("public static Intersection CircleLineSegmentIntersection(double cX, double cY, double r, double lAX, double lAY, double lBX, double lBY, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class CircleLineSegmentIntersectionTests
     {
@@ -38,6 +38,23 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="r"></param>
+        /// <param name="lAX"></param>
+        /// <param name="lAY"></param>
+        /// <param name="lBX"></param>
+        /// <param name="lBY"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Intersection CircleLineSegmentIntersection(double cX, double cY, double r, double lAX, double lAY, double lBX, double lBY, double epsilon = Epsilon)
+            => CircleLineSegmentIntersection1(cX, cY, r, lAX, lAY, lBX, lBY, epsilon);
 
         /// <summary>
         /// Find the points of the intersection of a circle and a line segment.
@@ -145,7 +162,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection CircleLineSegmentIntersection(
+        public static Intersection CircleLineSegmentIntersectionKevLinDev(
             double cX, double cY,
             double r,
             double lAX, double lAY,
@@ -176,7 +193,7 @@ namespace InstrumentedLibrary
                     result = new Intersection(IntersectionState.Intersection);
                     if (0 <= u1 && u1 <= 1)
                     {
-                        result.Points.Add(InterpolateLinear2DTests.LinearInterpolate2D_0(lAX, lAY, lBX, lBY, u1));
+                        result.Points.Add(InterpolateLinear2DTests.LinearInterpolate2D(lAX, lAY, lBX, lBY, u1));
                     }
                 }
             }
@@ -194,12 +211,12 @@ namespace InstrumentedLibrary
                     result = new Intersection(IntersectionState.Intersection);
                     if (0 <= u1 && u1 <= 1)
                     {
-                        result.Points.Add(InterpolateLinear2DTests.LinearInterpolate2D_0(lAX, lAY, lBX, lBY, u1));
+                        result.Points.Add(InterpolateLinear2DTests.LinearInterpolate2D(lAX, lAY, lBX, lBY, u1));
                     }
 
                     if (0 <= u2 && u2 <= 1)
                     {
-                        result.Points.Add(InterpolateLinear2DTests.LinearInterpolate2D_0(lAX, lAY, lBX, lBY, u2));
+                        result.Points.Add(InterpolateLinear2DTests.LinearInterpolate2D(lAX, lAY, lBX, lBY, u2));
                     }
                 }
             }

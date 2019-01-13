@@ -15,7 +15,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cosine Interpolate Tests")]
     [Description("Find a point on a Cosine curve.")]
-    [Signature("public static double CosineInterpolate3D(double v0, double v1, double v2, double v3, double t)")]
+    [Signature("public static (double X, double Y, double Z) CosineInterpolate3D(double x1, double y1, double z1, double x2, double y2, double z2, double t)")]
     [SourceCodeLocationProvider]
     public static class CosineInterpolate3DTests
     {
@@ -41,6 +41,22 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y, double Z) CosineInterpolate3D(double x1, double y1, double z1, double x2, double y2, double z2, double t)
+            => CosineInterpolate3D_(x1, y1, z1, x2, y2, z2, t);
+
+        /// <summary>
         /// The cosine interpolate3d.
         /// </summary>
         /// <param name="x1">The x1.</param>
@@ -60,7 +76,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) CosineInterpolate3D(
+        public static (double X, double Y, double Z) CosineInterpolate3D_(
             double x1, double y1, double z1,
             double x2, double y2, double z2,
             double t)

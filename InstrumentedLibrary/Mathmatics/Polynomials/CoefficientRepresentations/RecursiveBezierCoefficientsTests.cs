@@ -13,15 +13,15 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("General Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a General Bezier Curve.")]
-    [Signature("public static IList<double> BezierCoefficients(params double[] values)")]
+    [Signature("public static Polynomial BezierCoefficientsRecursive(params double[] values)")]
     [SourceCodeLocationProvider]
-    public static class GeneralBezierCoefficientsTests
+    public static class RecursiveBezierCoefficientsTests
     {
         /// <summary>
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
-        [DisplayName(nameof(GeneralBezierCoefficientsTests))]
+        [DisplayName(nameof(RecursiveBezierCoefficientsTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 1000;
@@ -47,6 +47,16 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Polynomial RecursiveBezierCoefficients(params double[] values)
+            => BezierCoefficientsRecursive(values);
 
         /// <summary>
         /// Recursive method for calculating the Bezier Polynomial.
@@ -84,7 +94,7 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial BezierCoefficientsRecursive(int from, int to, double[] values)
+        private static Polynomial BezierCoefficientsRecursive(int from, int to, double[] values)
         {
             return (from == to)
                        ? new Polynomial(values[from])

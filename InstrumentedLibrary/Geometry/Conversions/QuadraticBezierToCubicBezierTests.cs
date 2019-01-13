@@ -39,6 +39,21 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY) QuadraticBezierToCubicBezier(double aX, double aY, double bX, double bY, double cX, double cY)
+            => QuadraticBezierToCubicBezierTuple(aX, aY, bX, bY, cX, cY);
+
+        /// <summary>
         /// Raise a Quadratic Bézier to a Cubic Bézier.
         /// </summary>
         /// <param name="aX">The x-component of the starting point.</param>

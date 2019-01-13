@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using static System.Math;
 
 namespace InstrumentedLibrary
@@ -12,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cubic Bezier Derivative Tests")]
     [Description("Cubic Bezier Derivative.")]
-    [Signature("public static double TripointCircleBounds(double aX, double aY, double bX, double bY, double cX, double cY)")]
+    [Signature("public static (double X, double Y) CubicBezierDerivative(double p0X, double p0Y, double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double t)")]
     [SourceCodeLocationProvider]
     public static class CubicBezierDerivativeTests
     {
@@ -38,6 +39,24 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p0X"></param>
+        /// <param name="p0Y"></param>
+        /// <param name="p1X"></param>
+        /// <param name="p1Y"></param>
+        /// <param name="p2X"></param>
+        /// <param name="p2Y"></param>
+        /// <param name="p3X"></param>
+        /// <param name="p3Y"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y) CubicBezierDerivative(double p0X, double p0Y, double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double t)
+            => CubicBezierDerivative0(p0X,  p0Y,  p1X,  p1Y,  p2X,  p2Y,  p3X,  p3Y,  t);
+
+        /// <summary>
         /// The cubic bezier derivative0.
         /// </summary>
         /// <param name="p0X"></param>
@@ -57,6 +76,7 @@ namespace InstrumentedLibrary
         [Description("Cubic Bezier Derivative.")]
         [Acknowledgment("http://www.cs.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/Bezier/bezier-der.html")]
         [SourceCodeLocationProvider]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DebuggerStepThrough]
         public static (double X, double Y) CubicBezierDerivative0(
             double p0X, double p0Y,
@@ -83,7 +103,7 @@ namespace InstrumentedLibrary
         /// <param name="p3X"></param>
         /// <param name="p3Y"></param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="PointF"/>.</returns>
+        /// <returns>The (double X, double Y).</returns>
         /// <acknowledgment>
         /// http://www.cs.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/Bezier/bezier-der.html
         /// </acknowledgment>
@@ -91,6 +111,7 @@ namespace InstrumentedLibrary
         [Description("Cubic Bezier Derivative.")]
         [Acknowledgment("http://www.cs.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/Bezier/bezier-der.html")]
         [SourceCodeLocationProvider]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DebuggerStepThrough]
         public static (double X, double Y) CubicBezierDerivative1(
             double p0X, double p0Y,

@@ -13,24 +13,10 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Area Intersection Two Circles")]
     [Description("Find the area of the section of the intersection of two circles.")]
-    [Signature("public static double Area(double x1, double y1, double r1, double x2, double y2, double r2)")]
+    [Signature("public static double Area(double centerX1, double centerY1, double radius1, double centerX2, double centerY2, double radius2)")]
     [SourceCodeLocationProvider]
     public static class IntersectionCirclesTestsArea
     {
-        /// <summary>
-        /// The area.
-        /// </summary>
-        /// <param name="x1">The x1.</param>
-        /// <param name="y1">The y1.</param>
-        /// <param name="r1">The r1.</param>
-        /// <param name="x2">The x2.</param>
-        /// <param name="y2">The y2.</param>
-        /// <param name="r2">The r2.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Area(double x1, double y1, double r1, double x2, double y2, double r2)
-            => Area1(x1, y1, r1, x2, y2, r2);
-
         /// <summary>
         /// The area intersection circles test.
         /// </summary>
@@ -51,6 +37,21 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// The area.
+        /// </summary>
+        /// <param name="centerX1">The x1.</param>
+        /// <param name="centerY1">The y1.</param>
+        /// <param name="radius1">The r1.</param>
+        /// <param name="centerX2">The x2.</param>
+        /// <param name="centerY2">The y2.</param>
+        /// <param name="radius2">The r2.</param>
+        /// <returns>The <see cref="double"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double Area(double centerX1, double centerY1, double radius1, double centerX2, double centerY2, double radius2)
+            => Area1(centerX1, centerY1, radius1, centerX2, centerY2, radius2);
 
         /// <summary>
         /// The area.

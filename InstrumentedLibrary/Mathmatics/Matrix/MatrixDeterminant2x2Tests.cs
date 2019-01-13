@@ -39,6 +39,19 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="r1c1"></param>
+        /// <param name="r1c2"></param>
+        /// <param name="r2c1"></param>
+        /// <param name="r2c2"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double Determinant(double r1c1, double r1c2, double r2c1, double r2c2)
+            => Determinant0(r1c1, r1c2, r2c1, r2c2);
+
+        /// <summary>
         /// Find the determinant of a 2 by 2 matrix.
         /// </summary>
         /// <param name="m1x1"></param>
@@ -55,7 +68,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Determinant(
+        public static double Determinant0(
             double m1x1, double m1x2,
             double m2x1, double m2x2)
         {

@@ -40,6 +40,22 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="rX"></param>
+        /// <param name="rY"></param>
+        /// <param name="angle"></param>
+        /// <param name="pX"></param>
+        /// <param name="pY"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Inclusion PointInEllipse(double x, double y, double rX, double rY, double angle, double pX, double pY)
+            =>PointInEllipse0( x,  y,  rX,  rY,  angle,  pX,  pY);
+
+        /// <summary>
         /// Checks whether a point is found within the boundaries of an ellipse.
         /// </summary>
         /// <param name="x"></param>
@@ -59,7 +75,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInEllipse(double x, double y, double rX, double rY, double angle, double pX, double pY)
+        public static Inclusion PointInEllipse0(double x, double y, double rX, double rY, double angle, double pX, double pY)
         {
             if (rX <= 0d || rY <= 0d)
             {

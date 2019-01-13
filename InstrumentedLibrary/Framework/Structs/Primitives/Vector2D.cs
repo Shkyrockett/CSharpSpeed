@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using static System.Math;
 
@@ -10,6 +11,11 @@ namespace InstrumentedLibrary
     public struct Vector2D
     {
         /// <summary>
+        /// Represents a <see cref="Vector2D"/> that has <see cref="I"/> and <see cref="J"/> values set to zero.
+        /// </summary>
+        public static readonly Vector2D Empty = new Vector2D(0d, 0d);
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> class.
         /// </summary>
         /// <param name="i">The i.</param>
@@ -18,9 +24,20 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2D(double i, double j)
         {
-            this.I = i;
-            this.J = j;
+            I = i;
+            J = j;
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Vector2D"/> class.
+        /// </summary>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector2D(Vector2D a, Vector2D b) :
+            this(a.I, a.J, b.I, b.J)
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> class.
@@ -34,8 +51,9 @@ namespace InstrumentedLibrary
         public Vector2D(double aI, double aJ, double bI, double bJ)
         {
             (var i, var j) = (bI - aI, bJ - aJ);
-            I = i * 1d / Sqrt((i * i) + (j * j));
-            J = j * 1d / Sqrt((i * i) + (j * j));
+            var d = Sqrt((i * i) + (j * j));
+            I = i * 1d / d;
+            J = j * 1d / d;
         }
 
         /// <summary>
@@ -49,7 +67,7 @@ namespace InstrumentedLibrary
         public double J { get; set; }
 
         /// <summary>
-        /// The deconstruct.
+        /// Deconstruct this <see cref="Vector2D"/> to a <see cref="ValueTuple{T1, T2}"/>.
         /// </summary>
         /// <param name="i">The i.</param>
         /// <param name="j">The j.</param>
@@ -57,8 +75,8 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Deconstruct(out double i, out double j)
         {
-            i = this.I;
-            j = this.J;
+            i = I;
+            j = J;
         }
 
         /// <summary>
@@ -68,8 +86,7 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="Vector2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator +(Vector2D value)
-            => new Vector2D(+value.I, +value.J);
+        public static Vector2D operator +(Vector2D value) => new Vector2D(+value.I, +value.J);
 
         /// <summary>
         /// Add Points
@@ -79,8 +96,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator +(Vector2D value, double addend)
-            => new Vector2D(value.I + addend, value.J + addend);
+        public static Vector2D operator +(Vector2D value, double addend) => new Vector2D(value.I + addend, value.J + addend);
 
         /// <summary>
         /// Add Points
@@ -90,8 +106,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator +(Vector2D value, Point2D addend)
-            => new Point2D(value.I + addend.X, value.J + addend.Y);
+        public static Point2D operator +(Vector2D value, Point2D addend) => new Point2D(value.I + addend.X, value.J + addend.Y);
 
         /// <summary>
         /// Add Points
@@ -101,8 +116,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator +(Vector2D value, Vector2D addend)
-            => new Vector2D(value.I + addend.I, value.J + addend.J);
+        public static Vector2D operator +(Vector2D value, Vector2D addend) => new Vector2D(value.I + addend.I, value.J + addend.J);
 
         /// <summary>
         /// The operator -.
@@ -111,8 +125,7 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="Vector2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator -(Vector2D value)
-            => new Vector2D(-value.I, -value.J);
+        public static Vector2D operator -(Vector2D value) => new Vector2D(-value.I, -value.J);
 
         /// <summary>
         /// Subtract Points
@@ -122,8 +135,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator -(Vector2D value, double subend)
-            => new Vector2D(value.I - subend, value.J - subend);
+        public static Vector2D operator -(Vector2D value, double subend) => new Vector2D(value.I - subend, value.J - subend);
 
         /// <summary>
         /// Subtract Points
@@ -133,8 +145,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator -(Vector2D value, Point2D subend)
-            => new Point2D(value.I + subend.X, value.J + subend.Y);
+        public static Point2D operator -(Vector2D value, Point2D subend) => new Point2D(value.I + subend.X, value.J + subend.Y);
 
         /// <summary>
         /// Subtract Points
@@ -144,8 +155,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator -(Vector2D value, Vector2D subend)
-            => new Vector2D(value.I + subend.I, value.J + subend.J);
+        public static Vector2D operator -(Vector2D value, Vector2D subend) => new Vector2D(value.I + subend.I, value.J + subend.J);
 
         /// <summary>
         /// Scale a Vector
@@ -155,8 +165,7 @@ namespace InstrumentedLibrary
         /// <returns>A Point Multiplied by the Multiplier</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator *(Vector2D value, double factor)
-            => new Vector2D(value.I * factor, value.J * factor);
+        public static Vector2D operator *(Vector2D value, double factor) => new Vector2D(value.I * factor, value.J * factor);
 
         /// <summary>
         /// Scale a Vector
@@ -166,8 +175,7 @@ namespace InstrumentedLibrary
         /// <returns>A Point Multiplied by the Multiplier</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator *(double factor, Vector2D value)
-            => new Vector2D(value.I * factor, value.J * factor);
+        public static Vector2D operator *(double factor, Vector2D value) => new Vector2D(value.I * factor, value.J * factor);
 
         /// <summary>
         /// Scale a Vector
@@ -177,8 +185,7 @@ namespace InstrumentedLibrary
         /// <returns>A Point Multiplied by the Multiplier</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator *(Vector2D value, Size2D factor)
-            => new Vector2D(value.I * factor.Width, value.J * factor.Height);
+        public static Vector2D operator *(Vector2D value, Size2D factor) => new Vector2D(value.I * factor.Width, value.J * factor.Height);
 
         /// <summary>
         /// Divide a Vector2D
@@ -188,8 +195,7 @@ namespace InstrumentedLibrary
         /// <returns>A Vector2D divided by the divisor</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator /(Vector2D divisor, double divedend)
-            => new Vector2D(divisor.I / divedend, divisor.J / divedend);
+        public static Vector2D operator /(Vector2D divisor, double divedend) => new Vector2D(divisor.I / divedend, divisor.J / divedend);
 
         /// <summary>
         /// Divide a Vector2D
@@ -199,8 +205,7 @@ namespace InstrumentedLibrary
         /// <returns>A Vector2D divided by the divisor</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator /(double divisor, Vector2D dividend)
-            => new Vector2D(divisor / dividend.I, divisor / dividend.I);
+        public static Vector2D operator /(double divisor, Vector2D dividend) => new Vector2D(divisor / dividend.I, divisor / dividend.I);
 
         /// <summary>
         /// The operator ==.
@@ -210,8 +215,7 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Vector2D a, Vector2D b)
-            => Equals(a, b);
+        public static bool operator ==(Vector2D a, Vector2D b) => Equals(a, b);
 
         /// <summary>
         /// The operator !=.
@@ -221,35 +225,31 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Vector2D a, Vector2D b)
-            => !Equals(a, b);
+        public static bool operator !=(Vector2D a, Vector2D b) => !Equals(a, b);
 
         /// <summary>
-        /// Explicit conversion to Vector
+        /// Converts the specified <see cref="Point2D"/> structure to a <see cref="Size2D"/> structure.
         /// </summary>
-        /// <param name="point"> Point - the Point to convert to a Vector </param>
+        /// <param name="point">The <see cref="Point2D"/> to be converted.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Vector2D(Point2D point)
-            => new Vector2D(point.X, point.Y);
+        public static explicit operator Vector2D(Point2D point) => new Vector2D(point.X, point.Y);
 
         /// <summary>
-        /// Explicit conversion from Size2D to Vector2D.
+        /// Converts the specified <see cref="Size2D"/> structure to a <see cref="Size2D"/> structure.
         /// </summary>
-        /// <param name="size">Point - the Point to convert to a Vector.</param>
+        /// <param name="size">The <see cref="Size2D"/> to be converted.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Vector2D(Size2D size)
-            => new Vector2D(size.Width, size.Height);
+        public static explicit operator Vector2D(Size2D size) => new Vector2D(size.Width, size.Height);
 
         /// <summary>
-        /// 
+        /// Converts the specified <see cref="Vector2D"/> structure to a <see cref="ValueTuple{T1, T2}"/> structure.
         /// </summary>
-        /// <param name="vector"></param>
+        /// <param name="vector">The <see cref="Vector2D"/> to be converted.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator (double I, double J) (Vector2D vector)
-            => (vector.I, vector.J);
+        public static implicit operator (double I, double J) (Vector2D vector) => (vector.I, vector.J);
 
         /// <summary>
         /// The equals.
@@ -258,8 +258,7 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => obj is Vector2D && Equals(this, (Vector2D)obj);
+        public override bool Equals(object obj) => obj is Vector2D && Equals(this, (Vector2D)obj);
 
         /// <summary>
         /// The equals.
@@ -269,8 +268,7 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Vector2D a, Vector2D b)
-            => (a.I == b.I) & (a.J == b.J);
+        public static bool Equals(Vector2D a, Vector2D b) => (a.I == b.I) & (a.J == b.J);
 
         /// <summary>
         /// Get the hash code.
@@ -278,9 +276,7 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="int"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode()
-            => I.GetHashCode()
-            ^ J.GetHashCode();
+        public override int GetHashCode() => HashCode.Combine(I, J);
 
         /// <summary>
         /// The to string.

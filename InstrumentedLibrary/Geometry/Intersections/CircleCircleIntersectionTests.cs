@@ -15,7 +15,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Intersection of Two Circles")]
     [Description("Find the intersection points of two Circles.")]
-    [Signature("public static Intersection CircleCircleIntersection(double cx0, double cy0, double radius0, double cx1, double cy1, double radius1, double epsilon = Epsilon)")]
+    [Signature("public static (int, (double X, double Y), (double X, double Y)) FindCircleCircleIntersections(double cx0, double cy0, double radius0, double cx1, double cy1, double radius1, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class CircleCircleIntersectionTests
     {
@@ -41,6 +41,22 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cx0"></param>
+        /// <param name="cy0"></param>
+        /// <param name="radius0"></param>
+        /// <param name="cx1"></param>
+        /// <param name="cy1"></param>
+        /// <param name="radius1"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (int, (double X, double Y), (double X, double Y)) FindCircleCircleIntersections(double cx0, double cy0, double radius0, double cx1, double cy1, double radius1, double epsilon = Epsilon)
+            => FindCircleCircleIntersections_(cx0, cy0, radius0, cx1, cy1, radius1, epsilon);
+
+        /// <summary>
         /// Find the points where the two circles intersect.
         /// </summary>
         /// <param name="cx0"></param>
@@ -59,7 +75,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (int, (double X, double Y), (double X, double Y)) FindCircleCircleIntersections(
+        public static (int, (double X, double Y), (double X, double Y)) FindCircleCircleIntersections_(
             double cx0, double cy0, double radius0,
             double cx1, double cy1, double radius1,
             double epsilon = Epsilon)

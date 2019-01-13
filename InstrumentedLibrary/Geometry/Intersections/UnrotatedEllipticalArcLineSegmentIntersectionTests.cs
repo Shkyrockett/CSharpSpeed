@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Intersection of unrotated elliptical arc and line segment")]
     [Description("Find the intersection points between unrotated elliptical and arc line segment.")]
-    [Signature("public static double LineSegmentLineSegmentIntersection(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4, double epsilon = Epsilon)")]
+    [Signature("public static Intersection UnrotatedEllipticalArcLineSegmentIntersection(double cx, double cy, double rx, double ry, double startAngle, double sweepAngle, double x0, double y0, double x1, double y1, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class UnrotatedEllipticalArcLineSegmentIntersectionTests
     {
@@ -40,6 +40,26 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Intersection UnrotatedEllipticalArcLineSegmentIntersection(double cx, double cy, double rx, double ry, double startAngle, double sweepAngle, double x0, double y0, double x1, double y1, double epsilon = Epsilon)
+            => UnrotatedEllipticalArcLineSegmentIntersection0(cx, cy, rx, ry, startAngle, sweepAngle, x0, y0, x1, y1, epsilon);
+
+        /// <summary>
         /// The unrotated elliptical arc line segment intersection.
         /// </summary>
         /// <param name="cx">The cx.</param>
@@ -63,7 +83,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection UnrotatedEllipticalArcLineSegmentIntersection(
+        public static Intersection UnrotatedEllipticalArcLineSegmentIntersection0(
             double cx, double cy,
             double rx, double ry,
             double startAngle, double sweepAngle,
@@ -126,7 +146,7 @@ namespace InstrumentedLibrary
                 }
                 else
                 {
-                    var p = InterpolateLinear2DTests.Lerp(x0, y0, x1, y1, t1);
+                    var p = InterpolateLinear2DTests.LinearInterpolate2D(x0, y0, x1, y1, t1);
                     // Find the determinant of the chord.
                     var determinant = (sX - p.X) * (eY - p.Y) - (eX - p.X) * (sY - p.Y);
 
@@ -136,7 +156,7 @@ namespace InstrumentedLibrary
                         result.AppendPoint(p);
                     }
 
-                    p = InterpolateLinear2DTests.Lerp(x0, y0, x1, y1, t2);
+                    p = InterpolateLinear2DTests.LinearInterpolate2D(x0, y0, x1, y1, t2);
                     // Find the determinant of the chord.
                     determinant = (sX - p.X) * (eY - p.Y) - (eX - p.X) * (sY - p.Y);
                     if (0 <= t2 && t2 <= 1 && (Sign(determinant) != Sign(sweepAngle)))
@@ -151,7 +171,7 @@ namespace InstrumentedLibrary
                 var t = -b / a;
                 if (t >= 0d && t <= 1d)
                 {
-                    var p = InterpolateLinear2DTests.Lerp(x0, y0, x1, y1, t);
+                    var p = InterpolateLinear2DTests.LinearInterpolate2D(x0, y0, x1, y1, t);
 
                     // Find the determinant of the matrix representing the chord.
                     var determinant = (sX - p.X) * (eY - p.Y) - (eX - p.X) * (sY - p.Y);
@@ -159,7 +179,7 @@ namespace InstrumentedLibrary
                     // Add the point if it is on the sweep side of the chord.
                     if (Sign(determinant) != Sign(sweepAngle))
                     {
-                        result.AppendPoint(InterpolateLinear2DTests.Lerp(x0, y0, x1, y1, t));
+                        result.AppendPoint(InterpolateLinear2DTests.LinearInterpolate2D(x0, y0, x1, y1, t));
                     }
                 }
                 else

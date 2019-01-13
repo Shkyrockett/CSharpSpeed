@@ -1,14 +1,4 @@
-﻿using CSharpSpeed;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using static InstrumentedLibrary.Maths;
-using static System.Math;
-
-namespace InstrumentedLibrary
+﻿namespace InstrumentedLibrary
 {
     /// <summary>
     /// The ellipse, ellipse intersection tests class.

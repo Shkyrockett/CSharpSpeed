@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Orthogonal Ellipse Line Segment Intersection Tests")]
     [Description("Finds the intersection points of an Orthogonal Ellipse and a Line Segment Intersection.")]
-    [Signature("public static Inclusion PointInEllipse(double x, double y, double rX, double rY, double pX, double pY)")]
+    [Signature("public static Intersection UnrotatedEllipseLineSegmentIntersection(double cx, double cy, double rx, double ry, double x0, double y0, double x1, double y1, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class UnrotatedEllipseLineSegmentIntersectionTests
     {
@@ -38,6 +38,24 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Intersection UnrotatedEllipseLineSegmentIntersection(double cx, double cy, double rx, double ry, double x0, double y0, double x1, double y1, double epsilon = Epsilon)
+            => Intersect(cx, cy, rx, ry, x0, y0, x1, y1, epsilon);
 
         /// <summary>
         /// Find the points of the intersection between an unrotated ellipse and a line segment.
@@ -316,7 +334,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection UnrotatedEllipseLineSegmentIntersection(
+        public static Intersection UnrotatedEllipseLineSegmentIntersection0(
             double centerX, double centerY,
             double rx, double ry,
             double a1X, double a1Y,
@@ -351,12 +369,12 @@ namespace InstrumentedLibrary
                     result = new Intersection(IntersectionState.Intersection);
                     if (0 <= t_a && t_a <= 1)
                     {
-                        result.AppendPoint(InterpolateLinear2DTests.Lerp(a1X, a1Y, a2X, a2Y, t_a));
+                        result.AppendPoint(InterpolateLinear2DTests.LinearInterpolate2D(a1X, a1Y, a2X, a2Y, t_a));
                     }
 
                     if (0 <= t_b && t_b <= 1)
                     {
-                        result.AppendPoint(InterpolateLinear2DTests.Lerp(a1X, a1Y, a2X, a2Y, t_b));
+                        result.AppendPoint(InterpolateLinear2DTests.LinearInterpolate2D(a1X, a1Y, a2X, a2Y, t_b));
                     }
                 }
             }
@@ -365,7 +383,7 @@ namespace InstrumentedLibrary
                 var t = -b / a; if (0 <= t && t <= 1)
                 {
                     result = new Intersection(IntersectionState.Intersection);
-                    result.AppendPoint(InterpolateLinear2DTests.Lerp(a1X, a1Y, a2X, a2Y, t));
+                    result.AppendPoint(InterpolateLinear2DTests.LinearInterpolate2D(a1X, a1Y, a2X, a2Y, t));
                 }
                 else
                 {

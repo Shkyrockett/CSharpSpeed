@@ -13,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Vector between Vectors Tests")]
     [Description("Determine whether a vector is between two other vectors.")]
-    [Signature("public static double PointInPolygonSet(List<List<Point2D>> polygon, Point2D point)")]
+    [Signature("public static bool VectorBetween(double i, double j, double i2, double j2, double i3, double j3)")]
     [SourceCodeLocationProvider]
     public static class VectorBetweenVectorsTests
     {
@@ -35,7 +35,7 @@ namespace InstrumentedLibrary
             var j3 = Cos(c);
 
             var trials = 10000;
-            var polygon = new Polygon(new List<PolygonContour> { new PolygonContour(new List<Point2D> { new Point2D(0, 0), new Point2D(2, 0), new Point2D(0, 2) }) });
+            var polygon = new Polygon2D(new List<PolygonContour2D> { new PolygonContour2D(new List<Point2D> { new Point2D(0, 0), new Point2D(2, 0), new Point2D(0, 2) }) });
             var tests = new Dictionary<object[], TestCaseResults> {
                 { new object[] { i, j, i2, j2, i3, j3 }, new TestCaseResults(description:"polygon, point.", trials:trials, expectedReturnValue:true, epsilon:double.Epsilon) },
             };
@@ -49,6 +49,21 @@ namespace InstrumentedLibrary
 
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <param name="i2"></param>
+        /// <param name="j2"></param>
+        /// <param name="i3"></param>
+        /// <param name="j3"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool VectorBetween(double i, double j, double i2, double j2, double i3, double j3)
+            => VectorBetween1(i,  j,  i2,  j2,  i3,  j3);
 
         /// <summary>
         /// The vector between0.

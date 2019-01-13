@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Reflection;
 using static System.Math;
 using static InstrumentedLibrary.Maths;
+using System.Runtime.CompilerServices;
 
 namespace InstrumentedLibrary
 {
@@ -13,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Ellipse Perimeter Length Tests")]
     [Description("Estimations on the length of the Perimeter of an ellipse.")]
-    [Signature("public static double TripointCircleBounds(double aX, double aY, double bX, double bY, double cX, double cY)")]
+    [Signature("public static Rectangle2D? CircleBoundsFromThreePoints(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y)")]
     [SourceCodeLocationProvider]
     public static class BoundsOfCircleFromThreePointsTests
     {
@@ -39,6 +40,21 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p1X"></param>
+        /// <param name="p1Y"></param>
+        /// <param name="p2X"></param>
+        /// <param name="p2Y"></param>
+        /// <param name="p3X"></param>
+        /// <param name="p3Y"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Rectangle2D? CircleBoundsFromThreePoints(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y)
+            => TripointCircleBounds(p1X, p1Y, p2X, p2Y, p3X, p3Y);
+
+        /// <summary>
         /// Find the Bounds of A Circle from Three Points
         /// </summary>
         /// <param name="PointAX">First Point on the Ellipse</param>
@@ -53,13 +69,14 @@ namespace InstrumentedLibrary
         [Description("Find the bounds of a circle from three points.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D TripointCircleBounds(
             double PointAX, double PointAY,
             double PointBX, double PointBY,
             double PointCX, double PointCY)
         {
-            (var X, var Y) = CircleCenterFromThreePointsTests.TripointCircleCenter(PointAX, PointAY, PointBX, PointBY, PointCX, PointCY);
-            var Radius = Distance2DTests.Distance2D_1(X, Y, PointAX, PointAY);
+            (var X, var Y) = CircleCenterFromThreePointsTests.CircleCenterFromPoints(PointAX, PointAY, PointBX, PointBY, PointCX, PointCY) ?? (0d, 0d);
+            var Radius = Distance2DTests.Distance2D(X, Y, PointAX, PointAY);
             return Rectangle2D.FromLTRB(X - Radius, Y - Radius, X + Radius, Y + Radius);
         }
 
@@ -81,7 +98,8 @@ namespace InstrumentedLibrary
         [Acknowledgment("http://stackoverflow.com/questions/4103405/what-is-the-algorithm-for-finding-the-center-of-a-circle-from-three-points")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
-        public static Rectangle2D? CircleBoundsFromPoints(
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D? CircleBoundsFromPoints0(
             double p1X, double p1Y,
             double p2X, double p2Y,
             double p3X, double p3Y)

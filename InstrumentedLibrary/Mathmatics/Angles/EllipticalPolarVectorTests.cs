@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Elliptical Polar Angle Vector")]
     [Description("Find the Cos and Sin of the Elliptical Polar Angle Vector.")]
-    [Signature("public static Inclusion PointInEllipse(double x, double y, double rX, double rY, double angle, double pX, double pY)")]
+    [Signature("public static (double cosT, double sinT) EllipticalPolarVector(double cosA, double sinA, double rx, double ry)")]
     [SourceCodeLocationProvider]
     public static class EllipticalPolarVectorTests
     {
@@ -40,6 +40,19 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cosA"></param>
+        /// <param name="sinA"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double cosT, double sinT) EllipticalPolarVector(double cosA, double sinA, double rx, double ry)
+            => EllipticalPolarVector0(cosA, sinA, rx, ry);
+
+        /// <summary>
         /// Find the elliptical (cos(t), sin(t)) that matches the coordinates of a circular angle.
         /// </summary>
         /// <param name="cosA"></param>
@@ -55,7 +68,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double cosT, double sinT) EllipticalPolarVector(double cosA, double sinA, double rx, double ry)
+        public static (double cosT, double sinT) EllipticalPolarVector0(double cosA, double sinA, double rx, double ry)
         {
             // Find the elliptical t that matches the circular angle.
             if (cosA > -1 && cosA < 0 || cosA > 0 && cosA < 1)

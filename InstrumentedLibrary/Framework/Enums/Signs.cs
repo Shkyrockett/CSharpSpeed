@@ -4,7 +4,7 @@
     /// The signs enum.
     /// </summary>
     public enum Signs
-        : int
+        : sbyte
     {
         /// <summary>
         /// The Number is Negative = -1.

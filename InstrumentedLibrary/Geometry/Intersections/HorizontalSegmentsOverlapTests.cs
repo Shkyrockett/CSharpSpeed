@@ -12,7 +12,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Horizontal Segments overlap")]
     [Description("Determines whether horizontal segments overlap.")]
-    [Signature("public static bool HorzSegmentsOverlap(double segAX, double segAY, double segBX, double segBY)")]
+    [Signature("public static bool HorizontalSegmentsOverlap(double segAX, double segAY, double segBX, double segBY)")]
     [SourceCodeLocationProvider]
     public static class HorizontalSegmentsOverlapTests
     {
@@ -36,6 +36,19 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="segAX"></param>
+        /// <param name="segAY"></param>
+        /// <param name="segBX"></param>
+        /// <param name="segBY"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool HorizontalSegmentsOverlap(double segAX, double segAY, double segBX, double segBY)
+            => HorzSegmentsOverlap(segAX, segAY, segBX, segBY);
 
         /// <summary>
         /// The horizontal segments overlap.

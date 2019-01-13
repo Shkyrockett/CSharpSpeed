@@ -12,7 +12,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Point in Polygon set")]
     [Description("Determine whether a point is contained within a Polygon set.")]
-    [Signature("public static double PointInPolygonSet(List<List<Point2D>> polygon, Point2D point)")]
+    [Signature("public static bool PointInPolygonSet(List<List<Point2D>> polygon, Point2D point)")]
     [SourceCodeLocationProvider]
     public static class Point2DInPolygonSetTests
     {
@@ -39,6 +39,17 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool PointInPolygonSet(List<List<Point2D>> polygon, Point2D point)
+            => PointInPolygonSetShkyrockett0(polygon, point);
 
         /// <summary>
         /// This function automatically knows that enclosed polygons are "no-go" areas.
@@ -102,7 +113,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointInPolygonSet(List<List<Point2D>> polygon, Point2D point)
+        public static bool PointInPolygonSetShkyrockett0(List<List<Point2D>> polygon, Point2D point)
             => PointInPolygonSetShkyrockett(polygon, point) != Inclusion.Outside;
 
         /// <summary>

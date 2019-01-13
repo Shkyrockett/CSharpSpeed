@@ -15,7 +15,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cosine Interpolate Tests")]
     [Description("Find a point on a Cosine curve.")]
-    [Signature("public static double CosineInterpolate2D(double v0, double v1, double v2, double v3, double t)")]
+    [Signature("public static (double X, double Y) CosineInterpolate2D(double x1, double y1, double x2, double y2, double t)")]
     [SourceCodeLocationProvider]
     public static class CosineInterpolate2DTests
     {
@@ -41,6 +41,20 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y) CosineInterpolate2D(double x1, double y1, double x2, double y2, double t)
+            => CosineInterpolate2D_(x1, y1, x2, y2, t);
+
+        /// <summary>
         /// The cosine interpolate2d.
         /// </summary>
         /// <param name="x1">The x1.</param>
@@ -58,7 +72,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) CosineInterpolate2D(
+        public static (double X, double Y) CosineInterpolate2D_(
             double x1, double y1,
             double x2, double y2,
             double t)

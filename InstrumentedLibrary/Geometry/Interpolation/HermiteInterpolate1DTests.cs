@@ -13,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cubic Hermite Interpolate Tests")]
     [Description("Find a point on a Hermite curve.")]
-    [Signature("public static double HermiteInterpolate1D(double v0, double v1, double v2, double v3, double t)")]
+    [Signature("public static double HermiteInterpolate1D(double v0, double v1, double v2, double v3, double s, double tension, double bias)")]
     [SourceCodeLocationProvider]
     public static class HermiteInterpolate1DTests
     {
@@ -39,6 +39,22 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v0"></param>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <param name="v3"></param>
+        /// <param name="s"></param>
+        /// <param name="tension"></param>
+        /// <param name="bias"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double HermiteInterpolate1D(double v0, double v1, double v2, double v3, double s, double tension, double bias)
+            => HermiteInterpolate1D_(v0, v1, v2, v3, s, tension, bias);
+
+        /// <summary>
         /// The hermite interpolate1d.
         /// </summary>
         /// <param name="v0">The v0.</param>
@@ -58,7 +74,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double HermiteInterpolate1D(
+        public static double HermiteInterpolate1D_(
             double v0,
             double v1,
             double v2,

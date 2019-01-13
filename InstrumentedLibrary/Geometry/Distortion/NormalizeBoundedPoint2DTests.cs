@@ -39,6 +39,17 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bounds"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Point2D NormalizeBoundedPoint(Rectangle2D bounds, Point2D point)
+            => NormalizePoint(bounds, point);
+
+        /// <summary>
         /// Normalizes a point, so that it is expressed as percentage coordinates relative to the bounding box.
         /// </summary>
         /// <param name="bounds">The bounding box of the shape.</param>

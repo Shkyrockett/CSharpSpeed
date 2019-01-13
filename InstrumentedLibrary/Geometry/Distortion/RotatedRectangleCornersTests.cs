@@ -40,6 +40,22 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="fulcrumX"></param>
+        /// <param name="fulcrumY"></param>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y)[] RotatedRectangleCorners(double x, double y, double width, double height, double fulcrumX, double fulcrumY, double angle)
+            => RotatedRectangleCorners0(x, y, width, height, fulcrumX, fulcrumY, angle);
+
+        /// <summary>
         /// The rotated rectangle corners.
         /// </summary>
         /// <param name="x">The x.</param>
@@ -55,7 +71,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y)[] RotatedRectangleCorners(double x, double y, double width, double height, double fulcrumX, double fulcrumY, double angle)
+        public static (double X, double Y)[] RotatedRectangleCorners0(double x, double y, double width, double height, double fulcrumX, double fulcrumY, double angle)
         {
             var xaxis = (X: Cos(angle), Y: Sin(angle));
             var yaxis = (X: -Sin(angle), Y: Cos(angle));

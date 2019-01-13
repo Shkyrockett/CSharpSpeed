@@ -40,6 +40,19 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="distSqrd"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool SlopesNearCollinear(Point2D a, Point2D b, Point2D c, double distSqrd)
+            => SlopesNearCollinear0(a, b, c, distSqrd);
+
+        /// <summary>
         /// The slopes near collinear.
         /// </summary>
         /// <param name="a">The a.</param>
@@ -52,7 +65,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool SlopesNearCollinear(Point2D a, Point2D b, Point2D c, double distSqrd)
+        public static bool SlopesNearCollinear0(Point2D a, Point2D b, Point2D c, double distSqrd)
         {
             // This function is more accurate when the point that is GEOMETRICALLY
             // between the other 2 points is the one that is tested for distance.

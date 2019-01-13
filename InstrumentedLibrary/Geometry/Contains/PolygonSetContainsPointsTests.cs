@@ -13,9 +13,9 @@ namespace InstrumentedLibrary
     /// <summary>
     /// The polygon set contains points tests class.
     /// </summary>
-    [DisplayName("2 Point 2D Distance Tests")]
-    [Description("Find the distance between two points.")]
-    [Signature("public static double Distance2D(double x1, double y1, double x2, double y2)")]
+    [DisplayName("Polygon Set Contains Points")]
+    [Description("Find out whether a Polygon Set Contains a point.")]
+    [Signature("public static Inclusion PolygonSetContainsPoints(Polygon2D polygons, Point2D start, Point2D end, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class PolygonSetContainsPointsTests
     {
@@ -29,7 +29,7 @@ namespace InstrumentedLibrary
             var trials = 10000;
             var pointA = new Point2D(1, 1);
             var pointB = new Point2D(2, 2);
-            var polygon = new Polygon(new List<PolygonContour> { new PolygonContour(new List<Point2D> { new Point2D(0, 0), new Point2D(2, 0), new Point2D(0, 2) }) });
+            var polygon = new Polygon2D(new List<PolygonContour2D> { new PolygonContour2D(new List<Point2D> { new Point2D(0, 0), new Point2D(2, 0), new Point2D(0, 2) }) });
             var tests = new Dictionary<object[], TestCaseResults> {
                 { new object[] { polygon, pointA, pointB ,Epsilon }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:1d, epsilon:double.Epsilon) },
             };
@@ -42,6 +42,19 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygons"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Inclusion PolygonSetContainsPoints(Polygon2D polygons, Point2D start, Point2D end, double epsilon = Epsilon)
+            => PolygonSetContainsPoints0(polygons, start, end, epsilon);
 
         /// <summary>
         /// The polygon set contains points.
@@ -60,13 +73,13 @@ namespace InstrumentedLibrary
         /// Public-domain code by Darel Rex Finley, 2006.
         /// http://alienryderflex.com/shortest_path/
         /// </acknowledgment>
-        [DisplayName("Envelope Warp Method Inlined Interpolation")]
-        [Description("A method of warping a point using an envelope of Cubic Beziers.")]
+        [DisplayName("Polygon Set Contains Points")]
+        [Description("Find out whether a Polygon Set Contains a point.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PolygonSetContainsPoints(
-            Polygon polygons,
+        public static Inclusion PolygonSetContainsPoints0(
+            Polygon2D polygons,
             Point2D start, Point2D end,
             double epsilon = Epsilon)
         {
@@ -87,7 +100,7 @@ namespace InstrumentedLibrary
             var theCos = end.X / dist;
             var theSin = end.Y / dist;
 
-            foreach (PolygonContour poly in polygons.Contours)
+            foreach (PolygonContour2D poly in polygons.Contours)
             {
                 for (var i = 0; i < poly.Points.Count(); i++)
                 {

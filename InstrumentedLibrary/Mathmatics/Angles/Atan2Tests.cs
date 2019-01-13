@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using static System.Math;
 using static InstrumentedLibrary.Maths;
+using System;
 
 namespace InstrumentedLibrary
 {
@@ -39,6 +40,17 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="y"></param>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double Atan2(double y, double x)
+            => Math.Atan2(y, x);
 
         /// <summary>
         /// The atan2 0.

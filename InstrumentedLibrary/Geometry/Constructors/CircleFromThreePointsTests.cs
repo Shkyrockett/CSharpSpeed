@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Circle from Three Points Tests")]
     [Description("Find a circle that intersects three points.")]
-    [Signature("public static double EllipsePerimeterLength(double a, double b)")]
+    [Signature("public static Circle2D? CircleFromPoints(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y)")]
     [SourceCodeLocationProvider]
     public static class CircleFromThreePointsTests
     {
@@ -40,6 +40,21 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p1X"></param>
+        /// <param name="p1Y"></param>
+        /// <param name="p2X"></param>
+        /// <param name="p2Y"></param>
+        /// <param name="p3X"></param>
+        /// <param name="p3Y"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Circle2D? CircleFromPoints(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y)
+            => CircleFromPoints0(p1X, p1Y, p2X, p2Y, p3X, p3Y);
+
+        /// <summary>
         /// Find the Bounds of A Circle from Three Points
         /// </summary>
         /// <param name="PointAX">First Point on the Ellipse</param>
@@ -60,8 +75,8 @@ namespace InstrumentedLibrary
             double PointBX, double PointBY,
             double PointCX, double PointCY)
         {
-            (var X, var Y) = CircleCenterFromThreePointsTests.TripointCircleCenter(PointAX, PointAY, PointBX, PointBY, PointCX, PointCY);
-            var radius = Distance2DTests.Distance2D_1(X, Y, PointAX, PointAY);
+            (var X, var Y) = CircleCenterFromThreePointsTests.CircleCenterFromPoints(PointAX, PointAY, PointBX, PointBY, PointCX, PointCY) ?? (0d, 0d);
+            var radius = Distance2DTests.Distance2D(X, Y, PointAX, PointAY);
             return new Circle2D(X, Y, radius);
         }
 
@@ -84,7 +99,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Circle2D? CircleFromPoints(
+        public static Circle2D? CircleFromPoints0(
             double p1X, double p1Y,
             double p2X, double p2Y,
             double p3X, double p3Y)

@@ -39,6 +39,16 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="radius"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double CircleArea(double radius)
+            => StandardCircleArea(radius);
+
+        /// <summary>
         /// Calculates the area of a circle.
         /// </summary>
         /// <param name="r">The radius of the circle.</param>
@@ -48,7 +58,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CircleArea(double r)
+        public static double StandardCircleArea(double r)
         {
             return PI * r * r;
         }

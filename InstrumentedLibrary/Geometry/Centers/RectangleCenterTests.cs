@@ -13,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Center of Rectangle Tests")]
     [Description("Find the center of a rectangle.")]
-    [Signature("public static (double X, double Y) Center(Rectangle2D rectangle)")]
+    [Signature("public static (double X, double Y) RectangleCenter(Rectangle2D rectangle)")]
     [SourceCodeLocationProvider]
     public static class RectangleCenterTests
     {
@@ -37,6 +37,16 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rectangle"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y) RectangleCenter(Rectangle2D rectangle)
+            => Center0(rectangle);
 
         /// <summary>
         /// Extension method to find the center point of a rectangle.

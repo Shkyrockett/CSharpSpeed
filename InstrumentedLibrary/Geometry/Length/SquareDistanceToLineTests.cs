@@ -13,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Square Distance to line segment from point")]
     [Description("Calculates the square distance from a point to the nearest point on a line segment.")]
-    [Signature("public static double PointOnLineSegment(double value1, double value2, double value3, double amount1, double amount2)")]
+    [Signature("public static double SquareDistanceToLine(double x1, double y1, double x2_, double y2_, double x3_, double y3_)")]
     [SourceCodeLocationProvider]
     public static class SquareDistanceToLineTests
     {
@@ -39,6 +39,21 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2_"></param>
+        /// <param name="y2_"></param>
+        /// <param name="x3_"></param>
+        /// <param name="y3_"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double SquareDistanceToLine(double x1, double y1, double x2_, double y2_, double x3_, double y3_)
+            => SquareDistanceToLine0(x1, y1, x2_, y2_, x3_, y3_);
+
+        /// <summary>
         /// Find the square of the distance of a point from a line.
         /// </summary>
         /// <param name="x1">The x component of the Point.</param>
@@ -53,7 +68,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SquareDistanceToLine(
+        public static double SquareDistanceToLine0(
             double x1, double y1,
             double x2_, double y2_,
             double x3_, double y3_)

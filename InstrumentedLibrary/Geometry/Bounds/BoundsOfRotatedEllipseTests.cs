@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Bounds Rotated Ellipse Tests")]
     [Description("Finds the Bounds of a rotated ellipse.")]
-    [Signature("public static Rectangle2D EllipseBoundingBox(double x, double y, int ra, int rb, double angle)")]
+    [Signature("public static Rectangle2D EllipseBounds(double x, double y, double r1, double r2, double angle)")]
     [SourceCodeLocationProvider]
     public static class BoundsOfRotatedEllipseTests
     {
@@ -38,6 +38,20 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="r1"></param>
+        /// <param name="r2"></param>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Rectangle2D EllipseBounds(double x, double y, double r1, double r2, double angle)
+            => EllipseBounds2(x, y, r1, r2, angle);
 
         /// <summary>
         /// The ellipse bounding box.
@@ -84,7 +98,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D EllipseBounds(double x, double y, double r1, double r2, double angle)
+        public static Rectangle2D EllipseBounds0(double x, double y, double r1, double r2, double angle)
         {
             var phi = angle;
             var aspect = r2 / r1;

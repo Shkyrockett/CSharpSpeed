@@ -39,6 +39,29 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="bounds"></param>
+        /// <param name="topLeft"></param>
+        /// <param name="topLeftH"></param>
+        /// <param name="topLeftV"></param>
+        /// <param name="topRight"></param>
+        /// <param name="topRightH"></param>
+        /// <param name="topRightV"></param>
+        /// <param name="bottomRight"></param>
+        /// <param name="bottomRightH"></param>
+        /// <param name="bottomRightV"></param>
+        /// <param name="bottomLeft"></param>
+        /// <param name="bottomLeftH"></param>
+        /// <param name="bottomLeftV"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Point2D EnvelopeDistortPoint(Point2D point, Rectangle2D bounds, Point2D topLeft, Point2D topLeftH, Point2D topLeftV, Point2D topRight, Point2D topRightH, Point2D topRightV, Point2D bottomRight, Point2D bottomRightH, Point2D bottomRightV, Point2D bottomLeft, Point2D bottomLeftH, Point2D bottomLeftV)
+            => Envelope2(point, bounds, topLeft, topLeftH, topLeftV, topRight, topRightH, topRightV, bottomRight, bottomRightH, bottomRightV, bottomLeft, bottomLeftH, bottomLeftV);
+
+        /// <summary>
         /// Warp the shape using Envelope distortion.
         /// </summary>
         /// <param name="point">The point.</param>
@@ -74,8 +97,8 @@ namespace InstrumentedLibrary
             var right = InterpolateCubicBezier1DTests.CubicBezier(topRight.X, topRightV.X, bottomRightV.X, bottomRight.X, norm.Y);
             var top = InterpolateCubicBezier1DTests.CubicBezier(topLeft.Y, topLeftH.Y, topRightH.Y, topRight.Y, norm.X);
             var bottom = InterpolateCubicBezier1DTests.CubicBezier(bottomLeft.Y, bottomLeftH.Y, bottomRightH.Y, bottomRight.Y, norm.X);
-            var x = InterpolateLinear1DTests.LinearInterpolate1D_0(left, right, norm.X);
-            var y = InterpolateLinear1DTests.LinearInterpolate1D_0(top, bottom, norm.Y);
+            var x = InterpolateLinear1DTests.LinearInterpolate1D(left, right, norm.X);
+            var y = InterpolateLinear1DTests.LinearInterpolate1D(top, bottom, norm.Y);
             return new Point2D(x, y);
         }
 

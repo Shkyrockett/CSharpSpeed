@@ -12,7 +12,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Rectangle has NaN Tests")]
     [Description("Rectangle has NaN.")]
-    [Signature("public static double TripointCircleBounds(double aX, double aY, double bX, double bY, double cX, double cY)")]
+    [Signature("public static bool RectHasNaN(Rectangle2D rect)")]
     [SourceCodeLocationProvider]
     public static class RectangleHasNaNTests
     {
@@ -38,6 +38,16 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rect"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool RectHasNaN(Rectangle2D rect)
+            => RectHasNaN0(rect);
+
+        /// <summary>
         /// rectHasNaN - this returns true if this rectangle has X, Y , Height or Width as NaN.
         /// </summary>
         /// <param name='rect'>The rectangle to test</param>
@@ -47,7 +57,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool RectHasNaN(Rectangle2D rect)
+        public static bool RectHasNaN0(Rectangle2D rect)
         {
             return double.IsNaN(rect.X)
                 || double.IsNaN(rect.Y)

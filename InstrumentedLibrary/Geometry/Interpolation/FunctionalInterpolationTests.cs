@@ -15,7 +15,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Functional Interpolation Tests")]
     [Description("Run interpolation of a function.")]
-    [Signature("public static double EllipsePerimeterLength(double a, double b)")]
+    [Signature("public static List<(double X, double Y)> Interpolate0to1(Func<double, (double X, double Y)> func, int count)")]
     [SourceCodeLocationProvider]
     public static class FunctionalInterpolationTests
     {
@@ -41,6 +41,17 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="func"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static List<(double X, double Y)> Interpolate0to1(Func<double, (double X, double Y)> func, int count)
+            => Interpolate0to1_(func, count);
+
+        /// <summary>
         /// Retrieves a list of points interpolated from a function.
         /// </summary>
         /// <param name="func"></param>
@@ -52,7 +63,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<(double X, double Y)> Interpolate0to1(Func<double, (double X, double Y)> func, int count)
+        public static List<(double X, double Y)> Interpolate0to1_(Func<double, (double X, double Y)> func, int count)
         {
             return new List<(double X, double Y)>(from i in Enumerable.Range(0, count) select func(1d / count * i));
         }

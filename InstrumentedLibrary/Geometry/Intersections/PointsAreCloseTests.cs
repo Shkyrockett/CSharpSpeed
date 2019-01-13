@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Point Near Point Tests")]
     [Description("Determines whether a point near another point.")]
-    [Signature("public static double AreClose(double value1, double value2, double value3, double amount1, double amount2)")]
+    [Signature("public static bool PointsAreClose(double x1, double y1, double x2, double y2, double epsilon = DoubleEpsilon)")]
     [SourceCodeLocationProvider]
     public static class PointsAreCloseTests
     {
@@ -40,6 +40,20 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool PointsAreClose(double x1, double y1, double x2, double y2, double epsilon = DoubleEpsilon)
+            => AreClose0(x1, y1, x2, y2, epsilon);
+
+        /// <summary>
         /// Return True if (x1, y1) is within close_distance vertically and horizontally of (x2, y2).
         /// </summary>
         /// <param name="x1"></param>
@@ -53,7 +67,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool AreClose(double x1, double y1, double x2, double y2, double epsilon = DoubleEpsilon)
+        public static bool AreClose0(double x1, double y1, double x2, double y2, double epsilon = DoubleEpsilon)
         {
             return (Abs(x2 - x1) <= epsilon) && (Abs(y2 - y1) <= epsilon);
         }

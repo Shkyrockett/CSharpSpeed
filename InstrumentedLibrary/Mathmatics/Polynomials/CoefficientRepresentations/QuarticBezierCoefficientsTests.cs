@@ -25,7 +25,7 @@ namespace InstrumentedLibrary
         {
             var trials = 1000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 1d, 2d, 3d, 4d, 5d }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:null, epsilon:double.Epsilon) },
+                { new object[] { 1d, 2d, 3d, 4d, 5d }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue: (0d, 0d, 0d, 4d, 1d), epsilon:double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -36,6 +36,20 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double A, double B, double C, double D, double E) QuarticBezierCoefficients(double a, double b, double c, double d, double e)
+            => QuarticBezierCoefficients0(a, b, c, d, e);
 
         /// <summary>
         /// Coefficients for a Quartic Bézier curve.
@@ -56,7 +70,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D, double E) QuarticBezierCoefficients(double a, double b, double c, double d, double e)
+        public static (double A, double B, double C, double D, double E) QuarticBezierCoefficients0(double a, double b, double c, double d, double e)
         {
             return (e - (4d * d) + (6d * c) - (4d * b) + a,
                     (4d * d) - (12d * c) + (12d * b) - (4d * a),
@@ -80,9 +94,10 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial QuarticBezierCoefficientsGeneral(double a, double b, double c, double d, double e)
+        public static (double A, double B, double C, double D, double E) QuarticBezierCoefficientsGeneral(double a, double b, double c, double d, double e)
         {
-            return GeneralBezierCoefficientsTests.BezierCoefficientsRecursive(a, b, c, d, e);
+            Polynomial polynomial = RecursiveBezierCoefficientsTests.BezierCoefficientsRecursive(a, b, c, d, e);
+            return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d], polynomial[PolynomialTerm.e]);
         }
 
         /// <summary>
@@ -103,9 +118,10 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial QuarticBezierCoefficientsRecursive(double a, double b, double c, double d, double e)
+        public static (double A, double B, double C, double D, double E) QuarticBezierCoefficientsRecursive(double a, double b, double c, double d, double e)
         {
-            return (Polynomial.OneMinusT * CubicBezierCoefficientsTests.CubicBezierCoefficients(a, b, c, d)) + (Polynomial.T * CubicBezierCoefficientsTests.CubicBezierCoefficients(b, c, d, e));
+            Polynomial polynomial = (Polynomial.OneMinusT * CubicBezierCoefficientsTests.CubicBezierCoefficients(a, b, c, d)) + (Polynomial.T * CubicBezierCoefficientsTests.CubicBezierCoefficients(b, c, d, e));
+            return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d], polynomial[PolynomialTerm.e]);
         }
     }
 }

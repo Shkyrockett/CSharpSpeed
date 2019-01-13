@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Interpolate Rotated Elliptical Arc Tests")]
     [Description("Find a point on an rotated elliptical arc.")]
-    [Signature("public static double EllipticalArc(double cX, double cY, double r1, double r2, double angle, double t)")]
+    [Signature("public static (double X, double Y) Ellipse(double cX, double cY, double r1, double r2, double angle, double t)")]
     [SourceCodeLocationProvider]
     public static class InterpolateRotatedEllipseTests
     {
@@ -40,6 +40,21 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="r1"></param>
+        /// <param name="r2"></param>
+        /// <param name="angle"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y) Ellipse(double cX, double cY, double r1, double r2, double angle, double t)
+            => Ellipse_(cX, cY, r1, r2, angle, t);
+
+        /// <summary>
         /// Interpolate a point on an Ellipse.
         /// </summary>
         /// <param name="cX">Center x-coordinate.</param>
@@ -58,7 +73,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Ellipse(
+        public static (double X, double Y) Ellipse_(
             double cX, double cY,
             double r1, double r2,
             double angle,

@@ -12,7 +12,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Polygon Centroid")]
     [Description("Find the centroid point of a polygon.")]
-    [Signature("public static Point2D Centroid(List<List<Point2D>> polygon)")]
+    [Signature("public static Point2D Centroid(List<Point2D> polygon)")]
     [SourceCodeLocationProvider]
     public static class PolygonCentroidTests
     {
@@ -39,6 +39,16 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Point2D Centroid(List<Point2D> polygon)
+            => Centroid0(polygon);
+
+        /// <summary>
         /// Find the polygon's centroid.
         /// </summary>
         /// <param name="polygon"></param>
@@ -52,7 +62,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Centroid(List<Point2D> polygon)
+        public static Point2D Centroid0(List<Point2D> polygon)
         {
             // Add the first point at the end of the array.
             var num_points = polygon.Count;
@@ -74,7 +84,7 @@ namespace InstrumentedLibrary
             }
 
             // Divide by 6 times the polygon's area.
-            var polygon_area = PolygonSignedAreaTests.SignedPolygonArea5(polygon);
+            var polygon_area = PolygonSignedAreaTests.SignedPolygonArea(polygon);
             X /= 6d * polygon_area;
             Y /= 6d * polygon_area;
 

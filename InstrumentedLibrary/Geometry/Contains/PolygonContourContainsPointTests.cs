@@ -16,7 +16,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Point in Polygon")]
     [Description("Determine whether a point is contained within a Polygon.")]
-    [Signature("public static double PointInPolygonSet(List<Point2D> polygon, Point2D point)")]
+    [Signature("public static bool PointInPolygonContour(List<Point2D> polygon, Point2D point)")]
     [SourceCodeLocationProvider]
     public static class PolygonContourContainsPointTests
     {
@@ -43,6 +43,17 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="polygon"></param>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool PointInPolygonContour(List<Point2D> polygon, Point2D point)
+            => PointInPolygonContourJerryKnauss2(polygon, point);
 
         /// <summary>
         /// The point in polygon contour jerry knauss.
@@ -742,7 +753,7 @@ namespace InstrumentedLibrary
             // Get the angle between the point and the
             // first and last vertices.
             var max_point = polygon.Count - 1;
-            var total_angle = Angle3Vector2DTests.AngleVector_0(
+            var total_angle = Angle3Vector2DTests.AngleVector(
                 polygon[max_point].X, polygon[max_point].Y,
                 point.X, point.Y,
                 polygon[0].X, polygon[0].Y);
@@ -751,7 +762,7 @@ namespace InstrumentedLibrary
             // to each other pair of vertices.
             for (var i = 0; i < max_point; i++)
             {
-                total_angle += Angle3Vector2DTests.AngleVector_0(
+                total_angle += Angle3Vector2DTests.AngleVector(
                     polygon[i].X, polygon[i].Y,
                     point.X, point.Y,
                     polygon[i + 1].X, polygon[i + 1].Y);
@@ -1225,7 +1236,7 @@ namespace InstrumentedLibrary
             => PointInPolygonContourHormannAgathosNewFor(polygon, point, Epsilon) != Inclusion.Outside;
 
         /// <summary>
-        /// Determines whether the specified point is contained withing the region defined by this <see cref="PolygonContour"/>.
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="PolygonContour2D"/>.
         /// </summary>
         /// <param name="points">The points that form the corners of the polygon.</param>
         /// <param name="p">The coordinate of the test point.</param>

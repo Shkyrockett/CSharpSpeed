@@ -191,7 +191,7 @@ namespace CSharpSpeedConsole
                 Directory.CreateDirectory(reportFolder);
             }
 
-            // Save the markdowd.
+            // Save the markdown.
             using (var stream = File.CreateText(reportFile))
             {
                 stream.Write(sb.ToString());

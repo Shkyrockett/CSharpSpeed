@@ -13,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cubic Catmull-Rom Interpolate Tests")]
     [Description("Find a point on a Cubic CatmullRom curve.")]
-    [Signature("public static double CatmullRomInterpolate1D(double v0, double v1, double v2, double v3, double t)")]
+    [Signature("public static double CatmullRomInterpolate1D(double v1, double v2, double v3, double v4, double t)")]
     [SourceCodeLocationProvider]
     public static class CatmullRomSplineInterpolation1DTests
     {
@@ -38,6 +38,20 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <param name="v3"></param>
+        /// <param name="v4"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double CatmullRomInterpolate1D(double v1, double v2, double v3, double v4, double t)
+            => CatmullRomSpline(v1, v2, v3, v4, t);
 
         /// <summary>
         /// Performs a Catmull-Rom interpolation using the specified positions.

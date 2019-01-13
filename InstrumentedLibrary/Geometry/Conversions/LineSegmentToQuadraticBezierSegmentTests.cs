@@ -39,6 +39,19 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double aX, double aY, double bX, double bY, double cX, double cY) LineSegmentToQuadraticBezier(double x0, double y0, double x1, double y1)
+            => LineSegmentToQuadraticBezier0(x0, y0, x1, y1);
+
+        /// <summary>
         /// Converts a line segment to a Quadratic Bézier curve.
         /// </summary>
         /// <param name="x0">The x-component of the first point of a line segment.</param>
@@ -51,11 +64,11 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double aX, double aY, double bX, double bY, double cX, double cY) LineSegmentToQuadraticBezier(
+        public static (double aX, double aY, double bX, double bY, double cX, double cY) LineSegmentToQuadraticBezier0(
             double x0, double y0,
             double x1, double y1)
         {
-            (double X, double Y) p = InterpolateLinear2DTests.LinearInterpolate2D_0(x0, y0, x1, y1, OneHalf);
+            (double X, double Y) p = InterpolateLinear2DTests.LinearInterpolate2D(x0, y0, x1, y1, OneHalf);
             return (x0, y0, p.X, p.Y, x1, y1);
         }
     }

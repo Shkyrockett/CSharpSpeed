@@ -40,6 +40,17 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="radiusA"></param>
+        /// <param name="radiusB"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double EllipseArea(double radiusA, double radiusB)
+            => StandardEllipseArea(radiusA, radiusB);
+
+        /// <summary>
         /// Calculates the area of an ellipse.
         /// </summary>
         /// <param name="rX">The horizontal radius.</param>
@@ -50,7 +61,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double EllipseArea(double rX, double rY)
+        public static double StandardEllipseArea(double rX, double rY)
         {
             return PI * rY * rX;
         }

@@ -13,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("2D Distance Tests")]
     [Description("Find the distance between two points.")]
-    [Signature("public static double Distance2D(double x1, double y1, double x2, double y2)")]
+    [Signature("public static double Distance2D(double ax, double ay, double bx, double by)")]
     [SourceCodeLocationProvider]
     public static class Distance2DTests
     {
@@ -37,6 +37,19 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ax"></param>
+        /// <param name="ay"></param>
+        /// <param name="bx"></param>
+        /// <param name="by"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double Distance2D(double ax, double ay, double bx, double by)
+            => Distance2D_1(ax,  ay,  bx,  by);
 
         /// <summary>
         /// Distance between two 2D points.
@@ -71,23 +84,10 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance2D_2(double ax, double ay, double bx, double by)
-            => Distance2D_2((ax, ay), (bx, by));
-
-        /// <summary>
-        /// Distance between two 2D points.
-        /// </summary>
-        /// <param name="a">First component.</param>
-        /// <param name="b">Second component.</param>
-        /// <returns>The distance between two points.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance2D_2(
-            (double X, double Y) a,
-            (double X, double Y) b)
-        {
-            return Sqrt(((b.X - a.X) * (b.X - a.X)) + ((b.Y - a.Y) * (b.X - a.Y)));
-        }
+            double ax, double ay,
+            double bx, double by)
+            => Distance2Point2DTests.Distance2D((ax, ay), (bx, by));
 
         /// <summary>
         /// Distance between two 2D points.

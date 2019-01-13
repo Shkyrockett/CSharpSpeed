@@ -40,6 +40,32 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a1X"></param>
+        /// <param name="a1Y"></param>
+        /// <param name="a2X"></param>
+        /// <param name="a2Y"></param>
+        /// <param name="a3X"></param>
+        /// <param name="a3Y"></param>
+        /// <param name="a4X"></param>
+        /// <param name="a4Y"></param>
+        /// <param name="b1X"></param>
+        /// <param name="b1Y"></param>
+        /// <param name="b2X"></param>
+        /// <param name="b2Y"></param>
+        /// <param name="b3X"></param>
+        /// <param name="b3Y"></param>
+        /// <param name="b4X"></param>
+        /// <param name="b4Y"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Intersection CubicBezierSegmentCubicBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double a4X, double a4Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)
+            => CubicBezierSegmentCubicBezierSegmentIntersection_(a1X, a1Y, a2X, a2Y, a3X, a3Y, a4X, a4Y, b1X, b1Y, b2X, b2Y, b3X, b3Y, b4X, b4Y, epsilon);
+
+        /// <summary>
         /// Find the intersection between two cubic Bézier.
         /// </summary>
         /// <param name="a1X">The a1X.</param>
@@ -66,7 +92,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection CubicBezierSegmentCubicBezierSegmentIntersection(
+        public static Intersection CubicBezierSegmentCubicBezierSegmentIntersection_(
             double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double a4X, double a4Y,
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y,
             double epsilon = Epsilon)

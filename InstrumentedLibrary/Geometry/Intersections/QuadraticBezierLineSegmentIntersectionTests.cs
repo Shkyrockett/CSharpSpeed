@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Intersection of Quadratic Bezier and Line Segment")]
     [Description("Finds the intersection points of a Quadratic Bezier and Line Segment.")]
-    [Signature("public static double CubicBezierLineSegmentIntersection(double value1, double value2, double value3, double amount1, double amount2)")]
+    [Signature("public static Intersection QuadraticBezierLineSegmentIntersection(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double a1X, double a1Y, double a2X, double a2Y, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class QuadraticBezierLineSegmentIntersectionTests
     {
@@ -38,6 +38,26 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p1X"></param>
+        /// <param name="p1Y"></param>
+        /// <param name="p2X"></param>
+        /// <param name="p2Y"></param>
+        /// <param name="p3X"></param>
+        /// <param name="p3Y"></param>
+        /// <param name="a1X"></param>
+        /// <param name="a1Y"></param>
+        /// <param name="a2X"></param>
+        /// <param name="a2Y"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Intersection QuadraticBezierLineSegmentIntersection(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double a1X, double a1Y, double a2X, double a2Y, double epsilon = Epsilon)
+            => QuadraticBezierLineSegmentIntersection1(p1X, p1Y, p2X, p2Y, p3X, p3Y, a1X, a1Y, a2X, a2Y, epsilon);
 
         /// <summary>
         /// The quadratic bezier line segment intersection1.
@@ -113,8 +133,8 @@ namespace InstrumentedLibrary
                 {
                     // Possible point -- pending bounds check
                     var point = new Point2D(
-                        InterpolateLinear1DTests.LinearInterpolate1D_0(InterpolateLinear1DTests.LinearInterpolate1D_0(p1X, p2X, t), InterpolateLinear1DTests.LinearInterpolate1D_0((double)p2X, (double)p3X, (double)t), t),
-                        InterpolateLinear1DTests.LinearInterpolate1D_0(InterpolateLinear1DTests.LinearInterpolate1D_0(p1Y, p2Y, t), InterpolateLinear1DTests.LinearInterpolate1D_0(p2Y, p3Y, t), t));
+                        InterpolateLinear1DTests.LinearInterpolate1D(InterpolateLinear1DTests.LinearInterpolate1D(p1X, p2X, t), InterpolateLinear1DTests.LinearInterpolate1D((double)p2X, (double)p3X, (double)t), t),
+                        InterpolateLinear1DTests.LinearInterpolate1D(InterpolateLinear1DTests.LinearInterpolate1D(p1Y, p2Y, t), InterpolateLinear1DTests.LinearInterpolate1D(p2Y, p3Y, t), t));
                     var x = point.X;
                     var y = point.Y;
                     var result = new Intersection(IntersectionState.Intersection);
@@ -163,7 +183,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection QuadraticBezierLineSegmentIntersection(
+        public static Intersection QuadraticBezierLineSegmentIntersection0(
             double p1X, double p1Y,
             double p2X, double p2Y,
             double p3X, double p3Y,
@@ -192,9 +212,9 @@ namespace InstrumentedLibrary
                 var t = roots[i];
                 if (0 <= t && t <= 1)
                 {
-                    var p4 = InterpolateLinear2DTests.Lerp(p1X, p1Y, p2X, p2Y, t);
-                    var p5 = InterpolateLinear2DTests.Lerp(p2X, p2Y, p3X, p3Y, t);
-                    var p6 = InterpolateLinear2DTests.Lerp(p4.X, p4.Y, p5.X, p5.Y, t);
+                    var p4 = InterpolateLinear2DTests.LinearInterpolate2D(p1X, p1Y, p2X, p2Y, t);
+                    var p5 = InterpolateLinear2DTests.LinearInterpolate2D(p2X, p2Y, p3X, p3Y, t);
+                    var p6 = InterpolateLinear2DTests.LinearInterpolate2D(p4.X, p4.Y, p5.X, p5.Y, t);
                     if (a1X == a2X)
                     {
                         if (min.Y <= p6.Y && p6.Y <= max.Y)
@@ -274,9 +294,9 @@ namespace InstrumentedLibrary
                 var t = roots[i];
                 if (0 <= t && t <= 1)
                 {
-                    var p4 = InterpolateLinear2DTests.Lerp(p1X, p1Y, p2X, p2Y, t);
-                    var p5 = InterpolateLinear2DTests.Lerp(p2X, p2Y, p3X, p3Y, t);
-                    var p6 = InterpolateLinear2DTests.Lerp(p4.X, p4.Y, p5.X, p5.Y, t);
+                    var p4 = InterpolateLinear2DTests.LinearInterpolate2D(p1X, p1Y, p2X, p2Y, t);
+                    var p5 = InterpolateLinear2DTests.LinearInterpolate2D(p2X, p2Y, p3X, p3Y, t);
+                    var p6 = InterpolateLinear2DTests.LinearInterpolate2D(p4.X, p4.Y, p5.X, p5.Y, t);
                     if (a1X == a2X)
                     {
                         result.AppendPoint(p6);

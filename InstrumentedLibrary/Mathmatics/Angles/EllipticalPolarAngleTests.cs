@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Elliptical Polar Angle")]
     [Description("Find the elliptical t that matches the coordinates of a circular angle.")]
-    [Signature("public static double EllipticalPolarAngle(double angle, double radiusA, double radiusB)")]
+    [Signature("public static double EllipticalPolarAngle(double angle, double rx, double ry)")]
     [SourceCodeLocationProvider]
     public static class EllipticalPolarAngleTests
     {
@@ -40,6 +40,18 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double EllipticalPolarAngle(double angle, double rx, double ry)
+            => EllipticalPolarAngle0(angle, rx, ry);
+
+        /// <summary>
         /// Find the elliptical t that matches the coordinates of a circular angle.
         /// </summary>
         /// <param name="angle">The angle to transform into elliptic angle.</param>
@@ -55,7 +67,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double EllipticalPolarAngle(double angle, double rx, double ry)
+        public static double EllipticalPolarAngle0(double angle, double rx, double ry)
         {
             // Wrap the angle between -2PI and 2PI.
             var theta = angle % Tau;
@@ -77,6 +89,24 @@ namespace InstrumentedLibrary
             }
 
             return Atan(rx * Tan(theta) / ry);
+        }
+
+        /// <summary>
+        /// Find the elliptical t that matches the coordinates of a circular angle.
+        /// </summary>
+        /// <param name="angle">The angle to transform into elliptic angle.</param>
+        /// <param name="rx">The first radius of the ellipse.</param>
+        /// <param name="ry">The second radius of the ellipse.</param>
+        /// <returns></returns>
+        [DisplayName("Elliptical Polar Angle Vector")]
+        [Description("Find the angle of the Elliptical Polar Angle Vector.")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double EllipticalPolarAngle1(double angle, double rx, double ry)
+        {
+            var (cosT, sinT) = EllipticalPolarVectorTests.EllipticalPolarVector(Cos(angle), Sin(angle), rx, ry);
+            return Atan2(sinT, cosT);
         }
     }
 }

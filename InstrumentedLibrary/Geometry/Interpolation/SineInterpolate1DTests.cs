@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Sine Interpolate Tests")]
     [Description("Find a point on a Sine curve.")]
-    [Signature("public static double SineInterpolate1D(double v0, double v1, double v2, double v3, double t)")]
+    [Signature("public static double Sine(double v1, double v2, double t)")]
     [SourceCodeLocationProvider]
     public static class SineInterpolate1DTests
     {
@@ -40,6 +40,18 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double Sine(double v1, double v2, double t)
+            => Sine_(v1, v2, t);
+
+        /// <summary>
         /// The sine.
         /// </summary>
         /// <param name="v1">The v1.</param>
@@ -55,7 +67,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Sine(
+        public static double Sine_(
             double v1,
             double v2,
             double t)

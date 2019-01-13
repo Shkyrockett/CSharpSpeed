@@ -39,6 +39,18 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="r"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y, double A, double B, double angle) CircleToEllipse(double x, double y, double r)
+            => CircleToEllipse0(x, y, r);
+
+        /// <summary>
         /// Converts a Circle to an ellipse.
         /// </summary>
         /// <param name="x">The x-component of the center point.</param>
@@ -50,7 +62,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double A, double B, double angle) CircleToEllipse(
+        public static (double X, double Y, double A, double B, double angle) CircleToEllipse0(
             double x, double y,
             double r)
         {

@@ -709,8 +709,7 @@ namespace InstrumentedLibrary
         /// <param name="Upper">The Upper.</param>
         /// <returns>The <see cref="double"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Random(this double Lower, double Upper)
-            => (RandomNumberGenerator.Next() * (Upper - Lower + 1)) + Lower;
+        public static double Random(this double Lower, double Upper) => (RandomNumberGenerator.Next() * (Upper - Lower + 1)) + Lower;
 
         /// <summary>
         /// Convert Degrees to Radians.
@@ -719,8 +718,7 @@ namespace InstrumentedLibrary
         /// <returns>Angle in Radians.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ToRadians(this double degrees)
-            => degrees * Radian;
+        public static double ToRadians(this double degrees) => degrees * Radian;
 
         /// <summary>
         /// Convert Radians to Degrees.
@@ -729,8 +727,7 @@ namespace InstrumentedLibrary
         /// <returns>Angle in Degrees.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ToDegrees(this double radiens)
-            => radiens * Degree;
+        public static double ToDegrees(this double radiens) => radiens * Degree;
 
         /// <summary>
         /// Get a the value for a key. If the key does not exist, return null;
@@ -745,7 +742,6 @@ namespace InstrumentedLibrary
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static TValue GetValueOrDefault<TKey, TValue>(this Dictionary<TKey, TValue> dic, TKey key)
-            => dic.TryGetValue(key, out var result) ? result : default;
+        public static TValue GetValueOrDefault<TKey, TValue>(this Dictionary<TKey, TValue> dic, TKey key) => dic.TryGetValue(key, out var result) ? result : default;
     }
 }

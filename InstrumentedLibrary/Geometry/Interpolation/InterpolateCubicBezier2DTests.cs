@@ -41,6 +41,24 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y) CubicBezierInterpolate2D(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3, double t)
+            => CubicBezierInterpolate2D_6(x0, y0, x1, y1, x2, y2, x3, y3, t);
+
+        /// <summary>
         /// Four control point Bezier interpolation mu ranges from 0 to 1, start to end of curve.
         /// </summary>
         /// <param name="x0"></param>
@@ -142,17 +160,17 @@ namespace InstrumentedLibrary
             double t)
         {
             // point between a and b
-            (var abX, var abY) = InterpolateLinear2DTests.LinearInterpolate2D_0(x0, y0, x1, y1, t);
+            (var abX, var abY) = InterpolateLinear2DTests.LinearInterpolate2D(x0, y0, x1, y1, t);
             // point between b and c
-            (var bcX, var bcY) = InterpolateLinear2DTests.LinearInterpolate2D_0(x1, y1, x2, y2, t);
+            (var bcX, var bcY) = InterpolateLinear2DTests.LinearInterpolate2D(x1, y1, x2, y2, t);
             // point between c and d
-            (var cdX, var cdY) = InterpolateLinear2DTests.LinearInterpolate2D_0(x2, y2, x3, y3, t);
+            (var cdX, var cdY) = InterpolateLinear2DTests.LinearInterpolate2D(x2, y2, x3, y3, t);
             // point between ab and bc
-            (var abbcX, var abbcY) = InterpolateLinear2DTests.LinearInterpolate2D_0(abX, abY, bcX, bcY, t);
+            (var abbcX, var abbcY) = InterpolateLinear2DTests.LinearInterpolate2D(abX, abY, bcX, bcY, t);
             // point between bc and cd
-            (var bccdX, var bccdY) = InterpolateLinear2DTests.LinearInterpolate2D_0(bcX, bcY, cdX, cdY, t);
+            (var bccdX, var bccdY) = InterpolateLinear2DTests.LinearInterpolate2D(bcX, bcY, cdX, cdY, t);
             // point on the bezier-curve
-            return InterpolateLinear2DTests.LinearInterpolate2D_0(abbcX, abbcY, bccdX, bccdY, t);
+            return InterpolateLinear2DTests.LinearInterpolate2D(abbcX, abbcY, bccdX, bccdY, t);
         }
 
         /// <summary>

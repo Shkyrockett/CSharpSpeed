@@ -13,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Quadratic Bezier Segment Bounds Tests")]
     [Description("Calculate bounding rectangle of a Quadratic bezier curve segment.")]
-    [Signature("public static double QuadraticBezierSegmentBounds(IEnumerable<IEnumerable<(double X, double Y)>> points)")]
+    [Signature("public static Rectangle2D QuadraticBezierBounds(double ax, double ay, double bx, double by, double cx, double cy)")]
     [SourceCodeLocationProvider]
     public static class BoundsOfQuadraticBezierSegmentTests
     {
@@ -39,6 +39,21 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ax"></param>
+        /// <param name="ay"></param>
+        /// <param name="bx"></param>
+        /// <param name="by"></param>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Rectangle2D QuadraticBezierBounds(double ax, double ay, double bx, double by, double cx, double cy)
+            => QuadraticBezierBounds0(ax, ay, bx, by, cx, cy);
+
+        /// <summary>
         /// The quadratic bezier bounds.
         /// </summary>
         /// <param name="ax">The starting x-coordinate for the Quadratic Bezier curve.</param>
@@ -53,15 +68,15 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D QuadraticBezierBounds(
+        public static Rectangle2D QuadraticBezierBounds0(
             double ax, double ay,
             double bx, double by,
             double cx, double cy)
         {
-            var sortOfCloseLength = QuadraticBezierSegmentLengthTests.QuadraticBezierArcLengthByIntegral(ax, ay, bx, by, cx, cy);
-            
+            var sortOfCloseLength = QuadraticBezierSegmentLengthTests.QuadraticBezierArcLength(ax, ay, bx, by, cx, cy);
+
             // ToDo: Need to make this more efficient. Don't need to rebuild the point array every time.
-            var points = new List<(double X, double Y)>(FunctionalInterpolationTests.Interpolate0to1((i) => InterpolateQuadraticBezier2DTests.QuadraticBezierInterpolate2D_0(ax, ay, bx, by, cx, cy, i), (int)(sortOfCloseLength / 3)));
+            var points = new List<(double X, double Y)>(FunctionalInterpolationTests.Interpolate0to1((i) => InterpolateQuadraticBezier2DTests.QuadraticBezierInterpolate2D(ax, ay, bx, by, cx, cy, i), (int)(sortOfCloseLength / 3)));
 
             var left = points[0].X;
             var top = points[0].Y;

@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Intersection of Circle and Line")]
     [Description("Finds the intersection points of a circle and a line.")]
-    [Signature("public static double CircleLineSegmentIntersection(double value1, double value2, double value3, double amount1, double amount2)")]
+    [Signature("public static Intersection CircleLineSegmentIntersection(double cX, double cY, double radius, double lAX, double lAY, double lBX, double lBY, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class CircleLineIntersectionTests
     {
@@ -38,6 +38,23 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="radius"></param>
+        /// <param name="lAX"></param>
+        /// <param name="lAY"></param>
+        /// <param name="lBX"></param>
+        /// <param name="lBY"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Intersection CircleLineSegmentIntersection(double cX, double cY, double radius, double lAX, double lAY, double lBX, double lBY, double epsilon = Epsilon)
+            => LineCircle(cX, cY, radius, lAX, lAY, lBX, lBY, epsilon);
 
         /// <summary>
         /// Find the points of intersection.

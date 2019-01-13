@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using static System.Math;
 
 namespace InstrumentedLibrary
@@ -12,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Rotated Rectangle Bounds Tests")]
     [Description("Finds the bounding rectangle of a rotated rectangle.")]
-    [Signature("public static double RotatedRectangleBounds(double x, double y, double width, double height, double fulcrumX, double fulcrumY, double angle)")]
+    [Signature("public static Rectangle2D RotatedRectangleBounds(double x, double y, double width, double height, double fulcrumX, double fulcrumY, double angle)")]
     [SourceCodeLocationProvider]
     public static class RotatedRectangleBoundsTests
     {
@@ -38,6 +39,22 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="fulcrumX"></param>
+        /// <param name="fulcrumY"></param>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Rectangle2D RotatedRectangleBounds(double x, double y, double width, double height, double fulcrumX, double fulcrumY, double angle)
+            => RotatedRectangleBounds0(x, y, width, height, fulcrumX, fulcrumY, angle);
+
+        /// <summary>
         /// The rotated rectangle bounds.
         /// </summary>
         /// <param name="x">The x.</param>
@@ -52,7 +69,8 @@ namespace InstrumentedLibrary
         [Description("Finds the bounding rectangle of a rotated rectangle.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
-        public static Rectangle2D RotatedRectangleBounds(double x, double y, double width, double height, double fulcrumX, double fulcrumY, double angle)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D RotatedRectangleBounds0(double x, double y, double width, double height, double fulcrumX, double fulcrumY, double angle)
         {
             var cosAngle = Abs(Cos(angle));
             var sinAngle = Abs(Sin(angle));

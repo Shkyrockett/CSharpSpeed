@@ -39,6 +39,18 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value1"></param>
+        /// <param name="value2"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double SmoothStep(double value1, double value2, double amount)
+            => SmoothStep_(value1,  value2,  amount);
+
+        /// <summary>
         /// Interpolates between two values using a cubic equation.
         /// </summary>
         /// <param name="value1">Source value.</param>
@@ -50,7 +62,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SmoothStep(double value1, double value2, double amount)
+        public static double SmoothStep_(double value1, double value2, double amount)
         {
             // It is expected that 0 < amount < 1
             // If amount < 0, return value1

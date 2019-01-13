@@ -15,7 +15,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Angle of a 2D Vector Tests")]
     [Description("Find the angle of a 2D vector.")]
-    [Signature("public static double AngleBetween(double i, double j)")]
+    [Signature("public static Rectangle2D EllipticalArc(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle)")]
     [SourceCodeLocationProvider]
     public static class BoundsOfRotatedEllipticalArcTests
     {
@@ -28,7 +28,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0, 0, 3, 4, 30d.ToRadians(), -30d.ToRadians(), 90d.ToRadians() }, new TestCaseResults(description:" Test for bounding box of elliptical arc.", trials:trials, expectedReturnValue: new Rectangle2D(2.2204460492503131E-16,-2.2204460492503131E-16,3.1788776569561055,3.6599656879825124), epsilon:DoubleEpsilon) },
+                { new object[] { 0, 0, 3, 4, 30d.ToRadians(), -30d.ToRadians(), 90d.ToRadians() }, new TestCaseResults(description: "Test for bounding box of elliptical arc.", trials:trials, expectedReturnValue: new Rectangle2D(2.2204460492503131E-16,-2.2204460492503131E-16,3.1788776569561055,3.6599656879825124), epsilon:DoubleEpsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -39,6 +39,22 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="r1"></param>
+        /// <param name="r2"></param>
+        /// <param name="angle"></param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Rectangle2D EllipticalArc(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle)
+            => EllipticalArc0(cX, cY, r1, r2, angle, startAngle, sweepAngle);
 
         /// <summary>
         /// Find the close fitting rectangular bounding box of a rotated ellipse elliptical arc.

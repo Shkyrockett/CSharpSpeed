@@ -41,6 +41,20 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="centerX"></param>
+        /// <param name="centerY"></param>
+        /// <param name="radius"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Inclusion PointInCircle(double centerX, double centerY, double radius, double x, double y)
+            => PointInCircle0(centerX, centerY, radius, x, y);
+
+        /// <summary>
         /// Find out if a Point is in a Circle.
         /// </summary>
         /// <param name="centerX">The centerX.</param>
@@ -54,12 +68,12 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInCircle(
+        public static Inclusion PointInCircle0(
                 double centerX, double centerY,
                 double radius,
                 double x, double y)
         {
-            var distance = Distance2DTests.Distance2D_1(centerX, centerY, x, y);
+            var distance = Distance2DTests.Distance2D(centerX, centerY, x, y);
             return (radius >= distance) ? ((Abs(radius - distance) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
         }
 

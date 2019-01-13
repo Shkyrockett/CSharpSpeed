@@ -13,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Polygon Signed Area")]
     [Description("Determine signed area of a polygon.")]
-    [Signature("public static double SignedPolygonArea(List<List<Point2D>> polygon)")]
+    [Signature("public static double SignedPolygonArea(List<Point2D> polygon)")]
     [SourceCodeLocationProvider]
     public static class PolygonSignedAreaTests
     {
@@ -39,6 +39,16 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// The polygon area.
+        /// </summary>
+        /// <param name="polygon">The polygon.</param>
+        /// <returns>The <see cref="double"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double SignedPolygonArea(List<Point2D> polygon)
+            => SignedPolygonArea5(polygon);
 
         /// <summary>
         /// The polygon area0.

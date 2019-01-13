@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace CSharpSpeed
 {
@@ -8,6 +9,21 @@ namespace CSharpSpeed
     public class SignatureAttribute
         : Attribute
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SignatureAttribute"/> class.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="member"></param>
+        /// <param name="line"></param>
+        public SignatureAttribute([CallerFilePath] string file = default, [CallerMemberName] string member = default, [CallerLineNumber] int line = default)
+        {
+            var File = file;
+            var Member = member;
+            var Line = line;
+
+            MethodSignature = SpeedTester.GetMethodCodeSignature(file, line);
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SignatureAttribute"/> class.
         /// </summary>

@@ -13,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Quadratic Bezier Interpolate 3D Tests")]
     [Description("Find a point on a 3D Quadratic Bezier curve.")]
-    [Signature("public static double QuadraticBezierInterpolate3D(double double x1, double y1, double z1, double double x2, double y2, double z2, double x3, double y3, double z3, double t)")]
+    [Signature("public static (double X, double Y, double Z) QuadraticBezierInterpolate3D(double x0, double y0, double z0, double x1, double y1, double z1, double x2, double y2, double z2, double t)")]
     [SourceCodeLocationProvider]
     public static class InterpolateQuadraticBezier3DTests
     {
@@ -37,6 +37,25 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="z0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y, double Z) QuadraticBezierInterpolate3D(double x0, double y0, double z0, double x1, double y1, double z1, double x2, double y2, double z2, double t)
+            => QuadraticBezierInterpolate3D_0(x0, y0, z0, x1, y1, z1, x2, y2, z2, t);
 
         /// <summary>
         /// Three control point Bezier interpolation mu ranges from 0 to 1, start to end of the curve.
@@ -103,13 +122,13 @@ namespace InstrumentedLibrary
             double t)
         {
             // point between a and b
-            var ab = InterpolateLinear3DTests.LinearInterpolate3D_0(x0, y0, z0, x1, y1, z1, t);
-            
+            var ab = InterpolateLinear3DTests.LinearInterpolate3D(x0, y0, z0, x1, y1, z1, t);
+
             // point between b and c
-            var bc = InterpolateLinear3DTests.LinearInterpolate3D_0(x1, y1, z1, x2, y2, z2, t);
-            
+            var bc = InterpolateLinear3DTests.LinearInterpolate3D(x1, y1, z1, x2, y2, z2, t);
+
             // point on the bezier-curve
-            return InterpolateLinear3DTests.LinearInterpolate3D_0(ab.X, ab.Y, ab.Z, bc.X, bc.Y, bc.Z, t);
+            return InterpolateLinear3DTests.LinearInterpolate3D(ab.X, ab.Y, ab.Z, bc.X, bc.Y, bc.Z, t);
         }
     }
 }

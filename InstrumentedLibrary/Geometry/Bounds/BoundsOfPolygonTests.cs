@@ -13,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Polygon Bounds Tests")]
     [Description("Calculate bounding rectangle of a polygon.")]
-    [Signature("public static double PolygonBounds(IEnumerable<IEnumerable<(double X, double Y)>> points)")]
+    [Signature("public static Rectangle2D PolygonBounds(List<List<(double X, double Y)>> paths)")]
     [SourceCodeLocationProvider]
     public static class BoundsOfPolygonTests
     {
@@ -39,6 +39,16 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="paths"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Rectangle2D PolygonBounds(List<List<(double X, double Y)>> paths)
+            => GetBounds0(paths);        
+
+        /// <summary>
         /// Get the bounds.
         /// </summary>
         /// <param name="paths">The paths.</param>
@@ -48,7 +58,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D GetBounds(List<List<(double X, double Y)>> paths)
+        public static Rectangle2D GetBounds0(List<List<(double X, double Y)>> paths)
         {
             var i = 0;
             var cnt = paths.Count;

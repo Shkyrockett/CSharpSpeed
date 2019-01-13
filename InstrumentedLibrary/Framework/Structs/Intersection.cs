@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -59,12 +61,13 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// The deconstruct.
+        /// Deconstruct this <see cref="Intersection"/> to a <see cref="ValueTuple{T1, T2}"/>.
         /// </summary>
         /// <param name="state">The state.</param>
         /// <param name="points">The points.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void Deconstruct(out IntersectionState state, out IList<(double X, double Y)> points)
         {
             state = State;
@@ -76,11 +79,7 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="index">The index index.</param>
         /// <returns>One element of type Point2D.</returns>
-        public (double X, double Y) this[int index]
-        {
-            get { return Points[index]; }
-            set { Points[index] = value; }
-        }
+        public (double X, double Y) this[int index] { get { return Points[index]; } set { Points[index] = value; } }
 
         /// <summary>
         /// Gets or sets the state.
@@ -95,8 +94,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets the count.
         /// </summary>
-        public int Count
-            => (Points is null) ? 0 : Points.Count;
+        public int Count => Points?.Count ?? 0;
 
         /// <summary>
         /// The operator ==.
@@ -108,8 +106,7 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Intersection left, Intersection right)
-            => Equals(left, right);
+        public static bool operator ==(Intersection left, Intersection right) => Equals(left, right);
 
         /// <summary>
         /// The operator !=.
@@ -121,8 +118,7 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Intersection left, Intersection right)
-            => !Equals(left, right);
+        public static bool operator !=(Intersection left, Intersection right) => !Equals(left, right);
 
         /// <summary>
         /// The append point.
@@ -187,9 +183,7 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="int"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode()
-            => State.GetHashCode()
-            ^ Points.GetHashCode();
+        public override int GetHashCode() => HashCode.Combine(State, Points);
 
         /// <summary>
         /// The equals.
@@ -199,8 +193,7 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Intersection a, Intersection b)
-            => (a.State == b.State) & (a.Points == b.Points);
+        public static bool Equals(Intersection a, Intersection b) => (a.State == b.State) && (a.Points == b.Points);
 
         /// <summary>
         /// The equals.
@@ -209,8 +202,7 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => obj is Intersection && Equals(this, (Intersection)obj);
+        public override bool Equals(object obj) => obj is Intersection && Equals(this, (Intersection)obj);
 
         /// <summary>
         /// The equals.
@@ -219,8 +211,7 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Intersection value)
-            => Equals(this, value);
+        public bool Equals(Intersection value) => Equals(this, value);
 
         /// <summary>
         /// The to string.

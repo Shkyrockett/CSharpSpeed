@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Point In Ellipse Tests")]
     [Description("Determines whether a point is in an Ellipse.")]
-    [Signature("public static Inclusion PointInEllipse(double x, double y, double rX, double rY, double angle, double pX, double pY)")]
+    [Signature("public static Inclusion EllipseContainsPoint(double cX, double cY, double rx, double ry, double cosT, double sinT, double pX, double pY, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class EllipseWithVectorAngleContainsPointTests
     {
@@ -40,7 +40,25 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// Determines whether the specified point is contained withing the region defined by this <see cref="Ellipse"/>.
+        /// 
+        /// </summary>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="cosT"></param>
+        /// <param name="sinT"></param>
+        /// <param name="pX"></param>
+        /// <param name="pY"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Inclusion EllipseContainsPoint(double cX, double cY, double rx, double ry, double cosT, double sinT, double pX, double pY, double epsilon = Epsilon)
+            => EllipseContainsPoint2(cX, cY, rx, ry, cosT, sinT, pX, pY, epsilon);
+
+        /// <summary>
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="Ellipse2D"/>.
         /// </summary>
         /// <param name="cX">Center x-coordinate.</param>
         /// <param name="cY">Center y-coordinate.</param>
@@ -61,7 +79,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipseContainsPoint(
+        public static Inclusion EllipseContainsPoint1(
             double cX, double cY, double rx, double ry, double cosT, double sinT,
             double pX, double pY,
             double epsilon = Epsilon)

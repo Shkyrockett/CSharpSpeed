@@ -15,7 +15,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Line Segment In Polygon Tests")]
     [Description("Determine whether a line segment is contained within a Polygon set.")]
-    [Signature("public static double PointInPolygonSet(List<List<Point2D>> polygon, Point2D point)")]
+    [Signature("public static bool LineInPolygon(Point2D start, Point2D end, PolygonContour2D polygon)")]
     [SourceCodeLocationProvider]
     public static class LineSegmentInPolygonTests
     {
@@ -29,7 +29,7 @@ namespace InstrumentedLibrary
             var trials = 10000;
             var pointA = new Point2D(1, 1);
             var pointB = new Point2D(2, 2);
-            var polygon = new PolygonContour(new List<Point2D> { new Point2D(0, 0), new Point2D(2, 0), new Point2D(0, 2) });
+            var polygon = new PolygonContour2D(new List<Point2D> { new Point2D(0, 0), new Point2D(2, 0), new Point2D(0, 2) });
             var tests = new Dictionary<object[], TestCaseResults> {
                 { new object[] { pointA, pointB, polygon }, new TestCaseResults(description:"polygon, point.", trials:trials, expectedReturnValue:true, epsilon:double.Epsilon) },
             };
@@ -43,6 +43,18 @@ namespace InstrumentedLibrary
 
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="polygon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool LineInPolygon(Point2D start, Point2D end, PolygonContour2D polygon)
+            => LineInPolygon0(start, end, polygon);
 
         /// <summary>
         /// This function should be called with the full set of *all* relevant polygons.
@@ -65,7 +77,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool LineInPolygon(Point2D start, Point2D end, PolygonContour polygon)
+        public static bool LineInPolygon0(Point2D start, Point2D end, PolygonContour2D polygon)
         {
             int i;
             int j;

@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cubic Hermite Interpolate Tests")]
     [Description("Find a point on a Hermite curve.")]
-    [Signature("public static double HermiteInterpolate2D(double v0, double v1, double v2, double v3, double t)")]
+    [Signature("public static (double X, double Y) HermiteInterpolate2D(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3, double index, double tension, double bias)")]
     [SourceCodeLocationProvider]
     public static class HermiteInterpolate2DTests
     {
@@ -40,6 +40,26 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <param name="index"></param>
+        /// <param name="tension"></param>
+        /// <param name="bias"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y) HermiteInterpolate2D(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3, double index, double tension, double bias)
+            => HermiteInterpolate2D(x0, y0, x1, y1, x2, y2, x3, y3, index, tension, bias);
+
+        /// <summary>
         /// The hermite interpolate2d.
         /// </summary>
         /// <param name="x0">The x0.</param>
@@ -63,7 +83,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) HermiteInterpolate2D(
+        public static (double X, double Y) HermiteInterpolate2D_(
             double x0, double y0,
             double x1, double y1,
             double x2, double y2,

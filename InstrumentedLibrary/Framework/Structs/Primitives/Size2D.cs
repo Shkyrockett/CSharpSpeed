@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace InstrumentedLibrary
@@ -9,6 +11,11 @@ namespace InstrumentedLibrary
     public struct Size2D
     {
         /// <summary>
+        /// Represents a <see cref="Size2D"/> that has <see cref="Width"/> and <see cref="Height"/> values set to zero.
+        /// </summary>
+        public static readonly Size2D Empty = new Size2D(0d, 0d);
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Size2D"/> class.
         /// </summary>
         /// <param name="width">The width.</param>
@@ -17,8 +24,8 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Size2D(double width, double height)
         {
-            this.Width = width;
-            this.Height = height;
+            Width = width;
+            Height = height;
         }
 
         /// <summary>
@@ -32,16 +39,17 @@ namespace InstrumentedLibrary
         public double Height { get; internal set; }
 
         /// <summary>
-        /// The deconstruct.
+        /// Deconstruct this <see cref="Size2D"/> to a <see cref="ValueTuple{T1, T2}"/>.
         /// </summary>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void Deconstruct(out double width, out double height)
         {
-            width = this.Width;
-            height = this.Height;
+            width = Width;
+            height = Height;
         }
 
         /// <summary>
@@ -51,8 +59,7 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="Size2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator +(Size2D value)
-            => new Size2D(+value.Width, +value.Height);
+        public static Size2D operator +(Size2D value) => new Size2D(+value.Width, +value.Height);
 
         /// <summary>
         /// Add an amount to both values in the <see cref="Point2D"/> classes.
@@ -62,8 +69,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator +(Size2D value, double addend)
-            => new Size2D(value.Width + addend, value.Height + addend);
+        public static Size2D operator +(Size2D value, double addend) => new Size2D(value.Width + addend, value.Height + addend);
 
         /// <summary>
         /// Add two <see cref="Size2D"/> classes together.
@@ -73,8 +79,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator +(Size2D value, Point2D addend)
-            => new Size2D(value.Width + addend.X, value.Height + addend.Y);
+        public static Size2D operator +(Size2D value, Point2D addend) => new Size2D(value.Width + addend.X, value.Height + addend.Y);
 
         /// <summary>
         /// Add two <see cref="Size2D"/> classes together.
@@ -84,8 +89,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator +(Size2D value, Size2D addend)
-            => new Size2D(value.Width + addend.Width, value.Height + addend.Height);
+        public static Size2D operator +(Size2D value, Size2D addend) => new Size2D(value.Width + addend.Width, value.Height + addend.Height);
 
         /// <summary>
         /// The operator -.
@@ -94,8 +98,7 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="Size2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator -(Size2D value)
-            => new Size2D(-value.Width, -value.Height);
+        public static Size2D operator -(Size2D value) => new Size2D(-value.Width, -value.Height);
 
         /// <summary>
         /// Subtract a <see cref="Size2D"/> from a <see cref="double"/> value.
@@ -105,8 +108,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator -(Size2D value, double subend)
-            => new Size2D(value.Width - subend, value.Height - subend);
+        public static Size2D operator -(Size2D value, double subend) => new Size2D(value.Width - subend, value.Height - subend);
 
         /// <summary>
         /// Subtract a <see cref="Size2D"/> from another <see cref="Size2D"/> class.
@@ -116,8 +118,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator -(Size2D value, Point2D subend)
-            => new Size2D(value.Width - subend.X, value.Height - subend.Y);
+        public static Size2D operator -(Size2D value, Point2D subend) => new Size2D(value.Width - subend.X, value.Height - subend.Y);
 
         /// <summary>
         /// Subtract a <see cref="Size2D"/> from another <see cref="Size2D"/> class.
@@ -127,8 +128,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator -(Size2D value, Size2D subend)
-            => new Size2D(value.Width - subend.Width, value.Height - subend.Height);
+        public static Size2D operator -(Size2D value, Size2D subend) => new Size2D(value.Width - subend.Width, value.Height - subend.Height);
 
         /// <summary>
         /// Scale a point
@@ -138,8 +138,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator *(double value, Size2D factor)
-            => new Size2D(value * factor.Width, value * factor.Height);
+        public static Size2D operator *(double value, Size2D factor) => new Size2D(value * factor.Width, value * factor.Height);
 
         /// <summary>
         /// Scale a point.
@@ -149,8 +148,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator *(Size2D value, double factor)
-            => new Size2D(value.Width * factor, value.Height * factor);
+        public static Size2D operator *(Size2D value, double factor) => new Size2D(value.Width * factor, value.Height * factor);
 
         /// <summary>
         /// Divide a <see cref="Size2D"/> by a <see cref="double"/> value.
@@ -160,8 +158,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator /(Size2D dividend, double divisor)
-            => new Size2D(dividend.Width / divisor, dividend.Height / divisor);
+        public static Size2D operator /(Size2D dividend, double divisor) => new Size2D(dividend.Width / divisor, dividend.Height / divisor);
 
         /// <summary>
         /// Compares two <see cref="Size2D"/> objects.
@@ -173,8 +170,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Size2D left, Size2D right)
-            => Equals(left, right);
+        public static bool operator ==(Size2D left, Size2D right) => Equals(left, right);
 
         /// <summary>
         /// Compares two <see cref="Size2D"/> objects.
@@ -186,35 +182,31 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Size2D left, Size2D right)
-            => !Equals(left, right);
+        public static bool operator !=(Size2D left, Size2D right) => !Equals(left, right);
 
         /// <summary>
-        /// Explicit conversion to <see cref="Size2D"/>.
+        /// Converts the specified <see cref="Point2D"/> structure to a <see cref="Size2D"/> structure.
         /// </summary>
-        /// <param name="point"> Point - the Point to convert to a Size </param>
+        /// <param name="point">The <see cref="Point2D"/> to be converted.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Size2D(Point2D point)
-            => new Size2D(point.X, point.Y);
+        public static explicit operator Size2D(Point2D point) => new Size2D(point.X, point.Y);
 
         /// <summary>
-        /// Explicit conversion to <see cref="Size2D"/>.
+        /// Converts the specified <see cref="Vector2D"/> structure to a <see cref="Size2D"/> structure.
         /// </summary>
-        /// <param name="vector"> Vector - the Vector to convert to a Size </param>
+        /// <param name="vector">The <see cref="Vector2D"/> to be converted.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Size2D(Vector2D vector)
-            => new Size2D(vector.I, vector.J);
+        public static explicit operator Size2D(Vector2D vector) => new Size2D(vector.I, vector.J);
 
         /// <summary>
-        /// 
+        /// Converts the specified <see cref="Size2D"/> structure to a <see cref="ValueTuple{T1, T2}"/> structure.
         /// </summary>
-        /// <param name="size"></param>
+        /// <param name="size">The <see cref="Size2D"/> to be converted.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator (double Width, double Height) (Size2D size)
-            => (size.Width, size.Height);
+        public static implicit operator (double Width, double Height) (Size2D size) => (size.Width, size.Height);
 
         /// <summary>
         /// The equals.
@@ -223,8 +215,7 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => obj is Size2D && Equals(this, (Size2D)obj);
+        public override bool Equals(object obj) => obj is Size2D && Equals(this, (Size2D)obj);
 
         /// <summary>
         /// The equals.
@@ -234,8 +225,7 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Size2D a, Size2D b)
-            => (a.Width == b.Width) & (a.Height == b.Height);
+        public static bool Equals(Size2D a, Size2D b) => (a.Width == b.Width) & (a.Height == b.Height);
 
         /// <summary>
         /// Get the hash code.
@@ -243,9 +233,7 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="int"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode()
-            => Width.GetHashCode()
-            ^ Height.GetHashCode();
+        public override int GetHashCode() => HashCode.Combine(Width, Height);
 
         /// <summary>
         /// The to string.

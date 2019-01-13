@@ -39,6 +39,20 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value1"></param>
+        /// <param name="value2"></param>
+        /// <param name="value3"></param>
+        /// <param name="amount1"></param>
+        /// <param name="amount2"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double Barycentric(double value1, double value2, double value3, double amount1, double amount2)
+            => Barycentric0(value1, value2, value3, amount1, amount2);
+
+        /// <summary>
         /// Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.
         /// </summary>
         /// <param name="value1">The coordinate on one axis of vertex 1 of the defining triangle.</param>
@@ -52,7 +66,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Barycentric(double value1, double value2, double value3, double amount1, double amount2)
+        public static double Barycentric0(double value1, double value2, double value3, double amount1, double amount2)
         {
             return value1 + ((value2 - value1) * amount1) + ((value3 - value1) * amount2);
         }

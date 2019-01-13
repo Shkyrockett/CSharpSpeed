@@ -13,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Gets the Segment overlap")]
     [Description("Determines whether segments overlap and retrieves the locations.")]
-    [Signature("public static bool HorzSegmentsOverlap(double segAX, double segAY, double segBX, double segBY)")]
+    [Signature("public static (bool Overlap, double Left, double Right) LineSegmentsOverlap(double a1, double a2, double b1, double b2)")]
     [SourceCodeLocationProvider]
     public static class LineSegmentsOverlapTests
     {
@@ -37,6 +37,19 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a1"></param>
+        /// <param name="a2"></param>
+        /// <param name="b1"></param>
+        /// <param name="b2"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (bool Overlap, double Left, double Right) LineSegmentsOverlap(double a1, double a2, double b1, double b2)
+            => GetOverlap(a1, a2, b1, b2);
 
         /// <summary>
         /// Get the overlap.

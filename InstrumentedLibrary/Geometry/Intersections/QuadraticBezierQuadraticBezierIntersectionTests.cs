@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Circle center from Three Points Tests")]
     [Description("Find the center of a circle that intersects three points.")]
-    [Signature("public static double CircleCenterFromPoints(double aX, double aY, double bX, double bY, double cX, double cY)")]
+    [Signature("public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class QuadraticBezierQuadraticBezierIntersectionTests
     {
@@ -38,6 +38,28 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a1X"></param>
+        /// <param name="a1Y"></param>
+        /// <param name="a2X"></param>
+        /// <param name="a2Y"></param>
+        /// <param name="a3X"></param>
+        /// <param name="a3Y"></param>
+        /// <param name="b1X"></param>
+        /// <param name="b1Y"></param>
+        /// <param name="b2X"></param>
+        /// <param name="b2Y"></param>
+        /// <param name="b3X"></param>
+        /// <param name="b3Y"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
+            => QuadraticBezierSegmentQuadraticBezierSegmentIntersection00(a1X, a1Y, a2X, a2Y, a3X, a3Y, b1X, b1Y, b2X, b2Y, b3X, b3Y, epsilon);
 
         /// <summary>
         /// Find the intersection between two quadratic beziers.
@@ -66,7 +88,10 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
+        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection00(
+            double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y,
+            double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y,
+            double epsilon = Epsilon)
         {
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
@@ -191,7 +216,10 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection0(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
+        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection0(
+            double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y,
+            double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y,
+            double epsilon = Epsilon)
         {
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
@@ -293,7 +321,10 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection1(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
+        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection1(
+            double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y,
+            double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y,
+            double epsilon = Epsilon)
         {
             var result = new Intersection(IntersectionState.NoIntersection);
 
@@ -430,7 +461,10 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection2(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
+        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection2(
+            double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y,
+            double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y,
+            double epsilon = Epsilon)
         {
             var va = new Vector2D(a2X, a2Y) * -2;
             var c12 = new Vector2D(a1X, a1Y) + va + new Vector2D(a3X, a3Y);
@@ -534,7 +568,10 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection3(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
+        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection3(
+            double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y,
+            double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y,
+            double epsilon = Epsilon)
         {
             var result = new Intersection(IntersectionState.NoIntersection);
 

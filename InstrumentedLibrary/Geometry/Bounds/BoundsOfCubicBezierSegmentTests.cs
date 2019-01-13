@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cubic Bezier Segment Bounds Tests")]
     [Description("Calculate bounding rectangle of a cubic bezier curve segment.")]
-    [Signature("public static double CubicBezierSegmentBounds(IEnumerable<IEnumerable<(double X, double Y)>> points)")]
+    [Signature("public static Rectangle2D CubicBezierBounds(double ax, double ay, double bx, double by, double cx, double cy, double dx, double dy)")]
     [SourceCodeLocationProvider]
     public static class BoundsOfCubicBezierSegmentTests
     {
@@ -40,6 +40,23 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ax"></param>
+        /// <param name="ay"></param>
+        /// <param name="bx"></param>
+        /// <param name="by"></param>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="dx"></param>
+        /// <param name="dy"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Rectangle2D CubicBezierBounds(double ax, double ay, double bx, double by, double cx, double cy, double dx, double dy)
+            => CubicBezierBounds2(ax, ay, bx, by, cx, cy, dx, dy);
+
+        /// <summary>
         /// The cubic bezier bounds.
         /// </summary>
         /// <param name="ax">The starting x-coordinate for the Cubic Bezier curve.</param>
@@ -56,7 +73,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D CubicBezierBounds(
+        public static Rectangle2D CubicBezierBounds1(
             double ax, double ay,
             double bx, double by,
             double cx, double cy,

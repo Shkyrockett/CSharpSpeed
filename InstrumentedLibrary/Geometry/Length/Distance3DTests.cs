@@ -40,6 +40,21 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double Distance3D(double x1, double y1, double z1, double x2, double y2, double z2)
+            => Distance3D_1(x1, y1, z1, x2, y2, z2);
+
+        /// <summary>
         /// Distance between two 3D points.
         /// </summary>
         /// <param name="x1">First X component.</param>

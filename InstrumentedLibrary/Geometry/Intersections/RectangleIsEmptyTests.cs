@@ -13,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Are values zero")]
     [Description("Determines whether a set of values is zero.")]
-    [Signature("public static bool IsEmpty(double width, double height)")]
+    [Signature("public static bool IsRectangleEmpty(double width, double height)")]
     [SourceCodeLocationProvider]
     public static class RectangleIsEmptyTests
     {
@@ -37,6 +37,17 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool IsRectangleEmpty(double width, double height)
+            => IsEmpty(width, height);
 
         /// <summary>
         /// Get the is empty.

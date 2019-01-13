@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using static InstrumentedLibrary.Maths;
-using static System.Math;
 
 namespace InstrumentedLibrary
 {
@@ -14,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Intersection of Cubic Bezier and Line Segment")]
     [Description("Finds the intersection points of a Cubic Bezier and Line Segment.")]
-    [Signature("public static double CubicBezierLineSegmentIntersection(double value1, double value2, double value3, double amount1, double amount2)")]
+    [Signature("public static Intersection CubicBezierLineSegmentIntersection(double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double p3x, double p3y, double l0x, double l0y, double l1x, double l1y, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class CubicBezierLineSegmentIntersectionTests
     {
@@ -38,6 +37,28 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p0x"></param>
+        /// <param name="p0y"></param>
+        /// <param name="p1x"></param>
+        /// <param name="p1y"></param>
+        /// <param name="p2x"></param>
+        /// <param name="p2y"></param>
+        /// <param name="p3x"></param>
+        /// <param name="p3y"></param>
+        /// <param name="l0x"></param>
+        /// <param name="l0y"></param>
+        /// <param name="l1x"></param>
+        /// <param name="l1y"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Intersection CubicBezierLineSegmentIntersection(double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double p3x, double p3y, double l0x, double l0y, double l1x, double l1y, double epsilon = Epsilon)
+            => CubicBezierLineSegmentIntersection1(p0x, p0y, p1x, p1y, p2x, p2y, p3x, p3y, l0x, l0y, l1x, l1y, epsilon);
 
         /// <summary>
         /// The cubic bezier line segment intersection1.
@@ -148,7 +169,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection CubicBezierLineSegmentIntersection(
+        public static Intersection CubicBezierLineSegmentIntersection2(
             double p1X, double p1Y,
             double p2X, double p2Y,
             double p3X, double p3Y,
@@ -192,12 +213,12 @@ namespace InstrumentedLibrary
                 var t = roots[i];
                 if (0 <= t && t <= 1)
                 {
-                    var p5 = InterpolateLinear2DTests.Lerp(p1X, p1Y, p2X, p2Y, t);
-                    var p6 = InterpolateLinear2DTests.Lerp(p2X, p2Y, p3X, p3Y, t);
-                    var p7 = InterpolateLinear2DTests.Lerp(p3X, p3Y, p4X, p4Y, t);
-                    var p8 = InterpolateLinear2DTests.Lerp(p5.X, p5.Y, p6.X, p6.Y, t);
-                    var p9 = InterpolateLinear2DTests.Lerp(p6.X, p6.Y, p7.X, p7.Y, t);
-                    var p10 = InterpolateLinear2DTests.Lerp(p8.X, p8.Y, p9.X, p9.Y, t);
+                    var p5 = InterpolateLinear2DTests.LinearInterpolate2D(p1X, p1Y, p2X, p2Y, t);
+                    var p6 = InterpolateLinear2DTests.LinearInterpolate2D(p2X, p2Y, p3X, p3Y, t);
+                    var p7 = InterpolateLinear2DTests.LinearInterpolate2D(p3X, p3Y, p4X, p4Y, t);
+                    var p8 = InterpolateLinear2DTests.LinearInterpolate2D(p5.X, p5.Y, p6.X, p6.Y, t);
+                    var p9 = InterpolateLinear2DTests.LinearInterpolate2D(p6.X, p6.Y, p7.X, p7.Y, t);
+                    var p10 = InterpolateLinear2DTests.LinearInterpolate2D(p8.X, p8.Y, p9.X, p9.Y, t);
                     if (a1X == a2X)
                     {
                         if (min.Y <= p10.Y && p10.Y <= max.Y)
@@ -294,12 +315,12 @@ namespace InstrumentedLibrary
                 var t = roots[i];
                 if (0 <= t && t <= 1)
                 {
-                    var p5 = InterpolateLinear2DTests.Lerp(p1X, p1Y, p2X, p2Y, t);
-                    var p6 = InterpolateLinear2DTests.Lerp(p2X, p2Y, p3X, p3Y, t);
-                    var p7 = InterpolateLinear2DTests.Lerp(p3X, p3Y, p4X, p4Y, t);
-                    var p8 = InterpolateLinear2DTests.Lerp(p5.X, p5.Y, p6.X, p6.Y, t);
-                    var p9 = InterpolateLinear2DTests.Lerp(p6.X, p6.Y, p7.X, p7.Y, t);
-                    var p10 = InterpolateLinear2DTests.Lerp(p8.X, p8.Y, p9.X, p9.Y, t);
+                    var p5 = InterpolateLinear2DTests.LinearInterpolate2D(p1X, p1Y, p2X, p2Y, t);
+                    var p6 = InterpolateLinear2DTests.LinearInterpolate2D(p2X, p2Y, p3X, p3Y, t);
+                    var p7 = InterpolateLinear2DTests.LinearInterpolate2D(p3X, p3Y, p4X, p4Y, t);
+                    var p8 = InterpolateLinear2DTests.LinearInterpolate2D(p5.X, p5.Y, p6.X, p6.Y, t);
+                    var p9 = InterpolateLinear2DTests.LinearInterpolate2D(p6.X, p6.Y, p7.X, p7.Y, t);
+                    var p10 = InterpolateLinear2DTests.LinearInterpolate2D(p8.X, p8.Y, p9.X, p9.Y, t);
                     if (a1X == a2X)
                     {
                         result.State = IntersectionState.Intersection;

@@ -13,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Point In Orthogonal Ellipse Tests")]
     [Description("Determines whether a point is in an Orthogonal Ellipse.")]
-    [Signature("public static Inclusion PointInEllipse(double x, double y, double rX, double rY, double pX, double pY)")]
+    [Signature("public static bool UnrotatedEllipseContainsPoint(double x, double y, double rX, double rY, double pX, double pY)")]
     [SourceCodeLocationProvider]
     public static class UnrotatedEllipseContainsPointTests
     {
@@ -39,6 +39,21 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="rX"></param>
+        /// <param name="rY"></param>
+        /// <param name="pX"></param>
+        /// <param name="pY"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool UnrotatedEllipseContainsPoint(double x, double y, double rX, double rY, double pX, double pY)
+            => UnrotatedEllipseContainsPoint1(x, y, rX, rY, pX, pY);
+
+        /// <summary>
         /// The unrotated ellipse contains point.
         /// </summary>
         /// <param name="x"></param>
@@ -53,7 +68,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool UnrotatedEllipseContainsPoint(double x, double y, double rX, double rY, double pX, double pY)
+        public static bool UnrotatedEllipseContainsPoint1(double x, double y, double rX, double rY, double pX, double pY)
         {
             if (rX <= 0d || rY <= 0d)
             {

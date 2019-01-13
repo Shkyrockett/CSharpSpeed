@@ -13,7 +13,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("2D Absolute Angle Tests")]
     [Description("Find the absolute angle of two points.")]
-    [Signature("public static double AbsoluteAngle2D(double x1, double y1, double x2, double y2)")]
+    [Signature("public static double AbsoluteAngle(double aX, double aY, double bX, double bY)")]
     [SourceCodeLocationProvider]
     public static class AbsoluteAngle2DTests
     {
@@ -37,6 +37,19 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double AbsoluteAngle(double aX, double aY, double bX, double bY)
+            => AbsoluteAngle1(aX, aY, bX, bY);
 
         /// <summary>
         /// Find the absolute positive value of a radian angle from two points.

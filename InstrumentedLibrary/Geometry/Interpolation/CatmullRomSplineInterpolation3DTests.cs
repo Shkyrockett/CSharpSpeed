@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Catmull-Rom Interpolate Tests")]
     [Description("Find a point on a CatmullRom curve.")]
-    [Signature("public static double CatmullRomInterpolate3D(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4, double t)")]
+    [Signature("public static (double X, double Y, double Z) CatmullRomInterpolate3D(double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3, double x4, double y4, double z4, double t)")]
     [SourceCodeLocationProvider]
     public static class CatmullRomSplineInterpolation3DTests
     {
@@ -39,6 +39,28 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <param name="z3"></param>
+        /// <param name="x4"></param>
+        /// <param name="y4"></param>
+        /// <param name="z4"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y, double Z) CatmullRomInterpolate3D(double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3, double x4, double y4, double z4, double t)
+            => CatmullRomSpline(x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4, t);
 
         /// <summary>
         /// Performs a Catmull-Rom interpolation using the specified positions.

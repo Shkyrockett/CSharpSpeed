@@ -39,6 +39,21 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="uX"></param>
+        /// <param name="uY"></param>
+        /// <param name="uZ"></param>
+        /// <param name="vX"></param>
+        /// <param name="vY"></param>
+        /// <param name="vZ"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double AngleBetween(double uX, double uY, double uZ, double vX, double vY, double vZ)
+            => AngleBetween0(uX, uY, uZ, vX, vY, vZ);
+
+        /// <summary>
         /// Finds the angle between two vectors.
         /// </summary>
         /// <param name="uX">The uX.</param>
@@ -57,7 +72,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double AngleBetween(
+        public static double AngleBetween0(
             double uX, double uY, double uZ,
             double vX, double vY, double vZ)
         {
