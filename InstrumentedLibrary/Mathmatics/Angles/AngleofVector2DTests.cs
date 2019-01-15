@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Angle of a 2D Vector Tests")]
     [Description("Find the angle of a 2D vector.")]
-    [Signature("public static double AngleOfVector2D(double i, double j)")]
     [SourceCodeLocationProvider]
     public static class AngleofVector2DTests
     {

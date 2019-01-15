@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Center of Rectangle Tests")]
     [Description("Find the center of a rectangle.")]
-    [Signature("public static (double X, double Y) RectangleCenter(Rectangle2D rectangle)")]
     [SourceCodeLocationProvider]
     public static class RectangleCenterTests
     {

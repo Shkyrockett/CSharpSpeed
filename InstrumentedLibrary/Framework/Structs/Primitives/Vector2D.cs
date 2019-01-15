@@ -18,6 +18,14 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> class.
         /// </summary>
+        /// <param name="tuple"></param>
+        public Vector2D((double I, double J) tuple)
+            : this(tuple.I, tuple.J)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Vector2D"/> class.
+        /// </summary>
         /// <param name="i">The i.</param>
         /// <param name="j">The j.</param>
         [DebuggerStepThrough]
@@ -27,6 +35,17 @@ namespace InstrumentedLibrary
             I = i;
             J = j;
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Vector2D"/> class.
+        /// </summary>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector2D(Point2D a, Point2D b)
+            : this(a.X, a.Y, b.X, b.Y)
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> class.

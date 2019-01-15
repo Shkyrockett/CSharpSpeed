@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Normalize two 3D Vectors Tests")]
     [Description("Normalizes two 3D Vectors.")]
-    [Signature("public static (double i, double j) Normalize(double i, double j)")]
     [SourceCodeLocationProvider]
     public static class NormalizeTwoVectors3DTests
     {
@@ -39,6 +38,21 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aI"></param>
+        /// <param name="aJ"></param>
+        /// <param name="aK"></param>
+        /// <param name="bI"></param>
+        /// <param name="bJ"></param>
+        /// <param name="bK"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double I, double J, double K) Normalize(double aI, double aJ, double aK, double bI, double bJ, double bK)
+            => Normalize0(aI, aJ, aK, bI, bJ, bK);
+
+        /// <summary>
         /// Find the Normal of Two points.
         /// </summary>
         /// <param name="aI">The x component of the first Point.</param>
@@ -57,7 +71,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double I, double J, double K) Normalize(
+        public static (double I, double J, double K) Normalize0(
             double aI, double aJ, double aK,
             double bI, double bJ, double bK)
         {

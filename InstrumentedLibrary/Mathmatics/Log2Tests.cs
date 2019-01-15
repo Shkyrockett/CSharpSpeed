@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Log 2 of a Number")]
     [Description("Find the Log 2 of a number.")]
-    [Signature("public static int Sign(double value)")]
     [SourceCodeLocationProvider]
     public static class Log2Tests
     {
@@ -38,6 +37,16 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static int Log2(int value)
+            => Log2_0(value);
 
         /// <summary>
         /// The system log2.
@@ -68,7 +77,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int Log2(int value)
+        public static int Log2_0(int value)
         {
             byte bits = 0;
             while (value != 0)

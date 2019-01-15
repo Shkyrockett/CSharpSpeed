@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Intersection of Quadratic Bezier and Cubic Bezier")]
     [Description("Finds the intersection points of a Quadratic Bezier and Cubic Bezier.")]
-    [Signature("public static Intersection QuadraticBezierSegmentCubicBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class QuadraticBezierCubicBezierIntersectionTests
     {
@@ -148,12 +147,12 @@ namespace InstrumentedLibrary
             for (var i = 0; i < roots.Length; i++)
             {
                 var s = roots[i];
-                var xRoots = QuadraticRootsTests.QuadraticRootsKevinLinDev(
+                var xRoots = QuadraticRootsTests.QuadraticRoots(
                     c12.I,
                     c11.I,
                     c10.I - c20.I - s * c21.I - s * s * c22.I - s * s * s * c23.I,
                     epsilon);
-                var yRoots = QuadraticRootsTests.QuadraticRootsKevinLinDev(
+                var yRoots = QuadraticRootsTests.QuadraticRoots(
                     c12.J,
                     c11.J,
                     c10.J - c20.J - s * c21.J - s * s * c22.J - s * s * s * c23.J,
@@ -259,12 +258,12 @@ namespace InstrumentedLibrary
             foreach (var s in roots)
             {
                 var point = new Point2D(c23.I * s * s * s + c22.I * s * s + c21.I * s + b1X, c23.J * s * s * s + c22.J * s * s + c21.J * s + b1Y);
-                var xRoots = QuadraticRootsTests.QuadraticRootsKevinLinDev(
+                var xRoots = QuadraticRootsTests.QuadraticRoots(
                     /* c */ c12.I,
                     /* t^1 */ c11.I,
                     /* t^2 */ a1X - point.X,
                     epsilon);
-                var yRoots = QuadraticRootsTests.QuadraticRootsKevinLinDev(
+                var yRoots = QuadraticRootsTests.QuadraticRoots(
                     /* c */ c12.J,
                     /* t^1 */ c11.J,
                     /* t^2 */ a1Y - point.Y,

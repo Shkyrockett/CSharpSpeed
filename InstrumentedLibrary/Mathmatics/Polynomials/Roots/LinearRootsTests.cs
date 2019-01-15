@@ -15,7 +15,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Linear Roots")]
     [Description("Find the real roots of a Linear polynomial.")]
-    [Signature("public static IList<double> LinearRoots(double aLinear, double bConstant, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class LinearRootsTests
     {
@@ -42,6 +41,18 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static IList<double> LinearRoots(double a, double b, double epsilon = Epsilon)
+            => LinearRoots0(a,  b,  epsilon);
+
+        /// <summary>
         /// The linear roots.
         /// </summary>
         /// <param name="a">The a.</param>
@@ -57,7 +68,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IList<double> LinearRoots(double a, double b, double epsilon = Epsilon)
+        public static IList<double> LinearRoots0(double a, double b, double epsilon = Epsilon)
         {
             // If a is 0 the polynomial is a constant expression.
             if (a is 0d)

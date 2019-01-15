@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Point In Elliptical Arc Sector Tests")]
     [Description("Determines whether a point is in an Elliptical Arc Sector.")]
-    [Signature("public static Inclusion EllipticalArcSectorContainsPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class EllipticalArcSectorContainsPointTests
     {
@@ -27,7 +26,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 2d, 2d, Maths.ToRadians(0d), Maths.ToRadians(0d), Maths.ToRadians(45d), 0.5d, 0.5d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: true, epsilon:DoubleEpsilon) },
+                { new object[] { 0d, 0d, 2d, 2d, ToRadiansTests.ToRadians(0d), ToRadiansTests.ToRadians(0d), ToRadiansTests.ToRadians(45d), 0.5d, 0.5d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: true, epsilon:DoubleEpsilon) },
             };
 
             var results = new List<SpeedTester>();

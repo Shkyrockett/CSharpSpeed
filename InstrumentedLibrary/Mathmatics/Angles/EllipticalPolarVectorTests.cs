@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Elliptical Polar Angle Vector")]
     [Description("Find the Cos and Sin of the Elliptical Polar Angle Vector.")]
-    [Signature("public static (double cosT, double sinT) EllipticalPolarVector(double cosA, double sinA, double rx, double ry)")]
     [SourceCodeLocationProvider]
     public static class EllipticalPolarVectorTests
     {
@@ -27,7 +26,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { Cos(Maths.ToRadians(45)), Sin(Maths.ToRadians(45)), 2d, 1d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: true, epsilon:DoubleEpsilon) },
+                { new object[] { Cos(ToRadiansTests.ToRadians(45)), Sin(ToRadiansTests.ToRadians(45)), 2d, 1d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: true, epsilon:DoubleEpsilon) },
             };
 
             var results = new List<SpeedTester>();

@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Bounds Rotated Ellipse Tests")]
     [Description("Finds the Bounds of a rotated ellipse.")]
-    [Signature("public static Rectangle2D EllipseBounds(double x, double y, double r1, double r2, double angle)")]
     [SourceCodeLocationProvider]
     public static class BoundsOfRotatedEllipseTests
     {

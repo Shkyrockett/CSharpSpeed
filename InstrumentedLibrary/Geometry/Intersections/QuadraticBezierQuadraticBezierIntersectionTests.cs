@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Circle center from Three Points Tests")]
     [Description("Find the center of a circle that intersects three points.")]
-    [Signature("public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class QuadraticBezierQuadraticBezierIntersectionTests
     {
@@ -147,12 +146,12 @@ namespace InstrumentedLibrary
                     (yCoeffB.C * s * s) + (yCoeffB.B * s) + yCoeffB.A);
                 if (s >= 0 && s <= 1)
                 {
-                    var xRoots = QuadraticRootsTests.QuadraticRootsKevinLinDev(
+                    var xRoots = QuadraticRootsTests.QuadraticRoots(
                         /* t^2 */ -xCoeffA.C,
                         /* t^1 */ -xCoeffA.B,
                         /* C^0 */ -xCoeffA.A + point.X,
                         epsilon);
-                    var yRoots = QuadraticRootsTests.QuadraticRootsKevinLinDev(
+                    var yRoots = QuadraticRootsTests.QuadraticRoots(
                         /* t^2 */ -yCoeffA.C,
                         /* t^1 */ -yCoeffA.B,
                         /* C^0 */ -yCoeffA.A + point.Y,
@@ -253,12 +252,12 @@ namespace InstrumentedLibrary
                     (yCoeffB.C * s * s) + (yCoeffB.B * s) + yCoeffB.A);
                 if (s >= 0 && s <= 1)
                 {
-                    var xRoots = QuadraticRootsTests.QuadraticRootsKevinLinDev(
+                    var xRoots = QuadraticRootsTests.QuadraticRoots(
                         /* t^2 */ -xCoeffA.C,
                         /* t^1 */ -xCoeffA.B,
                         /* C */ -xCoeffA.A + point.X,
                         epsilon);
-                    var yRoots = QuadraticRootsTests.QuadraticRootsKevinLinDev(
+                    var yRoots = QuadraticRootsTests.QuadraticRoots(
                         /* t^2 */ -yCoeffA.C,
                         /* t^1 */ -yCoeffA.B,
                         /* C */ -yCoeffA.A + point.Y,
@@ -356,7 +355,7 @@ namespace InstrumentedLibrary
                 var v1 = (a * b) - (f * f) - (2 * e * g);
                 var v2 = -2 * e * f;
                 var v3 = -e * e;
-                roots = CubicRootsTests.CubicRootsKevinLinDev(
+                roots = CubicRootsTests.CubicRoots(
                     /* t^3 */ -v3,
                     /* t^2 */ -v2,
                     /* t^1 */ -v1,
@@ -390,7 +389,7 @@ namespace InstrumentedLibrary
                     var v0 = a1X - point.X;
                     var v1 = c11.I;
                     var v2 = c12.I;
-                    var xRoots = QuadraticRootsTests.QuadraticRootsKevinLinDev(
+                    var xRoots = QuadraticRootsTests.QuadraticRoots(
                         /* t^2 */ -v2,
                         /* t^1 */ -v1,
                         /* C */ -v0,
@@ -398,7 +397,7 @@ namespace InstrumentedLibrary
                     v0 = a1Y - point.Y;
                     v1 = c11.J;
                     v2 = c12.J;
-                    var yRoots = QuadraticRootsTests.QuadraticRootsKevinLinDev(
+                    var yRoots = QuadraticRootsTests.QuadraticRoots(
                         /* t^2 */ -v2,
                         /* t^1 */ -v1,
                         /* C */ -v0,
@@ -502,12 +501,12 @@ namespace InstrumentedLibrary
                 var s = roots[i];
                 if (0 <= s && s <= 1)
                 {
-                    var xRoots = QuadraticRootsTests.QuadraticRootsKevinLinDev(
+                    var xRoots = QuadraticRootsTests.QuadraticRoots(
                         -c12.I,
                         -c11.I,
                         -c10.I + c20.I + (s * c21.I) + (s * s * c22.I),
                         epsilon);
-                    var yRoots = QuadraticRootsTests.QuadraticRootsKevinLinDev(
+                    var yRoots = QuadraticRootsTests.QuadraticRoots(
                         -c12.J,
                         -c11.J,
                         -c10.J + c20.J + (s * c21.J) + (s * s * c22.J),
@@ -604,12 +603,12 @@ namespace InstrumentedLibrary
                 var point = new Point2D((c22.I * s * s) + (c21.I * s) + b1X, (c22.J * s * s) + (c21.J * s) + b1Y);
                 if (0 <= s && s <= 1)
                 {
-                    var xRoots = QuadraticRootsTests.QuadraticRootsKevinLinDev(
+                    var xRoots = QuadraticRootsTests.QuadraticRoots(
                         /* C */ -c12.I,
                         /* t^1 */ -c11.I,
                         /* t^2 */ -a1X + point.X,
                         epsilon);
-                    var yRoots = QuadraticRootsTests.QuadraticRootsKevinLinDev(
+                    var yRoots = QuadraticRootsTests.QuadraticRoots(
                         /* C */ -c12.J,
                         /* t^1 */ -c11.J,
                         /* t^2 */ -a1Y + point.Y,

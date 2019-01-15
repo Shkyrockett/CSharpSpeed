@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Is Division Safe")]
     [Description("Determines whether the division of two values is likely to overflow.")]
-    [Signature("public static int IsDivisionSafe(int a, int b)")]
     [SourceCodeLocationProvider]
     public static class IsDivisionSafeTests
     {
@@ -38,6 +37,17 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool IsDivisionSafe(int a, int b)
+            => IsDivisionSafe0(a,b);
+
+        /// <summary>
         /// The is division safe.
         /// </summary>
         /// <param name="a">The a.</param>
@@ -52,7 +62,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsDivisionSafe(int a, int b)
+        public static bool IsDivisionSafe0(int a, int b)
         {
             if (b == 0)
             {

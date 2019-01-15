@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Area of Circle")]
     [Description("Find the area of a circle.")]
-    [Signature("public static double CircleArea(double radius)")]
     [SourceCodeLocationProvider]
     public static class CircleAreaTests
     {

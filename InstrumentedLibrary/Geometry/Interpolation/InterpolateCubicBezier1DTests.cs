@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cubic Bezier Interpolate 1D Tests")]
     [Description("Find a point on a 1D Cubic Bezier curve.")]
-    [Signature("public static double CubicBezierInterpolate1D(double v1, double v2, double v3, double v4, double t)")]
     [SourceCodeLocationProvider]
     public static class InterpolateCubicBezier1DTests
     {

@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Interpolate Rotated Elliptical Arc Tests")]
     [Description("Find a point on an rotated elliptical arc.")]
-    [Signature("public static (double X, double Y) EllipticalArc(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double t)")]
     [SourceCodeLocationProvider]
     public static class InterpolateRotatedEllipticalArcTests
     {

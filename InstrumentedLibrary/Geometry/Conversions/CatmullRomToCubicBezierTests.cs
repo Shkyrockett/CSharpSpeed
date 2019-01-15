@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Catmull-Rom to Cubic Bézier Tests")]
     [Description("Convert a Catmull-Rom curve to a Cubic Bézier segment.")]
-    [Signature("public static (double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY) CatmullRomToBezier(double aX, double aY, double bX, double bY, double cX, double cY)")]
     [SourceCodeLocationProvider]
     public static class CatmullRomToCubicBezierTests
     {

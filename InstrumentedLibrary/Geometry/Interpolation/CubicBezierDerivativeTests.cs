@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cubic Bezier Derivative Tests")]
     [Description("Cubic Bezier Derivative.")]
-    [Signature("public static (double X, double Y) CubicBezierDerivative(double p0X, double p0Y, double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double t)")]
     [SourceCodeLocationProvider]
     public static class CubicBezierDerivativeTests
     {

@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Rectangle Contains Point")]
     [Description("Determine whether a point is contained within a Rectangle.")]
-    [Signature("public static Inclusion RectangleContainsPoint2D(Rectangle2D rectangle, Point2D point)")]
     [SourceCodeLocationProvider]
     public static class RectangleContainsPointTests
     {

@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cubic Hermite Interpolate Tests")]
     [Description("Find a point on a Hermite curve.")]
-    [Signature("public static (double X, double Y, double Z) HermiteInterpolate3D(double x0, double y0, double z0, double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3, double mu, double tension, double bias)")]
     [SourceCodeLocationProvider]
     public static class HermiteInterpolate3DTests
     {

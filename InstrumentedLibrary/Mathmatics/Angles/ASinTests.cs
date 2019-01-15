@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("ASin Tests")]
     [Description("Returns the ASin of a value.")]
-    [Signature("public static double ASin(double d)")]
     [SourceCodeLocationProvider]
     public static class ASinTests
     {

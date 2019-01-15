@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("2D Absolute Angle Tests")]
     [Description("Find the absolute angle of two points.")]
-    [Signature("public static double AbsoluteAngle(double aX, double aY, double bX, double bY)")]
     [SourceCodeLocationProvider]
     public static class AbsoluteAngle2DTests
     {

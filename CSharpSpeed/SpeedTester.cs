@@ -223,7 +223,7 @@ namespace CSharpSpeed
                 {
                     reader.ReadLine();
                 }
-                var line = reader.ReadLine();
+                sb.Append(reader.ReadLine());
             }
             return sb.ToString();
         }

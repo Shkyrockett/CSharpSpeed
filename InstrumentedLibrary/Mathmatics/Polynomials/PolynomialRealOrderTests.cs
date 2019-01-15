@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Real Order of Polynomial")]
     [Description("Find the real order of a polynomial.")]
-    [Signature("public static PolynomialDegree RealOrder(double[] coefficients, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class PolynomialRealOrderTests
     {
@@ -38,6 +37,17 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="coefficients"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static PolynomialDegree RealOrder(double[] coefficients, double epsilon = Epsilon)
+            => RealOrderSuperLloyd(coefficients, epsilon);
 
         /// <summary>
         /// The real order super lloyd.
@@ -88,7 +98,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static PolynomialDegree RealOrder(double[] coefficients, double epsilon = Epsilon)
+        public static PolynomialDegree RealOrder0(double[] coefficients, double epsilon = Epsilon)
         {
             var pos = 1;
             var count = coefficients.Length;

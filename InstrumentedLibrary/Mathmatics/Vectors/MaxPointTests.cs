@@ -15,7 +15,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Max Point")]
     [Description("Finds the maximum of two points.")]
-    [Signature("public static (double X, double Y) MaxPoint(double point1X, double point1Y, double point2X, double point2Y)")]
     [SourceCodeLocationProvider]
     public static class MaxPointTests
     {
@@ -41,6 +40,19 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point1X"></param>
+        /// <param name="point1Y"></param>
+        /// <param name="point2X"></param>
+        /// <param name="point2Y"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y) MaxPoint(double point1X, double point1Y, double point2X, double point2Y)
+            => MaxPoint0(point1X, point1Y, point2X, point2Y);
+
+        /// <summary>
         /// The max point.
         /// </summary>
         /// <param name="point1X">The point1X.</param>
@@ -57,7 +69,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) MaxPoint(double point1X, double point1Y, double point2X, double point2Y)
+        public static (double X, double Y) MaxPoint0(double point1X, double point1Y, double point2X, double point2Y)
         {
             return (Max(point1X, point2X), Max(point1Y, point2Y));
         }

@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Counter Clockwise Perpendicular Vector")]
     [Description("Find the counter clockwise perpendicular of a Vector.")]
-    [Signature("public static (double I, double J) PerpendicularCounterClockwiseVector(double i, double j)")]
     [SourceCodeLocationProvider]
     public static class PerpendicularClockwiseVectorTests
     {
@@ -39,6 +38,17 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y) PerpendicularClockwise(double i, double j)
+            => PerpendicularClockwise0(i,j);
+
+        /// <summary>
         /// Find the Clockwise Perpendicular of a Vector.
         /// </summary>
         /// <param name="i"></param>
@@ -52,7 +62,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) PerpendicularClockwise(double i, double j)
+        public static (double X, double Y) PerpendicularClockwise0(double i, double j)
         {
             return (-j, i);
         }

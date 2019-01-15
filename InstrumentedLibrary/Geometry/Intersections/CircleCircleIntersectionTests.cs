@@ -15,7 +15,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Intersection of Two Circles")]
     [Description("Find the intersection points of two Circles.")]
-    [Signature("public static (int, (double X, double Y), (double X, double Y)) FindCircleCircleIntersections(double cx0, double cy0, double radius0, double cx1, double cy1, double radius1, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class CircleCircleIntersectionTests
     {

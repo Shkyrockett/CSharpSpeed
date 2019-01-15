@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Polygon Signed Area")]
     [Description("Determine area of a polygon.")]
-    [Signature("public static double PolygonArea(List<List<Point2D>> polygon)")]
     [SourceCodeLocationProvider]
     public static class PolygonAreaTests
     {

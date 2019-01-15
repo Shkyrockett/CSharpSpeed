@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Point In Orthogonal Ellipse Tests")]
     [Description("Determines whether a point is in an Orthogonal Ellipse.")]
-    [Signature("public static bool UnrotatedEllipseContainsPoint(double x, double y, double rX, double rY, double pX, double pY)")]
     [SourceCodeLocationProvider]
     public static class UnrotatedEllipseContainsPointTests
     {

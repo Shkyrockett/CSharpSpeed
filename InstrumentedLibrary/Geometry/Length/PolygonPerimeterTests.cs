@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Polygon Perimeter Tests")]
     [Description("Calculate the Perimeter of a polygon.")]
-    [Signature("public static List<(double X, double Y)> PolygonPerimeter(List<(double X, double Y)> points)")]
     [SourceCodeLocationProvider]
     public static class PolygonPerimeterTests
     {

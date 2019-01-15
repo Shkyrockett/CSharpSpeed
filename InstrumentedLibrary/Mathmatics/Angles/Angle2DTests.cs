@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("2D Angle Tests")]
     [Description("Returns the Angle of a line that runs between two points.")]
-    [Signature("public static double Angle2D(double x1, double y1, double x2, double y2)")]
     [SourceCodeLocationProvider]
     public static class Angle2DTests
     {

@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Is Subtraction Safe")]
     [Description("Determines whether the subtraction of two values is likely to overflow.")]
-    [Signature("public static int IsSubtractionSafe(int a, int b)")]
     [SourceCodeLocationProvider]
     public static class IsSubtractionSafeTests
     {
@@ -38,6 +37,17 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool IsSubtractionSafe(int a, int b)
+            => IsSubtractionSafe0(a, b);
+
+        /// <summary>
         /// The is subtraction safe.
         /// </summary>
         /// <param name="a">The a.</param>
@@ -52,7 +62,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsSubtractionSafe(int a, int b)
+        public static bool IsSubtractionSafe0(int a, int b)
         {
             if (a == 0 || b == 0 || a == -0 || b == -0)
             {

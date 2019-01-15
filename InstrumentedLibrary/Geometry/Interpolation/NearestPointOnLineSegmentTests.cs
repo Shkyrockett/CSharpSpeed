@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Nearest Point on Line Segment")]
     [Description("Find the nearest point on a line segment to a point.")]
-    [Signature("public static (double X, double Y) ClosestPointOnLineSegment(double aX, double aY, double bX, double bY, double pX, double pY)")]
     [SourceCodeLocationProvider]
     public static class NearestPointOnLineSegmentTests
     {

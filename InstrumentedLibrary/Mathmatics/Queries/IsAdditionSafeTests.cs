@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Is Addition Safe")]
     [Description("Determines whether the addition of two values is likely to overflow.")]
-    [Signature("public static int IsAdditionSafe(int a, int b)")]
     [SourceCodeLocationProvider]
     public static class IsAdditionSafeTests
     {
@@ -38,6 +37,17 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool IsAdditionSafe(int a, int b)
+            => IsAdditionSafe0(a, b);
+
+        /// <summary>
         /// The is addition safe.
         /// </summary>
         /// <param name="a">The a.</param>
@@ -52,7 +62,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsAdditionSafe(int a, int b)
+        public static bool IsAdditionSafe0(int a, int b)
         {
             return Log2Tests.Log2(a) < sizeof(int) && Log2Tests.Log2(b) < sizeof(int);
         }

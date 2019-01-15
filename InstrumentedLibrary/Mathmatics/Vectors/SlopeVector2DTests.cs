@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Slope of 2D Vector Tests")]
     [Description("Estimations on the length of the Perimeter of an ellipse.")]
-    [Signature("public static double Slope(double aX, double aY, double bX, double bY)")]
     [SourceCodeLocationProvider]
     public static class SlopeVector2DTests
     {
@@ -40,6 +39,17 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double Slope(double i, double j)
+            => Slope0(i,j);
+
+        /// <summary>
         /// Calculates the Slope of a vector.
         /// </summary>
         /// <param name="i"></param>
@@ -56,7 +66,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Slope(double i, double j)
+        public static double Slope0(double i, double j)
         {
             return Abs(i) < DoubleEpsilon ? SlopeMax : (j / i);
         }

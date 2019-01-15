@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Clamp Value")]
     [Description("Clamp a value between a max and min.")]
-    [Signature("public static Intersection Clamp(double value, double min, double max)")]
     [SourceCodeLocationProvider]
     public static class ClampTests
     {
@@ -37,6 +36,18 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double Clamp(double value, double min, double max)
+            => Clamp0(value, min, max);
 
         /// <summary>
         /// Keep the value between the maximum and minimum.

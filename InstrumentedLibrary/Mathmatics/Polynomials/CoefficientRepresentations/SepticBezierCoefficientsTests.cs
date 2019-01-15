@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Septic Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a Septic Bezier Curve.")]
-    [Signature("public static IList<double> SepticBezierCoefficients(double a, double b, double c, double d, double e, double f, double g, double h)")]
     [SourceCodeLocationProvider]
     public static class SepticBezierCoefficientsTests
     {

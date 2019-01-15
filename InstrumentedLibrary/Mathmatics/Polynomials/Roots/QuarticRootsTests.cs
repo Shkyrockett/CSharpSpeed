@@ -15,7 +15,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Quartic Roots")]
     [Description("Find the real roots of a Quartic polynomial.")]
-    [Signature("public static IList<double> QuarticRoots(double aQuartic, double bCube, double cSquare, double dLinear, double eConstant, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class QuarticRootsTests
     {
@@ -42,6 +41,21 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static IList<double> QuarticRoots(double a, double b, double c, double d, double e, double epsilon = Epsilon)
+            => QuarticRoots0(a, b, c, d, e, epsilon);
+
+        /// <summary>
         /// The quartic roots.
         /// </summary>
         /// <param name="a">The a.</param>
@@ -59,12 +73,12 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IList<double> QuarticRoots(double a, double b, double c, double d, double e, double epsilon = Epsilon)
+        public static IList<double> QuarticRoots0(double a, double b, double c, double d, double e, double epsilon = Epsilon)
         {
             // If a is 0 the polynomial is cubic.
             if (a is 0d)
             {
-                return CubicRootsTests.CubicRootsStephenRSchmitt(b, c, d, e, epsilon);
+                return CubicRootsTests.CubicRoots(b, c, d, e, epsilon);
             }
 
             var A = b / a;
@@ -72,7 +86,7 @@ namespace InstrumentedLibrary
             var C = d / a;
             var D = e / a;
 
-            var resolveRoots = CubicRootsTests.CubicRootsStephenRSchmitt(
+            var resolveRoots = CubicRootsTests.CubicRoots(
                 (-A * A * D) + (4d * B * D) - (C * C),
                 (A * C) - (4d * D),
                 -B,
@@ -275,7 +289,7 @@ namespace InstrumentedLibrary
             // If a is 0 the polynomial is cubic.
             if (a is 0d)
             {
-                return CubicRootsTests.CubicRootsStephenRSchmitt(b, c, d, e, epsilon);
+                return CubicRootsTests.CubicRoots(b, c, d, e, epsilon);
             }
 
             var delta = (256d * a * a * a * e * e * e) - (192d * a * a * b * d * e * e) - (128d * a * a * c * c * e * e) + (144d * a * a * c * d * d * e) - (27d * a * a * d * d * d * d) + (144d * a * b * b * c * e * e) - (6d * a * b * b * d * d * e) - (80d * a * b * c * c * d * e) + (18d * a * b * c * d * d * d) + (16d * a * c * c * c * c * e) - (4d * a * c * c * c * d * d) - (27d * b * b * b * b * e * e) + (18d * b * b * b * c * d * e) - (4d * b * b * b * d * d * d) - (4d * b * b * c * c * c * e) + (b * b * c * c * d * d);

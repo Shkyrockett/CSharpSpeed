@@ -15,7 +15,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Angle of a 2D Vector Tests")]
     [Description("Find the angle of a 2D vector.")]
-    [Signature("public static Rectangle2D EllipticalArc(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle)")]
     [SourceCodeLocationProvider]
     public static class BoundsOfRotatedEllipticalArcTests
     {

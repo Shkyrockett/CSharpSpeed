@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cubic Interpolate 2D Tests")]
     [Description("Find a point on a 2D Cubic curve.")]
-    [Signature("public static (double X, double Y) CubicInterpolate2D(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3, double t)")]
     [SourceCodeLocationProvider]
     public static class InterpolateCubic2DTests
     {

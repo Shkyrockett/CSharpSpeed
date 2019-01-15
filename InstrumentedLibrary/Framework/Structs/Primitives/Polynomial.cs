@@ -1415,9 +1415,9 @@ namespace InstrumentedLibrary
                 case PolynomialDegree.Linear:
                     return LinearRootsTests.LinearRoots(coefficients[1], coefficients[0], epsilon).ToArray();
                 case PolynomialDegree.Quadratic:
-                    return QuadraticRootsTests.QuadraticRootsKevinLinDev(coefficients[2], coefficients[1], coefficients[0], epsilon).ToArray();
+                    return QuadraticRootsTests.QuadraticRoots(coefficients[2], coefficients[1], coefficients[0], epsilon).ToArray();
                 case PolynomialDegree.Cubic:
-                    return CubicRootsTests.CubicRootsKevinLinDev(coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon).ToArray();
+                    return CubicRootsTests.CubicRoots(coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon).ToArray();
                 case PolynomialDegree.Quartic:
                     return QuarticRootsTests.QuarticRoots(coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon).ToArray();
                 case PolynomialDegree.Quintic:

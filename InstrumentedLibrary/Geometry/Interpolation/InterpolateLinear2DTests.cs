@@ -15,7 +15,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Linear Interpolate Tests")]
     [Description("Find a point on a line.")]
-    [Signature("public static (double X, double Y) LinearInterpolate2D(double x0, double y0, double x1, double y1, double t)")]
     [SourceCodeLocationProvider]
     public static class InterpolateLinear2DTests
     {

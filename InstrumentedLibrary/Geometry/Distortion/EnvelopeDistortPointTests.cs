@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Envelope Distort Point Tests")]
     [Description("Use a Bezier envelope to distort the location of a point.")]
-    [Signature("public static Point2D EnvelopeDistort(Point2D point, Rectangle2D bounds, Point2D topLeft, Point2D topLeftH, Point2D topLeftV, Point2D topRight, Point2D topRightH, Point2D topRightV, Point2D bottomRight, Point2D bottomRightH, Point2D bottomRightV, Point2D bottomLeft, Point2D bottomLeftH, Point2D bottomLeftV)")]
     [SourceCodeLocationProvider]
     public static class EnvelopeDistortPointTests
     {

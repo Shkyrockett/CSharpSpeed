@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Area Intersection Two Circles")]
     [Description("Find the area of the section of the intersection of two circles.")]
-    [Signature("public static double Area(double centerX1, double centerY1, double radius1, double centerX2, double centerY2, double radius2)")]
     [SourceCodeLocationProvider]
     public static class IntersectionCirclesTestsArea
     {

@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Line Segment to Quadratic Bézier Tests")]
     [Description("Convert a Line Segment to a Quadratic Bézier.")]
-    [Signature("public static double LineSegmentToQuadraticBezier(double v0, double v1, double v2, double v3, double t)")]
     [SourceCodeLocationProvider]
     public static class LineSegmentToQuadraticBezierSegmentTests
     {

@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Intersection of Two Cubic Bezier Curves")]
     [Description("Find the intersection points of two Bezier curves.")]
-    [Signature("public static Intersection CubicBezierSegmentCubicBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double a4X, double a4Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class CubicBezierCubicBezierIntersectionTests
     {
@@ -336,13 +335,13 @@ namespace InstrumentedLibrary
             for (var i = 0; i < roots.Length; i++)
             {
                 var s = roots[i];
-                var xRoots = CubicRootsTests.CubicRootsKevinLinDev(
+                var xRoots = CubicRootsTests.CubicRoots(
                     c13.I,
                     c12.I,
                     c11.I,
                     c10.I - c20.I - (s * c21.I) - (s * s * c22.I) - (s * s * s * c23.I),
                     epsilon);
-                var yRoots = CubicRootsTests.CubicRootsKevinLinDev(
+                var yRoots = CubicRootsTests.CubicRoots(
                     c13.J,
                     c12.J,
                     c11.J,
@@ -471,13 +470,13 @@ namespace InstrumentedLibrary
             foreach (var s in roots)
             {
                 var point = new Point2D((c23.I * s * s * s) + (c22.I * s * s) + (c21.I * s) + b1X, (c23.J * s * s * s) + (c22.J * s * s) + (c21.J * s) + b1Y);
-                var xRoots = CubicRootsTests.CubicRootsKevinLinDev(
+                var xRoots = CubicRootsTests.CubicRoots(
                     /* t^0 */ c13.I,
                     /* t^1 */ c12.I,
                     /* t^2 */ c11.I,
                     /* t^3 */ a1X - point.X,
                     epsilon);
-                var yRoots = CubicRootsTests.CubicRootsKevinLinDev(
+                var yRoots = CubicRootsTests.CubicRoots(
                     /* t^0 */ c13.J,
                     /* t^1 */ c12.J,
                     /* t^2 */ c11.J,

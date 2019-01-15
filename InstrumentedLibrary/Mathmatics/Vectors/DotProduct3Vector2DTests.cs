@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Dot Product Tests")]
     [Description("Returns the Angle of a line that runs between two points.")]
-    [Signature("public static double DotProduct2D(double x1, double y1, double x2, double y2, double x3, double y3)")]
     [SourceCodeLocationProvider]
     public static class DotProduct3Vector2DTests
     {
@@ -36,6 +35,21 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double DotProductVector2D(double x1, double y1, double x2, double y2, double x3, double y3)
+            => DotProductVector2D_0(x1, y1, x2, y2, x3, y3);
 
         /// <summary>
         /// Return the dot product AB · BC.

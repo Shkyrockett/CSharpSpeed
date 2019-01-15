@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Sine Interpolate Tests")]
     [Description("Find a point on a Sine curve.")]
-    [Signature("public static double Sine(double v1, double v2, double t)")]
     [SourceCodeLocationProvider]
     public static class SineInterpolate1DTests
     {

@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Circle center from Three Points Tests")]
     [Description("Find the center of a circle that intersects three points.")]
-    [Signature("public static (double X, double Y)? CircleCenterFromPoints(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y)")]
     [SourceCodeLocationProvider]
     public static class CircleCenterFromThreePointsTests
     {

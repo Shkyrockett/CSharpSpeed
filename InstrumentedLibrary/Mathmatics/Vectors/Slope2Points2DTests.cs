@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Slope of 2 2D Points Tests")]
     [Description("Estimations on the length of the Perimeter of an ellipse.")]
-    [Signature("public static double Slope(double aX, double aY, double bX, double bY)")]
     [SourceCodeLocationProvider]
     public static class Slope2Points2DTests
     {
@@ -40,6 +39,19 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double Slope(double x1, double y1, double x2, double y2)
+            => Slope1(x1, y1, x2, y2);
+
+        /// <summary>
         /// Returns the slope angle of a line.
         /// </summary>
         /// <param name="x1">Horizontal Component of Point Starting Point</param>
@@ -57,7 +69,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Slope(
+        public static double Slope1(
             double x1, double y1,
             double x2, double y2)
         {
@@ -86,7 +98,7 @@ namespace InstrumentedLibrary
             double x1, double y1,
             double x2, double y2)
         {
-            return SlopeVector2DTests.Slope(x2 - x1,y2 - y1);
+            return SlopeVector2DTests.Slope(x2 - x1, y2 - y1);
         }
     }
 }

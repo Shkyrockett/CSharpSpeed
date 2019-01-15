@@ -15,7 +15,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Atan2 Tests")]
     [Description("Returns the Atan2 of a vector.")]
-    [Signature("public static double Atan2(double y, double x)")]
     [SourceCodeLocationProvider]
     public static class Atan2Tests
     {

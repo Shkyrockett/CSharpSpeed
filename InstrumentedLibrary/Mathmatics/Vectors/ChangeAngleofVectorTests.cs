@@ -15,7 +15,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Change Angle of Vector Tests")]
     [Description("Change the angle of a vector.")]
-    [Signature("public static double Slope(double aX, double aY, double bX, double bY)")]
     [SourceCodeLocationProvider]
     public static class ChangeAngleOfVectorTests
     {
@@ -39,6 +38,18 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double I, double J) ChangeAngleOfVector(double i, double j, double angle)
+            => SetAngle(i, j, angle);
 
         /// <summary>
         /// Set the angle.

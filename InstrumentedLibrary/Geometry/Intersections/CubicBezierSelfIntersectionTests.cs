@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Self Intersection of Cubic Bezier")]
     [Description("Finds the self intersection points of a Cubic Bezier.")]
-    [Signature("public static (double X, double Y)? CubicBezierSelfIntersection(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)")]
     [SourceCodeLocationProvider]
     public static class CubicBezierSelfIntersectionTests
     {
@@ -168,7 +167,7 @@ namespace InstrumentedLibrary
                 2
             };
 
-            var roots = CubicRootsTests.CubicRootsKevinLinDev(poly[3], poly[2], poly[1], poly[0])
+            var roots = CubicRootsTests.CubicRoots(poly[3], poly[2], poly[1], poly[0])
                 .OrderByDescending(c => c).ToArray();
             if (roots.Length != 3)
             {

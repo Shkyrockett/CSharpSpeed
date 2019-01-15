@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Three Vector2D Angle Tests")]
     [Description("Returns the Angle of three vectors.")]
-    [Signature("public static double Angle3Vector2D(double x1, double y1, double x2, double y2, double x3, double y3)")]
     [SourceCodeLocationProvider]
     public static class Angle3Vector2DTests
     {
@@ -83,7 +82,7 @@ namespace InstrumentedLibrary
             double x2, double y2,
             double x3, double y3)
         {
-            return Atan2(CrossProduct3Vector2DTests.CrossProductVector2D_0(x1, y1, x2, y2, x3, y3), DotProduct3Vector2DTests.DotProductVector2D_0(x1, y1, x2, y2, x3, y3));
+            return Atan2(CrossProduct3Vector2DTests.CrossProductVector2D(x1, y1, x2, y2, x3, y3), DotProduct3Vector2DTests.DotProductVector2D(x1, y1, x2, y2, x3, y3));
         }
 
         /// <summary>
@@ -117,10 +116,10 @@ namespace InstrumentedLibrary
             double cX, double cY)
         {
             // Get the dot product.
-            var dotProduct = DotProduct3Vector2DTests.DotProductVector2D_0(aX, aY, bX, bY, cX, cY);
+            var dotProduct = DotProduct3Vector2DTests.DotProductVector2D(aX, aY, bX, bY, cX, cY);
 
             // Get the cross product.
-            var crossProduct = CrossProduct3Vector2DTests.CrossProductVector2D_0(aX, aY, bX, bY, cX, cY);
+            var crossProduct = CrossProduct3Vector2DTests.CrossProductVector2D(aX, aY, bX, bY, cX, cY);
 
             // Calculate the angle.
             return Atan2(crossProduct, dotProduct);

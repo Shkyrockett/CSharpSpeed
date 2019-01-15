@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cross Product 2 Vector2D Tests")]
     [Description("Returns the cross product of two 2D vectors.")]
-    [Signature("public static double CrossProduct2D(double ia, double ja, double ib, double jb)")]
     [SourceCodeLocationProvider]
     public static class CrossProduct2Vector2DTests
     {
@@ -36,6 +35,19 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double CrossProduct2Vector2D(double x1, double y1, double x2, double y2)
+            => CrossProduct2Vector2D_0(x1, y1, x2, y2);
 
         /// <summary>
         /// Cross Product of two vectors.

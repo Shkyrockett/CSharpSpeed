@@ -15,7 +15,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Ellipse, Ellipse Intersection Tests")]
     [Description("Finds the intersection points of two Ellipse.")]
-    [Signature("public static Intersection UnrotatedEllipseUnrotatedEllipseIntersection(double acX, double acY, double arX, double arY, double bcX, double bcY, double brX, double brY, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class UnrotatedEllipseUnrotatedEllipseIntersectionTests
     {
@@ -278,7 +277,7 @@ namespace InstrumentedLibrary
                     A2, B2, C2, D2, E2, F2, sign2);
 
                 // See if we have already found this root.
-                if (IsNumberValidTests.IsNumber(y))
+                if (IsNumberValidTests.IsNumberValid(y))
                 {
                     var is_new = true;
                     foreach (var pt in roots)
@@ -582,7 +581,7 @@ namespace InstrumentedLibrary
                     A2, B2, C2, D2, E2, F2, sign2);
 
                 // See if we have already found this root.
-                if (IsNumberValidTests.IsNumber(y))
+                if (IsNumberValidTests.IsNumberValid(y))
                 {
                     var is_new = true;
                     foreach (var pt in roots)
@@ -664,8 +663,8 @@ namespace InstrumentedLibrary
 
             // Get the sign of the values.
             int sgn_min, sgn_max;
-            sgn_min = IsNumberValidTests.IsNumber(g_xmin) ? Sign(g_xmin) : sgn_nan;
-            sgn_max = IsNumberValidTests.IsNumber(g_xmax) ? Sign(g_xmax) : sgn_nan;
+            sgn_min = IsNumberValidTests.IsNumberValid(g_xmin) ? Sign(g_xmin) : sgn_nan;
+            sgn_max = IsNumberValidTests.IsNumberValid(g_xmax) ? Sign(g_xmax) : sgn_nan;
 
             // If the two values have the same sign,
             // then there is no root here.
@@ -685,7 +684,7 @@ namespace InstrumentedLibrary
                 g_xmid = G(xmid,
                     A1, B1, C1, D1, E1, F1, sign1,
                     A2, B2, C2, D2, E2, F2, sign2);
-                sgn_mid = IsNumberValidTests.IsNumber(g_xmid) ? Sign(g_xmid) : sgn_nan;
+                sgn_mid = IsNumberValidTests.IsNumberValid(g_xmid) ? Sign(g_xmid) : sgn_nan;
 
                 // If sgn_mid is 0, gxmid is 0 so this is the root.
                 if (sgn_mid == 0)
@@ -732,15 +731,15 @@ namespace InstrumentedLibrary
                 }
             }
 
-            if (IsNumberValidTests.IsNumber(g_xmid) && (Abs(g_xmid) < DoubleEpsilon))
+            if (IsNumberValidTests.IsNumberValid(g_xmid) && (Abs(g_xmid) < DoubleEpsilon))
             {
                 return (xmid, g_xmid);
             }
-            else if (IsNumberValidTests.IsNumber(g_xmin) && (Abs(g_xmin) < DoubleEpsilon))
+            else if (IsNumberValidTests.IsNumberValid(g_xmin) && (Abs(g_xmin) < DoubleEpsilon))
             {
                 return (xmin, g_xmin);
             }
-            else if (IsNumberValidTests.IsNumber(g_xmax) && (Abs(g_xmax) < DoubleEpsilon))
+            else if (IsNumberValidTests.IsNumberValid(g_xmax) && (Abs(g_xmax) < DoubleEpsilon))
             {
                 return (xmax, g_xmax);
             }
@@ -851,10 +850,10 @@ namespace InstrumentedLibrary
                     for (var x = xmin; x <= xmax; x++)
                     {
                         var y1 = G1(A1, B1, C1, D1, E1, F1, x, sign1);
-                        if (IsNumberValidTests.IsNumber(y1))
+                        if (IsNumberValidTests.IsNumberValid(y1))
                         {
                             var y2 = G1(A2, B2, C2, D2, E2, F2, x, sign2);
-                            if (IsNumberValidTests.IsNumber(y2))
+                            if (IsNumberValidTests.IsNumberValid(y2))
                             {
                                 points.Add((x, y1 - y2));
                             }
@@ -899,12 +898,12 @@ namespace InstrumentedLibrary
             var tangent_y = G(TangentX,
                 a1, b1, c1, d1, e1, f1, +1d,
                 a2, b2, c2, d2, e2, f2, +1d);
-            if (IsNumberValidTests.IsNumber(tangent_y))
+            if (IsNumberValidTests.IsNumberValid(tangent_y))
             {
                 var slope =
                     G1Prime(TangentX, a1, b1, c1, d1, e1, f1, +1d)
                     - G1Prime(TangentX, a2, b2, c2, d2, e2, f2, +1d);
-                if (IsNumberValidTests.IsNumber(slope))
+                if (IsNumberValidTests.IsNumberValid(slope))
                 {
                     var delta_x = Sqrt(
                         tangent_length * tangent_length / (1d + slope * slope)) / 2d;
@@ -918,12 +917,12 @@ namespace InstrumentedLibrary
             tangent_y = G(TangentX,
                 a1, b1, c1, d1, e1, f1, +1d,
                 a2, b2, c2, d2, e2, f2, -1d);
-            if (IsNumberValidTests.IsNumber(tangent_y))
+            if (IsNumberValidTests.IsNumberValid(tangent_y))
             {
                 var slope =
                     G1Prime(TangentX, a1, b1, c1, d1, e1, f1, +1d)
                     - G1Prime(TangentX, a2, b2, c2, d2, e2, f2, -1d);
-                if (IsNumberValidTests.IsNumber(slope))
+                if (IsNumberValidTests.IsNumberValid(slope))
                 {
                     var delta_x = Sqrt(tangent_length * tangent_length / (1d + slope * slope)) / 2d;
                     TangentCenters.Add((TangentX, tangent_y));
@@ -936,12 +935,12 @@ namespace InstrumentedLibrary
             tangent_y = G(TangentX,
                 a1, b1, c1, d1, e1, f1, -1d,
                 a2, b2, c2, d2, e2, f2, +1d);
-            if (IsNumberValidTests.IsNumber(tangent_y))
+            if (IsNumberValidTests.IsNumberValid(tangent_y))
             {
                 var slope =
                     G1Prime(TangentX, a1, b1, c1, d1, e1, f1, -1d)
                     - G1Prime(TangentX, a2, b2, c2, d2, e2, f2, +1d);
-                if (IsNumberValidTests.IsNumber(slope))
+                if (IsNumberValidTests.IsNumberValid(slope))
                 {
                     var delta_x = Sqrt(
                         tangent_length * tangent_length / (1d + slope * slope)) / 2d;
@@ -955,12 +954,12 @@ namespace InstrumentedLibrary
             tangent_y = G(TangentX,
                 a1, b1, c1, d1, e1, f1, -1d,
                 a2, b2, c2, d2, e2, f2, -1d);
-            if (IsNumberValidTests.IsNumber(tangent_y))
+            if (IsNumberValidTests.IsNumberValid(tangent_y))
             {
                 var slope =
                     G1Prime(TangentX, a1, b1, c1, d1, e1, f1, -1d)
                     - G1Prime(TangentX, a2, b2, c2, d2, e2, f2, -1d);
-                if (IsNumberValidTests.IsNumber(slope))
+                if (IsNumberValidTests.IsNumberValid(slope))
                 {
                     var delta_x = Sqrt(
                         tangent_length * tangent_length / (1d + slope * slope)) / 2d;
@@ -1064,7 +1063,7 @@ namespace InstrumentedLibrary
             for (var x = xmin; x <= xmax; x++)
             {
                 var y = G1(a, b, c, d, e, f, x, +1d);
-                if (IsNumberValidTests.IsNumber(y))
+                if (IsNumberValidTests.IsNumberValid(y))
                 {
                     points.Add(new Point2D(x, y));
                 }
@@ -1072,7 +1071,7 @@ namespace InstrumentedLibrary
             for (var x = xmax; x >= xmin; x--)
             {
                 var y = G1(a, b, c, d, e, f, x, -1d);
-                if (IsNumberValidTests.IsNumber(y))
+                if (IsNumberValidTests.IsNumberValid(y))
                 {
                     points.Add(new Point2D(x, y));
                 }

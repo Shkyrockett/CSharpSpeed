@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Is Multiplication Safe")]
     [Description("Determines whether the multiplication of two values is likely to overflow.")]
-    [Signature("public static int IsMultiplicationSafe(int a, int b)")]
     [SourceCodeLocationProvider]
     public static class IsMultiplicationSafeTests
     {
@@ -40,6 +39,17 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool IsMultiplicationSafe(int a, int b)
+            => IsMultiplicationSafe0(a, b);
+
+        /// <summary>
         /// The is multiplication safe.
         /// </summary>
         /// <param name="a">The a.</param>
@@ -54,7 +64,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsMultiplicationSafe(int a, int b)
+        public static bool IsMultiplicationSafe0(int a, int b)
         {
             return Log2Tests.Log2(a) + Log2Tests.Log2(b) <= sizeof(int);
         }

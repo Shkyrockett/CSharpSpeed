@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Smooth Step Between Two Values")]
     [Description("Smooth step between two values.")]
-    [Signature("public static double SmoothStep(double value1, double value2, double amount)")]
     [SourceCodeLocationProvider]
     public static class SmoothStepTests
     {
@@ -67,7 +66,7 @@ namespace InstrumentedLibrary
             // It is expected that 0 < amount < 1
             // If amount < 0, return value1
             // If amount > 1, return value2
-            var result = ClampTests.Clamp0(amount, 0d, 1d);
+            var result = ClampTests.Clamp(amount, 0d, 1d);
             result = HermiteInterpolate1DTests.Hermite(value1, 0d, value2, 0d, result, 1d, 0d);
 
             return result;

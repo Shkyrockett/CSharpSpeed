@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Is Number Valid")]
     [Description("Determines whether a number is a valid number. Not NAN or infinite.")]
-    [Signature("public static int IsValid(int a, int b)")]
     [SourceCodeLocationProvider]
     public static class IsNumberValidTests
     {
@@ -41,6 +40,16 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool IsNumberValid(double value)
+            => IsNumber(value);
 
         /// <summary>
         /// Return true if the number is not infinity or NaN.

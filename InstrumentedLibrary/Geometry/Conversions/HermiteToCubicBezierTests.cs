@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Hermite to Cubic Bézier Tests")]
     [Description("Convert a Hermite curve to a Cubic Bézier.")]
-    [Signature("public static double HermiteInterpolate2D(double v0, double v1, double v2, double v3, double t)")]
     [SourceCodeLocationProvider]
     public static class HermiteToCubicBezierTests
     {

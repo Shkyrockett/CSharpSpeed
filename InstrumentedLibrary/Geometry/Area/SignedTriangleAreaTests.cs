@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Signed Area of Triangle")]
     [Description("Find the signed area of a triangle.")]
-    [Signature("public static double SignedTriangleArea(double aX, double aY, double bX, double bY, double cX, double cY)")]
     [SourceCodeLocationProvider]
     public static class SignedTriangleAreaTests
     {

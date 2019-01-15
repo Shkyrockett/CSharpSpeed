@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Mixed Product 3 Vector2D Tests")]
     [Description("Returns the Mixed product of three 2D vectors.")]
-    [Signature("public static double MixedProduct3D(double ia, double ja, double ib, double jb)")]
     [SourceCodeLocationProvider]
     public static class MixedProduct3Vector3DTests
     {
@@ -38,6 +37,24 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <param name="z3"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double MixedProduct3D(double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3)
+            => MixedProduct3D_0(x1, y1, z1, x2, y2, z2, x3, y3, z3);
+
+        /// <summary>
         /// The mixed product3d 0.
         /// </summary>
         /// <param name="x1">The x1.</param>
@@ -60,7 +77,7 @@ namespace InstrumentedLibrary
             double x2, double y2, double z2,
             double x3, double y3, double z3)
         {
-            var (cx, cy, cz) = CrossProduct2Vector3DTests.CrossProduct2Points3D_0(x1, y1, z1, x2, y2, z2);
+            var (cx, cy, cz) = CrossProduct2Vector3DTests.CrossProduct2Points3D(x1, y1, z1, x2, y2, z2);
             return DotProduct2Vector3DTests.DotProduct(cx, cy, cz, x3, y3, z3);
         }
     }

@@ -15,7 +15,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Quadratic Roots")]
     [Description("Find the real roots of a Quadratic polynomial.")]
-    [Signature("public static IList<double> QuadraticRoots(double aSquare, double bLinear, double cConstant, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class QuadraticRootsTests
     {
@@ -44,6 +43,19 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static IList<double> QuadraticRoots(double a, double b, double c, double epsilon = Epsilon)
+            => QuadraticRootsKevinLinDev(a, b, c, epsilon);
 
         /// <summary>
         /// The quadratic roots.

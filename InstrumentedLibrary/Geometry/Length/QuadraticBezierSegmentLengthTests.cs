@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cubic Bezier Curve Segment Length Tests")]
     [Description("Estimations on the length of the Perimeter of an ellipse.")]
-    [Signature("public static double QuadraticBezierArcLength(double ax, double ay, double bx, double by, double cx, double cy)")]
     [SourceCodeLocationProvider]
     public static class QuadraticBezierSegmentLengthTests
     {

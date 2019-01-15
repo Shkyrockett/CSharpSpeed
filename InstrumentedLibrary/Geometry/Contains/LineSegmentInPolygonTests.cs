@@ -15,7 +15,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Line Segment In Polygon Tests")]
     [Description("Determine whether a line segment is contained within a Polygon set.")]
-    [Signature("public static bool LineInPolygon(Point2D start, Point2D end, PolygonContour2D polygon)")]
     [SourceCodeLocationProvider]
     public static class LineSegmentInPolygonTests
     {

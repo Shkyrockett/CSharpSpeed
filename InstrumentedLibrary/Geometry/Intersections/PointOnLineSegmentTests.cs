@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Point On Line Segment Tests")]
     [Description("Determines whether a point is on a line segment.")]
-    [Signature("public static bool PointOnLineSegment(double segmentAX, double segmentAY, double segmentBX, double segmentBY, double pointX, double pointY)")]
     [SourceCodeLocationProvider]
     public static class PointOnLineSegmentTests
     {

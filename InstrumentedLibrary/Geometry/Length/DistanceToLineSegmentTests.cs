@@ -15,7 +15,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Distance to line segment from point")]
     [Description("Calculates the distance from a point to the nearest point on a line segment.")]
-    [Signature("public static double DistanceToSegment(double px, double py, double x1, double y1, double x2, double y2)")]
     [SourceCodeLocationProvider]
     public static class DistanceToLineSegmentTests
     {

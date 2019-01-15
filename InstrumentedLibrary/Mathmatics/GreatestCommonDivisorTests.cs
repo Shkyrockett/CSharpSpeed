@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("greatest common divisor Tests")]
     [Description("greatest common divisor.")]
-    [Signature("public static long GCD(long a, long b)")]
     [SourceCodeLocationProvider]
     public static class GreatestCommonDivisorTests
     {
@@ -36,6 +35,17 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static long GreatestCommonDivisor(long a, long b)
+            => GCD(a,b);
 
         /// <summary>
         /// Return the greatest common divisor (GCD) of a and b.

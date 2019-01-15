@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Quadratic Bezier Interpolate 3D Tests")]
     [Description("Find a point on a 3D Quadratic Bezier curve.")]
-    [Signature("public static (double X, double Y, double Z) QuadraticBezierInterpolate3D(double x0, double y0, double z0, double x1, double y1, double z1, double x2, double y2, double z2, double t)")]
     [SourceCodeLocationProvider]
     public static class InterpolateQuadraticBezier3DTests
     {

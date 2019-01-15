@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Determinant of a 2x2 matrix")]
     [Description("Find the determinant of a 2x2 matrix.")]
-    [Signature("public static double Determinant(double r1c1, double r1c2, double r2c1, double r2c2)")]
     [SourceCodeLocationProvider]
     public static class MatrixDeterminant2x2Tests
     {

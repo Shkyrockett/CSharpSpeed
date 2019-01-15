@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Catmull-Rom Interpolate Tests")]
     [Description("Find a point on a CatmullRom curve.")]
-    [Signature("public static (double X, double Y, double Z) CatmullRomInterpolate3D(double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3, double x4, double y4, double z4, double t)")]
     [SourceCodeLocationProvider]
     public static class CatmullRomSplineInterpolation3DTests
     {

@@ -16,7 +16,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Point in Polygon")]
     [Description("Determine whether a point is contained within a Polygon.")]
-    [Signature("public static bool PointInPolygonContour(List<Point2D> polygon, Point2D point)")]
     [SourceCodeLocationProvider]
     public static class PolygonContourContainsPointTests
     {

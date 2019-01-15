@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Point Near Point Tests")]
     [Description("Determines whether a point near another point.")]
-    [Signature("public static bool PointsAreClose(double x1, double y1, double x2, double y2, double epsilon = DoubleEpsilon)")]
     [SourceCodeLocationProvider]
     public static class PointsAreCloseTests
     {

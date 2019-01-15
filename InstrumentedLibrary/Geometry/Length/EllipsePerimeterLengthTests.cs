@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Ellipse Perimeter Length Tests")]
     [Description("Estimations on the length of the Perimeter of an ellipse.")]
-    [Signature("public static double EllipsePerimeterLength(double a, double b)")]
     [SourceCodeLocationProvider]
     public static class EllipsePerimeterLengthTests
     {

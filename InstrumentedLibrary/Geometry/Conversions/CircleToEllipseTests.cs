@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Circle to Ellipse Tests")]
     [Description("Convert a Circle to an Ellipse.")]
-    [Signature("public static double CircleToEllipse(double v0, double v1, double v2, double v3, double t)")]
     [SourceCodeLocationProvider]
     public static class CircleToEllipseTests
     {

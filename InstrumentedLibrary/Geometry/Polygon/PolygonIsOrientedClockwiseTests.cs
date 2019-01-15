@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Polygon Clockwise")]
     [Description("Determine the winding order of a polygon.")]
-    [Signature("public static bool PolygonIsOrientedClockwise(List<Point2D> polygon)")]
     [SourceCodeLocationProvider]
     public static class PolygonIsOrientedClockwiseTests
     {

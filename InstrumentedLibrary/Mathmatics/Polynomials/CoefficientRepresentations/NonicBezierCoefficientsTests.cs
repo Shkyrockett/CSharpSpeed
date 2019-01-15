@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Nonic Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a Nonic Bezier Curve.")]
-    [Signature("public static Polynomial NonicBezierCoefficients(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j)")]
     [SourceCodeLocationProvider]
     public static class NonicBezierCoefficientsTests
     {

@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Point Near Orthogonal Ellipse Tests")]
     [Description("Determines whether a point is near an Orthogonal Ellipse.")]
-    [Signature("public static bool PointNearEllipse(double x1, double y1, double x2, double y2, double px, double py, double close_distance)")]
     [SourceCodeLocationProvider]
     public static class PointNearUnrotatedEllipseTests
     {

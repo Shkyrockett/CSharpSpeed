@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Quintic Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a Quintic Bezier Curve.")]
-    [Signature("public static IList<double> CubicRoots(double aCube, double bSquare, double cLinear, double dConstant, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class QuinticBezierCoefficientsTests
     {

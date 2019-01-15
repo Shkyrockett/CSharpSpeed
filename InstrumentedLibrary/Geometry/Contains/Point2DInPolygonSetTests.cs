@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Point in Polygon set")]
     [Description("Determine whether a point is contained within a Polygon set.")]
-    [Signature("public static bool PointInPolygonSet(List<List<Point2D>> polygon, Point2D point)")]
     [SourceCodeLocationProvider]
     public static class Point2DInPolygonSetTests
     {

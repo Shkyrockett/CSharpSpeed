@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Is Value Near Zero Query")]
     [Description("Determines whether a value is near zero.")]
-    [Signature("public static bool NearZero(double value, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class NearZeroTests
     {
@@ -38,6 +37,17 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool NearZero(double value, double epsilon = NearZeroEpsilon)
+            => NearZero0(value, epsilon);
 
         /// <summary>
         /// The near zero0.

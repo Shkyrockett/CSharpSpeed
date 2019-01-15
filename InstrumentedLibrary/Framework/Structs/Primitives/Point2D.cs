@@ -29,6 +29,16 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="Point2D"/> class.
+        /// </summary>
+        /// <param name="tuple"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Point2D((double X, double Y) tuple)
+            : this(tuple.X, tuple.Y)
+        { }
+
+        /// <summary>
         /// Gets or sets the x.
         /// </summary>
         public double X { get; set; }
@@ -171,6 +181,16 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator *(Point2D value, double factor) => new Point2D(value.X * factor, value.Y * factor);
+
+        /// <summary>
+        /// Inflate a point.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="factor"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D operator *(Point2D value, Size2D factor) => new Point2D(value.X * factor.Width, value.Y * factor.Height);
 
         /// <summary>
         /// Divide a <see cref="Point2D"/> by a value.

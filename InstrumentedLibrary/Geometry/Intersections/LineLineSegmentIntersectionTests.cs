@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Intersection of a line and a line segment")]
     [Description("Find the intersection between a line and a line segment.")]
-    [Signature("public static Intersection LineLineSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double b1X, double b1Y, double b2X, double b2Y, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class LineLineSegmentIntersectionTests
     {

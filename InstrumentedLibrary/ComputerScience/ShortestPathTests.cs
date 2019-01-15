@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Shortest Path Polygon Tests")]
     [Description("Find the shortest path from one point to another through a polygon.")]
-    [Signature("public static Polyline2D? ShortestPath(Polygon2D polygons, Point2D start, Point2D end)")]
     [SourceCodeLocationProvider]
     public static class ShortestPathTests
     {

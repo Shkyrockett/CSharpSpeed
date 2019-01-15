@@ -15,7 +15,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Functional Interpolation Tests")]
     [Description("Run interpolation of a function.")]
-    [Signature("public static List<(double X, double Y)> Interpolate0to1(Func<double, (double X, double Y)> func, int count)")]
     [SourceCodeLocationProvider]
     public static class FunctionalInterpolationTests
     {

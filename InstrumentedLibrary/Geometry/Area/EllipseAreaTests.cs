@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Area of Ellipse")]
     [Description("Find the area of a Ellipse.")]
-    [Signature("public static double EllipseArea(double radiusA, double radiusB)")]
     [SourceCodeLocationProvider]
     public static class EllipseAreaTests
     {

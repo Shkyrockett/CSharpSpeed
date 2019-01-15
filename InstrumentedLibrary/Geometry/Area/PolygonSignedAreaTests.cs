@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Polygon Signed Area")]
     [Description("Determine signed area of a polygon.")]
-    [Signature("public static double SignedPolygonArea(List<Point2D> polygon)")]
     [SourceCodeLocationProvider]
     public static class PolygonSignedAreaTests
     {

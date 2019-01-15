@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Polygon Centroid")]
     [Description("Find the centroid point of a polygon.")]
-    [Signature("public static Point2D Centroid(List<Point2D> polygon)")]
     [SourceCodeLocationProvider]
     public static class PolygonCentroidTests
     {

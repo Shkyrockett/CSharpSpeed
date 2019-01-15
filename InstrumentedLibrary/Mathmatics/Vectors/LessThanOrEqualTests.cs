@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Less Than Or Equal Point")]
     [Description("Less Than Or Equal Points.")]
-    [Signature("public static (double X, double Y) GreaterThanOrEqual(double point1X, double point1Y, double point2X, double point2Y)")]
     [SourceCodeLocationProvider]
     public static class LessThanOrEqualTests
     {
@@ -39,6 +38,19 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool LessThanOrEqual(double aX, double aY, double bX, double bY)
+            => LessThanOrEqual0(aX, aY, bX, bY);
+
+        /// <summary>
         /// The less than or equal.
         /// </summary>
         /// <param name="aX"></param>
@@ -55,7 +67,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool LessThanOrEqual(double aX, double aY, double bX, double bY)
+        public static bool LessThanOrEqual0(double aX, double aY, double bX, double bY)
         {
             return aX <= bX && aY <= bY;
         }

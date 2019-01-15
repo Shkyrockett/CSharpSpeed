@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("2D Point in 2D Circle Tests")]
     [Description("Test whether a 2D point is contained within a 2D circle.")]
-    [Signature("public static Inclusion PointInCircle(double centerX, double centerY, double radius, double x, double y)")]
     [SourceCodeLocationProvider]
     public static class Point2DInCircle2DTests
     {

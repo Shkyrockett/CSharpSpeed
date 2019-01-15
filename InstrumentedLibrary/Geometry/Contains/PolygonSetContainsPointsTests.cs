@@ -15,7 +15,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Polygon Set Contains Points")]
     [Description("Find out whether a Polygon Set Contains a point.")]
-    [Signature("public static Inclusion PolygonSetContainsPoints(Polygon2D polygons, Point2D start, Point2D end, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class PolygonSetContainsPointsTests
     {

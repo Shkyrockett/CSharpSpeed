@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cubic Bezier Segment Bounds Tests")]
     [Description("Calculate bounding rectangle of a cubic bezier curve segment.")]
-    [Signature("public static Rectangle2D CubicBezierBounds(double ax, double ay, double bx, double by, double cx, double cy, double dx, double dy)")]
     [SourceCodeLocationProvider]
     public static class BoundsOfCubicBezierSegmentTests
     {

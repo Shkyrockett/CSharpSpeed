@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Barycentric Tests")]
     [Description("Cartesian coordinate of the specified point with respect to the axis being used.")]
-    [Signature("public static double Barycentric(double value1, double value2, double value3, double amount1, double amount2)")]
     [SourceCodeLocationProvider]
     public static class BarycentricTests
     {

@@ -14,18 +14,20 @@ namespace InstrumentedLibrary
         /// <param name="points">The points.</param>
         public PolygonContour2D(IEnumerable<Point2D> points)
         {
-            Points = points;
+            Points = points.ToList();
         }
 
         /// <summary>
         /// Gets or sets the points.
         /// </summary>
-        public IEnumerable<Point2D> Points { get; set; }
+        public IList<Point2D> Points { get; set; }
 
         /// <summary>
         /// Gets the count.
         /// </summary>
         public int Count => Points?.Count() ?? 0;
+
+        public RotationDirections Orientation => PolygonIsOrientedClockwiseTests.PolygonIsOrientedClockwise(Points as List<Point2D>) ? RotationDirections.Clockwise : RotationDirections.CounterClockwise;
 
         /// <summary>
         /// 

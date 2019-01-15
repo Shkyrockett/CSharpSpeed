@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Elliptical Polar Angle")]
     [Description("Find the elliptical t that matches the coordinates of a circular angle.")]
-    [Signature("public static double EllipticalPolarAngle(double angle, double rx, double ry)")]
     [SourceCodeLocationProvider]
     public static class EllipticalPolarAngleTests
     {

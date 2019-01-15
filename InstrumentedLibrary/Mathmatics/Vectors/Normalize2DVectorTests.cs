@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Normalize 2D Vector Tests")]
     [Description("Normalizes a 2D Vector.")]
-    [Signature("public static (double i, double j) Normalize(double i, double j)")]
     [SourceCodeLocationProvider]
     public static class Normalize2DVectorTests
     {
@@ -39,6 +38,17 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double i, double j) Normalize(double i, double j)
+            => Normalize0(i, j);
+
+        /// <summary>
         /// The normalize.
         /// </summary>
         /// <param name="i">The i.</param>
@@ -49,7 +59,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double i, double j) Normalize(double i, double j)
+        public static (double i, double j) Normalize0(double i, double j)
         {
             return (
                 i / Sqrt((i * i) + (j * j)),

@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Rectangle Near Rectangle Tests")]
     [Description("Determines whether a Rectangle is near another Rectangle.")]
-    [Signature("public static bool AreRectanglesClose(Rectangle2D rect1, Rectangle2D rect2, double epsilon = DoubleEpsilon)")]
     [SourceCodeLocationProvider]
     public static class RectanglesAreCloseTests
     {

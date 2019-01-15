@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cosine Interpolate Tests")]
     [Description("Find a point on a Cosine curve.")]
-    [Signature("public static double CosineInterpolate1D(double v1, double v2, double t)")]
     [SourceCodeLocationProvider]
     public static class CosineInterpolate1DTests
     {

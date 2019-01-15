@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Circle to Circular Arc Tests")]
     [Description("Convert a Circle to a Circular Arc.")]
-    [Signature("public static (double X, double Y, double R, double startEngle, double SweepAngle) CircleToCircularArc(double x, double y, double r)")]
     [SourceCodeLocationProvider]
     public static class CircleToCircularArcTests
     {

@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cubic Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a Cubic Bezier Curve.")]
-    [Signature("public static (double A, double B, double C, double D) CubicBezierCoefficients(double a, double b, double c, double d)")]
     [SourceCodeLocationProvider]
     public static class CubicBezierCoefficientsTests
     {

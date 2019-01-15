@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Split Int Color to ARGB")]
     [Description("Split an integer based ARGB color into the individual components.")]
-    [Signature("public static (byte Red, byte Green, byte Blue, byte Alpha) SplitARGB(uint color)")]
     [SourceCodeLocationProvider]
     public static class SplitARGBTests
     {

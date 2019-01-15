@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Point Near Line Segment Tests")]
     [Description("Determines whether a point is near to a line segment.")]
-    [Signature("public static bool PointNearSegment(double px, double py, double x1, double y1, double x2, double y2, double close_distance)")]
     [SourceCodeLocationProvider]
     public static class PointNearLineSegmentTests
     {

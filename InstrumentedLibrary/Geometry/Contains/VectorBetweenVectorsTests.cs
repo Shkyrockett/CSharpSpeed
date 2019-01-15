@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Vector between Vectors Tests")]
     [Description("Determine whether a vector is between two other vectors.")]
-    [Signature("public static bool VectorBetween(double i, double j, double i2, double j2, double i3, double j3)")]
     [SourceCodeLocationProvider]
     public static class VectorBetweenVectorsTests
     {
@@ -89,8 +88,8 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool VectorBetween0(double i, double j, double i2, double j2, double i3, double j3)
         {
-            return CrossProduct2Vector2DTests.CrossProduct2Vector2D_0(i2, j2, i, j) * CrossProduct2Vector2DTests.CrossProduct2Vector2D_0(i2, j2, i3, j3) >= 0
-                && CrossProduct2Vector2DTests.CrossProduct2Vector2D_0(i3, j3, i, j) * CrossProduct2Vector2DTests.CrossProduct2Vector2D_0(i3, j3, i2, j2) >= 0;
+            return CrossProduct2Vector2DTests.CrossProduct2Vector2D(i2, j2, i, j) * CrossProduct2Vector2DTests.CrossProduct2Vector2D(i2, j2, i3, j3) >= 0
+                && CrossProduct2Vector2DTests.CrossProduct2Vector2D(i3, j3, i, j) * CrossProduct2Vector2DTests.CrossProduct2Vector2D(i3, j3, i2, j2) >= 0;
         }
 
         /// <summary>

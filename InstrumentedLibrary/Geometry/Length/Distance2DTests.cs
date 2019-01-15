@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("2D Distance Tests")]
     [Description("Find the distance between two points.")]
-    [Signature("public static double Distance2D(double ax, double ay, double bx, double by)")]
     [SourceCodeLocationProvider]
     public static class Distance2DTests
     {

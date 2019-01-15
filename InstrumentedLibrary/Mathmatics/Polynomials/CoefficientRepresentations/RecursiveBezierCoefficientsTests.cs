@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("General Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a General Bezier Curve.")]
-    [Signature("public static Polynomial BezierCoefficientsRecursive(params double[] values)")]
     [SourceCodeLocationProvider]
     public static class RecursiveBezierCoefficientsTests
     {

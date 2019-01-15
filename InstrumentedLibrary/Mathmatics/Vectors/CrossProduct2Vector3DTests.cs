@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cross Product 2 Vector3D Tests")]
     [Description("Returns the Angle of a line that runs between two points.")]
-    [Signature("public static double DotProduct2D(double x1, double y1, double x2, double y2)")]
     [SourceCodeLocationProvider]
     public static class CrossProduct2Vector3DTests
     {
@@ -36,6 +35,21 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="z2"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y, double Z) CrossProduct2Points3D(double x1, double y1, double z1, double x2, double y2, double z2)
+            => CrossProduct2Points3D_0(x1, y1, z1, x2, y2, z2);
 
         /// <summary>
         /// Cross Product of two points.

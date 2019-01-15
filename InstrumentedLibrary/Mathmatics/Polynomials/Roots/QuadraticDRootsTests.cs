@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Quadratic D Roots")]
     [Description("Find the real D roots of a Quadratic polynomial.")]
-    [Signature("public static IList<double> QuadraticDRoots(double aSquare, double bLinear, double cConstant, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class QuadraticDRootsTests
     {
@@ -43,6 +42,19 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static IList<double> QuadraticDRoots(double a, double b, double c, double epsilon = Epsilon)
+            => QuadraticDRootsPoMax(a,  b,  c,  epsilon);
 
         /// <summary>
         /// The quadratic roots.

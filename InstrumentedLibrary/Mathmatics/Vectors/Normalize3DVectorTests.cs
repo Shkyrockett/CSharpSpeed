@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Normalize 3D Vector Tests")]
     [Description("Normalizes a 3D Vector.")]
-    [Signature("public static (double i, double j, double k) Normalize(double i, double j, double k)")]
     [SourceCodeLocationProvider]
     public static class Normalize3DVectorTests
     {
@@ -39,6 +38,18 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double i, double j, double k) Normalize(double i, double j, double k)
+            => Normalize0(i, j, k);
+
+        /// <summary>
         /// The normalize.
         /// </summary>
         /// <param name="i">The i.</param>
@@ -50,7 +61,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double i, double j, double k) Normalize(double i, double j, double k)
+        public static (double i, double j, double k) Normalize0(double i, double j, double k)
         {
             return (
                 i / Sqrt((i * i) + (j * j) + (k * k)),

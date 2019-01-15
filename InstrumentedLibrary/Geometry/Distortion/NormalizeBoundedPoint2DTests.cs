@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Normalize Point to Bounding Box")]
     [Description("Normalize the position of a point to a surrounding bounding box as a percentage of that box.")]
-    [Signature("public static Point2D NormalizePoint(Rectangle2D bounds, Point2D point)")]
     [SourceCodeLocationProvider]
     public static class NormalizeBoundedPoint2DTests
     {

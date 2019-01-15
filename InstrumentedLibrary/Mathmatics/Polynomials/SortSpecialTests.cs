@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("SortSpecial")]
     [Description("SortSpecial.")]
-    [Signature("public static double[] SortSpecial(double[] a)")]
     [SourceCodeLocationProvider]
     public static class SortSpecialTests
     {
@@ -38,6 +37,16 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double[] SortSpecial(double[] a)
+            => SortSpecial0(a);
+
+        /// <summary>
         /// Special sorting routine designed to place negative values at the back.
         /// </summary>
         /// <param name="a"></param>
@@ -51,7 +60,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double[] SortSpecial(double[] a)
+        public static double[] SortSpecial0(double[] a)
         {
             bool flip;
             double temp;

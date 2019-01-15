@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Gets the Segment overlap")]
     [Description("Determines whether segments overlap and retrieves the locations.")]
-    [Signature("public static (bool Overlap, double Left, double Right) LineSegmentsOverlap(double a1, double a2, double b1, double b2)")]
     [SourceCodeLocationProvider]
     public static class LineSegmentsOverlapTests
     {

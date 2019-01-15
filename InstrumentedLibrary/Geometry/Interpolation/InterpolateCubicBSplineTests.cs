@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cubic B-Spline Interpolate 2D Tests")]
     [Description("Find a point on a 2D Cubic B-Spline curve.")]
-    [Signature("public static (double X, double Y) InterpolateBSpline(IList<(double X, double Y)> points, double index)")]
     [SourceCodeLocationProvider]
     public static class InterpolateCubicBSplineTests
     {

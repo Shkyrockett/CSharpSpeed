@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Polygon Perimeter Length Tests")]
     [Description("Calculate the length of the Perimeter of a polygon.")]
-    [Signature("public static double PolygonPerimeterLength2D(IEnumerable<(double X, double Y)> points)")]
     [SourceCodeLocationProvider]
     public static class PolygonPerimeterLength2DTests
     {

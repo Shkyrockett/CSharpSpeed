@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Slopes Equal Tests")]
     [Description("Determines whether slopes are Equal.")]
-    [Signature("public static bool SlopesEqual(Point2D a, Point2D b, Point2D c, Point2D d, bool UseFullRange = false)")]
     [SourceCodeLocationProvider]
     public static class SlopesEqual4Tests
     {

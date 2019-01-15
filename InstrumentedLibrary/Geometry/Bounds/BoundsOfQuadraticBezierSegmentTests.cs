@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Quadratic Bezier Segment Bounds Tests")]
     [Description("Calculate bounding rectangle of a Quadratic bezier curve segment.")]
-    [Signature("public static Rectangle2D QuadraticBezierBounds(double ax, double ay, double bx, double by, double cx, double cy)")]
     [SourceCodeLocationProvider]
     public static class BoundsOfQuadraticBezierSegmentTests
     {

@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Linear D Roots")]
     [Description("Find the real D roots of a Linear polynomial.")]
-    [Signature("public static IList<double> LinearDRoots(double aLinear, double bConstant, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class LinearDRootsTests
     {
@@ -38,6 +37,18 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static List<double> LinearDRoots(double a, double b, double epsilon = Epsilon)
+            => LinearDRootsPoMax(a, b, epsilon);
 
         /// <summary>
         /// The linear roots.
@@ -82,7 +93,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IList<double> LinearDRoots(double a, double b, double epsilon = Epsilon)
+        public static IList<double> LinearDRoots0(double a, double b, double epsilon = Epsilon)
         {
             return a != b ? (new double[] { a / (a - b) }) : (new double[] { });
         }

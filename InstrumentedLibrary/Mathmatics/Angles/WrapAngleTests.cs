@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Wrap Angle Tests")]
     [Description("Reduces a given angle to a value between 2π and -2π.")]
-    [Signature("public static double WrapAngle(double angle)")]
     [SourceCodeLocationProvider]
     public static class WrapAngleTests
     {

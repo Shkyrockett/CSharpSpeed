@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Quadratic Bézier to Cubic Bézier Tests")]
     [Description("Convert a Quadratic Bézier to a Cubic Bézier.")]
-    [Signature("public static double QuadraticBezierToCubicBezier(double v0, double v1, double v2, double v3, double t)")]
     [SourceCodeLocationProvider]
     public static class QuadraticBezierToCubicBezierTests
     {

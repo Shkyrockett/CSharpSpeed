@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Square Distance between two points")]
     [Description("Calculates the square distance between two points.")]
-    [Signature("public static double SquareDistance(double x1, double y1, double x2, double y2)")]
     [SourceCodeLocationProvider]
     public static class SquareDistanceTests
     {

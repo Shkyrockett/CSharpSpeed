@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Rectangle has NaN Tests")]
     [Description("Rectangle has NaN.")]
-    [Signature("public static bool RectHasNaN(Rectangle2D rect)")]
     [SourceCodeLocationProvider]
     public static class RectangleHasNaNTests
     {

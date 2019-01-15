@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cross Product 3 Vector2D Tests")]
     [Description("Returns the cross product of three 2D vectors.")]
-    [Signature("public static double CrossProduct2D(double ia, double ja, double ib, double jb, double ic, double jc)")]
     [SourceCodeLocationProvider]
     public static class CrossProduct3Vector2DTests
     {
@@ -36,6 +35,21 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double CrossProductVector2D(double aX, double aY, double bX, double bY, double cX, double cY)
+            => CrossProductVector2D_0(aX, aY, bX, bY, cX, cY);
 
         /// <summary>
         /// The cross product is a vector perpendicular to AB
@@ -69,6 +83,32 @@ namespace InstrumentedLibrary
             double cX, double cY)
         {
             return ((aX - bX) * (cY - bY)) - ((aY - bY) * (cX - bX));
+        }
+
+        /// <summary>
+        /// The cross product vector0.
+        /// </summary>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="x3">The x3.</param>
+        /// <param name="y3">The y3.</param>
+        /// <returns>The <see cref="double"/>.</returns>
+        /// <acknowledgment>
+        /// http://www.angusj.com
+        /// </acknowledgment>
+        [DisplayName("Cross Product of three 2D Vectors 1")]
+        [Description("Cross Product of three 2D Vectors")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double CrossProductVector0(
+            double x1, double y1,
+            double x2, double y2,
+            double x3, double y3)
+        {
+            return (x2 - x1) * (y1 - y3) - (x1 - x3) * (y2 - y1);
         }
 
         /// <summary>

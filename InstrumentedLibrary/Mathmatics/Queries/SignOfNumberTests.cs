@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Sign of a Number")]
     [Description("Find the Sign of a number.")]
-    [Signature("public static int Sign(double value)")]
     [SourceCodeLocationProvider]
     public static class SignOfNumberTests
     {
@@ -41,6 +40,16 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Signs Sign(double value)
+            => SignSystem(value);
+
+        /// <summary>
         /// Find the Sign of a number.
         /// </summary>
         /// <param name="value">The Value to use.</param>
@@ -60,7 +69,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Signs SignSystem(double value)
         {
-            return (Signs)Sign(value);
+            return (Signs)Math.Sign(value);
         }
 
         /// <summary>

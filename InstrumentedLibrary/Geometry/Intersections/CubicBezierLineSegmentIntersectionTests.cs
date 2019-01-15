@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Intersection of Cubic Bezier and Line Segment")]
     [Description("Finds the intersection points of a Cubic Bezier and Line Segment.")]
-    [Signature("public static Intersection CubicBezierLineSegmentIntersection(double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double p3x, double p3y, double l0x, double l0y, double l1x, double l1y, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class CubicBezierLineSegmentIntersectionTests
     {
@@ -107,7 +106,7 @@ namespace InstrumentedLibrary
             var xCoeff = CubicBezierCoefficientsTests.CubicBezierCoefficients(p0x, p1x, p2x, p3x);
             var yCoeff = CubicBezierCoefficientsTests.CubicBezierCoefficients(p0y, p1y, p2y, p3y);
 
-            var r = CubicRootsTests.CubicRootsKevinLinDev(
+            var r = CubicRootsTests.CubicRoots(
                 /* t^3 */ A * xCoeff.D + B * yCoeff.D,
                 /* t^2 */ A * xCoeff.C + B * yCoeff.C,
                 /* t^1 */ A * xCoeff.B + B * yCoeff.B,
@@ -202,7 +201,7 @@ namespace InstrumentedLibrary
             c0 = new Vector2D(p1X, p1Y);
             n = new Vector2D(a1Y - a2Y, a2X - a1X);
             cl = a1X * a2Y - a2X * a1Y;
-            var roots = CubicRootsTests.CubicRootsKevinLinDev(
+            var roots = CubicRootsTests.CubicRoots(
                 DotProduct2Vector2DTests.DotProduct2D(n.I, n.J, c3.I, c3.J),
                 DotProduct2Vector2DTests.DotProduct2D(n.I, n.J, c2.I, c2.J),
                 DotProduct2Vector2DTests.DotProduct2D(n.I, n.J, c1.I, c1.J),
@@ -304,7 +303,7 @@ namespace InstrumentedLibrary
             c0 = new Vector2D(p1X, p1Y);
             n = new Vector2D(a1Y - a2Y, a2X - a1X);
             cl = a1X * a2Y - a2X * a1Y;
-            var roots = CubicRootsTests.CubicRootsKevinLinDev(
+            var roots = CubicRootsTests.CubicRoots(
                 DotProduct2Vector2DTests.DotProduct2D(n.I, n.J, c3.I, c3.J),
                 DotProduct2Vector2DTests.DotProduct2D(n.I, n.J, c2.I, c2.J),
                 DotProduct2Vector2DTests.DotProduct2D(n.I, n.J, c1.I, c1.J),

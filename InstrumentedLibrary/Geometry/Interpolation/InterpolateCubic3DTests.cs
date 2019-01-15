@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cubic Interpolate 3D Tests")]
     [Description("Find a point on a 3D cubic curve.")]
-    [Signature("public static (double X, double Y, double Z) CubicInterpolate3D(double x0, double y0, double z0, double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3, double t)")]
     [SourceCodeLocationProvider]
     public static class InterpolateCubic3DTests
     {

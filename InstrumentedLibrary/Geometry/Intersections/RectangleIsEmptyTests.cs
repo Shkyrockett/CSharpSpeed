@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Are values zero")]
     [Description("Determines whether a set of values is zero.")]
-    [Signature("public static bool IsRectangleEmpty(double width, double height)")]
     [SourceCodeLocationProvider]
     public static class RectangleIsEmptyTests
     {

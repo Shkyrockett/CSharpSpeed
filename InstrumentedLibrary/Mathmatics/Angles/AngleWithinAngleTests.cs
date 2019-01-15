@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Angle Between Angles")]
     [Description("Determine whether an angle lies within the sweep angle starting from an angle.")]
-    [Signature("public static Inclusion Within(double angle, double startAngle, double sweepAngle)")]
     [SourceCodeLocationProvider]
     public static class AngleWithinAngleTests
     {

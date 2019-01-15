@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Management;
 using System.Reflection;
 using System.Text;
@@ -53,7 +54,7 @@ namespace CSharpSpeedConsole
                     tests,
                     ((DisplayNameAttribute)testSetClass?.GetCustomAttribute(typeof(DisplayNameAttribute)))?.DisplayName,
                     ((DescriptionAttribute)testSetClass?.GetCustomAttribute(typeof(DescriptionAttribute)))?.Description,
-                    ((SignatureAttribute)testSetClass?.GetCustomAttribute(typeof(SignatureAttribute)))?.MethodSignature
+                    ((SignatureAttribute)testSetClass?.GetMethods()?.FirstOrDefault(m => m?.GetCustomAttribute(typeof(SignatureAttribute)) != null)?.GetCustomAttribute(typeof(SignatureAttribute)))?.MethodSignature.Trim()
                     );
             }
 

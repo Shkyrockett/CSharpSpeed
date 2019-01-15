@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Complex Product 2 Vector2D Tests")]
     [Description("Returns the Complex product of two 2D vectors.")]
-    [Signature("public static double ComplexProduct2D(double ia, double ja, double ib, double jb)")]
     [SourceCodeLocationProvider]
     public static class ComplexProduct2Vector2DTests
     {
@@ -39,6 +38,19 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y) ComplexProduct(double x0, double y0, double x1, double y1)
+            => ComplexProduct0(x0, y0, x1, y1);
+
+        /// <summary>
         /// The complex product.
         /// </summary>
         /// <param name="x0">The x0.</param>
@@ -55,7 +67,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) ComplexProduct(
+        public static (double X, double Y) ComplexProduct0(
             double x0, double y0,
             double x1, double y1)
         {

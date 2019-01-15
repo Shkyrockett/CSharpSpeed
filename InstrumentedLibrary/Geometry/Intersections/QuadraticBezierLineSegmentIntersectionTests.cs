@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Intersection of Quadratic Bezier and Line Segment")]
     [Description("Finds the intersection points of a Quadratic Bezier and Line Segment.")]
-    [Signature("public static Intersection QuadraticBezierLineSegmentIntersection(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double a1X, double a1Y, double a2X, double a2Y, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class QuadraticBezierLineSegmentIntersectionTests
     {
@@ -202,7 +201,7 @@ namespace InstrumentedLibrary
             var c0 = new Point2D(p1X, p1Y);
             var n = new Point2D(a1Y - a2Y, a2X - a1X);
             var cl = a1X * a2Y - a2X * a1Y;
-            var roots = QuadraticRootsTests.QuadraticRootsKevinLinDev(
+            var roots = QuadraticRootsTests.QuadraticRoots(
                 DotProduct2Vector2DTests.DotProduct2D(n.X, n.Y, c2.I, c2.J),
                 DotProduct2Vector2DTests.DotProduct2D(n.X, n.Y, c1.I, c1.J),
                 DotProduct2Vector2DTests.DotProduct2D(n.X, n.Y, c0.X + cl, c0.Y + cl),
@@ -284,7 +283,7 @@ namespace InstrumentedLibrary
             var c0 = new Point2D(p1X, p1Y);
             var n = new Point2D(a1Y - a2Y, a2X - a1X);
             var cl = a1X * a2Y - a2X * a1Y;
-            var roots = QuadraticRootsTests.QuadraticRootsKevinLinDev(
+            var roots = QuadraticRootsTests.QuadraticRoots(
                 DotProduct2Vector2DTests.DotProduct2D(n.X, n.Y, c2.I, c2.J),
                 DotProduct2Vector2DTests.DotProduct2D(n.X, n.Y, c1.I, c1.J),
                 DotProduct2Vector2DTests.DotProduct2D(n.X, n.Y, c0.X + cl, c0.Y + cl),

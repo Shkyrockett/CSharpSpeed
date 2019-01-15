@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Evaluate Polynomial Tests")]
     [Description("Evaluate a Polynomial.")]
-    [Signature("public static double Evaluate(double[] coefficients, double x)")]
     [SourceCodeLocationProvider]
     public static class EvaluatePolynomialTests
     {
@@ -40,6 +39,17 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="coefficients"></param>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double Evaluate(double[] coefficients, double x)
+            => Evaluate0(coefficients, x);
+
+        /// <summary>
         /// An implementation of Horner's Evaluate method.
         /// </summary>
         /// <param name="coefficients"></param>
@@ -55,7 +65,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Evaluate(double[] coefficients, double x)
+        public static double Evaluate0(double[] coefficients, double x)
         {
             if (double.IsNaN(x))
             {

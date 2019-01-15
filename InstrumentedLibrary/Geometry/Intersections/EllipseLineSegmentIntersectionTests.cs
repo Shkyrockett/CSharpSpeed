@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Ellipse Line Segment Intersection Tests")]
     [Description("Finds the intersection points of an Ellipse and a Line Segment Intersection.")]
-    [Signature("public static Intersection EllipseLineSegmentIntersection(double cx, double cy, double rx, double ry, double angle, double x0, double y0, double x1, double y1, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class EllipseLineSegmentIntersectionTests
     {

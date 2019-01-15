@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Angle Between 2D Vectors Tests")]
     [Description("Find the angle between two 2D vectors.")]
-    [Signature("public static double AngleBetween2D(double uI, double uJ, double vI, double vJ)")]
     [SourceCodeLocationProvider]
     public static class AngleBetween2DTests
     {

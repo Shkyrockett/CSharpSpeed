@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Sextic Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a Sextic Bezier Curve.")]
-    [Signature("public static IList<double> SexticBezierCoefficients(double a, double b, double c, double d, double e, double f, double g)")]
     [SourceCodeLocationProvider]
     public static class SexticBezierCoefficientsTests
     {

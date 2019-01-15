@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Is Exponentiation Safe")]
     [Description("Determines whether the Exponentiation of two values is likely to overflow.")]
-    [Signature("public static int IsExponentiationSafe(int a, int b)")]
     [SourceCodeLocationProvider]
     public static class IsExponentiationSafeTests
     {
@@ -38,6 +37,17 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool IsExponentiationSafe(int a, int b)
+            => IsExponentiationSafe0(a,b);
+
+        /// <summary>
         /// The is exponentiation safe.
         /// </summary>
         /// <param name="a">The a.</param>
@@ -52,7 +62,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsExponentiationSafe(int a, int b)
+        public static bool IsExponentiationSafe0(int a, int b)
         {
             return Log2Tests.Log2(a) * b <= sizeof(int);
         }

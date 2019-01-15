@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Circle from Three Points Tests")]
     [Description("Find a circle that intersects three points.")]
-    [Signature("public static Circle2D? CircleFromPoints(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y)")]
     [SourceCodeLocationProvider]
     public static class CircleFromThreePointsTests
     {

@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Line Segment to Cubic Bézier Tests")]
     [Description("Convert a Line Segment to a Cubic Bézier.")]
-    [Signature("public static double LineSegmentToCubicBezier(double v0, double v1, double v2, double v3, double t)")]
     [SourceCodeLocationProvider]
     public static class LineSegmentToCubicBezierTests
     {

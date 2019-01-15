@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Quintic Roots")]
     [Description("Find the real roots of a Quintic polynomial.")]
-    [Signature("public static IList<double> QuinticRoots(double aQuint, double bQuart, double cCube, double dSquare, double eLinear, double fConstant, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class QuinticRootsTests
     {
@@ -39,6 +38,22 @@ namespace InstrumentedLibrary
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static IList<double> QuinticRoots(double a, double b, double c, double d, double e, double f, double epsilon = Epsilon)
+            => QuinticRoots0(a, b, c, d, e, f, epsilon);
 
         // ToDo: Translate code found at: http://abecedarical.com/javascript/script_quintic.html
         // and http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/
@@ -65,7 +80,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IList<double> QuinticRoots(double a, double b, double c, double d, double e, double f, double epsilon = Epsilon)
+        public static IList<double> QuinticRoots0(double a, double b, double c, double d, double e, double f, double epsilon = Epsilon)
         {
             // If a is 0 the polynomial is quartic.
             if (a is 0d)

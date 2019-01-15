@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Slopes Near Collinear Tests")]
     [Description("Determines whether slopes are collinear.")]
-    [Signature("public static bool SlopesNearCollinear(Point2D a, Point2D b, Point2D c, double distSqrd)")]
     [SourceCodeLocationProvider]
     public static class SlopesNearCollinearTests
     {

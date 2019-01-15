@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Are Values Near Each Other Query")]
     [Description("Determines whether a value is near another.")]
-    [Signature("public static bool AreClose(double value1, double value2, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class AreCloseTests
     {
@@ -40,6 +39,18 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value1"></param>
+        /// <param name="value2"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool AreClose(double value1, double value2, double epsilon = DoubleEpsilon)
+            => AreClose0(value1, value2, epsilon);
+
+        /// <summary>
         /// AreClose - Returns whether or not two doubles are "close".  That is, whether or
         /// not they are within epsilon of each other.  Note that this epsilon is proportional
         /// to the numbers themselves to that AreClose survives scalar multiplication.
@@ -60,7 +71,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool AreClose(double value1, double value2, double epsilon = DoubleEpsilon)
+        public static bool AreClose0(double value1, double value2, double epsilon = DoubleEpsilon)
         {
             // in case they are Infinities (then epsilon check does not work)
             if (Abs(value1 - value2) < DoubleEpsilon)

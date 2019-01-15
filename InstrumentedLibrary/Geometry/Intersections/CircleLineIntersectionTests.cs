@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Intersection of Circle and Line")]
     [Description("Finds the intersection points of a circle and a line.")]
-    [Signature("public static Intersection CircleLineSegmentIntersection(double cX, double cY, double radius, double lAX, double lAY, double lBX, double lBY, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class CircleLineIntersectionTests
     {

@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Octic Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a Octic Bezier Curve.")]
-    [Signature("public static IList<double> OcticBezierCoefficients(double a, double b, double c, double d, double e, double f, double g, double h, double i)")]
     [SourceCodeLocationProvider]
     public static class OcticBezierCoefficientsTests
     {

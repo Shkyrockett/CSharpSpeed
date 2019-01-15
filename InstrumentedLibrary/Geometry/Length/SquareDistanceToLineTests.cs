@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Square Distance to line segment from point")]
     [Description("Calculates the square distance from a point to the nearest point on a line segment.")]
-    [Signature("public static double SquareDistanceToLine(double x1, double y1, double x2_, double y2_, double x3_, double y3_)")]
     [SourceCodeLocationProvider]
     public static class SquareDistanceToLineTests
     {

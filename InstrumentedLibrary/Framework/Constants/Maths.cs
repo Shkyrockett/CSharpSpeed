@@ -712,24 +712,6 @@ namespace InstrumentedLibrary
         public static double Random(this double Lower, double Upper) => (RandomNumberGenerator.Next() * (Upper - Lower + 1)) + Lower;
 
         /// <summary>
-        /// Convert Degrees to Radians.
-        /// </summary>
-        /// <param name="degrees">Angle in Degrees.</param>
-        /// <returns>Angle in Radians.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ToRadians(this double degrees) => degrees * Radian;
-
-        /// <summary>
-        /// Convert Radians to Degrees.
-        /// </summary>
-        /// <param name="radiens">Angle in Radians.</param>
-        /// <returns>Angle in Degrees.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ToDegrees(this double radiens) => radiens * Degree;
-
-        /// <summary>
         /// Get a the value for a key. If the key does not exist, return null;
         /// </summary>
         /// <typeparam name="TKey">The type of the keys in the dictionary.</typeparam>
@@ -742,6 +724,7 @@ namespace InstrumentedLibrary
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static TValue GetValueOrDefault<TKey, TValue>(this Dictionary<TKey, TValue> dic, TKey key) => dic.TryGetValue(key, out var result) ? result : default;
+        public static TValue GetValueOrDefault<TKey, TValue>(this Dictionary<TKey, TValue> dic, TKey key)
+            => dic.TryGetValue(key, out var result) ? result : default;
     }
 }

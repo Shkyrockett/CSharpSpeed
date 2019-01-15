@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Intersection of Two Line Segments")]
     [Description("Find the intersection points of two line segments.")]
-    [Signature("public static (bool intersects, (double X, double Y)? point) LineSegmentLineSegmentIntersection(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class LineSegmentLineSegmentIntersectionTests
     {
@@ -369,7 +368,7 @@ namespace InstrumentedLibrary
             }
 
             // If it's 0, it means the lines are parallel so have infinite intersection points
-            if (NearZeroTests.NearZero0(dotPerp))
+            if (NearZeroTests.NearZero(dotPerp))
             {
                 return (false, null);
             }

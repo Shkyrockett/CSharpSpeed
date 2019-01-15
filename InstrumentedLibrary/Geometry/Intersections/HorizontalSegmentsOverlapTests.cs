@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Horizontal Segments overlap")]
     [Description("Determines whether horizontal segments overlap.")]
-    [Signature("public static bool HorizontalSegmentsOverlap(double segAX, double segAY, double segBX, double segBY)")]
     [SourceCodeLocationProvider]
     public static class HorizontalSegmentsOverlapTests
     {

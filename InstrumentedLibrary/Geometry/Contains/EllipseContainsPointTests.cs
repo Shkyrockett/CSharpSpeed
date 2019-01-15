@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Point In Ellipse Tests")]
     [Description("Determines whether a point is in an Ellipse.")]
-    [Signature("public static Inclusion PointInEllipse(double x, double y, double rX, double rY, double angle, double pX, double pY)")]
     [SourceCodeLocationProvider]
     public static class EllipseContainsPointTests
     {

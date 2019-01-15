@@ -15,7 +15,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Cubic Bezier Interpolate 2D Tests")]
     [Description("Find a point on a 2D Cubic Bezier curve.")]
-    [Signature("public static (double X, double Y) CubicBezierInterpolate2D(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4, double t)")]
     [SourceCodeLocationProvider]
     public static class InterpolateCubicBezier2DTests
     {

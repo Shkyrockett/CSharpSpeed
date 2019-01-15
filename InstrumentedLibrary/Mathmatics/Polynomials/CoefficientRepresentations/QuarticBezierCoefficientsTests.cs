@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Quartic Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a Quartic Bezier Curve.")]
-    [Signature("public static IList<double> QuarticBezierCoefficients(double a, double b, double c, double d, double e)")]
     [SourceCodeLocationProvider]
     public static class QuarticBezierCoefficientsTests
     {

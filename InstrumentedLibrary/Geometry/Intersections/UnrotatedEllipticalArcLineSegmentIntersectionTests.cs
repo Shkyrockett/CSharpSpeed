@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Intersection of unrotated elliptical arc and line segment")]
     [Description("Find the intersection points between unrotated elliptical and arc line segment.")]
-    [Signature("public static Intersection UnrotatedEllipticalArcLineSegmentIntersection(double cx, double cy, double rx, double ry, double startAngle, double sweepAngle, double x0, double y0, double x1, double y1, double epsilon = Epsilon)")]
     [SourceCodeLocationProvider]
     public static class UnrotatedEllipticalArcLineSegmentIntersectionTests
     {
@@ -27,7 +26,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 2d, 2d, Maths.ToRadians(0d), Maths.ToRadians(45d), 2d, 2d, 1d, 1d, Epsilon }, new TestCaseResults(description:"Line Segment Line Segment intersection.", trials:trials, expectedReturnValue:new Intersection(), epsilon:double.Epsilon) },
+                { new object[] { 0d, 0d, 2d, 2d, ToRadiansTests.ToRadians(0d), ToRadiansTests.ToRadians(45d), 2d, 2d, 1d, 1d, Epsilon }, new TestCaseResults(description:"Line Segment Line Segment intersection.", trials:trials, expectedReturnValue:new Intersection(), epsilon:double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

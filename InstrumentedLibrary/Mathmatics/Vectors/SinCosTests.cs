@@ -15,7 +15,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Sin and Cos")]
     [Description("Calculate the tuple of Sin and Cos.")]
-    [Signature("public static (double Cos, double Sin) SinCos(double angle)")]
     [SourceCodeLocationProvider]
     public static class SinCosTests
     {
@@ -44,9 +43,9 @@ namespace InstrumentedLibrary
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
                 { new object[] { 0d }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:(1d, 0d), epsilon:double.Epsilon) },
-                { new object[] { Maths.ToRadians(30d) }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:(0.86602540378443871d, 0.49999999999999994d), epsilon:double.Epsilon) },
-                { new object[] { Maths.ToRadians(45d) }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:(0.70710678118654757d, 0.70710678118654757d), epsilon:double.Epsilon) },
-                { new object[] { Maths.ToRadians(60d) }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:(0.50000000000000011d, 0.8660254037844386d), epsilon:double.Epsilon) },
+                { new object[] { ToRadiansTests.ToRadians(30d) }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:(0.86602540378443871d, 0.49999999999999994d), epsilon:double.Epsilon) },
+                { new object[] { ToRadiansTests.ToRadians(45d) }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:(0.70710678118654757d, 0.70710678118654757d), epsilon:double.Epsilon) },
+                { new object[] { ToRadiansTests.ToRadians(60d) }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:(0.50000000000000011d, 0.8660254037844386d), epsilon:double.Epsilon) },
                 { new object[] { HalfPi }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:(0d, 1d), epsilon:double.Epsilon) },
             };
 
@@ -60,6 +59,16 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="angle"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double Cos, double Sin) SinCos(double angle)
+            => SinCos_0(angle);
+
+        /// <summary>
         /// The sin cos.
         /// </summary>
         /// <param name="angle">The angle.</param>
@@ -69,7 +78,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double Cos, double Sin) SinCos(double angle)
+        public static (double Cos, double Sin) SinCos_0(double angle)
         {
             return (Cos(angle), Sin(angle));
         }

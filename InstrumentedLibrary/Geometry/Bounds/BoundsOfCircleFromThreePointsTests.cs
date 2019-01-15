@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Ellipse Perimeter Length Tests")]
     [Description("Estimations on the length of the Perimeter of an ellipse.")]
-    [Signature("public static Rectangle2D? CircleBoundsFromThreePoints(double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y)")]
     [SourceCodeLocationProvider]
     public static class BoundsOfCircleFromThreePointsTests
     {

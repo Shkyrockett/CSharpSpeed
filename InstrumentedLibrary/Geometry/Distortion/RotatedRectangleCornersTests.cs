@@ -14,7 +14,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Rotated Rectangle Points")]
     [Description("Find the corner points of a rotated rectangle.")]
-    [Signature("public static (double X, double Y)[] RotatedRectangleCorners(double x, double y, double width, double height, double fulcrumX, double fulcrumY, double angle)")]
     [SourceCodeLocationProvider]
     public static class RotatedRectangleCornersTests
     {
@@ -27,7 +26,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 10d, 10d, 5d, 5d, Maths.ToRadians(45d) }, new TestCaseResults(description:"Point Inside", trials:trials, expectedReturnValue:new Point2D(0.5d, 0.5d), epsilon:DoubleEpsilon) },
+                { new object[] { 0d, 0d, 10d, 10d, 5d, 5d, ToRadiansTests.ToRadians(45d) }, new TestCaseResults(description:"Point Inside", trials:trials, expectedReturnValue:new Point2D(0.5d, 0.5d), epsilon:DoubleEpsilon) },
             };
 
             var results = new List<SpeedTester>();

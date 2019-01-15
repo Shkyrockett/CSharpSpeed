@@ -12,7 +12,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Is Power of Two")]
     [Description("Determines whether a number is a power of 2.")]
-    [Signature("public static int IsPowerOfTwo(int value)")]
     [SourceCodeLocationProvider]
     public static class IsPowerOfTwoTests
     {
@@ -38,6 +37,16 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static bool IsPowerOfTwo(int value)
+            => IsPowerOfTwo0(value);
+
+        /// <summary>
         /// Determines if value is powered by two.
         /// </summary>
         /// <param name="value">A value.</param>
@@ -47,7 +56,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsPowerOfTwo(int value)
+        public static bool IsPowerOfTwo0(int value)
         {
             return (value > 0) && ((value & (value - 1)) == 0);
         }

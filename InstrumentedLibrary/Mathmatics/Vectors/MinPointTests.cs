@@ -15,7 +15,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Min Point")]
     [Description("Finds the minimum of two points.")]
-    [Signature("public static (double X, double Y) MinPoint(double point1X, double point1Y, double point2X, double point2Y)")]
     [SourceCodeLocationProvider]
     public static class MinPointTests
     {
@@ -41,6 +40,19 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point1X"></param>
+        /// <param name="point1Y"></param>
+        /// <param name="point2X"></param>
+        /// <param name="point2Y"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y) MinPoint(double point1X, double point1Y, double point2X, double point2Y)
+            => MinPoint0(point1X, point1Y, point2X, point2Y);
+
+        /// <summary>
         /// The min point.
         /// </summary>
         /// <param name="point1X">The point1X.</param>
@@ -57,7 +69,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) MinPoint(double point1X, double point1Y, double point2X, double point2Y)
+        public static (double X, double Y) MinPoint0(double point1X, double point1Y, double point2X, double point2Y)
         {
             return (Min(point1X, point2X), Min(point1Y, point2Y));
         }

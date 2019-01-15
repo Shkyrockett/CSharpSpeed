@@ -13,7 +13,6 @@ namespace InstrumentedLibrary
     /// </summary>
     [DisplayName("Polygon Contour Bounds Tests")]
     [Description("Calculate bounding rectangle of a polygon contour.")]
-    [Signature("public static Rectangle2D? PolygonBounds(List<(double X, double Y)> path)")]
     [SourceCodeLocationProvider]
     public static class BoundsOfPolygonContourTests
     {
