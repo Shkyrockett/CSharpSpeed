@@ -60,6 +60,9 @@ namespace InstrumentedLibrary
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
+        [DisplayName("Is Vector a Unit Vector Test")]
+        [Description("Is Vector a Unit Vector Test.")]
+        [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsUnitVector0(double i, double j, double k)
