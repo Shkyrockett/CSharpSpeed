@@ -25,7 +25,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { new List<(double X, double Y)> {(0d, 0d), (1d, 0d), (0d, 1d)} }, new TestCaseResults(description:"Circle test case.", trials:trials, expectedReturnValue:Tau, epsilon:double.Epsilon) },
+                { new object[] { new List<(double X, double Y)> {(0d, 0d), (1d, 0d), (0d, 1d)} }, new TestCaseResults(description: "Circle test case.", trials: trials, expectedReturnValue:Tau, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -156,17 +156,14 @@ namespace InstrumentedLibrary
             var b = d;
             double e = 0;
             double f = 0;
-
-            double angleDif = 0;
-            var bestAngleDif = Tau;
-
             segRet.Add((c, d));
             corners = 1;
             while (true)
             {
-                bestAngleDif = Tau;
+                var bestAngleDif = Tau;
                 for (var i = 0; i < segs; i++)
                 {
+                    double angleDif;
                     if (segS[i].X == c && segS[i].Y == d && (segE[i].X != a || segE[i].Y != b))
                     {
                         angleDif = lastAngle - segAngle[i];

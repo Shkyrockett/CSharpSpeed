@@ -28,7 +28,7 @@ namespace InstrumentedLibrary
             var point = new Point2D(1, 1);
             var rectangle = new Rectangle2D(0, 0, 2, 2);
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { rectangle, point }, new TestCaseResults(description:"rectangle, point.", trials:trials, expectedReturnValue:true, epsilon:double.Epsilon) },
+                { new object[] { rectangle, point }, new TestCaseResults(description: "rectangle contains point.", trials: trials, expectedReturnValue: Inclusion.Inside, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using CSharpSpeed;
 using static System.Math;
-using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
 {
@@ -27,7 +26,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0, 0, 3, 4, 30d.ToRadians(), -30d.ToRadians(), 90d.ToRadians() }, new TestCaseResults(description: "Test for bounding box of elliptical arc.", trials:trials, expectedReturnValue: new Rectangle2D(2.2204460492503131E-16,-2.2204460492503131E-16,3.1788776569561055,3.6599656879825124), epsilon:DoubleEpsilon) },
+                { new object[] { 0, 0, 3, 4, 30d.ToRadians(), -30d.ToRadians(), 90d.ToRadians() }, new TestCaseResults(description: "Test for bounding box of rotated elliptical arc.", trials: trials, expectedReturnValue: new Rectangle2D(2.2204460492503131E-16,-2.2204460492503131E-16,3.1788776569561055,3.6599656879825124), epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

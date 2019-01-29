@@ -6,57 +6,20 @@ namespace InstrumentedLibrary
 {
     public class Triangle2D
     {
-        private Point2D a;
-        private Point2D b;
-        private Point2D c;
-
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Triangle2D(Point2D a, Point2D b, Point2D c)
         {
-            this.a = a;
-            this.b = b;
-            this.c = c;
+            this.A = a;
+            this.B = b;
+            this.C = c;
         }
 
-        public Point2D A
-        {
-            get
-            {
-                return a;
-            }
+        public Point2D A { get; set; }
 
-            set
-            {
-                a = value;
-            }
-        }
+        public Point2D B { get; set; }
 
-        public Point2D B
-        {
-            get
-            {
-                return b;
-            }
-
-            set
-            {
-                b = value;
-            }
-        }
-
-        public Point2D C
-        {
-            get
-            {
-                return c;
-            }
-
-            set
-            {
-                c = value;
-            }
-        }
+        public Point2D C { get; set; }
 
         /// <summary>
         /// The contains.
@@ -66,6 +29,6 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Contains(Point2D point)
-            => PolygonContourContainsPointTests.PointInPolygonContour(new List<Point2D> { a, b, c }, point);
+            => PolygonContourContainsPointTests.PolygonContourContainsPoint(new List<Point2D> { A, B, C }, point);
     }
 }

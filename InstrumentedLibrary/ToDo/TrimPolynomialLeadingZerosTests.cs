@@ -3,7 +3,7 @@
     /// <summary>
     /// The trim polynomial leading zeros tests class.
     /// </summary>
-    class TrimPolynomialLeadingZerosTests
+    internal class TrimPolynomialLeadingZerosTests
     {
         ///// <summary>
         ///// Simplify a polynomial, removing near zero terms.

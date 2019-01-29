@@ -270,6 +270,18 @@ namespace CSharpSpeed
                     return $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R})";
                 case ValueTuple<double, double, double, double> t:
                     return $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R})";
+                case ValueTuple<float, float, float, float, float> t:
+                    return $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R})";
+                case ValueTuple<double, double, double, double, double> t:
+                    return $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R})";
+                case ValueTuple<float, float, float, float, float, float> t:
+                    return $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R}, {t.Item6:R})";
+                case ValueTuple<double, double, double, double, double, double> t:
+                    return $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R}, {t.Item6:R})";
+                case ValueTuple<float, float, float, float, float, float, float> t:
+                    return $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R}, {t.Item6:R}, {t.Item7:R})";
+                case ValueTuple<double, double, double, double, double, double, double> t:
+                    return $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R}, {t.Item6:R}, {t.Item7:R})";
                 case float[] l:
                     return $"float\\[\\] {{{string.Join(", ", l.Select(x => $"{x:R}"))}}}";
                 case List<float> l:
@@ -307,7 +319,7 @@ namespace CSharpSpeed
         {
             const string equal = "==";
             const string notEqual = "!=";
-            var equivalency = string.Empty;
+            string equivalency;
             switch (testcase.Value.ReturnValue)
             {
                 case int i:

@@ -26,7 +26,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 2d, 2d, 0d, 0.5d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: true, epsilon:DoubleEpsilon) },
+                { new object[] { 0d, 0d, 2d, 2d, 0d, 0.5d, 0.5d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: Inclusion.Inside, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -48,11 +48,12 @@ namespace InstrumentedLibrary
         /// <param name="angle"></param>
         /// <param name="pX"></param>
         /// <param name="pY"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static Inclusion PointInEllipse(double x, double y, double rX, double rY, double angle, double pX, double pY)
-            =>PointInEllipse0( x,  y,  rX,  rY,  angle,  pX,  pY);
+        public static Inclusion EllipseContainsPoint(double x, double y, double rX, double rY, double angle, double pX, double pY, double epsilon = Epsilon)
+            => PointInEllipse0(x, y, rX, rY, angle, pX, pY, epsilon);
 
         /// <summary>
         /// Checks whether a point is found within the boundaries of an ellipse.
@@ -64,6 +65,7 @@ namespace InstrumentedLibrary
         /// <param name="angle"></param>
         /// <param name="pX"></param>
         /// <param name="pY"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
@@ -74,7 +76,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInEllipse0(double x, double y, double rX, double rY, double angle, double pX, double pY)
+        public static Inclusion PointInEllipse0(double x, double y, double rX, double rY, double angle, double pX, double pY, double epsilon = Epsilon)
         {
             if (rX <= 0d || rY <= 0d)
             {
@@ -90,12 +92,12 @@ namespace InstrumentedLibrary
             var a = (cosT * u + sinT * v) * (cosT * u + sinT * v);
             var b = (sinT * u - cosT * v) * (sinT * u - cosT * v);
 
-            var d1Squared = 4 * rX * rX;
-            var d2Squared = 4 * rY * rY;
+            var d1Squared = 4d * rX * rX;
+            var d2Squared = 4d * rY * rY;
 
             var normalizedRadius = (a / d1Squared) + (b / d2Squared);
 
-            return (normalizedRadius <= 1d) ? ((Abs(normalizedRadius - 1d) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+            return (normalizedRadius <= 1d) ? ((Abs(normalizedRadius - 1d) < epsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
         }
     }
 }

@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using static System.Math;
 using static InstrumentedLibrary.Maths;
-using System.Linq;
 using System.Numerics;
 
 namespace InstrumentedLibrary
@@ -28,9 +27,9 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 1d, 2d, 3d, 4d, Epsilon }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:new List<Complex> {new Complex(-1.6506291914393878d, -0), new Complex(-0.17468540428030593d, 1.546868887231396), new Complex(-0.17468540428030593d, -1.546868887231396d)}, epsilon:double.Epsilon) },
-                { new object[] { 4d, 3d, 2d, 1d, Epsilon }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:new List<Complex> {new Complex(-0.60582958618826788d, -0), new Complex(-0.07208520690586602d, 0.63832673514837635), new Complex(-0.07208520690586602d, -0.63832673514837635d)}, epsilon:double.Epsilon) },
-                { new object[] { 1d, 3d, -6d, 18d, Epsilon }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:new List<Complex> { new Complex(-4.94788592337517d, -0), new Complex(0.97394296168758532d, 1.6399245250888428), new Complex(0.97394296168758532d, -1.6399245250888428d)}, epsilon:double.Epsilon) },
+                { new object[] { 1d, 2d, 3d, 4d, Epsilon }, new TestCaseResults(description: "Dumb Polynomial test.", trials: trials, expectedReturnValue: new List<Complex> {new Complex(-1.6506291914393878d, -0), new Complex(-0.17468540428030593d, 1.546868887231396), new Complex(-0.17468540428030593d, -1.546868887231396d)}, epsilon: double.Epsilon) },
+                { new object[] { 4d, 3d, 2d, 1d, Epsilon }, new TestCaseResults(description: "Dumb Polynomial test.", trials: trials, expectedReturnValue: new List<Complex> {new Complex(-0.60582958618826788d, -0), new Complex(-0.07208520690586602d, 0.63832673514837635), new Complex(-0.07208520690586602d, -0.63832673514837635d)}, epsilon: double.Epsilon) },
+                { new object[] { 1d, 3d, -6d, 18d, Epsilon }, new TestCaseResults(description: "Dumb Polynomial test.", trials: trials, expectedReturnValue: new List<Complex> { new Complex(-4.94788592337517d, -0), new Complex(0.97394296168758532d, 1.6399245250888428), new Complex(0.97394296168758532d, -1.6399245250888428d)}, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

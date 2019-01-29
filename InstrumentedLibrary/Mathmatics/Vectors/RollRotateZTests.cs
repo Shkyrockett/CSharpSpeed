@@ -1,14 +1,43 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
 using static System.Math;
 
 namespace InstrumentedLibrary
 {
-    class RollRotateZTests
+    /// <summary>
+    /// 
+    /// </summary>
+    [DisplayName("Rotate Vector About Z Roll Test")]
+    [Description("Rotate Vector About Z Roll.")]
+    [SourceCodeLocationProvider]
+    public static class RollRotateZTests
     {
+        /// <summary>
+        /// Set of tests to run testing methods.
+        /// </summary>
+        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        [DisplayName(nameof(ToDegreesTests))]
+        public static List<SpeedTester> TestHarness()
+        {
+            var trials = 10000;
+            var tests = new Dictionary<object[], TestCaseResults> {
+                { new object[] { 0d, 0d, 1d, PI }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (-0d, 0d, 1d), epsilon: double.Epsilon) },
+            };
+
+            var results = new List<SpeedTester>();
+            foreach (var method in ReflectionHelper.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
+            {
+                var methodDescription = ((DescriptionAttribute)method.GetCustomAttribute(typeof(DescriptionAttribute)))?.Description;
+                results.Add(new SpeedTester(method, methodDescription, tests));
+            }
+            return results;
+        }
+
         /// <summary>
         /// The roll.
         /// </summary>
@@ -20,8 +49,8 @@ namespace InstrumentedLibrary
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
-        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
         public static (double X, double Y, double Z) Roll(double x1, double y1, double z1, double rad)
             => RotateZ(x1, y1, z1, rad);
 
@@ -36,6 +65,9 @@ namespace InstrumentedLibrary
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
+        [DisplayName("Rotate Vector About Z Roll Test")]
+        [Description("Rotate Vector About Z Roll.")]
+        [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) RotateZ(double x1, double y1, double z1, double rad)

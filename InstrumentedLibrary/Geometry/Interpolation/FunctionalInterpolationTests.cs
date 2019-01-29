@@ -27,7 +27,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { (Func<double, (double X, double Y)>)((i) => InterpolateCubic2DTests.CubicInterpolate2D(0d, 5d, 10d, 15d, 20d, 15d, 30d, 5d, i)), 100 }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:Tau, epsilon:double.Epsilon) },
+                { new object[] { (Func<double, (double X, double Y)>)((i) => InterpolateCubic2DTests.CubicInterpolate2D(0d, 5d, 10d, 15d, 20d, 15d, 30d, 5d, i)), 100 }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:Tau, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

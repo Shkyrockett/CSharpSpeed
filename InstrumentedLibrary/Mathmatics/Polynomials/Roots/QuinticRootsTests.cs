@@ -26,8 +26,8 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 1d, 2d, 3d, 4d, 5d, 6, Epsilon }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:new List<double> {-0.6723782435877943d, -3.234022892850585d, -0.046799431780810474d, -0.046799431780810474d, 0d, 0d}, epsilon:double.Epsilon) },
-                { new object[] { 6, 5d, 4d, 3d, 2d, 1d, Epsilon }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:new List<double> {-1.6665418277880788d, -1.6665418277880788d, 0.16654182778807858d, 0.16654182778807858d, 0d, 0d}, epsilon:double.Epsilon) },
+                { new object[] { 1d, 2d, 3d, 4d, 5d, 6, Epsilon }, new TestCaseResults(description: "Dumb Polynomial test.", trials: trials, expectedReturnValue: new List<double> {-0.6723782435877943d, -3.234022892850585d, -0.046799431780810474d, -0.046799431780810474d, 0d, 0d}, epsilon: double.Epsilon) },
+                { new object[] { 6, 5d, 4d, 3d, 2d, 1d, Epsilon }, new TestCaseResults(description: "Dumb Polynomial test.", trials: trials, expectedReturnValue: new List<double> {-1.6665418277880788d, -1.6665418277880788d, 0.16654182778807858d, 0.16654182778807858d, 0d, 0d}, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -148,8 +148,8 @@ namespace InstrumentedLibrary
                     {
                         b_[i] = a_[i] - (alfa1 * b_[j]) - (beta1 * b_[k]);
                         d_[i] = b_[i] - (alfa1 * d_[j]) - (beta1 * d_[k]);
-                        j = j + 1;
-                        k = k + 1;
+                        j += 1;
+                        k += 1;
                     }
 
                     {
@@ -158,8 +158,8 @@ namespace InstrumentedLibrary
                         delta1 = (d_[j] * d_[j]) - ((d_[n] - b_[n]) * d_[k]);
                         alfa2 = ((b_[n] * d_[j]) - (b_[n1] * d_[k])) / delta1;
                         beta2 = ((b_[n1] * d_[j]) - ((d_[n] - b_[n]) * b_[n])) / delta1;
-                        alfa1 = alfa1 + alfa2;
-                        beta1 = beta1 + beta2;
+                        alfa1 += alfa2;
+                        beta1 += beta2;
                     }
 
                     if (--limit < 0)
@@ -203,12 +203,12 @@ namespace InstrumentedLibrary
                 }
 
                 // update root counter
-                count = count + 2;
+                count += 2;
 
                 // reduce polynomial order
-                n = n - 2;
-                n1 = n1 - 2;
-                n2 = n2 - 2;
+                n -= 2;
+                n1 -= 2;
+                n2 -= 2;
 
                 // for n >= 2 calculate coefficients of
                 //  the new polynomial

@@ -25,7 +25,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 1d, 2d, 3d, 4d, 5d }, new TestCaseResults(description:"", trials:trials, expectedReturnValue: (0d, 1d, 1.33333333333333d, 2.33333333333333d, 4.66666666666667d, 5.66666666666667d, 6d, 7d), epsilon:DoubleEpsilon) },
+                { new object[] { 0d, 1d, 2d, 3d, 4d, 5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (0d, 1d, 1.33333333333333d, 2.33333333333333d, 2.66666666666667d, 3.66666666666667d, 4d, 5d), epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -77,5 +77,72 @@ namespace InstrumentedLibrary
                     cX + TwoThirds * (bX - cX), cY + TwoThirds * (bY - cY),
                     cX, cY);
         }
+
+        /// <summary>
+        /// Raise a Quadratic Bezier to a Cubic Bezier.
+        /// </summary>
+        /// <param name="aX">The x-component of the starting point.</param>
+        /// <param name="aY">The y-component of the starting point.</param>
+        /// <param name="bX">The x-component of the handle.</param>
+        /// <param name="bY">The y-component of the handle.</param>
+        /// <param name="cX">The x-component of the end point.</param>
+        /// <param name="cY">The y-component of the end point.</param>
+        /// <returns>Returns Quadratic Bézier curve from a cubic curve.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y)[] QuadraticBezierToCubicBezierArray(
+            double aX, double aY,
+            double bX, double bY,
+            double cX, double cY)
+            => new (double X, double Y)[]
+            {
+                (aX, aY),
+                (aX + (TwoThirds * (bX - aX)), aY + (TwoThirds * (bY - aY))),
+                (cX + (TwoThirds * (bX - cX)), cY + (TwoThirds * (bY - cY))),
+                (cX, cY)
+            };
+
+        /// <summary>
+        /// Converts a Quadratic Bezier to a Cubic Bezier.
+        /// </summary>
+        /// <param name="a">The first point.</param>
+        /// <param name="b">The second point.</param>
+        /// <param name="c">The third point.</param>
+        /// <returns>Returns a Cubic Bezier from a Quadratic Bezier.</returns>
+        /// <acknowledgment>
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D[] QuadraticBezierToCubicBezierList(
+            Point2D a,
+            Point2D b,
+            Point2D c)
+            => new Point2D[]
+            {
+                a,
+                new Point2D(a.X + (TwoThirds * (b.X - a.X)), a.Y + (TwoThirds * (b.Y - a.Y))),
+                new Point2D(c.X + (TwoThirds * (b.X - c.X)), c.Y + (TwoThirds * (b.Y - c.Y))),
+                c
+            };
+
+        /// <summary>
+        /// Raises a <see cref="QuadraticBezier"/> to a <see cref="CubicBezier"/>.
+        /// </summary>
+        /// <param name="a">The starting point of the Quadratic Bézier curve.</param>
+        /// <param name="b">The handle of the Quadratic Bézier curve.</param>
+        /// <param name="c">The end point of the Quadratic Bézier curve.</param>
+        /// <returns>Returns a Cubic Bézier curve from the Quadratic Bézier curve.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static CubicBezier2D QuadraticBezierToCubicBezierPoint2D(
+            Point2D a,
+            Point2D b,
+            Point2D c)
+            => new CubicBezier2D(
+                a.X, a.Y,
+                a.X + (TwoThirds * (b.X - a.X)), a.Y + (TwoThirds * (b.Y - a.Y)),
+                c.X + (TwoThirds * (b.X - c.X)), c.Y + (TwoThirds * (b.Y - c.Y)),
+                c.X, c.Y
+            );
     }
 }

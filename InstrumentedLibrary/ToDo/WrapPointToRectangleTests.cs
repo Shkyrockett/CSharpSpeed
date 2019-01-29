@@ -18,8 +18,8 @@
         //{
         //    var trials = 10000;
         //    var tests = new Dictionary<object[], TestCaseResults> {
-        //        { new object[] { new Rectangle2D(0d, 0d, 10d, 10d), new Point2D(5d, 5d) }, new TestCaseResults(description:"Warp a point", trials:trials, expectedReturnValue:new Point2D(1.625d, 1.25d), DoubleEpsilon) },
-        //        { new object[] { new Rectangle2D(0d, 0d, 20d, 20d), new Point2D(31d, 21d) }, new TestCaseResults(description:"Warp a point", trials:trials, expectedReturnValue:new Point2D(1.625d, 1.25d), DoubleEpsilon) },
+        //        { new object[] { new Rectangle2D(0d, 0d, 10d, 10d), new Point2D(5d, 5d) }, new TestCaseResults(description: "Warp a point", trials: trials, expectedReturnValue: new Point2D(1.625d, 1.25d), DoubleEpsilon) },
+        //        { new object[] { new Rectangle2D(0d, 0d, 20d, 20d), new Point2D(31d, 21d) }, new TestCaseResults(description: "Warp a point", trials: trials, expectedReturnValue: new Point2D(1.625d, 1.25d), DoubleEpsilon) },
         //    };
 
         //    var results = new List<SpeedTester>();
@@ -43,22 +43,22 @@
             // ToDo: Try to remember why reference is used here...
             if (point.X <= bounds.X)
             {
-                reference = reference - new Size2D(bounds.X, 0);
+                reference -= new Size2D(bounds.X, 0);
                 return new Point2D(bounds.Width - 2, point.Y);
             }
             if (point.Y <= bounds.Y)
             {
-                reference = reference - new Size2D(0, bounds.Y);
+                reference -= new Size2D(0, bounds.Y);
                 return new Point2D(point.X, bounds.Height - 2);
             }
             if (point.X >= (bounds.Width - 1))
             {
-                reference = reference + new Size2D(bounds.Width, 0);
+                reference += new Size2D(bounds.Width, 0);
                 return new Point2D(bounds.X + 2, point.Y);
             }
             if (point.Y >= (bounds.Height - 1))
             {
-                reference = reference + new Size2D(0, bounds.Height);
+                reference += new Size2D(0, bounds.Height);
                 return new Point2D(point.X, bounds.Y + 2);
             }
             return point;

@@ -26,7 +26,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0.000000001d, NearZeroEpsilon }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:false, epsilon:double.Epsilon) },
+                { new object[] { 0.000000001d, NearZeroEpsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: false, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -46,7 +46,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static bool NearZero(double value, double epsilon = NearZeroEpsilon)
+        public static bool NearZero(this double value, double epsilon = NearZeroEpsilon)
             => NearZero0(value, epsilon);
 
         /// <summary>

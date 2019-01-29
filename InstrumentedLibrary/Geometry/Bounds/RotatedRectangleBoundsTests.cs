@@ -25,7 +25,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 2d, 2d, 1d, 1d, ToRadiansTests.ToRadians(45d) }, new TestCaseResults(description:"Circle from three points test case.", trials:trials, expectedReturnValue:new Rectangle2D(-0.20710678118654757d, -0.20710678118654757d, 1.4142135623730949d, 1.4142135623730949d), epsilon:double.Epsilon) },
+                { new object[] { 0d, 0d, 2d, 2d, 1d, 1d, ToRadiansTests.ToRadians(45d) }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: new Rectangle2D(-0.41421356237309515d, -0.41421356237309515d, 3.2426406871192857d, 3.2426406871192857d), epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

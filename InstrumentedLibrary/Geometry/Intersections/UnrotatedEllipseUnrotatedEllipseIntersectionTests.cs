@@ -27,7 +27,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 2d, 2d, 1d, 0d, 2d, 2d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: true, epsilon:DoubleEpsilon) },
+                { new object[] { 0d, 0d, 2d, 2d, 1d, 0d, 2d, 2d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: true, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -112,7 +112,7 @@ namespace InstrumentedLibrary
                 YC = YD;
             }
 
-            if (Abs(ellipseA.Center.Y - ellipseB.Center.Y) < DoubleEpsilon)
+            if (Abs(ellipseA.Center.Y - ellipseB.Center.Y) < epsilon)
             {
                 YC = 2 * ellipseA.Center.Y - YA;
             }
@@ -254,6 +254,7 @@ namespace InstrumentedLibrary
         /// <param name="E2"></param>
         /// <param name="F2"></param>
         /// <param name="sign2"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
@@ -261,7 +262,8 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<(double X, double Y)> FindRootsUsingNewtonsMethod(double xmin, double xmax,
             double A1, double B1, double C1, double D1, double E1, double F1, double sign1,
-            double A2, double B2, double C2, double D2, double E2, double F2, double sign2)
+            double A2, double B2, double C2, double D2, double E2, double F2, double sign2,
+            double epsilon = DoubleEpsilon)
         {
             var roots = new List<(double X, double Y)>();
             const int num_tests = 1000;
@@ -282,7 +284,7 @@ namespace InstrumentedLibrary
                     var is_new = true;
                     foreach (var pt in roots)
                     {
-                        if (Abs(pt.X - x) < DoubleEpsilon)
+                        if (Abs(pt.X - x) < epsilon)
                         {
                             is_new = false;
                             break;
@@ -492,6 +494,7 @@ namespace InstrumentedLibrary
         /// <param name="d2"></param>
         /// <param name="e2"></param>
         /// <param name="f2"></param>
+        /// <param name="epsilon"></param>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-4/
         /// </acknowledgment>
@@ -499,7 +502,8 @@ namespace InstrumentedLibrary
         public static (List<(double X, double Y)> Roots, List<double> RootSign1, List<double> RootSign2, List<(double X, double Y)> PointsOfIntersection) FindPointsOfIntersectionUsingBinaryDivision(
             double xmin, double xmax,
             double a1, double b1, double c1, double d1, double e1, double f1,
-            double a2, double b2, double c2, double d2, double e2, double f2)
+            double a2, double b2, double c2, double d2, double e2, double f2,
+            double epsilon = DoubleEpsilon)
         {
             (var Roots, var RootSign1, var RootSign2, var PointsOfIntersection) = (new List<(double X, double Y)>(), new List<double>(), new List<double>(), new List<(double X, double Y)>());
 
@@ -533,7 +537,7 @@ namespace InstrumentedLibrary
                 PointsOfIntersection.Add((Roots[i].X, y1));
 
                 // Validation.
-                Debug.Assert(Abs(y1 - y2) < DoubleEpsilon);
+                Debug.Assert(Abs(y1 - y2) < epsilon);
             }
 
             return (Roots, RootSign1, RootSign2, PointsOfIntersection);
@@ -558,6 +562,7 @@ namespace InstrumentedLibrary
         /// <param name="E2"></param>
         /// <param name="F2"></param>
         /// <param name="sign2"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-4/
@@ -565,7 +570,8 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<(double X, double Y)> FindRootsUsingBinaryDivision(double xmin, double xmax,
             double A1, double B1, double C1, double D1, double E1, double F1, double sign1,
-            double A2, double B2, double C2, double D2, double E2, double F2, double sign2)
+            double A2, double B2, double C2, double D2, double E2, double F2, double sign2,
+            double epsilon = DoubleEpsilon)
         {
             var roots = new List<(double X, double Y)>();
             const int num_tests = 10;
@@ -586,7 +592,7 @@ namespace InstrumentedLibrary
                     var is_new = true;
                     foreach (var pt in roots)
                     {
-                        if (Abs(pt.X - x) < DoubleEpsilon)
+                        if (Abs(pt.X - x) < epsilon)
                         {
                             is_new = false;
                             break;
@@ -631,13 +637,15 @@ namespace InstrumentedLibrary
         /// <param name="E2"></param>
         /// <param name="F2"></param>
         /// <param name="sign2"></param>
+        /// <param name="epsilon"></param>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-4/
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double x, double y) UseBinaryDivision(double x0, double delta_x,
             double A1, double B1, double C1, double D1, double E1, double F1, double sign1,
-            double A2, double B2, double C2, double D2, double E2, double F2, double sign2)
+            double A2, double B2, double C2, double D2, double E2, double F2, double sign2,
+            double epsilon = DoubleEpsilon)
         {
             const int num_trials = 200;
             const int sgn_nan = -2;
@@ -647,7 +655,7 @@ namespace InstrumentedLibrary
             var g_xmin = G(xmin,
                 A1, B1, C1, D1, E1, F1, sign1,
                 A2, B2, C2, D2, E2, F2, sign2);
-            if (Abs(g_xmin) < DoubleEpsilon)
+            if (Abs(g_xmin) < epsilon)
             {
                 return (xmin, g_xmin);
             }
@@ -656,7 +664,7 @@ namespace InstrumentedLibrary
             var g_xmax = G(xmax,
                 A1, B1, C1, D1, E1, F1, sign1,
                 A2, B2, C2, D2, E2, F2, sign2);
-            if (Abs(g_xmax) < DoubleEpsilon)
+            if (Abs(g_xmax) < epsilon)
             {
                 return (xmax, g_xmax);
             }
@@ -731,15 +739,15 @@ namespace InstrumentedLibrary
                 }
             }
 
-            if (IsNumberValidTests.IsNumberValid(g_xmid) && (Abs(g_xmid) < DoubleEpsilon))
+            if (IsNumberValidTests.IsNumberValid(g_xmid) && (Abs(g_xmid) < epsilon))
             {
                 return (xmid, g_xmid);
             }
-            else if (IsNumberValidTests.IsNumberValid(g_xmin) && (Abs(g_xmin) < DoubleEpsilon))
+            else if (IsNumberValidTests.IsNumberValid(g_xmin) && (Abs(g_xmin) < epsilon))
             {
                 return (xmin, g_xmin);
             }
-            else if (IsNumberValidTests.IsNumberValid(g_xmax) && (Abs(g_xmax) < DoubleEpsilon))
+            else if (IsNumberValidTests.IsNumberValid(g_xmax) && (Abs(g_xmax) < epsilon))
             {
                 return (xmax, g_xmax);
             }

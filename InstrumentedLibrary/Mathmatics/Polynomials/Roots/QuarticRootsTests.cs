@@ -27,8 +27,8 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 1d, 2d, 3d, 4d, 5d, Epsilon }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:new List<double> {}, epsilon:double.Epsilon) },
-                { new object[] { 5d, 4d, 3d, 2d, 1d, Epsilon }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:new List<double> {}, epsilon:double.Epsilon) },
+                { new object[] { 1d, 2d, 3d, 4d, 5d, Epsilon }, new TestCaseResults(description: "Dumb Polynomial test.", trials: trials, expectedReturnValue: new List<double> {}, epsilon: double.Epsilon) },
+                { new object[] { 5d, 4d, 3d, 2d, 1d, Epsilon }, new TestCaseResults(description: "Dumb Polynomial test.", trials: trials, expectedReturnValue: new List<double> {}, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -308,7 +308,7 @@ namespace InstrumentedLibrary
             {
                 // if (delta < 0) I guess the new test is ok because we're only interested in real roots
                 Q = d1 + Sqrt((d1 * d1) - (4d * d0 * d0 * d0));
-                Q = Q / 2d;
+                Q /= 2d;
                 Q = Pow(Q, 1d / 3d);
                 S = 0.5d * Sqrt((-2d / 3d * p) + (1d / (3d * a) * (Q + (d0 / Q))));
             }

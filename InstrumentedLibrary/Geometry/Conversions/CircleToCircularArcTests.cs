@@ -25,7 +25,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 1d }, new TestCaseResults(description:"", trials:trials, expectedReturnValue: (0d, 1d, 1.33333333333333d, 2.33333333333333d, 4.66666666666667d, 5.66666666666667d, 6d, 7d), epsilon:DoubleEpsilon) },
+                { new object[] { 0d, 0d, 1d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (0d, 0d, 1d, 0d, 6.28318530717959d), epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

@@ -26,11 +26,11 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 1d, 1d }, new TestCaseResults(description:"Circle test case.", trials:trials, expectedReturnValue:Tau, epsilon:double.Epsilon) },
-                { new object[] { 1d, 2d }, new TestCaseResults(description:"One to two test case.", trials:trials, expectedReturnValue:9.6884482205476754d, epsilon:double.Epsilon) },
-                { new object[] { 1d, 3d }, new TestCaseResults(description:"One to three test case.", trials:trials, expectedReturnValue:13.364893220555258d, epsilon:double.Epsilon) },
-                { new object[] { 2d, 4d }, new TestCaseResults(description:"Two to four test case.", trials:trials, expectedReturnValue:19.376896441095351d, epsilon:double.Epsilon) },
-                { new object[] { 0d, 4d }, new TestCaseResults(description:"Zero height, or double sided line segment test case.", trials:trials, expectedReturnValue:16d, epsilon:double.Epsilon) },
+                { new object[] { 1d, 1d }, new TestCaseResults(description: "Circle test case.", trials: trials, expectedReturnValue:Tau, epsilon: double.Epsilon) },
+                { new object[] { 1d, 2d }, new TestCaseResults(description: "One to two test case.", trials: trials, expectedReturnValue:9.6884482205476754d, epsilon: double.Epsilon) },
+                { new object[] { 1d, 3d }, new TestCaseResults(description: "One to three test case.", trials: trials, expectedReturnValue:13.364893220555258d, epsilon: double.Epsilon) },
+                { new object[] { 2d, 4d }, new TestCaseResults(description: "Two to four test case.", trials: trials, expectedReturnValue:19.376896441095351d, epsilon: double.Epsilon) },
+                { new object[] { 0d, 4d }, new TestCaseResults(description: "Zero height, or double sided line segment test case.", trials: trials, expectedReturnValue:16d, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

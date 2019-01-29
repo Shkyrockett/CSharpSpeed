@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InstrumentedLibrary", "Inst
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpSpeedConsoleNetCore", "CSharpSpeedConsole\CSharpSpeedConsoleNetCore.csproj", "{44FFB00B-1F62-4169-A6B9-31B09D3C2DCE}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisualValidator", "VisualValidator\VisualValidator.csproj", "{44AEBB33-2A06-467E-B19F-4FF09332320B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{44FFB00B-1F62-4169-A6B9-31B09D3C2DCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44FFB00B-1F62-4169-A6B9-31B09D3C2DCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44FFB00B-1F62-4169-A6B9-31B09D3C2DCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44AEBB33-2A06-467E-B19F-4FF09332320B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44AEBB33-2A06-467E-B19F-4FF09332320B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44AEBB33-2A06-467E-B19F-4FF09332320B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44AEBB33-2A06-467E-B19F-4FF09332320B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

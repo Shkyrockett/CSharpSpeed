@@ -26,8 +26,8 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 1d }, new TestCaseResults(description:" 0, 1.", trials:trials, expectedReturnValue:7.8539816339744828d, epsilon:DoubleEpsilon) },
-                { new object[] { 0.25d, 0.75d }, new TestCaseResults(description:"0, 1", trials:trials, expectedReturnValue:7.5322310795778407d, epsilon:DoubleEpsilon) },
+                { new object[] { 0d, 1d }, new TestCaseResults(description: " 0, 1.", trials: trials, expectedReturnValue:7.8539816339744828d, epsilon: double.Epsilon) },
+                { new object[] { 0.25d, 0.75d }, new TestCaseResults(description: "0, 1", trials: trials, expectedReturnValue:7.5322310795778407d, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -92,7 +92,7 @@ namespace InstrumentedLibrary
 
             if (value < 0d)
             {
-                value = value + (2d * PI);
+                value += (2d * PI);
             }
 
             return value;

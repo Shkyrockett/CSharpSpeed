@@ -24,12 +24,12 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { double.NaN }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:false, epsilon:double.Epsilon) },
-                { new object[] { 1d }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:true, epsilon:double.Epsilon) },
-                { new object[] { double.NegativeInfinity }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:false, epsilon:double.Epsilon) },
-                { new object[] { double.MaxValue }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:true, epsilon:double.Epsilon) },
-                { new object[] { double.PositiveInfinity }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:false, epsilon:double.Epsilon) },
-                { new object[] { double.MinValue }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:true, epsilon:double.Epsilon) },
+                { new object[] { double.NaN }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: false, epsilon: double.Epsilon) },
+                { new object[] { 1d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: true, epsilon: double.Epsilon) },
+                { new object[] { double.NegativeInfinity }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: false, epsilon: double.Epsilon) },
+                { new object[] { double.MaxValue }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: true, epsilon: double.Epsilon) },
+                { new object[] { double.PositiveInfinity }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: false, epsilon: double.Epsilon) },
+                { new object[] { double.MinValue }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: true, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

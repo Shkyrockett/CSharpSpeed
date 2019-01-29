@@ -26,7 +26,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 2d, 2d, ToRadiansTests.ToRadians(0d), ToRadiansTests.ToRadians(0d), ToRadiansTests.ToRadians(45d), 0.5d, 0.5d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: true, epsilon:DoubleEpsilon) },
+                { new object[] { 0d, 0d, 2d, 2d, ToRadiansTests.ToRadians(0d), ToRadiansTests.ToRadians(0d), ToRadiansTests.ToRadians(45d), 0.5d, 0.5d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: Inclusion.Inside, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -152,7 +152,7 @@ namespace InstrumentedLibrary
             var determinant = (sX - pX) * (eY - pY) - (eX - pX) * (sY - pY);
 
             // Check if the point is on the chord.
-            if (Abs(determinant) <= Epsilon)
+            if (Abs(determinant) <= epsilon)
             {
                 return (sX < eX) ?
                 (sX <= pX && pX <= eX) ? Inclusion.Boundary : Inclusion.Outside :
@@ -179,7 +179,7 @@ namespace InstrumentedLibrary
                 + (b * b / (r2 * r2));
 
             return (normalizedRadius <= 1d)
-                ? ((Abs(normalizedRadius - 1d) < Epsilon)
+                ? ((Abs(normalizedRadius - 1d) < epsilon)
                 ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
         }
 
@@ -274,7 +274,7 @@ namespace InstrumentedLibrary
             var determinant = (sX - pX) * (eY - pY) - (eX - pX) * (sY - pY);
 
             // Check if the point is on the chord.
-            if (Abs(determinant) <= Epsilon)
+            if (Abs(determinant) <= epsilon)
             {
                 return (sX < eX) ?
                 (sX <= pX && pX <= eX) ? Inclusion.Boundary : Inclusion.Outside :
@@ -301,7 +301,7 @@ namespace InstrumentedLibrary
                 + (b * b / (r2 * r2));
 
             return (normalizedRadius <= 1d)
-                ? ((Abs(normalizedRadius - 1d) < Epsilon)
+                ? ((Abs(normalizedRadius - 1d) < epsilon)
                 ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
         }
 

@@ -27,7 +27,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 1d, 1d, 1d, 1.5d, 1d, 1d, Epsilon }, new TestCaseResults(description:"Cubic Bezier Cubic Bezier intersection.", trials:trials, expectedReturnValue:new Intersection(), epsilon:double.Epsilon) },
+                { new object[] { 1d, 1d, 1d, 1.5d, 1d, 1d, Epsilon }, new TestCaseResults(description: "Cubic Bezier Cubic Bezier intersection.", trials: trials, expectedReturnValue: new Intersection(), epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

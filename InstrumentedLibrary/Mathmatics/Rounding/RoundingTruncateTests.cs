@@ -1,11 +1,9 @@
 ﻿using CSharpSpeed;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace InstrumentedLibrary
 {
@@ -26,7 +24,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0.5d }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:1d, epsilon:double.Epsilon) },
+                { new object[] { 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:1d, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

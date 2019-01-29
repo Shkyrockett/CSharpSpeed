@@ -42,11 +42,11 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:(1d, 0d), epsilon:double.Epsilon) },
-                { new object[] { ToRadiansTests.ToRadians(30d) }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:(0.86602540378443871d, 0.49999999999999994d), epsilon:double.Epsilon) },
-                { new object[] { ToRadiansTests.ToRadians(45d) }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:(0.70710678118654757d, 0.70710678118654757d), epsilon:double.Epsilon) },
-                { new object[] { ToRadiansTests.ToRadians(60d) }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:(0.50000000000000011d, 0.8660254037844386d), epsilon:double.Epsilon) },
-                { new object[] { HalfPi }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:(0d, 1d), epsilon:double.Epsilon) },
+                { new object[] { 0d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:(1d, 0d), epsilon: double.Epsilon) },
+                { new object[] { ToRadiansTests.ToRadians(30d) }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:(0.86602540378443871d, 0.49999999999999994d), epsilon: double.Epsilon) },
+                { new object[] { ToRadiansTests.ToRadians(45d) }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:(0.70710678118654757d, 0.70710678118654757d), epsilon: double.Epsilon) },
+                { new object[] { ToRadiansTests.ToRadians(60d) }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:(0.50000000000000011d, 0.8660254037844386d), epsilon: double.Epsilon) },
+                { new object[] { HalfPi }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:(0d, 1d), epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

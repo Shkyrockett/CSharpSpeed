@@ -25,17 +25,17 @@ namespace InstrumentedLibrary
         {
             var trials = 1000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { new double[]{ 1d } }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:null, epsilon:double.Epsilon) },
-                { new object[] { new double[]{ 1d, 2d } }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:null, epsilon:double.Epsilon) },
-                { new object[] { new double[]{ 1d, 2d, 3d } }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:null, epsilon:double.Epsilon) },
-                { new object[] { new double[]{ 1d, 2d, 3d, 4d } }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:null, epsilon:double.Epsilon) },
-                { new object[] { new double[]{ 1d, 2d, 3d, 4d, 5d } }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:null, epsilon:double.Epsilon) },
-                { new object[] { new double[]{ 1d, 2d, 3d, 4d, 5d, 6d } }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:null, epsilon:double.Epsilon) },
-                { new object[] { new double[]{ 1d, 2d, 3d, 4d, 5d, 6d, 7d } }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:null, epsilon:double.Epsilon) },
-                { new object[] { new double[]{ 1d, 2d, 3d, 4d, 5d, 6d, 7d, 8d } }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:null, epsilon:double.Epsilon) },
-                { new object[] { new double[]{ 1d, 2d, 3d, 4d, 5d, 6d, 7d, 8d, 9d } }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:null, epsilon:double.Epsilon) },
-                { new object[] { new double[]{ 1d, 2d, 3d, 4d, 5d, 6d, 7d, 8d, 9d, 10d } }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:null, epsilon:double.Epsilon) },
-                { new object[] { new double[]{ 1d, 2d, 3d, 4d, 5d, 6d, 7d, 8d, 9d, 10d, 11d } }, new TestCaseResults(description:"Dumb Polynomial test.", trials:trials, expectedReturnValue:null, epsilon:double.Epsilon) },
+                { new object[] { new double[]{ 1d } }, new TestCaseResults(description: "Dumb Polynomial test.", trials: trials, expectedReturnValue:null, epsilon: double.Epsilon) },
+                { new object[] { new double[]{ 1d, 2d } }, new TestCaseResults(description: "Dumb Polynomial test.", trials: trials, expectedReturnValue:null, epsilon: double.Epsilon) },
+                { new object[] { new double[]{ 1d, 2d, 3d } }, new TestCaseResults(description: "Dumb Polynomial test.", trials: trials, expectedReturnValue:null, epsilon: double.Epsilon) },
+                { new object[] { new double[]{ 1d, 2d, 3d, 4d } }, new TestCaseResults(description: "Dumb Polynomial test.", trials: trials, expectedReturnValue:null, epsilon: double.Epsilon) },
+                { new object[] { new double[]{ 1d, 2d, 3d, 4d, 5d } }, new TestCaseResults(description: "Dumb Polynomial test.", trials: trials, expectedReturnValue:null, epsilon: double.Epsilon) },
+                { new object[] { new double[]{ 1d, 2d, 3d, 4d, 5d, 6d } }, new TestCaseResults(description: "Dumb Polynomial test.", trials: trials, expectedReturnValue:null, epsilon: double.Epsilon) },
+                { new object[] { new double[]{ 1d, 2d, 3d, 4d, 5d, 6d, 7d } }, new TestCaseResults(description: "Dumb Polynomial test.", trials: trials, expectedReturnValue:null, epsilon: double.Epsilon) },
+                { new object[] { new double[]{ 1d, 2d, 3d, 4d, 5d, 6d, 7d, 8d } }, new TestCaseResults(description: "Dumb Polynomial test.", trials: trials, expectedReturnValue:null, epsilon: double.Epsilon) },
+                { new object[] { new double[]{ 1d, 2d, 3d, 4d, 5d, 6d, 7d, 8d, 9d } }, new TestCaseResults(description: "Dumb Polynomial test.", trials: trials, expectedReturnValue:null, epsilon: double.Epsilon) },
+                { new object[] { new double[]{ 1d, 2d, 3d, 4d, 5d, 6d, 7d, 8d, 9d, 10d } }, new TestCaseResults(description: "Dumb Polynomial test.", trials: trials, expectedReturnValue:null, epsilon: double.Epsilon) },
+                { new object[] { new double[]{ 1d, 2d, 3d, 4d, 5d, 6d, 7d, 8d, 9d, 10d, 11d } }, new TestCaseResults(description: "Dumb Polynomial test.", trials: trials, expectedReturnValue:null, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

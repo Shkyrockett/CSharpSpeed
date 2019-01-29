@@ -27,12 +27,12 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { -2d,  2d, 12d, Epsilon }, new TestCaseResults(description:"A test to find the roots of the Polynomial: -2x² + 2x + 12", trials:trials, expectedReturnValue:new List<double> {3d, -2d}, epsilon:double.Epsilon) },
-                { new object[] {  1d,  2d,  1d, Epsilon }, new TestCaseResults(description:"A test to find the roots of the Polynomial: x² + 2x + 1", trials:trials, expectedReturnValue:new List<double> {-1d}, epsilon:double.Epsilon) },
-                { new object[] {  3d,  9d,  6d, Epsilon }, new TestCaseResults(description:"A test to find the roots of the Polynomial: 3x² + 9x + 6", trials:trials, expectedReturnValue:new List<double> {-1d, -2d}, epsilon:double.Epsilon) },
-                { new object[] { -4d, 16d, 19d, Epsilon }, new TestCaseResults(description:"A test to find the roots of the Polynomial: -4x² + 16x, 19", trials:trials, expectedReturnValue:new List<double> {4.9580398915498076d, -0.95803989154980806d}, epsilon:double.Epsilon) },
-                { new object[] {  1d,  2d,  1d, Epsilon }, new TestCaseResults(description:"A test to find the roots of the Polynomial: x² + 2x + 1", trials:trials, expectedReturnValue:new List<double> {-1}, epsilon:double.Epsilon) },
-                { new object[] {  3d,  6d,  5d, Epsilon }, new TestCaseResults(description:"A test to find the roots of the Polynomial: 3x² + 6x + 5", trials:trials, expectedReturnValue:new List<double> {}, epsilon:double.Epsilon) },
+                { new object[] { -2d,  2d, 12d, Epsilon }, new TestCaseResults(description: "A test to find the roots of the Polynomial: -2x² + 2x + 12", trials: trials, expectedReturnValue: new List<double> {3d, -2d}, epsilon: double.Epsilon) },
+                { new object[] {  1d,  2d,  1d, Epsilon }, new TestCaseResults(description: "A test to find the roots of the Polynomial: x² + 2x + 1", trials: trials, expectedReturnValue: new List<double> {-1d}, epsilon: double.Epsilon) },
+                { new object[] {  3d,  9d,  6d, Epsilon }, new TestCaseResults(description: "A test to find the roots of the Polynomial: 3x² + 9x + 6", trials: trials, expectedReturnValue: new List<double> {-1d, -2d}, epsilon: double.Epsilon) },
+                { new object[] { -4d, 16d, 19d, Epsilon }, new TestCaseResults(description: "A test to find the roots of the Polynomial: -4x² + 16x, 19", trials: trials, expectedReturnValue: new List<double> {4.9580398915498076d, -0.95803989154980806d}, epsilon: double.Epsilon) },
+                { new object[] {  1d,  2d,  1d, Epsilon }, new TestCaseResults(description: "A test to find the roots of the Polynomial: x² + 2x + 1", trials: trials, expectedReturnValue: new List<double> {-1}, epsilon: double.Epsilon) },
+                { new object[] {  3d,  6d,  5d, Epsilon }, new TestCaseResults(description: "A test to find the roots of the Polynomial: 3x² + 6x + 5", trials: trials, expectedReturnValue: new List<double> {}, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

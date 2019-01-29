@@ -25,7 +25,7 @@ namespace InstrumentedLibrary
         //    double a = 0;
         //    double b = 100;
         //    var tests = new Dictionary<object[], TestCaseResults> {
-        //        { new object[] { a, b }, new TestCaseResults(description:"Angle lies inside of sweep angle.", trials:trials, expectedReturnValue:true) }
+        //        { new object[] { a, b }, new TestCaseResults(description: "Angle lies inside of sweep angle.", trials: trials, expectedReturnValue: true) }
         //    };
 
         //    var results = new List<SpeedTester>();

@@ -26,7 +26,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 5d, 10d, 15d, 20d, 5d,  0d, 5d, 10d, -5d, 20d, 5d, Epsilon }, new TestCaseResults(description:"Circle test case.", trials:trials, expectedReturnValue:new Intersection(), epsilon:double.Epsilon) },
+                { new object[] { 0d, 5d, 10d, 15d, 20d, 5d,  0d, 5d, 10d, -5d, 20d, 5d, Epsilon }, new TestCaseResults(description: "Circle test case.", trials: trials, expectedReturnValue: new Intersection(), epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -348,7 +348,7 @@ namespace InstrumentedLibrary
             var f = (c21.I * c12.J) - (c12.I * c21.J);
             var g = (c12.I * (a1Y - b1Y)) - (c12.J * (b1X - a1X));
 
-            IList<double> roots = new List<double>();
+            IList<double> roots;
             if ((a * d) - (g * g) == 0)
             {
                 var v0 = (a * c) - (2 * f * g);

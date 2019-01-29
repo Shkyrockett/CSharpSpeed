@@ -28,10 +28,10 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var point = new Point2D(1, 1);
-            var polygon = new List<Point2D> { new Point2D(0, 0), new Point2D(2, 0), new Point2D(0, 2) };
+            var triangle = new List<Point2D> { new Point2D(0, 0), new Point2D(2, 0), new Point2D(0, 2) };
             //var PatrickMullenValues = PrecalcPointInPolygonContourPatrickMullenValues(polygon);
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { polygon, point }, new TestCaseResults(description:"polygon, point.", trials:trials, expectedReturnValue:true, epsilon:double.Epsilon) },
+                { new object[] { triangle, point }, new TestCaseResults(description: "Triangle, contains point.", trials: trials, expectedReturnValue: true, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -51,7 +51,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static bool PointInPolygonContour(List<Point2D> polygon, Point2D point)
+        public static bool PolygonContourContainsPoint(List<Point2D> polygon, Point2D point)
             => PointInPolygonContourJerryKnauss2(polygon, point);
 
         /// <summary>

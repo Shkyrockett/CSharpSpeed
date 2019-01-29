@@ -1,12 +1,57 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace InstrumentedLibrary
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    [DisplayName("Vector Reflection Test")]
+    [Description("Vector Reflection.")]
+    [SourceCodeLocationProvider]
     public static class Reflection3DTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [DisplayName(nameof(ToDegreesTests))]
+        public static List<SpeedTester> TestHarness()
+        {
+            var trials = 10000;
+            var tests = new Dictionary<object[], TestCaseResults> {
+                { new object[] { 1d, 0d, 0d, 1d, 0d, 0d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (1d, 0d, 0d), epsilon: double.Epsilon) },
+            };
+
+            var results = new List<SpeedTester>();
+            foreach (var method in ReflectionHelper.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
+            {
+                var methodDescription = ((DescriptionAttribute)method.GetCustomAttribute(typeof(DescriptionAttribute)))?.Description;
+                results.Add(new SpeedTester(method, methodDescription, tests));
+            }
+            return results;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="i1"></param>
+        /// <param name="j1"></param>
+        /// <param name="k1"></param>
+        /// <param name="i2"></param>
+        /// <param name="j2"></param>
+        /// <param name="k2"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y, double Z) Reflection(double i1, double j1, double k1, double i2, double j2, double k2)
+            => Reflection_(i1, j1, k1, i2, j2, k2);
+
         /// <summary>
         /// The reflection.
         /// </summary>
@@ -20,9 +65,12 @@ namespace InstrumentedLibrary
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DisplayName("Vector Reflection Test")]
+        [Description("Vector Reflection.")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) Reflection(
+        public static (double X, double Y, double Z) Reflection_(
             double i1, double j1, double k1,
             double i2, double j2, double k2)
         {

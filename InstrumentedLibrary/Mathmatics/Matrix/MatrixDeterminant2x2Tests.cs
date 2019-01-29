@@ -25,7 +25,7 @@ namespace InstrumentedLibrary
             var trials = 10000;
             //var PatrickMullenValues = PrecalcPointInPolygonContourPatrickMullenValues(polygon);
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 1d, 2d, 3d, 4d }, new TestCaseResults(description:"polygon, point.", trials:trials, expectedReturnValue:-2d, epsilon:double.Epsilon) },
+                { new object[] { 1d, 2d, 3d, 4d }, new TestCaseResults(description: "polygon, point.", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

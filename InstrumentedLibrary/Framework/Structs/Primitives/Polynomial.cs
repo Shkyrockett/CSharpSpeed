@@ -232,7 +232,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         public PolynomialDegree Degree
             // If degree uninitialized look up the real order then cache it and return.
-            => (degree = degree ?? RealOrder(Epsilon)).Value;
+            => (degree ??= RealOrder(Epsilon)).Value;
 
         /// <summary>
         /// Gets the raw number of coefficients found in the polynomial, including any leading zero coefficients.
@@ -680,7 +680,7 @@ namespace InstrumentedLibrary
             }
 
             // Get the real degree to skip any leading zero coefficients.
-            var order = (int)(degree = degree ?? RealOrder(epsilon)).Value + 1; /*Warning! Side effect!*/
+            var order = (int)(degree ??= RealOrder(epsilon)).Value + 1; /*Warning! Side effect!*/
 
             // Copy the remaining coefficients to a new array and return it.
             var coeffs = new double[order];
@@ -1270,7 +1270,7 @@ namespace InstrumentedLibrary
             }
 
             var R1 = new Complex[order];
-            var close = false;
+            bool close;
             do
             {
                 step();
@@ -1371,7 +1371,7 @@ namespace InstrumentedLibrary
                         }
                     }
                     // Find root on [droots[count-1],xmax]
-                    root = Bisection(droots[droots.Length - 1], max, epsilon);
+                    root = Bisection(droots[^1], max, epsilon);
                     if (root != null)
                     {
                         roots.Add(root.Value);
@@ -1584,7 +1584,6 @@ namespace InstrumentedLibrary
             for (var i = (coefficients?.Length ?? 0) - 1; i >= 0; i--)
             {
                 var value = coefficients[i];
-                var valueString = value.ToString();
                 var powStr = i.ToString();
                 powStr = powStr.Replace("1", "¹");
                 powStr = powStr.Replace("2", "²");
@@ -1600,7 +1599,7 @@ namespace InstrumentedLibrary
                 {
                     var sign = (value < 0) ? " - " : " + ";
                     value = Abs(value);
-                    valueString = value.ToString();
+                    var valueString = value.ToString(format, provider);
                     if (i > 0)
                     {
                         if (value == 1)

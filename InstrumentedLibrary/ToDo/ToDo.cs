@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using static System.Math;
 
 namespace InstrumentedLibrary
@@ -466,11 +465,11 @@ namespace InstrumentedLibrary
         public static Point2D[] CenteredOffsetLinePoints(Point2D pointA, Point2D pointB, Point2D pointC, Point2D pointD, double offsetDistance)
         {
             // To get the vectors of the angles at each corner B and C, Normalize the Unit Delta Vectors along AB, BC, and CD.
-            var UnitVectorAB = (pointB - pointA);
+            var UnitVectorAB = pointB - pointA;
             UnitVectorAB = new Vector2D(Normalize2DVectorTests.Normalize(UnitVectorAB.I, UnitVectorAB.J));
-            var UnitVectorBC = (pointC - pointB);
+            var UnitVectorBC = pointC - pointB;
             UnitVectorBC = new Vector2D(Normalize2DVectorTests.Normalize(UnitVectorBC.I, UnitVectorBC.J));
-            var UnitVectorCD = (pointD - pointC);
+            var UnitVectorCD = pointD - pointC;
             UnitVectorCD = new Vector2D(Normalize2DVectorTests.Normalize(UnitVectorCD.I, UnitVectorCD.J));
 
 
@@ -479,9 +478,9 @@ namespace InstrumentedLibrary
             var PerpendicularCD = new Vector2D(PerpendicularClockwiseVectorTests.PerpendicularClockwise(UnitVectorCD.I, UnitVectorCD.J));
 
             //  Normalized Vectors pointing out from B and C.
-            var OutUnitVectorB = (UnitVectorAB - UnitVectorBC);
+            var OutUnitVectorB = UnitVectorAB - UnitVectorBC;
             OutUnitVectorB = new Vector2D(Normalize2DVectorTests.Normalize(OutUnitVectorB.I, OutUnitVectorB.J));
-            var OutUnitVectorC = (UnitVectorCD - UnitVectorBC);
+            var OutUnitVectorC = UnitVectorCD - UnitVectorBC;
             OutUnitVectorC = new Vector2D(Normalize2DVectorTests.Normalize(OutUnitVectorC.I, OutUnitVectorC.J));
 
             //  The distance out from B is the radius / Cos(theta) where theta is the angle
@@ -491,8 +490,8 @@ namespace InstrumentedLibrary
             var BPointScale = DotProduct2Vector2DTests.DotProduct2D(PerpendicularAB.I, PerpendicularAB.J, OutUnitVectorB.I, OutUnitVectorB.J) * offsetDistance;
             var CPointScale = DotProduct2Vector2DTests.DotProduct2D(PerpendicularCD.I, PerpendicularCD.J, OutUnitVectorC.I, OutUnitVectorC.J) * offsetDistance;
 
-            OutUnitVectorB = OutUnitVectorB * (CPointScale);
-            OutUnitVectorC = OutUnitVectorC * (BPointScale);
+            OutUnitVectorB *= CPointScale;
+            OutUnitVectorC *= BPointScale;
 
             // Corners of the parallelogram to draw
             var Out = new Point2D[] {
@@ -547,7 +546,7 @@ namespace InstrumentedLibrary
         {
             var BPoints = new Point2D[(int)((1 / Precision) + 2)];
             BPoints[0] = a;
-            BPoints[BPoints.Length - 1] = d;
+            BPoints[^1] = d;
             var Node = 0;
             for (double Index = 0; Index < 1; Index += Precision)
             {
@@ -610,9 +609,9 @@ namespace InstrumentedLibrary
         {
             var BPoints = new Point2D[(int)((1 / Precision) + 2)];
             BPoints[0] = a;
-            BPoints[BPoints.Length - 1] = d;
+            BPoints[^1] = d;
             var Node = 0;
-            for (double Index = 0; Index <= 1; Index = Index + Precision)
+            for (double Index = 0; Index <= 1; Index += Precision)
             {
                 Node++;
                 BPoints[Node] = new Point2D(InterpolateCubicBezier2DTests.CubicBezierCurve(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y, Index));
@@ -784,7 +783,7 @@ namespace InstrumentedLibrary
         //    //  Get the namespace
         //    var strNameSpace = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
         //    //  Get the resource into a stream
-        //    var ResourceStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(strNameSpace + "." + ResourceName);
+        //    var ResourceStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(strNameSpace + "" + ResourceName);
         //    if (ResourceStream is null)
         //    {
         //        // ToDo: #If Then ... Warning!!! not translated
@@ -961,7 +960,7 @@ namespace InstrumentedLibrary
 
             var LastPoint = NewPoint;
 
-            for (double Index = 1; Index <= N; Index = Index + Precision)
+            for (double Index = 1; Index <= N; Index += Precision)
             {
                 LastPoint = NewPoint;
                 U = Index * (24d * (PI / N));

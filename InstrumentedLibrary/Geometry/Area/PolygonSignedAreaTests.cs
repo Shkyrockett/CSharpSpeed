@@ -24,10 +24,10 @@ namespace InstrumentedLibrary
         public static List<SpeedTester> TestHarness()
         {
             var trials = 1000;
-            var polygon = new List<Point2D> { new Point2D(0d, 0d), new Point2D(1d, 0d), new Point2D(1d, 1d) };
+            var triangle = new List<Point2D> { new Point2D(0d, 0d), new Point2D(1d, 0d), new Point2D(1d, 1d) };
             //var PatrickMullenValues = PrecalcPointInPolygonContourPatrickMullenValues(polygon);
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { polygon }, new TestCaseResults(description:"polygon.", trials:trials, expectedReturnValue:-0.5d, epsilon:double.Epsilon) },
+                { new object[] { triangle }, new TestCaseResults(description: "Triangle.", trials: trials, expectedReturnValue:-0.5d, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

@@ -1,14 +1,58 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
 using static System.Math;
 
 namespace InstrumentedLibrary
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    [DisplayName("Rotate Vector About Z Roll Test")]
+    [Description("Rotate Vector About Z Roll.")]
+    [SourceCodeLocationProvider]
     public static class RollRotateZOffsetTests
     {
+        /// <summary>
+        /// Set of tests to run testing methods.
+        /// </summary>
+        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        [DisplayName(nameof(ToDegreesTests))]
+        public static List<SpeedTester> TestHarness()
+        {
+            var trials = 10000;
+            var tests = new Dictionary<object[], TestCaseResults> {
+                { new object[] { 0d, 0d, 0d, 1d, 1d, PI }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (2d, 1.9999999999999998d, 0d), epsilon: double.Epsilon) },
+            };
+
+            var results = new List<SpeedTester>();
+            foreach (var method in ReflectionHelper.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
+            {
+                var methodDescription = ((DescriptionAttribute)method.GetCustomAttribute(typeof(DescriptionAttribute)))?.Description;
+                results.Add(new SpeedTester(method, methodDescription, tests));
+            }
+            return results;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="z1"></param>
+        /// <param name="yOff"></param>
+        /// <param name="zOff"></param>
+        /// <param name="rad"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double X, double Y, double Z) RotateZ(double x1, double y1, double z1, double yOff, double zOff, double rad)
+            => RotateZ_(x1, y1, z1, yOff, zOff, rad);
+
         /// <summary>
         /// The rotate z.
         /// </summary>
@@ -22,9 +66,12 @@ namespace InstrumentedLibrary
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
+        [DisplayName("Rotate Vector About Z Roll")]
+        [Description("Rotate Vector About Z Roll.")]
+        [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) RotateZ(double x1, double y1, double z1, double xOff, double yOff, double rad)
+        public static (double X, double Y, double Z) RotateZ_(double x1, double y1, double z1, double xOff, double yOff, double rad)
         {
             var cos = Cos(rad);
             var sin = Sin(rad);

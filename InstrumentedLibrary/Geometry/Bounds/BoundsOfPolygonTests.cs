@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
 {
@@ -24,8 +23,14 @@ namespace InstrumentedLibrary
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
+            var triangles = new [] {
+                new List<List<(double X, double Y)>> {
+                    new List<(double X, double Y)> { (0d, 0d), (1d, 0d), (0d, 1d) },
+                    new List<(double X, double Y)> { (10d, 10d), (25d, 5d), (5d, 30d) }
+                }
+            };
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { new List<List<(double X, double Y)>> { new List<(double X, double Y)> { (0, 0), (1, 0), (0, 1) }, new List<(double X, double Y)> { (10d, 10d), (25d, 5d), (5d, 30d) } } }, new TestCaseResults(description:"Circle test case.", trials:trials, expectedReturnValue:Tau, epsilon:double.Epsilon) },
+                { triangles, new TestCaseResults(description: "", trials: trials, expectedReturnValue: new Rectangle2D(0d, 0d, 25d, 30d), epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

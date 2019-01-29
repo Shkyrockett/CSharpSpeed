@@ -26,7 +26,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 5d, 10d, 15d, 30d, 5d }, new TestCaseResults(description:".", trials:trials, expectedReturnValue:Tau, epsilon:double.Epsilon) },
+                { new object[] { 0d, 5d, 10d, 15d, 30d, 5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:Tau, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -168,8 +168,8 @@ namespace InstrumentedLibrary
             double sum = 0;
 
             // Compute the quadratic bezier polynomial coefficients.
-            var coeff0X = ax;
-            var coeff0Y = ay;
+            //var coeff0X = ax;
+            //var coeff0Y = ay;
             var coeff1X = 2d * (bx - ax);
             var coeff1Y = 2d * (by - ay);
             var coeff2X = ax - (2d * bx) + cx;
@@ -185,22 +185,17 @@ namespace InstrumentedLibrary
             const double mult = 0.5 * (max - min);
             const double ab2 = 0.5 * (min + max);
 
-            var theta = 0d;
-            var xPrime = 0d;
-            var yPrime = 0d;
-            var integrand = 0d;
-
             // Evaluate the integral arc length along entire curve from t=0 to t=1.
             for (var index = 0; index < count; ++index)
             {
-                theta = ab2 + (mult * abscissa[startl + index]);
+                var theta = ab2 + (mult * abscissa[startl + index]);
 
                 // First-derivative of the quadratic bezier.
-                xPrime = coeff1X + (2d * coeff2X * theta);
-                yPrime = coeff1Y + (2d * coeff2Y * theta);
+                var xPrime = coeff1X + (2d * coeff2X * theta);
+                var yPrime = coeff1Y + (2d * coeff2Y * theta);
 
                 // Integrand for Gauss-Legendre numerical integration.
-                integrand = Sqrt((xPrime * xPrime) + (yPrime * yPrime));
+                var integrand = Sqrt((xPrime * xPrime) + (yPrime * yPrime));
 
                 sum += integrand * weight[startl + index];
             }

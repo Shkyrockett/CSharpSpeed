@@ -26,7 +26,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 2d, 2d, Cos(0d), Sin(0d), 0.5d, 0.5d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: true, epsilon:DoubleEpsilon) },
+                { new object[] { 0d, 0d, 2d, 2d, Cos(0d), Sin(0d), 0.5d, 0.5d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: Inclusion.Inside, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -99,7 +99,7 @@ namespace InstrumentedLibrary
             var normalizedRadius = (a * a / (rx * rx)) + (b * b / (ry * ry));
 
             return (normalizedRadius <= 1d)
-                ? ((Abs(normalizedRadius - 1d) < Epsilon)
+                ? ((Abs(normalizedRadius - 1d) < epsilon)
                 ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
         }
 

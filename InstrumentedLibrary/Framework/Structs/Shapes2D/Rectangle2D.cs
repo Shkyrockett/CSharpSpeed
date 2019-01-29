@@ -116,6 +116,26 @@ namespace InstrumentedLibrary
         public Point2D Location { get { return new Point2D(X, Y); } set { (X, Y) = value; } }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public Point2D TopLeft { get { return new Point2D(Left, Top); } set { (Left, Top) = value; } }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Point2D TopRight { get { return new Point2D(Right, Top); } set { (Right, Top) = value; } }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Point2D BottomRight { get { return new Point2D(Right, Bottom); } set { (Right, Bottom) = value; } }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Point2D BottomLeft { get { return new Point2D(Left, Bottom); } set { (Left, Bottom) = value; } }
+
+        /// <summary>
         /// Gets or sets the center.
         /// </summary>
         public Point2D Center { get { return new Point2D(X + (Width * 0.5d), Y + (Height * 0.5d)); } set { (X, Y) = (value.X - (Width * 0.5d), value.Y - (Height * 0.5d)); } }
@@ -124,6 +144,11 @@ namespace InstrumentedLibrary
         /// Gets or sets the size.
         /// </summary>
         public Size2D Size { get { return new Size2D(Width, Height); } set { (Width, Height) = value; } }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool IsEmpty => (Width <= 0) || (Height <= 0);
 
         /// <summary>
         /// Deconstruct this <see cref="Rectangle2D"/> to a <see cref="ValueTuple{T1, T2, T3, T4}"/>.

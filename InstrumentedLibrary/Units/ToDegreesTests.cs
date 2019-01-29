@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
 using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
@@ -27,7 +26,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { Math.PI }, new TestCaseResults(description:"180 degrees", trials:trials, expectedReturnValue: 180d, epsilon: double.Epsilon) },
+                { new object[] { Math.PI }, new TestCaseResults(description: "180 degrees", trials: trials, expectedReturnValue: 180d, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

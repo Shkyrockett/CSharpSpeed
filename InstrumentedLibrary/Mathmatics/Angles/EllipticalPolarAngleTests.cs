@@ -26,7 +26,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 30d.ToRadians(), 3d, 2d }, new TestCaseResults(description:"Find the angle on a 3:2 ellipse a 30 polar degrees.", trials:trials, expectedReturnValue:0.71372437894476559d, epsilon:DoubleEpsilon) },
+                { new object[] { 30d.ToRadians(), 3d, 2d }, new TestCaseResults(description: "Find the angle on a 3:2 ellipse a 30 polar degrees.", trials: trials, expectedReturnValue:0.71372437894476559d, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

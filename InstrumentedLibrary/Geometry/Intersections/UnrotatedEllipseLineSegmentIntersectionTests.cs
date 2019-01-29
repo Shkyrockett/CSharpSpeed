@@ -26,7 +26,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 2d, 2d, 1d, 1d, 3d, 3d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: true, epsilon:DoubleEpsilon) },
+                { new object[] { 0d, 0d, 2d, 2d, 1d, 1d, 3d, 3d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: true, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -340,7 +340,6 @@ namespace InstrumentedLibrary
             double a2X, double a2Y,
             double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
             var origin = new Vector2D(a1X, a1Y);
             var dir = new Vector2D(a1X, a1Y, a2X, a2Y);
             var diff = origin - new Vector2D(centerX, centerY);
@@ -350,6 +349,7 @@ namespace InstrumentedLibrary
             var b = DotProduct2Vector2DTests.DotProduct2D(dir.I, dir.J, mDiff.I, mDiff.J);
             var c = DotProduct2Vector2DTests.DotProduct2D(diff.I, diff.J, mDiff.I, mDiff.J) - 1d;
             var d = b * b - a * c;
+            Intersection result;
             if (d < 0)
             {
                 result = new Intersection(IntersectionState.Outside);

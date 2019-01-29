@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
-using static InstrumentedLibrary.Maths;
 using System.Runtime.CompilerServices;
 using System;
 
@@ -26,7 +25,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 1d, 2d, 3d, 4d, 5d, 6d, 7d, 0.5d, 1d, 0d }, new TestCaseResults(description:"", trials:trials, expectedReturnValue:0.5d, epsilon:DoubleEpsilon) },
+                { new object[] { 0d, 1d, 2d, 3d, 4d, 5d, 6d, 7d, 0.5d, 1d, 0d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:0.5d, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -159,9 +158,9 @@ namespace InstrumentedLibrary
             var mu2 = index * index;
             var mu3 = mu2 * index;
             var m0 = aTan - (a * (1d + bias * (1d - tension) * 0.5d));
-            m0 = m0 + (b - (aTan * (1d - bias) * (1d - tension) * 0.5d));
+            m0 += (b - (aTan * (1d - bias) * (1d - tension) * 0.5d));
             var m1 = b - aTan * (1d + bias) * (1d - tension) * 0.5d;
-            m1 = m1 + (bTan - b * (1d - bias) * (1d - tension) * 0.5d);
+            m1 += (bTan - b * (1d - bias) * (1d - tension) * 0.5d);
             var a0 = 2d * mu3 - 3d * mu2 + 1d;
             var a1 = mu3 - 2d * mu2 + index;
             var a2 = mu3 - mu2;
