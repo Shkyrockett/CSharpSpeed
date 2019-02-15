@@ -21,23 +21,24 @@ namespace InstrumentedLibrary
         /// The algorithms for these routines were taken from: http://web.archive.org/web/20030416004239/http://www.neuro.sfc.keio.ac.jp/~aly/polygon/info/color-space-faq.html
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double red, double green, double blue, double alpha) CYMKAColorToRGBAFColor(byte cyan, byte yellow, byte magenta, byte black, byte alpha)
+        public static (float red, float green, float blue, float alpha) CYMKAColorToRGBAFColor(byte cyan, byte yellow, byte magenta, byte black, byte alpha)
         {
-            var c = cyan / 100d; //255d;
-            var m = magenta / 100d; //255d;
-            var y = yellow / 100d; //255d;
-            var k = black / 100d; //255d;
+            var c = cyan / 100f; //255f;
+            var m = magenta / 100f; //255f;
+            var y = yellow / 100f; //255f;
+            var k = black / 100f; //255f;
+            var a = alpha / 100f; //255f;
 
-            var r = (c * (1d - k)) + k;
-            var g = (m * (1d - k)) + k;
-            var b = (y * (1d - k)) + k;
-            var a = (alpha / 100d * 255d) + 0.5d;
+            var r = (c * (1f - k)) + k;
+            var g = (m * (1f - k)) + k;
+            var b = (y * (1f - k)) + k;
+            var a2 = (a * (1f - k)) + k;
 
-            r = ((1d - r) * 255d) + 0.5d;
-            g = ((1d - g) * 255d) + 0.5d;
-            b = ((1d - b) * 255d) + 0.5d;
+            r = ((1f - r) * 255f) + 0.5f;
+            g = ((1f - g) * 255f) + 0.5f;
+            b = ((1f - b) * 255f) + 0.5f;
 
-            return ((byte)r, (byte)g, (byte)b, a);
+            return (r, g, b, a2);
         }
     }
 }
