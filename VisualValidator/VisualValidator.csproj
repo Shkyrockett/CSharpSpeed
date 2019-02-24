@@ -1,9 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
+    <Prefer32Bit>true</Prefer32Bit>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <Platforms>AnyCPU;x64;x86</Platforms>
+    <LangVersion>8.0</LangVersion>
+    <Version>0.0.0.1</Version>
+    <DocumentationFile>..\Builds\VisualValidator.xml</DocumentationFile>
+    <OutputPath>..\Builds\</OutputPath>
+    <!--<GenerateAssemblyInfo>false</GenerateAssemblyInfo>-->
+    <Authors>Shkyrockett</Authors>
+    <Copyright>Copyright © 2016 - 2019 Shkyrockett</Copyright>
+    <RepositoryUrl>https://github.com/Shkyrockett/CSharpSpeed</RepositoryUrl>
+    <Description>A library for profiling method speed.</Description>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

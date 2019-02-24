@@ -131,6 +131,6 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="string"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString() => $"{nameof(Rectangle2D)}{{{nameof(X)}:{X:R}, {nameof(Y)}:{Y:R}, {nameof(RadiusA)}:{RadiusA:R}, {nameof(RadiusB)}:{RadiusB:R}, {nameof(Angle)}:{Angle:R} }}";
+        public override string ToString() => $"{nameof(Rectangle2D)}=[{nameof(X)}:{X:R}, {nameof(Y)}:{Y:R}, {nameof(RadiusA)}:{RadiusA:R}, {nameof(RadiusB)}:{RadiusB:R}, {nameof(Angle)}:{Angle:R}]";
     }
 }

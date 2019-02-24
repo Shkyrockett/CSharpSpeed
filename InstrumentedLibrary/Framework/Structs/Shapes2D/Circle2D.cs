@@ -95,6 +95,6 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="string"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString() => $"{nameof(Circle2D)}{{{nameof(X)}:{X:R}, {nameof(Y)}:{Y:R}, {nameof(Radius)}:{Radius:R} }}";
+        public override string ToString() => $"{nameof(Circle2D)}=[{nameof(X)}:{X:R}, {nameof(Y)}:{Y:R}, {nameof(Radius)}:{Radius:R}]";
     }
 }

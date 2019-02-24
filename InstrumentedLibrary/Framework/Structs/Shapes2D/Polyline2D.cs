@@ -30,6 +30,6 @@ namespace InstrumentedLibrary
         /// The to string.
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
-        public override string ToString() => $"{nameof(Polyline2D)}{{{string.Join(",", Points)} }}";
+        public override string ToString() => $"{nameof(Polyline2D)}=[{string.Join(",", Points)}]";
     }
 }

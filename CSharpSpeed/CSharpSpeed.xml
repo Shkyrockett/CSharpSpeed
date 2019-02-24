@@ -1,0 +1,299 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CSharpSpeed</name>
+    </assembly>
+    <members>
+        <member name="T:CSharpSpeed.AcknowledgmentAttribute">
+            <summary>
+            The acknowledgment attribute class.
+            </summary>
+        </member>
+        <member name="M:CSharpSpeed.AcknowledgmentAttribute.#ctor(System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:CSharpSpeed.AcknowledgmentAttribute"/> class.
+            </summary>
+            <param name="urls">The <paramref name="urls"/>.</param>
+        </member>
+        <member name="P:CSharpSpeed.AcknowledgmentAttribute.Urls">
+            <summary>
+            Gets or sets the url.
+            </summary>
+        </member>
+        <member name="T:CSharpSpeed.SignatureAttribute">
+            <summary>
+            The signature attribute class.
+            </summary>
+        </member>
+        <member name="M:CSharpSpeed.SignatureAttribute.#ctor(System.String,System.String,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CSharpSpeed.SignatureAttribute"/> class.
+            </summary>
+            <param name="file"></param>
+            <param name="member"></param>
+            <param name="line"></param>
+        </member>
+        <member name="M:CSharpSpeed.SignatureAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CSharpSpeed.SignatureAttribute"/> class.
+            </summary>
+            <param name="methodSignature">The methodSignature.</param>
+        </member>
+        <member name="P:CSharpSpeed.SignatureAttribute.MethodSignature">
+            <summary>
+            Gets or sets the method signature.
+            </summary>
+        </member>
+        <member name="T:CSharpSpeed.SourceCodeLocationProviderAttribute">
+            <summary>
+            The provide source location class.
+            https://stackoverflow.com/a/26431841
+            </summary>
+        </member>
+        <member name="F:CSharpSpeed.SourceCodeLocationProviderAttribute.File">
+            <summary>
+            The file (readonly).
+            </summary>
+        </member>
+        <member name="F:CSharpSpeed.SourceCodeLocationProviderAttribute.Member">
+            <summary>
+            The member (readonly).
+            </summary>
+        </member>
+        <member name="F:CSharpSpeed.SourceCodeLocationProviderAttribute.Line">
+            <summary>
+            The line (readonly).
+            </summary>
+        </member>
+        <member name="M:CSharpSpeed.SourceCodeLocationProviderAttribute.#ctor(System.String,System.String,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CSharpSpeed.SourceCodeLocationProviderAttribute"/> class.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="member">The member.</param>
+            <param name="line">The line.</param>
+        </member>
+        <member name="M:CSharpSpeed.SourceCodeLocationProviderAttribute.ToString">
+            <summary>
+            The to string.
+            </summary>
+            <returns>The <see cref="T:System.String"/>.</returns>
+        </member>
+        <member name="T:CSharpSpeed.ReflectionHelper">
+            <summary>
+            The reflection helper class.
+            </summary>
+        </member>
+        <member name="M:CSharpSpeed.ReflectionHelper.ListStaticFactoryConstructors(System.Type)">
+            <summary>
+            The list static factory constructors.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>The <see cref="T:List{MethodInfo}"/>.</returns>
+        </member>
+        <member name="M:CSharpSpeed.ReflectionHelper.ListStaticFactoryConstructorsList(System.Type,System.Type)">
+            <summary>
+            The list static factory constructors list.
+            </summary>
+            <param name="type">The type.</param>
+            <param name="type2">The type2.</param>
+            <returns>The <see cref="T:List{MethodInfo}"/>.</returns>
+        </member>
+        <member name="M:CSharpSpeed.ReflectionHelper.ListStaticMethodsWithAttribute(System.Type,System.Type)">
+            <summary>
+            The list static methods with attribute.
+            </summary>
+            <param name="type">The type.</param>
+            <param name="attributeType">The attribute.</param>
+            <returns>The <see cref="T:List{MethodInfo}"/>.</returns>
+        </member>
+        <member name="M:CSharpSpeed.ReflectionHelper.ListClassesWithAttribute(System.Type)">
+            <summary>
+            The list classes with attribute.
+            </summary>
+            <param name="attributeType">The attributeType.</param>
+            <returns>The <see cref="T:IEnumerable{TypeInfo}"/>.</returns>
+        </member>
+        <member name="M:CSharpSpeed.ReflectionHelper.ArrayToString(System.Object[])">
+            <summary>
+            The array to string.
+            </summary>
+            <param name="array">The array.</param>
+            <returns>The <see cref="T:System.String"/>.</returns>
+        </member>
+        <member name="M:CSharpSpeed.ReflectionHelper.ArrayToUrlListString(System.String[])">
+            <summary>
+            The array to string.
+            </summary>
+            <param name="array">The array.</param>
+            <returns>The <see cref="T:System.String"/>.</returns>
+        </member>
+        <member name="T:CSharpSpeed.SpeedTester">
+            <summary>
+            Class for testing the speed that methods run.
+            </summary>
+        </member>
+        <member name="F:CSharpSpeed.SpeedTester.methodDelegate">
+            <summary>
+            Delegate of the method to run.
+            </summary>
+        </member>
+        <member name="M:CSharpSpeed.SpeedTester.#ctor(System.Reflection.MethodInfo,System.String,System.Collections.Generic.Dictionary{System.Object[],CSharpSpeed.TestCaseResults})">
+            <summary>
+            Initializes a new instance of the <see cref="T:CSharpSpeed.SpeedTester"/> class.
+            </summary>
+            <param name="method">The method.</param>
+            <param name="methodDescription"></param>
+            <param name="testCases"></param>
+        </member>
+        <member name="P:CSharpSpeed.SpeedTester.Method">
+            <summary>
+            Gets the method.
+            </summary>
+        </member>
+        <member name="P:CSharpSpeed.SpeedTester.MethodDescription">
+            <summary>
+            Gets or sets the method description.
+            </summary>
+        </member>
+        <member name="P:CSharpSpeed.SpeedTester.MethodCode">
+            <summary>
+            Gets the method code.
+            </summary>
+        </member>
+        <member name="P:CSharpSpeed.SpeedTester.FileName">
+            <summary>
+            Gets the file name.
+            </summary>
+        </member>
+        <member name="P:CSharpSpeed.SpeedTester.Member">
+            <summary>
+            Gets the member.
+            </summary>
+        </member>
+        <member name="P:CSharpSpeed.SpeedTester.LineNumber">
+            <summary>
+            Gets the line number.
+            </summary>
+        </member>
+        <member name="P:CSharpSpeed.SpeedTester.TestCases">
+            <summary>
+            Gets or sets the test case.
+            </summary>
+        </member>
+        <member name="M:CSharpSpeed.SpeedTester.RunTest">
+            <summary>
+            Runs trials of the method delegate a specified number of times.
+            </summary>
+        </member>
+        <member name="M:CSharpSpeed.SpeedTester.CreateDelegate(System.Reflection.MethodInfo)">
+            <summary>
+            Create the delegate.
+            </summary>
+            <param name="method">The method.</param>
+            <returns>The <see cref="T:System.Delegate"/>.</returns>
+            <exception cref="T:System.ArgumentNullException">method</exception>
+            <exception cref="T:System.ArgumentException">method</exception>
+            <exception cref="T:System.ArgumentException">method</exception>
+        </member>
+        <member name="M:CSharpSpeed.SpeedTester.MakeRelative(System.String,System.String)">
+            <summary>
+            The make relative.
+            </summary>
+            <param name="filePath">The filePath.</param>
+            <param name="referencePath">The referencePath.</param>
+            <returns>The <see cref="T:System.String"/>.</returns>
+        </member>
+        <member name="M:CSharpSpeed.SpeedTester.GetMethodCode(System.String,System.Int32)">
+            <summary>
+            Get the method code.
+            </summary>
+            <param name="fileName">The fileName.</param>
+            <param name="lineNumber">The lineNumber.</param>
+            <returns>The <see cref="T:System.String"/>.</returns>
+        </member>
+        <member name="M:CSharpSpeed.SpeedTester.GetMethodCodeSignature(System.String,System.Int32)">
+            <summary>
+            Get the method code.
+            </summary>
+            <param name="fileName">The fileName.</param>
+            <param name="lineNumber">The lineNumber.</param>
+            <returns>The <see cref="T:System.String"/>.</returns>
+        </member>
+        <member name="M:CSharpSpeed.SpeedTester.ToResultsString">
+            <summary>
+            The to string.
+            </summary>
+            <returns>The <see cref="T:System.String"/>.</returns>
+        </member>
+        <member name="M:CSharpSpeed.SpeedTester.ObjectValueToString(System.Object)">
+            <summary>
+            The object value to string.
+            </summary>
+            <param name="value">The value.</param>
+            <returns>The <see cref="T:System.String"/>.</returns>
+        </member>
+        <member name="M:CSharpSpeed.SpeedTester.Equivalency(System.Collections.Generic.KeyValuePair{System.Object[],CSharpSpeed.TestCaseResults})">
+            <summary>
+            Special equivalency tests.
+            </summary>
+            <param name="testcase">The test-case.</param>
+            <returns>The <see cref="T:System.String"/>.</returns>
+        </member>
+        <member name="T:CSharpSpeed.TestCaseResults">
+            <summary>
+            The test case class.
+            </summary>
+        </member>
+        <member name="M:CSharpSpeed.TestCaseResults.#ctor(System.String,System.Int32,System.Object,System.Double)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CSharpSpeed.TestCaseResults"/> class.
+            </summary>
+            <param name="description">The description.</param>
+            <param name="trials">The trials.</param>
+            <param name="expectedReturnValue">The expectedReturnValue.</param>
+            <param name="epsilon"></param>
+        </member>
+        <member name="P:CSharpSpeed.TestCaseResults.Description">
+            <summary>
+            Gets the description.
+            </summary>
+        </member>
+        <member name="P:CSharpSpeed.TestCaseResults.Trials">
+            <summary>
+            Gets the trials.
+            </summary>
+        </member>
+        <member name="P:CSharpSpeed.TestCaseResults.TotalRunningTime">
+            <summary>
+            Gets the total milliseconds it took to run the method trials.
+            </summary>
+        </member>
+        <member name="P:CSharpSpeed.TestCaseResults.AverageRunningTime">
+            <summary>
+            Gets the total time over the number of trials.
+            </summary>
+        </member>
+        <member name="P:CSharpSpeed.TestCaseResults.ExpectedReturnValue">
+            <summary>
+            Gets the expected return value.
+            </summary>
+        </member>
+        <member name="P:CSharpSpeed.TestCaseResults.ReturnValue">
+            <summary>
+            Gets the value that the method returns.
+            </summary>
+        </member>
+        <member name="P:CSharpSpeed.TestCaseResults.Epsilon">
+            <summary>
+            Gets the epsilon.
+            </summary>
+        </member>
+        <member name="M:CSharpSpeed.TestCaseResults.ToString">
+            <summary>
+            The to string.
+            </summary>
+            <returns>The <see cref="T:System.String"/>.</returns>
+        </member>
+    </members>
+</doc>

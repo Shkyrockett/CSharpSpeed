@@ -219,6 +219,6 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="string"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString() => $"{nameof(Intersection)}{{{nameof(State)}:{State}, {nameof(Points)}:{Points} }}";
+        public override string ToString() => $"{nameof(Intersection)}=[{nameof(State)}:{State}, {nameof(Points)}:{Points}]";
     }
 }

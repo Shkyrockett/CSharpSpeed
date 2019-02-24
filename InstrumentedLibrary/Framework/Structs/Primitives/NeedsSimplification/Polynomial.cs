@@ -1573,7 +1573,7 @@ namespace InstrumentedLibrary
         /// Convert the to string.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="provider">The provider.</param>
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
         /// <returns>The <see cref="string"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private string ConvertToString(string format, IFormatProvider provider)

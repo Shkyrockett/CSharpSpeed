@@ -1,30 +1,80 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 using static System.Math;
 
 namespace InstrumentedLibrary
 {
     /// <summary>
-    /// The <see cref="Vector4D"/> struct.
+    /// The <see cref="Vector4D"/> struct. Represents a vector in 4D coordinate space (double precision floating-point coordinates).
     /// </summary>
+    [DataContract, Serializable]
+    [ComVisible(true)]
+    [DebuggerDisplay("{nameof(I)}: {I ?? double.NaN}, {nameof(J)}: {J ?? double.NaN}, {nameof(K)}: {K ?? double.NaN}, {nameof(L)}: {L ?? double.NaN}")]
     public struct Vector4D
+        : IFormattable
     {
         /// <summary>
-        /// Represents a <see cref="Vector3D"/> that has <see cref="I"/>, <see cref="J"/>, <see cref="K"/> and <see cref="L"/> values set to zero.
+        /// Represents a <see cref="Vector4D"/> that has <see cref="I"/>, <see cref="J"/>, <see cref="K"/>, and <see cref="L"/> values set to zero.
         /// </summary>
         public static readonly Vector4D Empty = new Vector4D(0d, 0d, 0d, 0d);
 
         /// <summary>
+        /// Represents a <see cref="Vector4D"/> that has <see cref="I"/>, <see cref="J"/>, <see cref="K"/>, and <see cref="L"/> values set to 1.
+        /// </summary>
+        public static readonly Vector4D Unit = new Vector4D(1d, 1d, 1d, 1d);
+
+        /// <summary>
+        /// Represents a <see cref="Vector4D"/> that has <see cref="I"/>, <see cref="J"/>, <see cref="K"/>, and <see cref="L"/> values set to NaN.
+        /// </summary>
+        public static readonly Vector4D NaN = new Vector4D(double.NaN, double.NaN, double.NaN, double.NaN);
+
+        /// <summary>
+        /// Represents a <see cref="Vector4D"/> that has <see cref="I"/> set to 1, <see cref="J"/> set to 0, <see cref="K"/> set to 0, and <see cref="L"/> set to 0.
+        /// </summary>
+        public static readonly Vector4D XAxis = new Vector4D(1d, 0d, 0d, 0d);
+
+        /// <summary>
+        /// Represents a <see cref="Vector4D"/> that has <see cref="I"/> set to 0, <see cref="J"/> set to 1, <see cref="K"/> set to 0, and <see cref="L"/> set to 0.
+        /// </summary>
+        public static readonly Vector4D YAxis = new Vector4D(0d, 1d, 0d, 0d);
+
+        /// <summary>
+        /// Represents a <see cref="Vector4D"/> that has <see cref="I"/> set to 0, <see cref="J"/> set to 0, <see cref="K"/> set to 1, and <see cref="L"/> set to 0.
+        /// </summary>
+        public static readonly Vector4D ZAxis = new Vector4D(0d, 0d, 1d, 0d);
+
+        /// <summary>
+        /// Represents a <see cref="Vector4D"/> that has <see cref="I"/> set to 0, <see cref="J"/> set to 0, <see cref="K"/> set to 0, and <see cref="L"/> set to 1.
+        /// </summary>
+        public static readonly Vector4D WAxis = new Vector4D(0d, 0d, 0d, 1d);
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Vector4D"/> class as a copy of the one provided.
+        /// </summary>
+        /// <param name="vector4D">A <see cref="Vector4D"/> class to clone.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector4D(Vector4D vector4D)
+            : this(vector4D.I, vector4D.J, vector4D.K, vector4D.L)
+        { }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Vector4D"/> class.
         /// </summary>
-        /// <param name="i">The i.</param>
-        /// <param name="j">The j.</param>
-        /// <param name="k">The k.</param>
-        /// <param name="l">The l.</param>
+        /// <param name="i">The <see cref="I"/> component of the <see cref="Vector4D"/> class.</param>
+        /// <param name="j">The <see cref="J"/> component of the <see cref="Vector4D"/> class.</param>
+        /// <param name="k">The <see cref="K"/> component of the <see cref="Vector4D"/> class.</param>
+        /// <param name="l">The <see cref="L"/> component of the <see cref="Vector4D"/> class.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector4D(double i, double j, double k, double l)
+            : this()
         {
             I = i;
             J = j;
@@ -35,12 +85,24 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector4D"/> class.
         /// </summary>
+        /// <param name="tuple">The X, Y, Z and W values in tupple form.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector4D((double X, double Y, double Z, double W) tuple)
+            : this()
+        {
+            (I, J, K, L) = tuple;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Vector4D"/> class.
+        /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector4D(Vector4D a, Vector4D b) :
-            this(a.I, a.J, a.K, a.L, b.I, b.J, b.K, b.L)
+        public Vector4D(Vector4D a, Vector4D b)
+            : this(a.I, a.J, a.K, a.L, b.I, b.J, b.K, b.L)
         { }
 
         /// <summary>
@@ -57,6 +119,7 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector4D(double aI, double aJ, double aK, double aL, double bI, double bJ, double bK, double bL)
+            : this()
         {
             (var i, var j, var k, var l) = (bI - aI, bJ - aJ, bK - aK, bL - aL);
             var d = Sqrt((i * i) + (j * j) + (k * k) + (l * l));
@@ -67,26 +130,6 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// Gets or sets the I.
-        /// </summary>
-        public double I { get; set; }
-
-        /// <summary>
-        /// Gets or sets the j.
-        /// </summary>
-        public double J { get; set; }
-
-        /// <summary>
-        /// Gets or sets the k.
-        /// </summary>
-        public double K { get; set; }
-
-        /// <summary>
-        /// Gets or sets the k.
-        /// </summary>
-        public double L { get; set; }
-
-        /// <summary>
         /// Deconstruct this <see cref="Vector4D"/> to a <see cref="ValueTuple{T1, T2, T3, T4}"/>.
         /// </summary>
         /// <param name="i">The i.</param>
@@ -95,6 +138,7 @@ namespace InstrumentedLibrary
         /// <param name="l">The l.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void Deconstruct(out double i, out double j, out double k, out double l)
         {
             i = I;
@@ -102,6 +146,30 @@ namespace InstrumentedLibrary
             k = K;
             l = L;
         }
+
+        /// <summary>
+        /// Gets or sets the I or first Component of a 4D Vector
+        /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double I { get; set; }
+
+        /// <summary>
+        /// Gets or sets the j or second Component of a 4D Vector
+        /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double J { get; set; }
+
+        /// <summary>
+        /// Gets or sets the k or third Component of a 4D Vector
+        /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double K { get; set; }
+
+        /// <summary>
+        /// Gets or sets the l or fourth Component of a 4D Vector
+        /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double L { get; set; }
 
         /// <summary>
         /// The operator +.
@@ -169,7 +237,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point4D operator -(Vector4D value, Point4D subend) => new Point4D(value.I + subend.X, value.J + subend.Y, value.K + subend.Z, value.L + subend.W);
+        public static Point4D operator -(Vector4D value, Point4D subend) => new Point4D(value.I - subend.X, value.J - subend.Y, value.K - subend.Z, value.L - subend.W);
 
         /// <summary>
         /// Subtract Vectors
@@ -179,7 +247,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D operator -(Vector4D value, Vector4D subend) => new Vector4D(value.I + subend.I, value.J + subend.J, value.K + subend.K, value.L + subend.L);
+        public static Vector4D operator -(Vector4D value, Vector4D subend) => new Vector4D(value.I - subend.I, value.J - subend.J, value.K - subend.K, value.L - subend.L);
 
         /// <summary>
         /// Scale a Vector
@@ -276,6 +344,23 @@ namespace InstrumentedLibrary
         public static implicit operator (double I, double J, double K, double L) (Vector4D vector) => (vector.I, vector.J, vector.K, vector.L);
 
         /// <summary>
+        /// Tuple to Vector4D
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        public static implicit operator Vector4D((double X, double Y, double Z, double W) value) => new Vector4D(value);
+
+        /// <summary>
+        /// Compares two Vectors
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Compare(Vector4D a, Vector4D b) => Equals(a, b);
+
+        /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="obj">The obj.</param>
@@ -295,6 +380,14 @@ namespace InstrumentedLibrary
         public static bool Equals(Vector4D a, Vector4D b) => (a.I == b.I) & (a.J == b.J) & (a.K == b.K) & (a.L == b.L);
 
         /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Vector4D value) => Equals(this, value);
+
+        /// <summary>
         /// Get the hash code.
         /// </summary>
         /// <returns>The <see cref="int"/>.</returns>
@@ -303,11 +396,39 @@ namespace InstrumentedLibrary
         public override int GetHashCode() => HashCode.Combine(I, J, K, L);
 
         /// <summary>
-        /// The to string.
+        /// Creates a human-readable string that represents this <see cref="Vector4D"/> struct.
         /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>A string representation of this <see cref="Vector4D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString() => $"{nameof(Vector3D)}{{{nameof(I)}:{I:R}, {nameof(J)}:{J:R}, {nameof(K)}:{K:R}, {nameof(L)}:{L:R} }}";
+        public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Vector4D"/> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
+        /// <returns>A string representation of this <see cref="Vector4D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Vector4D"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
+        /// <returns>A string representation of this <see cref="Vector4D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(string format, IFormatProvider provider)
+        {
+            if (this == null) return nameof(Vector4D);
+            var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
+            return $"{nameof(Vector4D)}=[{nameof(I)}:{I.ToString(format, provider)}{s} {nameof(J)}:{J.ToString(format, provider)}{s} {nameof(K)}:{K.ToString(format, provider)}{s} {nameof(L)}:{L.ToString(format, provider)}]";
+        }
     }
 }

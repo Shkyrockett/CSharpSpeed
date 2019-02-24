@@ -1396,16 +1396,14 @@ namespace InstrumentedLibrary
         /// </returns>
         public string ConvertToString(string format, IFormatProvider provider)
         {
-            //#pragma warning disable RECS0065 // Expression is always 'true' or always 'false'
-            //            if (this is null) return nameof(Matrix3x2D);
-            //#pragma warning restore RECS0065 // Expression is always 'true' or always 'false'
+            if (this == null) return nameof(Matrix3x2D);
             if (IsIdentity)
             {
                 return nameof(Identity);
             }
             // Helper to get the numeric list separator for a given culture.
             var sep = ',';
-            IFormattable formatable = $"{nameof(Matrix3x2D)}{{{nameof(M11)}={m0x0}{sep}{nameof(M12)}={m0x1}{sep}{nameof(M21)}={m1x0}{sep}{nameof(M22)}={m1x1}{sep}{nameof(OffsetX)}={offsetX}{sep}{nameof(OffsetY)}={offsetY}}}";
+            IFormattable formatable = $"{nameof(Matrix3x2D)}=[{nameof(M11)}={m0x0}{sep}{nameof(M12)}={m0x1}{sep}{nameof(M21)}={m1x0}{sep}{nameof(M22)}={m1x1}{sep}{nameof(OffsetX)}={offsetX}{sep}{nameof(OffsetY)}={offsetY}]";
             return formatable.ToString(format, provider);
         }
 

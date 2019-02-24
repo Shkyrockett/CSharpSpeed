@@ -39,6 +39,6 @@ namespace InstrumentedLibrary
         /// The to string.
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
-        public override string ToString() => $"{nameof(PolygonContour2D)}{{{string.Join(",", Points)} }}";
+        public override string ToString() => $"{nameof(PolygonContour2D)}=[{string.Join(",", Points)}]";
     }
 }

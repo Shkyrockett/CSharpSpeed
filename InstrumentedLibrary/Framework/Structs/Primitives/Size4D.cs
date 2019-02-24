@@ -1,19 +1,45 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace InstrumentedLibrary
 {
     /// <summary>
     /// The size2d class.
     /// </summary>
+    [DataContract, Serializable]
+    [ComVisible(true)]
+    [DebuggerDisplay("{nameof(Width)}: {Width ?? double.NaN}, {nameof(Height)}: {Height ?? double.NaN}, {nameof(Depth)}: {Depth ?? double.NaN}, {nameof(Breadth)}: {Breadth ?? double.NaN}")]
     public struct Size4D
+        : IFormattable
     {
         /// <summary>
-        /// Represents a <see cref="Size4D"/> that has <see cref="Width"/>, <see cref="Height"/>, <see cref="Depth"/> and <see cref="Breadth"/> values set to zero.
+        /// Represents a <see cref="Size4D"/> that has <see cref="Width"/>, <see cref="Height"/>, <see cref="Depth"/>, and <see cref="Breadth"/> values set to zero.
         /// </summary>
         public static readonly Size4D Empty = new Size4D(0d, 0d, 0d, 0d);
+
+        /// <summary>
+        /// Represents a <see cref="Size4D"/> that has <see cref="Width"/>, <see cref="Height"/>, <see cref="Depth"/>, and <see cref="Breadth"/> values set to 1.
+        /// </summary>
+        public static readonly Size4D Unit = new Size4D(1d, 1d, 1d, 1d);
+
+        /// <summary>
+        /// Represents a <see cref="Size4D"/> that has <see cref="Width"/>, <see cref="Height"/>, <see cref="Depth"/>, and <see cref="Breadth"/> values set to NaN.
+        /// </summary>
+        public static readonly Size4D NaN = new Size4D(double.NaN, double.NaN, double.NaN, double.NaN);
+		
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Size4D"/> class.
+        /// </summary>
+        /// <param name="size"></param>
+        public Size4D(Size4D size)
+            : this(size.Width, size.Height, size.Depth, size.Breadth)
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Size4D"/> class.
@@ -25,6 +51,7 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Size4D(double width, double height, double depth, double breadth)
+            : this()
         {
             Width = width;
             Height = height;
@@ -33,24 +60,16 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// Gets or sets the width.
+        /// Initializes a new instance of the <see cref="Size4D"/> class.
         /// </summary>
-        public double Width { get; internal set; }
-
-        /// <summary>
-        /// Gets or sets the height.
-        /// </summary>
-        public double Height { get; internal set; }
-
-        /// <summary>
-        /// Gets or sets the depth.
-        /// </summary>
-        public double Depth { get; internal set; }
-
-        /// <summary>
-        /// Gets or sets the depth.
-        /// </summary>
-        public double Breadth { get; internal set; }
+        /// <param name="tuple"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Size4D((double Width, double Height, double Depth, double Breadth) tuple)
+            : this()
+        {
+            (Width, Height, Depth, Breadth) = tuple;
+        }
 
         /// <summary>
         /// Deconstruct this <see cref="Size4D"/> to a <see cref="ValueTuple{T1, T2, T3, T4}"/>.
@@ -69,6 +88,30 @@ namespace InstrumentedLibrary
             depth = Depth;
             breadth = Breadth;
         }
+
+        /// <summary>
+        /// Gets or sets the Width component of a <see cref="Size4D"/> coordinate.
+        /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double Width { get; internal set; }
+
+        /// <summary>
+        /// Gets or sets the Height component of a <see cref="Size4D"/> coordinate.
+        /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double Height { get; internal set; }
+
+        /// <summary>
+        /// Gets or sets the Depth component of a <see cref="Size4D"/> coordinate.
+        /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double Depth { get; internal set; }
+
+        /// <summary>
+        /// Gets or sets the Breadth component of a <see cref="Size4D"/> coordinate.
+        /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double Breadth { get; internal set; }
 
         /// <summary>
         /// The operator +.
@@ -227,7 +270,28 @@ namespace InstrumentedLibrary
         public static implicit operator (double Width, double Height, double Depth, double Breadth) (Size4D size) => (size.Width, size.Height, size.Depth, size.Breadth);
 
         /// <summary>
-        /// The equals.
+        /// Implicit conversion from tuple.
+        /// </summary>
+        /// <returns></returns>
+        /// <param name="tuple"> Size - the Size to convert to a Vector </param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Size4D((double Width, double Height, double Depth, double Breadth) tuple)
+            => new Size4D(tuple);
+
+        /// <summary>
+        /// Compares two Vectors
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Compare(Size2D a, Size2D b) => Equals(a, b);
+
+        /// <summary>
+        /// Tests to see whether the specified object is a <see cref="Size4D"/>
+        /// with the same dimensions as this <see cref="Size4D"/>.
         /// </summary>
         /// <param name="obj">The obj.</param>
         /// <returns>The <see cref="bool"/>.</returns>
@@ -246,6 +310,15 @@ namespace InstrumentedLibrary
         public static bool Equals(Size4D a, Size4D b) => (a.Width == b.Width) & (a.Height == b.Height) & (a.Depth == b.Depth) & (a.Breadth == b.Breadth);
 
         /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Size4D value) => Equals(this, value);
+
+        /// <summary>
         /// Get the hash code.
         /// </summary>
         /// <returns>The <see cref="int"/>.</returns>
@@ -254,11 +327,39 @@ namespace InstrumentedLibrary
         public override int GetHashCode() => HashCode.Combine(Width, Height, Depth, Breadth);
 
         /// <summary>
-        /// The to string.
+        /// Creates a human-readable string that represents this <see cref="Size4D"/> struct.
         /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>A string representation of this <see cref="Size4D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString() => $"{nameof(Size3D)}{{{nameof(Width)}:{Width:R}, {nameof(Height)}:{Height:R}, {nameof(Depth)}:{Depth:R}, {nameof(Breadth)}:{Breadth:R} }}";
+        public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Size4D"/> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
+        /// <returns>A string representation of this <see cref="Size4D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Size4D"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
+        /// <returns>A string representation of this <see cref="Size4D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(string format, IFormatProvider provider)
+        {
+            if (this == null) return nameof(Size4D);
+            var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
+            return $"{nameof(Size4D)}=[{nameof(Width)}:{Width.ToString(format, provider)}{s} {nameof(Height)}:{Height.ToString(format, provider)}{s} {nameof(Depth)}:{Depth.ToString(format, provider)}{s} {nameof(Breadth)}:{Breadth.ToString(format, provider)}]";
+        }
     }
 }

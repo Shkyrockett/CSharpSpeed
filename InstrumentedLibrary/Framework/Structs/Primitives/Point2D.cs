@@ -1,28 +1,57 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace InstrumentedLibrary
 {
     /// <summary>
     /// The <see cref="Point2D"/> struct.
     /// </summary>
+    [DataContract, Serializable]
+    [ComVisible(true)]
+    [DebuggerDisplay("{nameof(X)}: {X ?? double.NaN}, {nameof(Y)}: {Y ?? double.NaN}")]
     public struct Point2D
+        : IFormattable
     {
         /// <summary>
-        /// Represents a <see cref="Point2D"/> that has <see cref="X"/> and <see cref="Y"/> values set to zero.
+        /// Represents a <see cref="Point2D"/> that has <see cref="X"/>, and <see cref="Y"/> values set to zero.
         /// </summary>
         public static readonly Point2D Empty = new Point2D(0d, 0d);
 
         /// <summary>
+        /// Represents a <see cref="Point2D"/> that has <see cref="X"/>, and <see cref="Y"/> values set to 1.
+        /// </summary>
+        public static readonly Point2D Unit = new Point2D(1d, 1d);
+
+        /// <summary>
+        /// Represents a <see cref="Point2D"/> that has <see cref="X"/>, and <see cref="Y"/> values set to NaN.
+        /// </summary>
+        public static readonly Point2D NaN = new Point2D(double.NaN, double.NaN);
+
+        /// <summary>
+        /// Initializes a new  instance of the <see cref="Point2D"/> class.
+        /// </summary>
+        /// <param name="point">The Point2D.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Point2D(Point2D point)
+            : this(point.X, point.Y)
+        { }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Point2D"/> class.
         /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
+        /// <param name="x">The x component of the Point2D.</param>
+        /// <param name="y">The y component of the Point2D.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2D(double x, double y)
+            : this()
         {
             X = x;
             Y = y;
@@ -35,18 +64,10 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2D((double X, double Y) tuple)
-            : this(tuple.X, tuple.Y)
-        { }
-
-        /// <summary>
-        /// Gets or sets the x.
-        /// </summary>
-        public double X { get; set; }
-
-        /// <summary>
-        /// Gets or sets the y.
-        /// </summary>
-        public double Y { get; set; }
+            : this()
+        {
+            (X, Y) = tuple;
+        }
 
         /// <summary>
         /// Deconstruct this <see cref="Point4D"/> to a <see cref="ValueTuple{T1, T2}"/>.
@@ -61,6 +82,18 @@ namespace InstrumentedLibrary
             x = X;
             y = Y;
         }
+
+        /// <summary>
+        /// Gets or sets the X component of a <see cref="Point2D"/> coordinate.
+        /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double X { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Y component of a <see cref="Point2D"/> coordinate.
+        /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double Y { get; set; }
 
         /// <summary>
         /// Unary addition operator.
@@ -140,7 +173,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator -(Point2D value, Point2D subend) => new Vector2D(value.X + subend.X, value.Y + subend.Y);
+        public static Vector2D operator -(Point2D value, Point2D subend) => new Vector2D(value.X - subend.X, value.Y - subend.Y);
 
         /// <summary>
         /// Subtract a <see cref="Point2D"/> from another <see cref="Point2D"/> class.
@@ -150,7 +183,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator -(Point2D value, Size2D subend) => new Point2D(value.X + subend.Width, value.Y + subend.Height);
+        public static Point2D operator -(Point2D value, Size2D subend) => new Point2D(value.X - subend.Width, value.Y - subend.Height);
 
         /// <summary>
         /// Subtract a <see cref="Point2D"/> from another <see cref="Point2D"/> class.
@@ -160,7 +193,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator -(Point2D value, Vector2D subend) => new Point2D(value.X + subend.I, value.Y + subend.J);
+        public static Point2D operator -(Point2D value, Vector2D subend) => new Point2D(value.X - subend.I, value.Y - subend.J);
 
         /// <summary>
         /// Scale a point
@@ -193,6 +226,16 @@ namespace InstrumentedLibrary
         public static Point2D operator *(Point2D value, Size2D factor) => new Point2D(value.X * factor.Width, value.Y * factor.Height);
 
         /// <summary>
+        /// Multiply a point by a matrix.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="matrix"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D operator *(Point2D value, Matrix3x2D matrix) => matrix.Transform(value);
+
+        /// <summary>
         /// Divide a <see cref="Point2D"/> by a value.
         /// </summary>
         /// <param name="divisor">The divisor value</param>
@@ -211,6 +254,16 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator /(double divisor, Point2D dividend) => new Point2D(divisor / dividend.X, divisor / dividend.Y);
+
+        /// <summary>
+        /// Deflate a point.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="factor"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D operator /(Point2D value, Size2D factor) => new Point2D(value.X / factor.Width, value.Y / factor.Height);
 
         /// <summary>
         /// Compares two <see cref="Point2D"/> objects.
@@ -237,7 +290,7 @@ namespace InstrumentedLibrary
         public static bool operator !=(Point2D left, Point2D right) => !Equals(left, right);
 
         /// <summary>
-        /// Converts the specified <see cref="Vector2D"/> structure to a <see cref="Point2D"/> structure.
+        /// Explicit conversion of the specified <see cref="Vector2D"/> structure to a <see cref="Point2D"/> structure.
         /// </summary>
         /// <param name="vector">The <see cref="Vector2D"/> to be converted.</param>
         [DebuggerStepThrough]
@@ -253,12 +306,33 @@ namespace InstrumentedLibrary
         public static explicit operator Point2D(Size2D size) => new Point2D(size.Width, size.Height);
 
         /// <summary>
+        /// Implicit conversion from tuple.
+        /// </summary>
+        /// <param name="tuple"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Point2D((double X, double Y) tuple) => new Point2D(tuple);
+
+        /// <summary>
         /// Converts the specified <see cref="Point2D"/> structure to a <see cref="ValueTuple{T1, T2}"/> structure.
         /// </summary>
         /// <param name="point">The <see cref="Point2D"/> to be converted.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator (double X, double Y) (Point2D point) => (point.X, point.Y);
+
+        #region Methods
+        /// <summary>
+        /// The compare.
+        /// </summary>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Compare(Point2D a, Point2D b)
+            => Equals(a, b);
 
         /// <summary>
         /// The equals.
@@ -280,6 +354,16 @@ namespace InstrumentedLibrary
         public override bool Equals(object obj) => obj is Point2D && Equals(this, (Point2D)obj);
 
         /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Point2D value)
+            => Equals(this, value);
+
+        /// <summary>
         /// Get the hash code.
         /// </summary>
         /// <returns>The <see cref="int"/>.</returns>
@@ -288,11 +372,40 @@ namespace InstrumentedLibrary
         public override int GetHashCode() => HashCode.Combine(X, Y);
 
         /// <summary>
-        /// The to string.
+        /// Creates a human-readable string that represents this <see cref="Point2D"/> struct.
         /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>A string representation of this <see cref="Point2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString() => $"{nameof(Point2D)}{{{nameof(X)}:{X:R}, {nameof(Y)}:{Y:R} }}";
+        public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Point2D"/> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
+        /// <returns>A string representation of this <see cref="Point2D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Point2D"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
+        /// <returns>A string representation of this <see cref="Point2D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(string format, IFormatProvider provider)
+        {
+            if (this == null) return nameof(Point2D);
+            var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
+            return $"{nameof(Point2D)}=[{nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}]";
+        }
+        #endregion Methods
     }
 }

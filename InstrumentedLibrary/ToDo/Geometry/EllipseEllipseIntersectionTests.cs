@@ -9,10 +9,10 @@
     //[SourceCodeLocationProvider]
     public static class EllipseEllipseIntersectionTests
     {
-        /// <summary>
-        /// Test the harness.
-        /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        ///// <summary>
+        ///// Test the harness.
+        ///// </summary>
+        ///// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
         //[DisplayName(nameof(BarycentricTests))]
         //public static List<SpeedTester> TestHarness()
         //{

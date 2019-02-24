@@ -1,19 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <IsPackable>false</IsPackable>
     <Prefer32Bit>true</Prefer32Bit>
-    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <Platforms>AnyCPU;x64;x86</Platforms>
     <LangVersion>8.0</LangVersion>
     <Version>0.0.0.1</Version>
-    <DocumentationFile>..\Builds\CSharpSpeedConsoleNetCore.xml</DocumentationFile>
+    <DocumentationFile>..\Builds\CSharpSpeedUnitTests.xml</DocumentationFile>
     <OutputPath>..\Builds\</OutputPath>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Authors>Shkyrockett</Authors>
     <Copyright>Copyright © 2016 - 2019 Shkyrockett</Copyright>
     <RepositoryUrl>https://github.com/Shkyrockett/CSharpSpeed</RepositoryUrl>
-    <Description>Creates reports profiling the speeds of methods.</Description>
+    <Description>Units Tests using the Microsoft UnitTest framework.</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
@@ -22,13 +22,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Collections" Version="4.3.0" />
-    <PackageReference Include="System.Management" Version="4.6.0-preview.18571.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\CSharpSpeed\CSharpSpeed.csproj" />
-    <ProjectReference Include="..\InstrumentedLibrary\InstrumentedLibrary.csproj" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.3.2" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.3.2" />
   </ItemGroup>
 
 </Project>

@@ -1,29 +1,56 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace InstrumentedLibrary
 {
     /// <summary>
     /// The <see cref="Point3D"/> struct.
     /// </summary>
+    [DataContract, Serializable]
+    [ComVisible(true)]
+    [DebuggerDisplay("{nameof(X)}: {X ?? double.NaN}, {nameof(Y)}: {Y ?? double.NaN}, {nameof(Z)}: {Z ?? double.NaN}")]
     public struct Point3D
+        : IFormattable
     {
         /// <summary>
-        /// Represents a <see cref="Point3D"/> that has <see cref="X"/>, <see cref="Y"/> and <see cref="Z"/> values set to zero.
+        /// Represents a <see cref="Point3D"/> that has <see cref="X"/>, <see cref="Y"/>, and <see cref="Z"/> values set to zero.
         /// </summary>
         public static readonly Point3D Empty = new Point3D(0d, 0d, 0d);
 
         /// <summary>
+        /// Represents a <see cref="Point3D"/> that has <see cref="X"/>, <see cref="Y"/>, and <see cref="Z"/> values set to 1.
+        /// </summary>
+        public static readonly Point3D Unit = new Point3D(1d, 1d, 1d);
+
+        /// <summary>
+        /// Represents a <see cref="Point3D"/> that has <see cref="X"/>, <see cref="Y"/>, and <see cref="Z"/> values set to NaN.
+        /// </summary>
+        public static readonly Point3D NaN = new Point3D(double.NaN, double.NaN, double.NaN);
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Point3D"/> class.
         /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="z">The z.</param>
+        /// <param name="point"></param>
+        public Point3D(Point3D point)
+            : this(point.X, point.Y, point.Z)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Point3D"/> class.
+        /// </summary>
+        /// <param name="x">The x component of the Point3D.</param>
+        /// <param name="y">The y component of the Point3D.</param>
+        /// <param name="z">The z component of the Point3D.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point3D(double x, double y, double z)
+            : this()
         {
             X = x;
             Y = y;
@@ -31,19 +58,14 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// Gets or sets the x.
+        /// Initializes a new instance of the <see cref="Point3D"/> class.
         /// </summary>
-        public double X { get; set; }
-
-        /// <summary>
-        /// Gets or sets the y.
-        /// </summary>
-        public double Y { get; set; }
-
-        /// <summary>
-        /// Gets or sets the z.
-        /// </summary>
-        public double Z { get; set; }
+        /// <param name="tuple"></param>
+        public Point3D((double X, double Y, double Z) tuple)
+            : this()
+        {
+            (X, Y, Z) = tuple;
+        }
 
         /// <summary>
         /// Deconstruct this <see cref="Point4D"/> to a <see cref="ValueTuple{T1, T2, T3}"/>.
@@ -60,6 +82,24 @@ namespace InstrumentedLibrary
             y = Y;
             z = Z;
         }
+
+        /// <summary>
+        /// Gets or sets the X component of a <see cref="Point3D"/> coordinate.
+        /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double X { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Y component of a <see cref="Point3D"/> coordinate.
+        /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double Y { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Z component of a <see cref="Point3D"/> coordinate.
+        /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double Z { get; set; }
 
         /// <summary>
         /// Unary addition operator.
@@ -139,7 +179,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D operator -(Point3D value, Point3D subend) => new Vector3D(value.X + subend.X, value.Y + subend.Y, value.Z + subend.Z);
+        public static Vector3D operator -(Point3D value, Point3D subend) => new Vector3D(value.X - subend.X, value.Y - subend.Y, value.Z - subend.Z);
 
         /// <summary>
         /// Subtract a <see cref="Point3D"/> from another <see cref="Point3D"/> class.
@@ -149,7 +189,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator -(Point3D value, Size3D subend) => new Point3D(value.X + subend.Width, value.Y + subend.Height, value.Z + subend.Depth);
+        public static Point3D operator -(Point3D value, Size3D subend) => new Point3D(value.X - subend.Width, value.Y - subend.Height, value.Z - subend.Depth);
 
         /// <summary>
         /// Subtract a <see cref="Point3D"/> from another <see cref="Point3D"/> class.
@@ -159,7 +199,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point3D operator -(Point3D value, Vector3D subend) => new Point3D(value.X + subend.I, value.Y + subend.J, value.Z + subend.K);
+        public static Point3D operator -(Point3D value, Vector3D subend) => new Point3D(value.X - subend.I, value.Y - subend.J, value.Z - subend.K);
 
         /// <summary>
         /// Scale a point
@@ -226,7 +266,7 @@ namespace InstrumentedLibrary
         public static bool operator !=(Point3D left, Point3D right) => !Equals(left, right);
 
         /// <summary>
-        /// Converts the specified <see cref="Vector3D"/> structure to a <see cref="Point3D"/> structure.
+        /// Explicit conversion from the specified <see cref="Vector3D"/> structure to a <see cref="Point3D"/> structure.
         /// </summary>
         /// <param name="vector">The <see cref="Vector3D"/> to be converted.</param>
         [DebuggerStepThrough]
@@ -242,12 +282,31 @@ namespace InstrumentedLibrary
         public static explicit operator Point3D(Size3D size) => new Point3D(size.Width, size.Height, size.Depth);
 
         /// <summary>
+        /// Implicit conversion from tuple.
+        /// </summary>
+        /// <param name="tuple"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Point3D((double X, double Y, double Z) tuple) => new Point3D(tuple);
+
+        /// <summary>
         /// Converts the specified <see cref="Point3D"/> structure to a <see cref="ValueTuple{T1, T2, T3}"/> structure.
         /// </summary>
         /// <param name="point">The <see cref="Point3D"/> to be converted.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator (double X, double Y, double Z) (Point3D point) => (point.X, point.Y, point.Z);
+
+        /// <summary>
+        /// Compares two Vectors
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Compare(Point3D a, Point3D b)
+            => Equals(a, b);
 
         /// <summary>
         /// The equals.
@@ -269,6 +328,14 @@ namespace InstrumentedLibrary
         public override bool Equals(object obj) => obj is Point3D && Equals(this, (Point3D)obj);
 
         /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Point3D value) => Equals(this, value);
+
+        /// <summary>
         /// Get the hash code.
         /// </summary>
         /// <returns>The <see cref="int"/>.</returns>
@@ -277,11 +344,39 @@ namespace InstrumentedLibrary
         public override int GetHashCode() => HashCode.Combine(X, Y, Z);
 
         /// <summary>
-        /// The to string.
+        /// Creates a human-readable string that represents this <see cref="Point3D"/> struct.
         /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>A string representation of this <see cref="Point3D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString() => $"{nameof(Point3D)}{{{nameof(X)}:{X:R}, {nameof(Y)}:{Y:R}, {nameof(Z)}:{Z:R} }}";
+        public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Point3D"/> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
+        /// <returns>A string representation of this <see cref="Point3D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Point3D"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
+        /// <returns>A string representation of this <see cref="Point3D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(string format, IFormatProvider provider)
+        {
+            if (this == null) return nameof(Point3D);
+            var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
+            return $"{nameof(Point3D)}=[{nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(Z)}:{Z.ToString(format, provider)}]";
+        }
     }
 }

@@ -1,19 +1,47 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace InstrumentedLibrary
 {
     /// <summary>
     /// The <see cref="Point4D"/> struct.
     /// </summary>
+    [DataContract, Serializable]
+    [ComVisible(true)]
+    [DebuggerDisplay("{nameof(X)}: {X ?? double.NaN}, {nameof(Y)}: {Y ?? double.NaN}, {nameof(Z)}: {Z ?? double.NaN}, {nameof(W)}: {W ?? double.NaN}")]
     public struct Point4D
+        : IFormattable
     {
         /// <summary>
-        /// Represents a <see cref="Point4D"/> that has <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/> and <see cref="W"/> values set to zero.
+        /// Represents a <see cref="Point4D"/> that has <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/>, and <see cref="W"/> values set to zero.
         /// </summary>
         public static readonly Point4D Empty = new Point4D(0d, 0d, 0d, 0d);
+
+        /// <summary>
+        /// Represents a <see cref="Point4D"/> that has <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/>, and <see cref="W"/> values set to 1.
+        /// </summary>
+        public static readonly Point4D Unit = new Point4D(1d, 1d, 1d, 1d);
+
+        /// <summary>
+        /// Represents a <see cref="Point4D"/> that has <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/>, and <see cref="W"/> values set to NaN.
+        /// </summary>
+        public static readonly Point4D NaN = new Point4D(double.NaN, double.NaN, double.NaN, double.NaN);
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Point4D"/> class.
+        /// </summary>
+        /// <param name="point"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Point4D(Point4D point)
+            : this(point.X, point.Y, point.Z, point.W)
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Point4D"/> class.
@@ -25,6 +53,7 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point4D(double x, double y, double z, double w)
+            : this()
         {
             X = x;
             Y = y;
@@ -33,24 +62,16 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// Gets or sets the x.
+        /// Initializes a new  instance of the <see cref="Point3D"/> class.
         /// </summary>
-        public double X { get; set; }
-
-        /// <summary>
-        /// Gets or sets the y.
-        /// </summary>
-        public double Y { get; set; }
-
-        /// <summary>
-        /// Gets or sets the z.
-        /// </summary>
-        public double Z { get; set; }
-
-        /// <summary>
-        /// Gets or sets the w.
-        /// </summary>
-        public double W { get; set; }
+        /// <param name="tuple"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Point4D((double X, double Y, double Z, double W) tuple)
+            : this()
+        {
+            (X, Y, Z, W) = tuple;
+        }
 
         /// <summary>
         /// Deconstruct this <see cref="Point4D"/> to a <see cref="ValueTuple{T1, T2, T3, T4}"/>.
@@ -69,6 +90,30 @@ namespace InstrumentedLibrary
             z = Z;
             w = W;
         }
+
+        /// <summary>
+        /// Gets or sets the X component of a <see cref="Point4D"/> coordinate.
+        /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double X { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Y component of a <see cref="Point4D"/> coordinate.
+        /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double Y { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Z component of a <see cref="Point4D"/> coordinate.
+        /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double Z { get; set; }
+
+        /// <summary>
+        /// Gets or sets the W component of a <see cref="Point4D"/> coordinate.
+        /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
+        public double W { get; set; }
 
         /// <summary>
         /// Unary addition operator.
@@ -251,12 +296,31 @@ namespace InstrumentedLibrary
         public static explicit operator Point4D(Size4D size) => new Point4D(size.Width, size.Height, size.Depth, size.Breadth);
 
         /// <summary>
+        /// Implicit conversion from tuple.
+        /// </summary>
+        /// <param name="tuple"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Point4D((double X, double Y, double Z, double W) tuple) => new Point4D(tuple);
+
+        /// <summary>
         /// Converts the specified <see cref="Point4D"/> structure to a <see cref="ValueTuple{T1, T2, T3, T4}"/> structure.
         /// </summary>
         /// <param name="point">The <see cref="Point4D"/> to be converted.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator (double X, double Y, double Z, double W) (Point4D point) => (point.X, point.Y, point.Z, point.W);
+
+        /// <summary>
+        /// Compares two Vectors
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Compare(Point4D a, Point4D b)
+            => Equals(a, b);
 
         /// <summary>
         /// The equals.
@@ -278,6 +342,14 @@ namespace InstrumentedLibrary
         public override bool Equals(object obj) => obj is Point4D && Equals(this, (Point4D)obj);
 
         /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Point4D value) => Equals(this, value);
+
+        /// <summary>
         /// Get the hash code.
         /// </summary>
         /// <returns>The <see cref="int"/>.</returns>
@@ -286,11 +358,39 @@ namespace InstrumentedLibrary
         public override int GetHashCode() => HashCode.Combine(X, Y, Z, W);
 
         /// <summary>
-        /// The to string.
+        /// Creates a human-readable string that represents this <see cref="Point4D"/> struct.
         /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>A string representation of this <see cref="Point4D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString() => $"{nameof(Point3D)}{{{nameof(X)}:{X:R}, {nameof(Y)}:{Y:R}, {nameof(Z)}:{Z:R}, {nameof(W)}:{W:R} }}";
+        public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Point4D"/> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
+        /// <returns>A string representation of this <see cref="Point4D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Point4D"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
+        /// <returns>A string representation of this <see cref="Point4D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(string format, IFormatProvider provider)
+        {
+            if (this == null) return nameof(Point4D);
+            var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
+            return $"{nameof(Point4D)}=[{nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(Z)}:{Z.ToString(format, provider)}{s} {nameof(W)}:{W.ToString(format, provider)}]";
+        }
     }
 }

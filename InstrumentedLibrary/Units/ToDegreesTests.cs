@@ -9,9 +9,6 @@ using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
 {
-    /// <summary>
-    /// 
-    /// </summary>
     [DisplayName("Convert an angle in Radians to Degrees")]
     [Description("Convert an angle in Radians to Degrees.")]
     [SourceCodeLocationProvider]
