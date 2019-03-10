@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using static System.Math;
@@ -65,6 +66,8 @@ namespace InstrumentedLibrary
         /// | m21, m22, 0 |<br/>
         /// \ offsetX, offsetY, 1 /<br/>
         /// </summary>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Matrix3x2D(double m1x1, double m1x2, double m2x1, double m2x2, double offsetX, double offsetY)
         {
             m0x0 = m1x1;
@@ -278,12 +281,16 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Operator Point * Matrix
         /// </summary>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator *(Point2D point, Matrix3x2D matrix)
             => matrix.Transform(point);
 
         /// <summary>
         /// Multiplies two transformations.
         /// </summary>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x2D operator *(Matrix3x2D trans1, Matrix3x2D trans2)
         {
             MultiplyMatrix(ref trans1, ref trans2);
@@ -301,6 +308,8 @@ namespace InstrumentedLibrary
         /// </returns>
         /// <param name='matrix1'>The first Matrix to compare</param>
         /// <param name='matrix2'>The second Matrix to compare</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(Matrix3x2D matrix1, Matrix3x2D matrix2)
             => Equals(matrix1, matrix2);
 
@@ -315,12 +324,16 @@ namespace InstrumentedLibrary
         /// </returns>
         /// <param name='matrix1'>The first Matrix to compare</param>
         /// <param name='matrix2'>The second Matrix to compare</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Matrix3x2D matrix1, Matrix3x2D matrix2)
             => !Equals(matrix1, matrix2);
 
         /// <summary>
         /// Sets the transformation to the identity.
         /// </summary>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Matrix3x2D CreateIdentity()
         {
             var matrix = new Matrix3x2D();
@@ -335,6 +348,8 @@ namespace InstrumentedLibrary
         /// Creates a rotation transformation about the given point
         /// </summary>
         /// <param name='angle'>The angle to rotate specified in radians</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static Matrix3x2D CreateRotationRadians(double angle)
             => CreateRotationRadians(angle, /* centerX = */ 0, /* centerY = */ 0);
 
@@ -344,6 +359,8 @@ namespace InstrumentedLibrary
         /// <param name='angle'>The angle to rotate specified in radians</param>
         /// <param name='centerX'>The centerX of rotation</param>
         /// <param name='centerY'>The centerY of rotation</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static Matrix3x2D CreateRotationRadians(double angle, double centerX, double centerY)
         {
             var matrix = new Matrix3x2D();
@@ -366,6 +383,8 @@ namespace InstrumentedLibrary
         /// <param name='scaleY'>The scale factor in the y dimension</param>
         /// <param name='centerX'>The centerX of scaling</param>
         /// <param name='centerY'>The centerY of scaling</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static Matrix3x2D CreateScaling(double scaleX, double scaleY, double centerX, double centerY)
         {
             var matrix = new Matrix3x2D();
@@ -383,6 +402,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name='scaleX'>The scale factor in the x dimension</param>
         /// <param name='scaleY'>The scale factor in the y dimension</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static Matrix3x2D CreateScaling(double scaleX, double scaleY)
         {
             var matrix = new Matrix3x2D();
@@ -398,6 +419,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name='skewX'>The skew angle in the x dimension in degrees</param>
         /// <param name='skewY'>The skew angle in the y dimension in degrees</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static Matrix3x2D CreateSkewRadians(double skewX, double skewY)
         {
             var matrix = new Matrix3x2D();
@@ -415,6 +438,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name='offsetX'>The offset in X</param>
         /// <param name='offsetY'>The offset in Y</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static Matrix3x2D CreateTranslation(double offsetX, double offsetY)
         {
             var matrix = new Matrix3x2D();
@@ -432,6 +457,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="rect"> The Rectangle to transform. </param>
         /// <param name="matrix"> The Matrix with which to transform the Rectangle. </param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void TransformRect(ref Rectangle2D rect, ref Matrix3x2D matrix)
         {
             if (rect.IsEmpty)
@@ -506,6 +533,8 @@ namespace InstrumentedLibrary
         /// To reduce duplication and to ensure consistent behavior, this is the
         /// method which is used to implement Matrix * Matrix as well.
         /// </summary>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void MultiplyMatrix(ref Matrix3x2D matrix1, ref Matrix3x2D matrix2)
         {
             var type1 = matrix1.type;
@@ -631,6 +660,8 @@ namespace InstrumentedLibrary
         /// To reduce duplication and to ensure consistent behavior, this is the
         /// method which is used to implement Matrix * Matrix as well.
         /// </summary>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static Matrix3x2D MultiplyMatrix(Matrix3x2D matrix1, Matrix3x2D matrix2)
         {
             var type1 = matrix1.type;
@@ -753,6 +784,8 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Applies an offset to the specified matrix in place.
         /// </summary>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void PrependOffset(ref Matrix3x2D matrix, double offsetX, double offsetY)
         {
             if (matrix.type == MatrixTypes.Identity)
@@ -789,6 +822,8 @@ namespace InstrumentedLibrary
         /// Append - "this" becomes this * matrix, the same as this *= matrix.
         /// </summary>
         /// <param name="matrix"> The Matrix to append to this Matrix </param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Append(Matrix3x2D matrix)
             => this *= matrix;
 
@@ -796,6 +831,8 @@ namespace InstrumentedLibrary
         /// Prepend - "this" becomes matrix * this, the same as this = matrix * this.
         /// </summary>
         /// <param name="matrix"> The Matrix to prepend to this Matrix </param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Prepend(Matrix3x2D matrix)
             => this = matrix * this;
 
@@ -803,6 +840,8 @@ namespace InstrumentedLibrary
         /// Rotates this matrix about the origin
         /// </summary>
         /// <param name='angle'>The angle to rotate specified in degrees</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Rotate(double angle)
             //angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
             //this *= CreateRotationRadians((angle * (PI / 180.0)));
@@ -812,6 +851,8 @@ namespace InstrumentedLibrary
         /// Prepends a rotation about the origin to "this"
         /// </summary>
         /// <param name='angle'>The angle to rotate specified in degrees</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void RotatePrepend(double angle)
             //angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
             //this = CreateRotationRadians((angle * (PI / 180.0))) * this;
@@ -823,6 +864,8 @@ namespace InstrumentedLibrary
         /// <param name='angle'>The angle to rotate specified in degrees</param>
         /// <param name='centerX'>The centerX of rotation</param>
         /// <param name='centerY'>The centerY of rotation</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void RotateAt(double angle, double centerX, double centerY)
             //angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
             //this *= CreateRotationRadians((angle * (PI / 180.0)), centerX, centerY);
@@ -834,6 +877,8 @@ namespace InstrumentedLibrary
         /// <param name='angle'>The angle to rotate specified in degrees</param>
         /// <param name='centerX'>The centerX of rotation</param>
         /// <param name='centerY'>The centerY of rotation</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void RotateAtPrepend(double angle, double centerX, double centerY)
             //angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
             //this = CreateRotationRadians((angle * (PI / 180.0)), centerX, centerY) * this;
@@ -844,6 +889,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name='scaleX'>The scale factor in the x dimension</param>
         /// <param name='scaleY'>The scale factor in the y dimension</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Scale(double scaleX, double scaleY)
             => this *= CreateScaling(scaleX, scaleY);
 
@@ -852,6 +899,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name='scaleX'>The scale factor in the x dimension</param>
         /// <param name='scaleY'>The scale factor in the y dimension</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ScalePrepend(double scaleX, double scaleY)
             => this = CreateScaling(scaleX, scaleY) * this;
 
@@ -862,6 +911,8 @@ namespace InstrumentedLibrary
         /// <param name='scaleY'>The scale factor in the y dimension</param>
         /// <param name="centerX">The centerX about which to scale</param>
         /// <param name="centerY">The centerY about which to scale</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ScaleAt(double scaleX, double scaleY, double centerX, double centerY)
             => this *= CreateScaling(scaleX, scaleY, centerX, centerY);
 
@@ -872,6 +923,8 @@ namespace InstrumentedLibrary
         /// <param name='scaleY'>The scale factor in the y dimension</param>
         /// <param name="centerX">The centerX about which to scale</param>
         /// <param name="centerY">The centerY about which to scale</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ScaleAtPrepend(double scaleX, double scaleY, double centerX, double centerY)
             => this = CreateScaling(scaleX, scaleY, centerX, centerY) * this;
 
@@ -880,6 +933,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name='skewX'>The skew angle in the x dimension in radians</param>
         /// <param name='skewY'>The skew angle in the y dimension in radians</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Skew(double skewX, double skewY)
             //skewX %= 360;
             //skewY %= 360;
@@ -892,6 +947,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name='skewX'>The skew angle in the x dimension in radians</param>
         /// <param name='skewY'>The skew angle in the y dimension in radians</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SkewPrepend(double skewX, double skewY)
             //skewX %= 360;
             //skewY %= 360;
@@ -904,6 +961,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name='offsetX'>The offset in the x dimension</param>
         /// <param name='offsetY'>The offset in the y dimension</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Translate(double offsetX, double offsetY)
         {
             //
@@ -944,6 +1003,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name='offsetX'>The offset in the x dimension</param>
         /// <param name='offsetY'>The offset in the y dimension</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void TranslatePrepend(double offsetX, double offsetY)
             => this = CreateTranslation(offsetX, offsetY) * this;
 
@@ -951,6 +1012,8 @@ namespace InstrumentedLibrary
         /// Transform - Transforms each Vector in the array by this matrix.
         /// </summary>
         /// <param name="vectors"> The Vector array to transform </param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Transform(Vector2D[] vectors)
         {
             if (vectors != null)
@@ -966,6 +1029,8 @@ namespace InstrumentedLibrary
         /// Transform - Transforms each point in the array by this matrix
         /// </summary>
         /// <param name="points"> The Point array to transform </param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Transform(Point2D[] points)
         {
             if (points != null)
@@ -984,6 +1049,8 @@ namespace InstrumentedLibrary
         /// <exception cref="InvalidOperationException">
         /// This will throw an InvalidOperationException if the matrix is non-invert-able
         /// </exception>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Invert()
         {
             var determinant = Determinant;
@@ -1035,6 +1102,8 @@ namespace InstrumentedLibrary
         /// <summary>
         /// MultiplyVector
         /// </summary>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal void MultiplyVector(ref double x, ref double y)
         {
             switch (type)
@@ -1061,6 +1130,8 @@ namespace InstrumentedLibrary
         /// <summary>
         /// MultiplyVector
         /// </summary>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal void MultiplyVector(ref Vector2D vector)
         {
             switch (type)
@@ -1087,6 +1158,8 @@ namespace InstrumentedLibrary
         /// <summary>
         /// MultiplyPoint
         /// </summary>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal void MultiplyPoint(ref double x, ref double y)
         {
             switch (type)
@@ -1121,6 +1194,8 @@ namespace InstrumentedLibrary
         /// <summary>
         /// MultiplyPoint
         /// </summary>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal void MultiplyPoint(ref Point2D point)
         {
             switch (type)
@@ -1159,6 +1234,8 @@ namespace InstrumentedLibrary
         ///             \ offsetX, offsetY, 1 /
         /// where offsetX, offsetY is the translation.
         ///</summary>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void SetMatrix(double m11, double m12, double m21, double m22, double offsetX, double offsetY, MatrixTypes type)
         {
             m0x0 = m11;
@@ -1173,6 +1250,8 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set the type of the matrix based on its current contents
         /// </summary>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void DeriveMatrixType()
         {
             type = 0;
@@ -1209,6 +1288,8 @@ namespace InstrumentedLibrary
         /// The transformed point
         /// </returns>
         /// <param name="point"> The Point to transform </param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2D Transform(Point2D point)
         {
             var newPoint = point;
@@ -1223,6 +1304,8 @@ namespace InstrumentedLibrary
         /// The transformed vector
         /// </returns>
         /// <param name="vector"> The Vector to transform </param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2D Transform(Vector2D vector)
         {
             var newVector = vector;
@@ -1257,6 +1340,8 @@ namespace InstrumentedLibrary
         /// <returns>
         /// int - the HashCode for this Matrix
         /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
         {
             if (IsDistinguishedIdentity)
@@ -1281,6 +1366,7 @@ namespace InstrumentedLibrary
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Matrix3x2D a, Matrix3x2D b)
             => Equals(a, b);
@@ -1297,6 +1383,7 @@ namespace InstrumentedLibrary
         /// </returns>
         /// <param name='matrix1'>The first Matrix to compare</param>
         /// <param name='matrix2'>The second Matrix to compare</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Matrix3x2D matrix1, Matrix3x2D matrix2)
         {
@@ -1326,6 +1413,7 @@ namespace InstrumentedLibrary
         /// bool - true if the object is an instance of Matrix and if it's equal to "this".
         /// </returns>
         /// <param name='obj'>The object to compare to "this"</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
             => obj is Matrix3x2D && Equals(this, (Matrix3x2D)obj);
@@ -1341,6 +1429,7 @@ namespace InstrumentedLibrary
         /// bool - true if "value" is equal to "this".
         /// </returns>
         /// <param name='value'>The Matrix to compare to "this"</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Matrix3x2D value)
             => Equals(this, value);
@@ -1348,6 +1437,8 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Multiply
         /// </summary>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x2D Multiply(Matrix3x2D trans1, Matrix3x2D trans2)
         {
             MultiplyMatrix(ref trans1, ref trans2);
@@ -1360,6 +1451,8 @@ namespace InstrumentedLibrary
         /// <returns>
         /// A string representation of this object.
         /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
             => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
@@ -1370,6 +1463,8 @@ namespace InstrumentedLibrary
         /// <returns>
         /// A string representation of this object.
         /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(IFormatProvider provider)
             => ConvertToString(string.Empty /* format string */, provider);
 
@@ -1382,6 +1477,8 @@ namespace InstrumentedLibrary
         /// <returns>
         /// A string representation of this object.
         /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
@@ -1394,6 +1491,8 @@ namespace InstrumentedLibrary
         /// <returns>
         /// A string representation of this object.
         /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Matrix3x2D);
@@ -1412,6 +1511,8 @@ namespace InstrumentedLibrary
         /// Get the enumerator.
         /// </summary>
         /// <returns>The <see cref="T:IEnumerator{IEnumerable{double}}"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerator<IEnumerable<double>> GetEnumerator()
             => new List<List<double>>
             {
@@ -1424,6 +1525,8 @@ namespace InstrumentedLibrary
         /// Get the enumerator.
         /// </summary>
         /// <returns>The <see cref="IEnumerator"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         IEnumerator IEnumerable.GetEnumerator()
             => GetEnumerator();
     }

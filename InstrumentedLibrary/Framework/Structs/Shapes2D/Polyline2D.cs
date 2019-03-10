@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace InstrumentedLibrary
 {
@@ -11,6 +13,8 @@ namespace InstrumentedLibrary
         /// Initializes a new instance of the <see cref="Polyline2D"/> class.
         /// </summary>
         /// <param name="points">The points.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polyline2D(List<Point2D> points)
         {
             Points = points;
@@ -30,6 +34,8 @@ namespace InstrumentedLibrary
         /// The to string.
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString() => $"{nameof(Polyline2D)}=[{string.Join(",", Points)}]";
     }
 }

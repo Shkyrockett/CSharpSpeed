@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace InstrumentedLibrary
 {
@@ -14,6 +16,8 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="attribute">The attribute.</param>
         /// <returns>The <see cref="T:IEnumerable{Type}"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<Type> GetTypesWithHelpAttribute(Type attribute)
         {
             var assembly = Assembly.GetExecutingAssembly();

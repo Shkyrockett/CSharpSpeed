@@ -30,6 +30,8 @@ namespace InstrumentedLibrary
         /// Initializes a new instance of the <see cref="AccumulatorPoint2D"/> class.
         /// </summary>
         /// <param name="accumulatorPoint2D">The accumulatorPoint2D.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public AccumulatorPoint2D(AccumulatorPoint2D accumulatorPoint2D)
             : this(accumulatorPoint2D.X, accumulatorPoint2D.Y, accumulatorPoint2D.Theta, accumulatorPoint2D.TotalDistance, accumulatorPoint2D.PreviousIndex)
         { }
@@ -198,6 +200,7 @@ namespace InstrumentedLibrary
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(AccumulatorPoint2D a, AccumulatorPoint2D b) => Equals(a, b);
 
@@ -225,6 +228,7 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(AccumulatorPoint2D value) => Equals(this, value);
 
@@ -240,6 +244,8 @@ namespace InstrumentedLibrary
         /// The to point.
         /// </summary>
         /// <returns>The <see cref="Point2D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2D ToPoint() => new Point2D(X, Y);
 
         /// <summary>

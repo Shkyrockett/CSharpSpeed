@@ -37,6 +37,8 @@ namespace InstrumentedLibrary
         /// Initializes a new instance of the <see cref="Size2D"/> class.
         /// </summary>
         /// <param name="size"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Size2D(Size2D size)
             : this(size.Width, size.Height)
         { }

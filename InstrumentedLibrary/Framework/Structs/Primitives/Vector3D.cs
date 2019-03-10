@@ -53,6 +53,8 @@ namespace InstrumentedLibrary
         /// Initializes a new instance of the <see cref="Vector3D"/> class.
         /// </summary>
         /// <param name="vector3D">A <see cref="Vector3D"/> class to clone.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector3D(Vector3D vector3D)
             : this(vector3D.I, vector3D.J, vector3D.K)
         { }
@@ -331,12 +333,14 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Vector3D((double X, double Y, double Z) tuple) => new Vector3D(tuple);
+
         /// <summary>
         /// Compares two Vectors
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Vector3D a, Vector3D b) => Equals(a, b);
 
@@ -364,6 +368,7 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Vector3D value) => Equals(this, value);
 

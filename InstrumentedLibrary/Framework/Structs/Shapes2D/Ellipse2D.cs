@@ -23,6 +23,7 @@ namespace InstrumentedLibrary
         /// <param name="radiusA">The radius a.</param>
         /// <param name="radiusB">The radius b.</param>
         /// <param name="angle">The angle the <see cref="Ellipse2D"/> is rotated about the center.</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Ellipse2D(double x, double y, double radiusA, double radiusB, double angle = 0)

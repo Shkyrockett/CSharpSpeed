@@ -1,9 +1,11 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace InstrumentedLibrary
 {
     public class QuadraticBezier2D
     {
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public QuadraticBezier2D(Point2D a, Point2D b, Point2D c)
         {
@@ -12,16 +14,19 @@ namespace InstrumentedLibrary
             C = c;
         }
 
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public QuadraticBezier2D(double aX, double aY, double bX, double bY)
             : this(LineSegmentToQuadraticBezierSegmentTests.LineSegmentToQuadraticBezier(aX, aY, bX, bY))
         { }
 
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public QuadraticBezier2D(double aX, double aY, double bX, double bY, double cX, double cY)
             : this(new Point2D(aX, aY), new Point2D(bX, bY), new Point2D(cX, cY))
         { }
 
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public QuadraticBezier2D((double aX, double aY, double bX, double bY, double cX, double cY) tuple)
             : this(new Point2D(tuple.aX, tuple.aY), new Point2D(tuple.bX, tuple.bY), new Point2D(tuple.cX, tuple.cY))
@@ -33,9 +38,11 @@ namespace InstrumentedLibrary
 
         public Point2D C { get; internal set; }
 
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2D Interpolate(double v) => new Point2D(InterpolateQuadraticBezier2DTests.QuadraticBezierInterpolate2D(A.X, A.Y, B.X, B.Y, C.X, C.Y, v));
 
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public CubicBezier2D ToCubicBezier2D()
         {

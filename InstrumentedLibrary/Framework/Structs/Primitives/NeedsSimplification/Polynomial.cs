@@ -71,7 +71,7 @@ namespace InstrumentedLibrary
         /// While the coefficients are entered in left to right letter order, they are 
         /// stored in degree order to simplify operations on <see cref="Polynomial"/> structs.
         /// </remarks>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial(params double[] coefficients)
         {
@@ -1157,7 +1157,7 @@ namespace InstrumentedLibrary
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Polynomial Bezier(int from, int to, double[] values)
             => (from == to)
@@ -1330,7 +1330,7 @@ namespace InstrumentedLibrary
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double[] RootsInInterval(double min = 0, double max = 1, double epsilon = Epsilon)
         {
@@ -1444,6 +1444,8 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Clears the coefficients of the polynomial.
         /// </summary>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Clear()
         {
             var size = coefficients.Length;
@@ -1461,6 +1463,8 @@ namespace InstrumentedLibrary
         /// Serves as the default hash function. 
         /// </summary>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
             => coefficients?.GetHashCode() ?? 0;
 
@@ -1575,6 +1579,7 @@ namespace InstrumentedLibrary
         /// <param name="format">The format.</param>
         /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
         /// <returns>The <see cref="string"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private string ConvertToString(string format, IFormatProvider provider)
         {

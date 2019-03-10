@@ -21,6 +21,7 @@ namespace InstrumentedLibrary
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
         /// <param name="radius">The radius.</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Circle2D(double x, double y, double radius)

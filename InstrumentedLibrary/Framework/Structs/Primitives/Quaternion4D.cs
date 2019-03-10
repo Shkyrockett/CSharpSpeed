@@ -477,6 +477,7 @@ namespace InstrumentedLibrary
         /// <param name="a">The object to compare.</param>
         /// <param name="b">The object to compare against.</param>
         /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Quaternion4D a, Quaternion4D b) => Equals(a, b);
 
@@ -528,6 +529,7 @@ namespace InstrumentedLibrary
         /// an exact comparison between two values which are logically equal may fail.
         /// In this equality Double.NaN is equal to itself, unlike in numeric equality.
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Quaternion4D value) => Equals(this, value);
 

@@ -318,6 +318,7 @@ namespace InstrumentedLibrary
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Point4D a, Point4D b)
             => Equals(a, b);
@@ -346,6 +347,7 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Point4D value) => Equals(this, value);
 

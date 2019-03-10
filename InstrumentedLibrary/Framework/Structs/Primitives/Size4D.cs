@@ -37,6 +37,8 @@ namespace InstrumentedLibrary
         /// Initializes a new instance of the <see cref="Size4D"/> class.
         /// </summary>
         /// <param name="size"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Size4D(Size4D size)
             : this(size.Width, size.Height, size.Depth, size.Breadth)
         { }

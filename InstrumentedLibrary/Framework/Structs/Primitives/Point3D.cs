@@ -37,6 +37,8 @@ namespace InstrumentedLibrary
         /// Initializes a new instance of the <see cref="Point3D"/> class.
         /// </summary>
         /// <param name="point"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point3D(Point3D point)
             : this(point.X, point.Y, point.Z)
         { }
@@ -61,6 +63,8 @@ namespace InstrumentedLibrary
         /// Initializes a new instance of the <see cref="Point3D"/> class.
         /// </summary>
         /// <param name="tuple"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point3D((double X, double Y, double Z) tuple)
             : this()
         {
@@ -304,6 +308,7 @@ namespace InstrumentedLibrary
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Point3D a, Point3D b)
             => Equals(a, b);
@@ -332,6 +337,7 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Point3D value) => Equals(this, value);
 

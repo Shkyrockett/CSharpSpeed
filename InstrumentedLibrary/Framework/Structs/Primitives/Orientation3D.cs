@@ -120,6 +120,7 @@ namespace InstrumentedLibrary
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Orientation3D a, Orientation3D b)
             => Equals(a, b);
@@ -148,6 +149,7 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Orientation3D value) => Equals(this, value);
 

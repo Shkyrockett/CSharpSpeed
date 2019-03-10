@@ -349,6 +349,7 @@ namespace InstrumentedLibrary
         /// <param name="value"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Vector4D((double X, double Y, double Z, double W) value) => new Vector4D(value);
 
         /// <summary>
@@ -357,6 +358,7 @@ namespace InstrumentedLibrary
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Vector4D a, Vector4D b) => Equals(a, b);
 
@@ -384,6 +386,7 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Vector4D value) => Equals(this, value);
 

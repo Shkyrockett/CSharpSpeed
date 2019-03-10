@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <Platforms>AnyCPU;x64;x86</Platforms>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>preview</LangVersion>
     <Version>0.0.0.1</Version>
     <DocumentationFile>..\Builds\InstrumentedLibrary.xml</DocumentationFile>
     <OutputPath>..\Builds\</OutputPath>

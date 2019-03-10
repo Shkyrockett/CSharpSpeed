@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using static System.Math;
 
 namespace InstrumentedLibrary
@@ -882,6 +884,71 @@ namespace InstrumentedLibrary
             return triangles;
         }
         #endregion Triangulate a Polygon
+
+        /// <summary>
+        /// https://blogs.msdn.microsoft.com/oldnewthing/20190301-00/?p=101065
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsEveryComponentGreaterThanOrEqual(uint x, uint y)
+        {
+            var c = (~x & y) | (~(x ^ y) & (x - y));
+            c &= 0x8410;
+            return c == 0;
+        }
+
+        /// <summary>
+        /// https://blogs.msdn.microsoft.com/oldnewthing/20190301-00/?p=101065
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsEveryComponentGreaterThanOrEqual1(uint x, uint y)
+        {
+            var xr = x & 0xF100;
+            var yr = y & 0xF100;
+            if (xr < yr) return false;
+
+            var xg = x & 0x07E0;
+            var yg = y & 0x07E0;
+            if (xg < yg) return false;
+
+            var xb = x & 0x001F;
+            var yb = y & 0x001F;
+            if (xb < yb) return false;
+
+            return true;
+        }
+
+        /// <summary>
+        /// https://blogs.msdn.microsoft.com/oldnewthing/20190301-00/?p=101065
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsEveryComponentGreaterThanOrEqual2(uint x, uint y)
+        {
+            var xr = x >> 11;
+            var yr = y >> 11;
+            if (xr < yr) return false;
+
+            var xg = (x >> 5) & 0x3F;
+            var yg = (y >> 5) & 0x3F;
+            if (xg < yg) return false;
+
+            var xb = x & 0x1F;
+            var yb = y & 0x1F;
+            if (xb < yb) return false;
+
+            return true;
+        }
 
         /// <summary>
         /// The draw rect at ellipse.

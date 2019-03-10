@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace InstrumentedLibrary
 {
@@ -12,6 +14,8 @@ namespace InstrumentedLibrary
         /// Initializes a new instance of the <see cref="PolygonContour2D"/> class.
         /// </summary>
         /// <param name="points">The points.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PolygonContour2D(IEnumerable<Point2D> points)
         {
             Points = points.ToList();
@@ -33,12 +37,16 @@ namespace InstrumentedLibrary
         /// 
         /// </summary>
         /// <param name="polygon"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator List<Point2D>(PolygonContour2D polygon) => polygon.Points as List<Point2D>;
 
         /// <summary>
         /// The to string.
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString() => $"{nameof(PolygonContour2D)}=[{string.Join(",", Points)}]";
     }
 }

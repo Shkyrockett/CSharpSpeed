@@ -43,10 +43,13 @@ namespace InstrumentedLibrary
         /// Represents a <see cref="Vector2D"/> that has <see cref="I"/> to 0, and <see cref="J"/> set to 1.
         /// </summary>
         public static readonly Vector2D YAxis = new Vector2D(0d, 1d);
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> struct.
         /// </summary>
         /// <param name="vector2D">A <see cref="Vector2D"/> class to clone.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2D(Vector2D vector2D)
             : this(vector2D.I, vector2D.J)
         { }
@@ -69,6 +72,8 @@ namespace InstrumentedLibrary
         /// Initializes a new instance of the <see cref="Vector2D"/> struct.
         /// </summary>
         /// <param name="tuple"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2D((double X, double Y) tuple)
             : this()
         {

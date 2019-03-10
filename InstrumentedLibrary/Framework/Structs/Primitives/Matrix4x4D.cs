@@ -87,6 +87,8 @@ namespace InstrumentedLibrary
         /// <param name="yAxis"></param>
         /// <param name="zAxis"></param>
         /// <param name="wAxis"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Matrix4x4D(Vector4D xAxis, Vector4D yAxis, Vector4D zAxis, Vector4D wAxis)
             : this(xAxis.I, xAxis.J, xAxis.K, xAxis.L,
                   yAxis.I, yAxis.J, yAxis.K, yAxis.L,
@@ -98,6 +100,8 @@ namespace InstrumentedLibrary
         /// Initializes a new instance of the <see cref="Matrix4x4D"/> class.
         /// </summary>
         /// <param name="tuple">The tuple.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Matrix4x4D((
             double m0x0, double m0x1, double m0x2, double m0x3,
             double m1x0, double m1x1, double m1x2, double m1x3,
@@ -317,6 +321,7 @@ namespace InstrumentedLibrary
         /// <param name='matrix1'>The first Matrix to compare</param>
         /// <param name='matrix2'>The second Matrix to compare</param>
         [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(Matrix4x4D matrix1, Matrix4x4D matrix2)
             => Equals(matrix1, matrix2);
 
@@ -332,6 +337,7 @@ namespace InstrumentedLibrary
         /// <param name='matrix1'>The first Matrix to compare</param>
         /// <param name='matrix2'>The second Matrix to compare</param>
         [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Matrix4x4D matrix1, Matrix4x4D matrix2)
             => !Equals(matrix1, matrix2);
 

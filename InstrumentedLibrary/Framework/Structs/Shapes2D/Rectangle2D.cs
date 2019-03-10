@@ -71,6 +71,24 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// Deconstruct this <see cref="Rectangle2D"/> to a <see cref="ValueTuple{T1, T2, T3, T4}"/>.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="top">The top.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void Deconstruct(out double left, out double top, out double width, out double height)
+        {
+            left = X;
+            top = Y;
+            width = Width;
+            height = Height;
+        }
+
+        /// <summary>
         /// Gets or sets the x.
         /// </summary>
         public double X { get; set; }
@@ -149,24 +167,6 @@ namespace InstrumentedLibrary
         /// 
         /// </summary>
         public bool IsEmpty => (Width <= 0) || (Height <= 0);
-
-        /// <summary>
-        /// Deconstruct this <see cref="Rectangle2D"/> to a <see cref="ValueTuple{T1, T2, T3, T4}"/>.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="top">The top.</param>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public void Deconstruct(out double left, out double top, out double width, out double height)
-        {
-            left = X;
-            top = Y;
-            width = Width;
-            height = Height;
-        }
 
         /// <summary>
         /// The from LTRB.
