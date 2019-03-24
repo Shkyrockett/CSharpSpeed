@@ -115,7 +115,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D) CubicBezierCoefficientsGeneral(double a, double b, double c, double d)
         {
-            Polynomial polynomial = RecursiveBezierCoefficientsTests.BezierCoefficientsRecursive(a, b, c, d);
+            var polynomial = RecursiveBezierCoefficientsTests.BezierCoefficientsRecursive(a, b, c, d);
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d]);
         }
 
@@ -138,7 +138,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D) CubicBezierCoefficientsRecursive(double a, double b, double c, double d)
         {
-            Polynomial polynomial = (Polynomial.OneMinusT * QuadraticBezierCoefficientsTests.QuadraticBezierCoefficients(a, b, c)) + (Polynomial.T * QuadraticBezierCoefficientsTests.QuadraticBezierCoefficients(b, c, d));
+            var polynomial = (Polynomial.OneMinusT * QuadraticBezierCoefficientsTests.QuadraticBezierCoefficients(a, b, c)) + (Polynomial.T * QuadraticBezierCoefficientsTests.QuadraticBezierCoefficients(b, c, d));
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d]);
         }
     }

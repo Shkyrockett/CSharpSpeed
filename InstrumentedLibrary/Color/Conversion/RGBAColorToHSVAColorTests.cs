@@ -1,11 +1,54 @@
-﻿using System.Runtime.CompilerServices;
+﻿using CSharpSpeed;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using static System.Math;
 
 namespace InstrumentedLibrary
 {
-    // ToDo:
+    /// <summary>
+    /// 
+    /// </summary>
+    [DisplayName("Convert a color in RGBA to HSVA")]
+    [Description("Convert a color in RGBA to HSVA.")]
+    [SourceCodeLocationProvider]
     public static class RGBAColorToHSVAColorTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        [DisplayName(nameof(ToDegreesTests))]
+        public static List<SpeedTester> TestHarness()
+        {
+            var trials = 10000;
+            var tests = new Dictionary<object[], TestCaseResults> {
+                { new object[] { (byte)0, (byte)0, (byte)0, (byte)255 }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (100d, 100d, 100d, 0d), epsilon: 0d) },
+            };
+
+            var results = new List<SpeedTester>();
+            foreach (var method in ReflectionHelper.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
+            {
+                var methodDescription = ((DescriptionAttribute)method.GetCustomAttribute(typeof(DescriptionAttribute)))?.Description;
+                results.Add(new SpeedTester(method, methodDescription, tests));
+            }
+            return results;
+        }
+
+        /// <summary>
+        /// The color to HSV.
+        /// </summary>
+        /// <param name="red"></param>
+        /// <param name="green"></param>
+        /// <param name="blue"></param>
+        /// <param name="alpha"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double hue, double saturation, double value, double alpha) RGBAColorToHSVAColor(byte red, byte green, byte blue, byte alpha)
+            => RGBAColorToHSVAColor1(red, green, blue, alpha);
+
         /// <summary>
         /// The color to HSV.
         /// </summary>
@@ -16,8 +59,12 @@ namespace InstrumentedLibrary
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/359612/how-to-change-rgb-color-to-hsv
         /// </acknowledgment>
+        [DisplayName("Convert a color in RGBA to HSVA")]
+        [Description("Convert a color in RGBA to HSVA.")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double hue, double saturation, double value, double alpha) RGBAColorToHSVAColor(byte red, byte green, byte blue, byte alpha)
+        public static (double hue, double saturation, double value, double alpha) RGBAColorToHSVAColor1(byte red, byte green, byte blue, byte alpha)
         {
             var max = Max3Double.Max(red, green, blue);
             var min = Min3DoubleTests.Min(red, green, blue);
@@ -44,6 +91,10 @@ namespace InstrumentedLibrary
         /// <acknowledgment>
         /// https://www.cs.rit.edu/~ncs/color/t_convert.html
         /// </acknowledgment>
+        [DisplayName("Convert a color in RGBA to HSVA")]
+        [Description("Convert a color in RGBA to HSVA.")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double hue, double saturation, double value, double alpha) RGBAColorToHSVAColor2(byte red, byte green, byte blue, byte alpha)
         {

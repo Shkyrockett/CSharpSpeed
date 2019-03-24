@@ -81,7 +81,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B) LinearBezierCoefficientsGeneral(double a, double b)
         {
-            Polynomial polynomial = RecursiveBezierCoefficientsTests.BezierCoefficientsRecursive(a, b);
+            var polynomial = RecursiveBezierCoefficientsTests.BezierCoefficientsRecursive(a, b);
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b]);
         }
 
@@ -102,7 +102,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B) LinearBezierCoefficientsRecursive(double a, double b)
         {
-            Polynomial polynomial = (Polynomial.OneMinusT * a) + (Polynomial.T * b);
+            var polynomial = (Polynomial.OneMinusT * a) + (Polynomial.T * b);
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b]);
         }
     }

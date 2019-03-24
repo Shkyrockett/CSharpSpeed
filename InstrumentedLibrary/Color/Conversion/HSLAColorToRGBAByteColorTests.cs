@@ -1,11 +1,55 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace InstrumentedLibrary
 {
-    // ToDo:
+    /// <summary>
+    /// 
+    /// </summary>
+    [DisplayName("Convert a color in HSLA to RGBA")]
+    [Description("Convert a color in HSLA to RGBA.")]
+    [SourceCodeLocationProvider]
     public static class HSLAColorToRGBAByteColorTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        [DisplayName(nameof(ToDegreesTests))]
+        public static List<SpeedTester> TestHarness()
+        {
+            var trials = 10000;
+            var tests = new Dictionary<object[], TestCaseResults> {
+                { new object[] { 0d, 0d, 0d, 1d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: ((byte)100, (byte)100, (byte)100, (byte)0), epsilon: (byte)0) },
+            };
+
+            var results = new List<SpeedTester>();
+            foreach (var method in ReflectionHelper.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
+            {
+                var methodDescription = ((DescriptionAttribute)method.GetCustomAttribute(typeof(DescriptionAttribute)))?.Description;
+                results.Add(new SpeedTester(method, methodDescription, tests));
+            }
+            return results;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hue"></param>
+        /// <param name="saturation"></param>
+        /// <param name="luminance"></param>
+        /// <param name="alpha"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (byte red, byte green, byte blue, byte alpha) HSLAColorToRGBAColor(double hue, double saturation, double luminance, double alpha)
+            => HSLAColorToRGBAColor1(hue, saturation, luminance, alpha);
+
         /// <summary>
         /// Given H,S,L in range of 0-1
         /// Returns a Color (RGB class) in range of 0-255
@@ -18,8 +62,12 @@ namespace InstrumentedLibrary
         /// <acknowledgment>
         /// http://www.geekymonkey.com/Programming/CSharp/RGB2HSL_HSL2RGB.htm
         /// </acknowledgment>
+        [DisplayName("Convert a color in HSLA to RGBA")]
+        [Description("Convert a color in HSLA to RGBA.")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (byte red, byte green, byte blue, byte alpha) HSLAColorToRGBAColor(double hue, double saturation, double luminance, double alpha)
+        public static (byte red, byte green, byte blue, byte alpha) HSLAColorToRGBAColor1(double hue, double saturation, double luminance, double alpha)
         {
             // default to gray
             var red = luminance;

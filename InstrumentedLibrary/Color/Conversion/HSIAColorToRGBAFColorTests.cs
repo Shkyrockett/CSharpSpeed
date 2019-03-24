@@ -1,12 +1,56 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using static System.Math;
 
 namespace InstrumentedLibrary
 {
-    // ToDo:
+    /// <summary>
+    /// 
+    /// </summary>
+    [DisplayName("Convert a color in HSIA to RGBA")]
+    [Description("Convert a color in HSIA to RGBA.")]
+    [SourceCodeLocationProvider]
     public static class HSIAColorToRGBAFColorTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        [DisplayName(nameof(ToDegreesTests))]
+        public static List<SpeedTester> TestHarness()
+        {
+            var trials = 10000;
+            var tests = new Dictionary<object[], TestCaseResults> {
+                { new object[] { 0d, 0d, 0d, 0d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (100d, 100d, 100d, 0d), epsilon: 0d) },
+            };
+
+            var results = new List<SpeedTester>();
+            foreach (var method in ReflectionHelper.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
+            {
+                var methodDescription = ((DescriptionAttribute)method.GetCustomAttribute(typeof(DescriptionAttribute)))?.Description;
+                results.Add(new SpeedTester(method, methodDescription, tests));
+            }
+            return results;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hue"></param>
+        /// <param name="saturation"></param>
+        /// <param name="intensity"></param>
+        /// <param name="alpha"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double red, double green, double blue, double alpha) HSIAColorToRGBAFColor(double hue, double saturation, double intensity, double alpha)
+            => HSIAColorToRGBAFColor1(hue, saturation, intensity, alpha);
+
         /// <summary>
         /// The rgbaf create from hsi.
         /// </summary>
@@ -19,8 +63,12 @@ namespace InstrumentedLibrary
         /// https://github.com/dystopiancode/colorspace-conversions/
         /// Correction from: https://gist.github.com/rzhukov/9129585
         /// </remarks>
+        [DisplayName("Convert a color in HSIA to RGBA")]
+        [Description("Convert a color in HSIA to RGBA.")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double red, double green, double blue, double alpha) HSIAColorToRGBAFColor(double hue, double saturation, double intensity, double alpha)
+        public static (double red, double green, double blue, double alpha) HSIAColorToRGBAFColor1(double hue, double saturation, double intensity, double alpha)
         {
             if (!ValidateHSIATests.ValidateHSIA(hue, saturation, intensity, alpha))
             {
@@ -60,6 +108,10 @@ namespace InstrumentedLibrary
         /// http://dystopiancode.blogspot.com/2012/02/hsi-rgb-conversion-algorithms-in-c.html
         /// https://github.com/dystopiancode/colorspace-conversions
         /// </acknowledgment>
+        [DisplayName("Convert a color in HSIA to RGBA")]
+        [Description("Convert a color in HSIA to RGBA.")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double red, double green, double blue, double alpha) HSIAColorToRGBAFColor2(double hue, double saturation, double intensity, double alpha)
         {

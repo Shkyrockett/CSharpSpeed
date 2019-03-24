@@ -1,12 +1,56 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using static System.Math;
 
 namespace InstrumentedLibrary
 {
-    // ToDo:
+    /// <summary>
+    /// 
+    /// </summary>
+    [DisplayName("Convert a color in HSVA to RGBA")]
+    [Description("Convert a color in HSVA to RGBA.")]
+    [SourceCodeLocationProvider]
     public static class HSVAColorToRGBAFColorTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        [DisplayName(nameof(ToDegreesTests))]
+        public static List<SpeedTester> TestHarness()
+        {
+            var trials = 10000;
+            var tests = new Dictionary<object[], TestCaseResults> {
+                { new object[] { 0f, 0f, 0f, 255f }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (100f, 100f, 100f, 0f), epsilon: 0f) },
+            };
+
+            var results = new List<SpeedTester>();
+            foreach (var method in ReflectionHelper.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
+            {
+                var methodDescription = ((DescriptionAttribute)method.GetCustomAttribute(typeof(DescriptionAttribute)))?.Description;
+                results.Add(new SpeedTester(method, methodDescription, tests));
+            }
+            return results;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hue"></param>
+        /// <param name="saturaion"></param>
+        /// <param name="value"></param>
+        /// <param name="alpha"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (double red, double green, double blue, double alpha) HSVAColorToRGBAFColor(double hue, double saturaion, double value, double alpha)
+            => HSVAColorToRGBAFColor_(hue, saturaion, value, alpha);
+
         /// <summary>
         /// The rgb f create from hsv.
         /// </summary>
@@ -16,8 +60,12 @@ namespace InstrumentedLibrary
         /// <param name="alpha"></param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        [DisplayName("Convert a color in HSVA to RGBA")]
+        [Description("Convert a color in HSVA to RGBA.")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double red, double green, double blue, double alpha) HSVAColorToRGBAFColor(double hue, double saturaion, double value, double alpha)
+        public static (double red, double green, double blue, double alpha) HSVAColorToRGBAFColor_(double hue, double saturaion, double value, double alpha)
         {
             (double red, double green, double blue, double alpha) color = (0d, 0d, 0d, alpha);
             if (ValidateHSVATests.ValidateHSVA(hue, saturaion, value, alpha) == true)

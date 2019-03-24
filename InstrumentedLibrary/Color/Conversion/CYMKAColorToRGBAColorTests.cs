@@ -1,11 +1,56 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace InstrumentedLibrary
 {
-    // ToDo:
+    /// <summary>
+    /// Convert a color in CYMKA to RGBA.
+    /// </summary>
+    [DisplayName("Convert a color in CYMKA to RGBA")]
+    [Description("Convert a color in CYMKA to RGBA.")]
+    [SourceCodeLocationProvider]
     public static class CYMKAColorToRGBAColorTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        [DisplayName(nameof(ToDegreesTests))]
+        public static List<SpeedTester> TestHarness()
+        {
+            var trials = 10000;
+            var tests = new Dictionary<object[], TestCaseResults> {
+                { new object[] { (byte)0, (byte)0, (byte)0, (byte)0, (byte)255 }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: ((byte)100, (byte)100, (byte)100, (byte)0, (byte)0, (byte)0), epsilon: (byte)0) },
+            };
+
+            var results = new List<SpeedTester>();
+            foreach (var method in ReflectionHelper.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
+            {
+                var methodDescription = ((DescriptionAttribute)method.GetCustomAttribute(typeof(DescriptionAttribute)))?.Description;
+                results.Add(new SpeedTester(method, methodDescription, tests));
+            }
+            return results;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cyan"></param>
+        /// <param name="yellow"></param>
+        /// <param name="magenta"></param>
+        /// <param name="black"></param>
+        /// <param name="alpha"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (byte red, byte green, byte blue, byte alpha) CYMKAColorToRGBAColor(byte cyan, byte yellow, byte magenta, byte black, byte alpha)
+            => CYMKAColorToRGBAColor_(cyan, yellow, magenta, black, alpha);
+
         /// <summary>
         /// Convert an alpha cyan yellow magenta black color format to alpha red green blue byte color format.
         /// </summary>
@@ -24,8 +69,12 @@ namespace InstrumentedLibrary
         /// http://www.codeproject.com/Articles/4488/XCmyk-CMYK-to-RGB-Calculator-with-source-code
         /// The algorithms for these routines were taken from: http://web.archive.org/web/20030416004239/http://www.neuro.sfc.keio.ac.jp/~aly/polygon/info/color-space-faq.html
         /// </acknowledgment>
+        [DisplayName("Convert a color in CYMKA to RGBA")]
+        [Description("Convert a color in CYMKA to RGBA.")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (byte red, byte green, byte blue, byte alpha) CYMKAColorToRGBAColor(byte cyan, byte yellow, byte magenta, byte black, byte alpha)
+        public static (byte red, byte green, byte blue, byte alpha) CYMKAColorToRGBAColor_(byte cyan, byte yellow, byte magenta, byte black, byte alpha)
         {
             var d = 1d / 100d;//255d;
 

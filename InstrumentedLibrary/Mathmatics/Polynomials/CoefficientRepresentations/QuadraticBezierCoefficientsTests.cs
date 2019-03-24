@@ -88,7 +88,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C) QuadraticBezierCoefficientsGeneral(double a, double b, double c)
         {
-            Polynomial polynomial = RecursiveBezierCoefficientsTests.BezierCoefficientsRecursive(a, b, c);
+            var polynomial = RecursiveBezierCoefficientsTests.BezierCoefficientsRecursive(a, b, c);
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c]);
         }
 
@@ -110,7 +110,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C) QuadraticBezierCoefficientsRecursive(double a, double b, double c)
         {
-            Polynomial polynomial = (Polynomial.OneMinusT * LinearBezierCoefficientsTests.LinearBezierCoefficients(a, b)) + (Polynomial.T * LinearBezierCoefficientsTests.LinearBezierCoefficients(b, c));
+            var polynomial = (Polynomial.OneMinusT * LinearBezierCoefficientsTests.LinearBezierCoefficients(a, b)) + (Polynomial.T * LinearBezierCoefficientsTests.LinearBezierCoefficients(b, c));
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c]);
         }
     }

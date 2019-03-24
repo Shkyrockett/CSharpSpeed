@@ -1,12 +1,56 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using static System.Math;
 
 namespace InstrumentedLibrary
 {
-    // ToDo:
+    /// <summary>
+    /// 
+    /// </summary>
+    [DisplayName("Convert a color in HSVA to RGBA")]
+    [Description("Convert a color in HSVA to RGBA.")]
+    [SourceCodeLocationProvider]
     public static class HSVAColorToRGBAColorTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        [DisplayName(nameof(ToDegreesTests))]
+        public static List<SpeedTester> TestHarness()
+        {
+            var trials = 10000;
+            var tests = new Dictionary<object[], TestCaseResults> {
+                { new object[] { 0d, 0d, 0d, 1d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: ((byte)100, (byte)100, (byte)100, (byte)0), epsilon: (byte)0) },
+            };
+
+            var results = new List<SpeedTester>();
+            foreach (var method in ReflectionHelper.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
+            {
+                var methodDescription = ((DescriptionAttribute)method.GetCustomAttribute(typeof(DescriptionAttribute)))?.Description;
+                results.Add(new SpeedTester(method, methodDescription, tests));
+            }
+            return results;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hue"></param>
+        /// <param name="saturation"></param>
+        /// <param name="value"></param>
+        /// <param name="alpha"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static (byte red, byte green, byte blue, byte alpha) HSVAColorToRGBAColor(double hue, double saturation, double value, double alpha)
+            => HSVAColorToRGBAColor1(hue, saturation, value, alpha);
+
         /// <summary>
         /// The AHS vto RGB.
         /// </summary>
@@ -22,8 +66,12 @@ namespace InstrumentedLibrary
         /// <acknowledgment>
         /// https://www.cs.rit.edu/~ncs/color/t_convert.html
         /// </acknowledgment>
+        [DisplayName("Convert a color in HSVA to RGBA")]
+        [Description("Convert a color in HSVA to RGBA.")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (byte red, byte green, byte blue, byte alpha) HSVAColorToRGBAColor(double hue, double saturation, double value, double alpha)
+        public static (byte red, byte green, byte blue, byte alpha) HSVAColorToRGBAColor1(double hue, double saturation, double value, double alpha)
         {
             double a;
             double r;
@@ -104,6 +152,10 @@ namespace InstrumentedLibrary
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/359612/how-to-change-rgb-color-to-hsv
         /// </acknowledgment>
+        [DisplayName("Convert a color in HSVA to RGBA")]
+        [Description("Convert a color in HSVA to RGBA.")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (byte red, byte green, byte blue, byte alpha) HSVAColorToRGBAColor2(double hue, double saturation, double value, double alpha)
         {
@@ -145,6 +197,10 @@ namespace InstrumentedLibrary
         /// <acknowledgment>
         /// https://www.cs.rit.edu/~ncs/color/t_convert.html
         /// </acknowledgment>
+        [DisplayName("Convert a color in HSVA to RGBA")]
+        [Description("Convert a color in HSVA to RGBA.")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (byte red, byte green, byte blue, byte alpha) HSVAColorToRGBAColor3(double hue, double saturation, double value, double alpha)
         {

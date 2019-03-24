@@ -24,7 +24,7 @@ namespace InstrumentedLibrary
         public static List<SpeedTester> TestHarness()
         {
             var trials = 1000;
-            var triangle = new List<Point2D> { new Point2D(0d, 0d), new Point2D(1d, 0d), new Point2D(1d, 1d) };
+            var triangle = new (double x, double y)[] { (0d, 0d), (1d, 0d), (1d, 1d) };
             //var PatrickMullenValues = PrecalcPointInPolygonContourPatrickMullenValues(polygon);
             var tests = new Dictionary<object[], TestCaseResults> {
                 { new object[] { triangle }, new TestCaseResults(description: "Triangle.", trials: trials, expectedReturnValue:-0.5d, epsilon: double.Epsilon) },
@@ -46,7 +46,7 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="double"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static double SignedPolygonArea(List<Point2D> polygon)
+        public static double SignedPolygonArea((double x, double y)[] polygon)
             => SignedPolygonArea5(polygon);
 
         /// <summary>
@@ -63,14 +63,13 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SignedPolygonArea0(IEnumerable<Point2D> polygon)
+        public static double SignedPolygonArea0((double X, double Y)[] polygon)
         {
-            var points = polygon as List<Point2D>;
-            var j = points.Count - 1;
+            var j = polygon.Length - 1;
             var area = 0d;
-            for (var i = 0; i < points.Count; i++)
+            for (var i = 0; i < polygon.Length; i++)
             {
-                area += (points[j].X + points[i].X) * (points[j].Y - points[i].Y); j = i;
+                area += (polygon[j].X + polygon[i].X) * (polygon[j].Y - polygon[i].Y); j = i;
             }
 
             return area * 0.5d;
@@ -90,13 +89,13 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SignedPolygonArea1(List<Point2D> polygon)
+        public static double SignedPolygonArea1((double X, double Y)[] polygon)
         {
             var area = 0d;
 
-            for (var i = 0; i < polygon.Count; i++)
+            for (var i = 0; i < polygon.Length; i++)
             {
-                var j = (i + 1) % polygon.Count;
+                var j = (i + 1) % polygon.Length;
                 area += polygon[i].X * polygon[j].Y;
                 area -= polygon[i].Y * polygon[j].X;
             }
@@ -119,12 +118,14 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SignedPolygonArea2(List<Point2D> polygon)
+        public static double SignedPolygonArea2((double X, double Y)[] polygon)
         {
-            var points = polygon;
-
-            points.Add(points[0]);
-            return points.Take(points.Count - 1)
+            var points = new List<(double X, double Y)>(polygon)
+            {
+                polygon[0]
+            };
+            return points
+                .Take(points.Count - 1)
                .Select((p, i) => (points[i + 1].X - p.X) * (points[i + 1].Y + p.Y))
                .Sum() / 2d;
         }
@@ -143,10 +144,16 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SignedPolygonArea3(List<Point2D> polygon)
+        public static double SignedPolygonArea3((double X, double Y)[] polygon)
         {
-            polygon.Add(polygon[0]);
-            return -polygon.Take(polygon.Count - 1).Select((p, i) => (p.X * polygon[i + 1].Y) - (p.Y * polygon[i + 1].X)).Sum() / 2d;
+            var points = new List<(double X, double Y)>(polygon)
+            {
+                polygon[0]
+            };
+            return -polygon
+                .Take(points.Count - 1)
+                .Select((p, i) => (p.X * points[i + 1].Y) - (p.Y * points[i + 1].X))
+                .Sum() / 2d;
         }
 
         /// <summary>
@@ -172,11 +179,11 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SignedPolygonArea5(List<Point2D> polygon)
+        public static double SignedPolygonArea5((double x, double y)[] polygon)
         {
             // Add the first point to the end.
-            var num_points = polygon.Count;
-            var pts = new Point2D[num_points + 1];
+            var num_points = polygon.Length;
+            var pts = new (double X, double Y)[num_points + 1];
             polygon.CopyTo(pts, 0);
             pts[num_points] = polygon[0];
 

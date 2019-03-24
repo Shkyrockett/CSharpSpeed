@@ -21,7 +21,7 @@ namespace InstrumentedLibrary
         public static IEnumerable<Type> GetTypesWithHelpAttribute(Type attribute)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            foreach (Type type in assembly.GetTypes())
+            foreach (var type in assembly.GetTypes())
             {
                 if (type.GetCustomAttributes(attribute, true).Length > 0)
                 {

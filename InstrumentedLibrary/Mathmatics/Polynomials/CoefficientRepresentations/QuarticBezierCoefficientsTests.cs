@@ -95,7 +95,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E) QuarticBezierCoefficientsGeneral(double a, double b, double c, double d, double e)
         {
-            Polynomial polynomial = RecursiveBezierCoefficientsTests.BezierCoefficientsRecursive(a, b, c, d, e);
+            var polynomial = RecursiveBezierCoefficientsTests.BezierCoefficientsRecursive(a, b, c, d, e);
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d], polynomial[PolynomialTerm.e]);
         }
 
@@ -119,7 +119,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E) QuarticBezierCoefficientsRecursive(double a, double b, double c, double d, double e)
         {
-            Polynomial polynomial = (Polynomial.OneMinusT * CubicBezierCoefficientsTests.CubicBezierCoefficients(a, b, c, d)) + (Polynomial.T * CubicBezierCoefficientsTests.CubicBezierCoefficients(b, c, d, e));
+            var polynomial = (Polynomial.OneMinusT * CubicBezierCoefficientsTests.CubicBezierCoefficients(a, b, c, d)) + (Polynomial.T * CubicBezierCoefficientsTests.CubicBezierCoefficients(b, c, d, e));
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d], polynomial[PolynomialTerm.e]);
         }
     }

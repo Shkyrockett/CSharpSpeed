@@ -74,7 +74,7 @@ namespace InstrumentedLibrary
             double PointBX, double PointBY,
             double PointCX, double PointCY)
         {
-            (var X, var Y) = CircleCenterFromThreePointsTests.CircleCenterFromPoints(PointAX, PointAY, PointBX, PointBY, PointCX, PointCY) ?? (0d, 0d);
+            (var X, var Y) = CircleCenterThreePointsTests.CenterCircleThreePoints(PointAX, PointAY, PointBX, PointBY, PointCX, PointCY) ?? (0d, 0d);
             var radius = Distance2DTests.Distance2D(X, Y, PointAX, PointAY);
             return new Circle2D(X, Y, radius);
         }

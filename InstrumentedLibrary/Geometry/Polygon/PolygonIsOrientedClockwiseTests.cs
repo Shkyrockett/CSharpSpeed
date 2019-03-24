@@ -23,7 +23,7 @@ namespace InstrumentedLibrary
         public static List<SpeedTester> TestHarness()
         {
             var trials = 1000;
-            var polygon = new List<Point2D> { new Point2D(0d, 0d), new Point2D(1d, 0d), new Point2D(1d, 1d) };
+            var polygon = new (double X, double Y)[] { (0d, 0d), (1d, 0d), (1d, 1d) };
             var tests = new Dictionary<object[], TestCaseResults> {
                 { new object[] { polygon }, new TestCaseResults(description: "polygon.", trials: trials, expectedReturnValue: true, epsilon: double.Epsilon) },
             };
@@ -44,7 +44,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static bool PolygonIsOrientedClockwise(List<Point2D> polygon)
+        public static bool PolygonIsOrientedClockwise((double X, double Y)[] polygon)
             => PolygonIsOrientedClockwise0(polygon);
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PolygonIsOrientedClockwise0(List<Point2D> polygon)
+        public static bool PolygonIsOrientedClockwise0((double X, double Y)[] polygon)
         {
             return PolygonSignedAreaTests.SignedPolygonArea(polygon) < 0d;
         }

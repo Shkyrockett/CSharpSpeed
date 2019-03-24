@@ -158,7 +158,7 @@ namespace InstrumentedLibrary
 
             // Find the difference tangents.
             var TangentX = 184d;
-            (List<(double X, double Y)> TangentCenters, List<(double X, double Y)> TangentP1, List<(double X, double Y)> TangentP2) = FindDifferenceTangents(TangentX, A1, B1, C1, D1, E1, F1, A2, B2, C2, D2, E2, F2);
+            (var TangentCenters, var TangentP1, var TangentP2) = FindDifferenceTangents(TangentX, A1, B1, C1, D1, E1, F1, A2, B2, C2, D2, E2, F2);
 
             // Find the roots of the difference equations
             // and thus the points of intersection.
@@ -466,7 +466,7 @@ namespace InstrumentedLibrary
 
             // Find the difference tangents.
             var TangentX = 184d;
-            (List<(double X, double Y)> TangentCenters, List<(double X, double Y)> TangentP1, List<(double X, double Y)> TangentP2) = FindDifferenceTangents(TangentX, A1, B1, C1, D1, E1, F1, A2, B2, C2, D2, E2, F2);
+            (var TangentCenters, var TangentP1, var TangentP2) = FindDifferenceTangents(TangentX, A1, B1, C1, D1, E1, F1, A2, B2, C2, D2, E2, F2);
 
             // Find the roots of the difference equations
             // and thus the points of intersection.

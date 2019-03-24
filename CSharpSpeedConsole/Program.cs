@@ -25,17 +25,17 @@ namespace CSharpSpeedConsole
         /// <summary>
         /// The processor name (readonly). Value: GetProcessorName().
         /// </summary>
-        private static readonly string ProcessorName = GetProcessorName();
+        private static readonly string processorName = GetProcessorName();
 
         /// <summary>
         /// The physical memory (readonly). Value: GetPhysicalMemory().
         /// </summary>
-        private static readonly string PhysicalMemory = GetPhysicalMemory();
+        private static readonly string physicalMemory = GetPhysicalMemory();
 
         /// <summary>
         /// The application root folder (readonly). Value: Path.Combine(Environment.CurrentDirectory, $"..{Path.DirectorySeparatorChar}..{Path.DirectorySeparatorChar}").
         /// </summary>
-        private static readonly string ApplicationRootFolder = Path.Combine(Environment.CurrentDirectory, $"..{Path.DirectorySeparatorChar}..{Path.DirectorySeparatorChar}");
+        private static readonly string applicationRootFolder = Path.Combine(Environment.CurrentDirectory, $"..{Path.DirectorySeparatorChar}..{Path.DirectorySeparatorChar}");
         #endregion Constants
 
         /// <summary>
@@ -44,6 +44,7 @@ namespace CSharpSpeedConsole
         /// <param name="args">The args.</param>
         private static void Main(string[] args)
         {
+            _ = args;
             foreach (var testSetClass in TestReflectionHelper.GetTypesWithHelpAttribute(typeof(SourceCodeLocationProviderAttribute)))
             {
                 var testSet = ReflectionHelper.ListStaticFactoryConstructorsList(testSetClass, typeof(List<SpeedTester>));
@@ -87,22 +88,27 @@ namespace CSharpSpeedConsole
             }
 
             // Present the machine specs for evaluation.
-            sb.AppendLine("> ## Machine Specs for this Runs Results");
+            sb.AppendLine("> ## Machine Specs for this Runs Results  ");
             sb.AppendLine("> The test cases below were run on a system with the following hardware specifications. Results will vary on the same system depending on current processing work load. So, take the numbers in the tables with a grain of salt.  ");
+            sb.AppendLine($"> **.NET Version:**  s");
+            sb.AppendLine($"> {System.Diagnostics.FileVersionInfo.GetVersionInfo(typeof(int).Assembly.Location).ProductVersion}  ");
+            sb.Append($"> **.NET CLR Version:** ");
+            sb.AppendLine($"{System.Runtime.InteropServices.RuntimeEnvironment.GetSystemVersion()}  ");
             sb.AppendLine($"> **Processor:**  ");
-            sb.Append($"{ProcessorName}  ");
+            sb.Append($"> {processorName}");
             sb.AppendLine($"> **Physical Memory:**  ");
-            sb.Append($"{PhysicalMemory}  ");
-            sb.AppendLine($"> **Library Compiled as:**  ");
+            sb.Append($"{physicalMemory}");
+            sb.Append($"> **Library Compiled as:**  ");
 #if DEBUG
-            sb.Append($"> Debug  ");
+            sb.AppendLine($"Debug  ");
 #else
-            sb.Append($"> Release  ");
+            sb.AppendLine($"Release  ");
 #endif
-            sb.AppendLine();
             sb.AppendLine();
 
             sb.AppendLine("## Results");
+            sb.AppendLine();
+            sb.AppendLine("The following are the results of the speed testing the code in the following file.");
             sb.AppendLine();
 
             // Present the filename of the class being tested.
@@ -112,7 +118,9 @@ namespace CSharpSpeedConsole
             // Display the intended signature for the methods.
             if (description != "")
             {
-                sb.AppendLine("The required method signature for this API is as follows:");
+                sb.AppendLine("## Method Signature");
+                sb.AppendLine();
+                sb.AppendLine("The required method signature for this API is as follows:  ");
                 sb.AppendLine();
                 sb.AppendLine("```CSharp");
                 sb.AppendLine(signature);
@@ -122,7 +130,7 @@ namespace CSharpSpeedConsole
 
             // Build up the results dictionary to be entered into the table.
             var results = new Dictionary<object[], List<string>>();
-            foreach (SpeedTester test in tests)
+            foreach (var test in tests)
             {
                 // Run test cases.
                 test.RunTest();
@@ -167,7 +175,7 @@ namespace CSharpSpeedConsole
             sb.AppendLine();
             sb.AppendLine("The code for the methods tested follows below.");
             sb.AppendLine();
-            foreach (SpeedTester test in tests)
+            foreach (var test in tests)
             {
                 sb.AppendLine($"### {((DisplayNameAttribute)test.Method?.GetCustomAttribute(typeof(DisplayNameAttribute)))?.DisplayName}");
                 sb.AppendLine();
@@ -181,7 +189,7 @@ namespace CSharpSpeedConsole
             }
 
             // Capture the folder for the report.
-            var reportFolder = Path.GetFullPath(Path.Combine(ApplicationRootFolder, "reports", Path.GetDirectoryName(tests[0].FileName).Replace($"..{Path.DirectorySeparatorChar}", "")));
+            var reportFolder = Path.GetFullPath(Path.Combine(applicationRootFolder, "reports", Path.GetDirectoryName(tests[0].FileName).Replace($"..{Path.DirectorySeparatorChar}", "")));
 
             // Capture the name and full path of the markdown file.
             var reportFile = Path.GetFullPath(Path.Combine(reportFolder, $"{Path.GetFileNameWithoutExtension(tests[0].FileName)}.md"));
@@ -212,12 +220,12 @@ namespace CSharpSpeedConsole
                 var searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                 foreach (ManagementObject queryObj in searcher.Get())
                 {
-                    sb.AppendLine($"> Name: {queryObj["Name"]}  ");
+                    sb.AppendLine($"Name: {queryObj["Name"]}  ");
                 }
             }
             catch (ManagementException)
             {
-                sb.AppendLine("Prosessor unknown");
+                sb.AppendLine("Processor unknown");
             }
             return sb.ToString();
         }

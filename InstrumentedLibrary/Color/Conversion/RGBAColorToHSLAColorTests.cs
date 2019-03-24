@@ -1,11 +1,42 @@
-﻿using System.Runtime.CompilerServices;
+﻿using CSharpSpeed;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using static System.Math;
 
 namespace InstrumentedLibrary
 {
-    // ToDo:
+    /// <summary>
+    /// 
+    /// </summary>
+    [DisplayName("Convert a color in RGBA to HSLA")]
+    [Description("Convert a color in RGBA to HSLA.")]
+    [SourceCodeLocationProvider]
     public static class RGBAColorToHSLAColorTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        [DisplayName(nameof(ToDegreesTests))]
+        public static List<SpeedTester> TestHarness()
+        {
+            var trials = 10000;
+            var tests = new Dictionary<object[], TestCaseResults> {
+                { new object[] { (byte)0, (byte)0, (byte)0, (byte)255 }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (100d, 100d, 100d, 0d), epsilon: 0d) },
+            };
+
+            var results = new List<SpeedTester>();
+            foreach (var method in ReflectionHelper.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
+            {
+                var methodDescription = ((DescriptionAttribute)method.GetCustomAttribute(typeof(DescriptionAttribute)))?.Description;
+                results.Add(new SpeedTester(method, methodDescription, tests));
+            }
+            return results;
+        }
+
         /// <summary>
         /// Given a Color (RGB class) in range of 0-255 Return H,S,L in range of 0-1
         /// </summary>
@@ -14,7 +45,23 @@ namespace InstrumentedLibrary
         /// <param name="green"></param>
         /// <param name="blue"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
         public static (double hue, double saturation, double luminance, double alpha) RGBAColorToHSLAColor(byte red, byte green, byte blue, byte alpha)
+            => RGBAColorToHSLAColor1(red, green, blue, alpha);
+
+        /// <summary>
+        /// Given a Color (RGB class) in range of 0-255 Return H,S,L in range of 0-1
+        /// </summary>
+        /// <param name="alpha">Alpha value out.</param>
+        /// <param name="red"></param>
+        /// <param name="green"></param>
+        /// <param name="blue"></param>
+        [DisplayName("Convert a color in RGBA to HSLA")]
+        [Description("Convert a color in RGBA to HSLA.")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double hue, double saturation, double luminance, double alpha) RGBAColorToHSLAColor1(byte red, byte green, byte blue, byte alpha)
         {
             var a = alpha / 255d;
             var r = red / 255d;

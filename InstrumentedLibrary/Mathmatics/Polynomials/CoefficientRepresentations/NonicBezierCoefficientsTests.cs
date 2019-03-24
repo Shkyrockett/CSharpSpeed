@@ -110,7 +110,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) NonicBezierCoefficientsGeneral(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j)
         {
-            Polynomial polynomial = RecursiveBezierCoefficientsTests.BezierCoefficientsRecursive(a, b, c, d, e, f, g, h, i, j);
+            var polynomial = RecursiveBezierCoefficientsTests.BezierCoefficientsRecursive(a, b, c, d, e, f, g, h, i, j);
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d], polynomial[PolynomialTerm.e], polynomial[PolynomialTerm.f], polynomial[PolynomialTerm.g], polynomial[PolynomialTerm.h], polynomial[PolynomialTerm.i], polynomial[PolynomialTerm.j]);
         }
 
@@ -139,7 +139,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) NonicBezierCoefficientsRecursive(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j)
         {
-            Polynomial polynomial = (Polynomial.OneMinusT * OcticBezierCoefficientsTests.OcticBezierCoefficients(a, b, c, d, e, f, g, h, i)) + (Polynomial.T * OcticBezierCoefficientsTests.OcticBezierCoefficients(b, c, d, e, f, g, h, i, j));
+            var polynomial = (Polynomial.OneMinusT * OcticBezierCoefficientsTests.OcticBezierCoefficients(a, b, c, d, e, f, g, h, i)) + (Polynomial.T * OcticBezierCoefficientsTests.OcticBezierCoefficients(b, c, d, e, f, g, h, i, j));
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d], polynomial[PolynomialTerm.e], polynomial[PolynomialTerm.f], polynomial[PolynomialTerm.g], polynomial[PolynomialTerm.h], polynomial[PolynomialTerm.i], polynomial[PolynomialTerm.j]);
         }
     }

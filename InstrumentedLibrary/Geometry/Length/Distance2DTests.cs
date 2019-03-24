@@ -23,7 +23,7 @@ namespace InstrumentedLibrary
         [DisplayName(nameof(Distance2DTests))]
         public static List<SpeedTester> TestHarness()
         {
-            var trials = 10000;
+            var trials = 15000;
             var tests = new Dictionary<object[], TestCaseResults> {
                 { new object[] { 0d, 0d, 1d, 0d }, new TestCaseResults(description: "Horizontal Line.", trials: trials, expectedReturnValue:1d, epsilon: double.Epsilon) },
             };
@@ -48,7 +48,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double Distance2D(double ax, double ay, double bx, double by)
-            => Distance2D_1(ax,  ay,  bx,  by);
+            => Distance2Dv1(ax,  ay,  bx,  by);
 
         /// <summary>
         /// Distance between two 2D points.
@@ -63,7 +63,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance2D_1(
+        public static double Distance2Dv1(
             double x1, double y1,
             double x2, double y2)
         {
@@ -83,10 +83,12 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance2D_2(
+        public static double Distance2Dv2(
             double ax, double ay,
             double bx, double by)
-            => Distance2Point2DTests.Distance2D((ax, ay), (bx, by));
+        {
+            return Distance2Point2DTests.Distance2D((ax, ay), (bx, by));
+        }
 
         /// <summary>
         /// Distance between two 2D points.
@@ -101,7 +103,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance2D_3(
+        public static double Distance2Dv3(
             double x1, double y1,
             double x2, double y2)
         {

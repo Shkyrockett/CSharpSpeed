@@ -44,7 +44,7 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Intersection(IntersectionState state, IEnumerable<(double X, double Y)> points)
-            : this(state, points as IList<(double X, double Y)>)
+            : this(state, points.ToList())
         { }
 
         /// <summary>

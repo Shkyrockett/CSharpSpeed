@@ -25,7 +25,7 @@ namespace InstrumentedLibrary
         public static List<SpeedTester> TestHarness()
         {
             var trials = 1000;
-            var triangle = new List<Point2D> { new Point2D(0d, 0d), new Point2D(1d, 0d), new Point2D(1d, 1d) };
+            var triangle = new (double X, double Y)[] { (0d, 0d), (1d, 0d), (1d, 1d) };
             //var PatrickMullenValues = PrecalcPointInPolygonContourPatrickMullenValues(polygon);
             var tests = new Dictionary<object[], TestCaseResults> {
                 { new object[] { triangle }, new TestCaseResults(description: "Triangle.", trials: trials, expectedReturnValue: 0.5d, epsilon: double.Epsilon) },
@@ -47,7 +47,7 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="double"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static double PolygonArea(List<Point2D> polygon)
+        public static double PolygonArea((double X, double Y)[] polygon)
             => PolygonAreaAngusJ(polygon);
 
         /// <summary>
@@ -64,9 +64,9 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double PolygonAreaAngusJ(List<Point2D> polygon)
+        public static double PolygonAreaAngusJ((double X, double Y)[] polygon)
         {
-            var cnt = polygon.Count;
+            var cnt = polygon.Length;
             if (cnt < 3)
             {
                 return 0d;
@@ -96,14 +96,13 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double PolygonAreaAlienRyderFlex(IEnumerable<Point2D> polygon)
+        public static double PolygonAreaAlienRyderFlex((double X, double Y)[] polygon)
         {
-            var points = polygon as List<Point2D>;
-            var j = points.Count - 1;
+            var j = polygon.Length - 1;
             var area = 0d;
-            for (var i = 0; i < points.Count; i++)
+            for (var i = 0; i < polygon.Length; i++)
             {
-                area += (points[j].X + points[i].X) * (points[j].Y - points[i].Y); j = i;
+                area += (polygon[j].X + polygon[i].X) * (polygon[j].Y - polygon[i].Y); j = i;
             }
             area *= 0.5d;
             return area < 0d ? -area : area;
@@ -123,13 +122,13 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double PolygonAreaPaulBourke(List<Point2D> polygon)
+        public static double PolygonAreaPaulBourke((double X, double Y)[] polygon)
         {
             var area = 0d;
 
-            for (var i = 0; i < polygon.Count; i++)
+            for (var i = 0; i < polygon.Length; i++)
             {
-                var j = (i + 1) % polygon.Count;
+                var j = (i + 1) % polygon.Length;
                 area += polygon[i].X * polygon[j].Y;
                 area -= polygon[i].Y * polygon[j].X;
             }
@@ -152,11 +151,11 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double PolygonArea2(List<Point2D> polygon)
+        public static double PolygonArea2((double X, double Y)[] polygon)
         {
-            var points = polygon;
+            var points = new List<(double X, double Y)>(polygon) { };
+            points.Add(polygon[0]);
 
-            points.Add(points[0]);
             return Abs(points.Take(points.Count - 1)
                .Select((p, i) => (points[i + 1].X - p.X) * (points[i + 1].Y + p.Y))
                .Sum() / 2d);
@@ -176,10 +175,11 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double PolygonArea3(List<Point2D> polygon)
+        public static double PolygonArea3((double X, double Y)[] polygon)
         {
-            polygon.Add(polygon[0]);
-            return Abs(polygon.Take(polygon.Count - 1).Select((p, i) => (p.X * polygon[i + 1].Y) - (p.Y * polygon[i + 1].X)).Sum() / 2d);
+            var points = new List<(double X, double Y)>(polygon) { };
+            points.Add(polygon[0]);
+            return Abs(points.Take(points.Count - 1).Select((p, i) => (p.X * points[i + 1].Y) - (p.Y * points[i + 1].X)).Sum() / 2d);
         }
 
         /// <summary>
@@ -196,15 +196,15 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double PolygonAreaOnlyUser(List<Point2D> polygon)
+        public static double PolygonAreaOnlyUser((double X, double Y)[] polygon)
         {
-            if (polygon.Count < 3)
+            if (polygon.Length < 3)
             {
                 return 0d;
             }
 
-            var area = MatrixDeterminant2x2Tests.Determinant(polygon[polygon.Count - 1].X, polygon[polygon.Count - 1].Y, polygon[0].X, polygon[0].Y);
-            for (var i = 1; i < polygon.Count; i++)
+            var area = MatrixDeterminant2x2Tests.Determinant(polygon[polygon.Length - 1].X, polygon[polygon.Length - 1].Y, polygon[0].X, polygon[0].Y);
+            for (var i = 1; i < polygon.Length; i++)
             {
                 area += MatrixDeterminant2x2Tests.Determinant(polygon[i - 1].X, polygon[i - 1].Y, polygon[i].X, polygon[i].Y);
             }
@@ -236,9 +236,9 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double PolygonArea5(IEnumerable<Point2D> polygon)
+        public static double PolygonArea5((double X, double Y)[] polygon)
         {
-            return Abs(PolygonSignedAreaTests.SignedPolygonArea(polygon as List<Point2D>));
+            return Abs(PolygonSignedAreaTests.SignedPolygonArea(polygon));
         }
     }
 }

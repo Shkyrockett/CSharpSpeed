@@ -99,7 +99,7 @@ namespace InstrumentedLibrary
             var theCos = end.X / dist;
             var theSin = end.Y / dist;
 
-            foreach (PolygonContour2D poly in polygons.Contours)
+            foreach (var poly in polygons.Contours)
             {
                 for (var i = 0; i < poly.Points.Count(); i++)
                 {

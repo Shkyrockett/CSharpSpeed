@@ -271,9 +271,9 @@ namespace InstrumentedLibrary
             //  polygons, as well as to the start point and endpoint.
             pointList.Add(start);
             pointCount = 1;
-            foreach (PolygonContour2D poly in polygons.Contours)
+            foreach (var poly in polygons.Contours)
             {
-                foreach (Point2D point in poly.Points)
+                foreach (var point in poly.Points)
                 {
                     pointList.Add(point);
                     pointCount++;
@@ -404,9 +404,9 @@ namespace InstrumentedLibrary
             // Build a point list that refers to the corners of the
             // polygons, as well as to the start point and endpoint.
             pointList.Add((start.X, start.Y, 0, 0));
-            foreach (PolygonContour2D poly in polygons.Contours)
+            foreach (var poly in polygons.Contours)
             {
-                foreach (Point2D point in poly.Points)
+                foreach (var point in poly.Points)
                 {
                     pointList.Add((point.X, point.Y, 0, 0));
                 }

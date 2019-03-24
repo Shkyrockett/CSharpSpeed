@@ -129,7 +129,7 @@ namespace InstrumentedLibrary
         {
             var returnValue = Inclusion.Outside;
 
-            foreach (List<Point2D> poly in polygons)
+            foreach (var poly in polygons)
             {
                 // Use alternating rule with XOR to determine if the point is in a polygon or a hole.
                 // If the point is in an odd number of polygons, it is inside. If even, it is a hole.

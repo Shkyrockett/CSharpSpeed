@@ -430,7 +430,7 @@ namespace InstrumentedLibrary
             }
 
             // Find the point of intersection.
-            var s = ((dx * (B1 - Y1)) + (dy * (X1 - A1))) / ((da * dy) - (db * dx));
+            //var s = ((dx * (B1 - Y1)) + (dy * (X1 - A1))) / ((da * dy) - (db * dx));
             var t = ((da * (Y1 - B1)) + (db * (A1 - X1))) / ((db * dx) - (da * dy));
 
             return (true, (X1 + (t * dx), Y1 + (t * dy)));

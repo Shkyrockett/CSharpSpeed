@@ -226,7 +226,7 @@ namespace InstrumentedLibrary
             var wxmax = wxmin;
             var wymin = points[0].Y;
             var wymax = wymin;
-            foreach (Point2D point in points)
+            foreach (var point in points)
             {
                 if (wxmin > point.X)
                 {

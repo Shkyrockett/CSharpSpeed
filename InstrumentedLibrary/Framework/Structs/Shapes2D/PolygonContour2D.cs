@@ -31,7 +31,10 @@ namespace InstrumentedLibrary
         /// </summary>
         public int Count => Points?.Count() ?? 0;
 
-        public RotationDirections Orientation => PolygonIsOrientedClockwiseTests.PolygonIsOrientedClockwise(Points as List<Point2D>) ? RotationDirections.Clockwise : RotationDirections.CounterClockwise;
+        /// <summary>
+        /// 
+        /// </summary>
+        public RotationDirections Orientation => PolygonIsOrientedClockwiseTests.PolygonIsOrientedClockwise(Points.Cast<(double X, double Y)>().ToArray()) ? RotationDirections.Clockwise : RotationDirections.CounterClockwise;
 
         /// <summary>
         /// 
