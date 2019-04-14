@@ -83,7 +83,7 @@ namespace InstrumentedLibrary
         /// <param name="green"></param>
         /// <param name="blue"></param>
         /// <param name="alpha"></param>
-        /// <returns>The <see cref="HSVA"/>.</returns>
+        /// <returns>The HSVA.</returns>
         /// <remarks>
         /// h = [0,360], s = [0,1], v = [0,1]
         ///		if s == 0, then h = -1 (undefined)

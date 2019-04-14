@@ -38,7 +38,7 @@ namespace VisualValidator
             flowLayoutPanel1.SuspendLayout();
             pictureBoxes?.RemoveAll(item => RemoveCanvas(flowLayoutPanel1, item));
             flowLayoutPanel1.ResumeLayout(true);
-			
+
             methods = ReflectionHelper.ListStaticMethodsWithAttribute((Type)((ComboBox)sender).SelectedItem, typeof(SourceCodeLocationProviderAttribute));
             flowLayoutPanel1.SuspendLayout();
             foreach (var method in methods)

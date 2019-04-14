@@ -2,6 +2,9 @@
 
 namespace InstrumentedLibrary
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class IFormatProviderExtensions
     {
         /// <summary>

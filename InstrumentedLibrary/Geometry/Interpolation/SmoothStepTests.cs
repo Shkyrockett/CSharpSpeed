@@ -46,7 +46,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double SmoothStep(double value1, double value2, double amount)
-            => SmoothStep_(value1,  value2,  amount);
+            => SmoothStep_(value1, value2, amount);
 
         /// <summary>
         /// Interpolates between two values using a cubic equation.

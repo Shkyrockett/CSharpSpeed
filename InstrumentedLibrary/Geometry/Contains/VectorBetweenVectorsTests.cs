@@ -62,7 +62,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static bool VectorBetween(double i, double j, double i2, double j2, double i3, double j3)
-            => VectorBetween1(i,  j,  i2,  j2,  i3,  j3);
+            => VectorBetween1(i, j, i2, j2, i3, j3);
 
         /// <summary>
         /// The vector between0.

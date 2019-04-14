@@ -35,7 +35,7 @@ namespace InstrumentedLibrary
         public AccumulatorPoint2D(AccumulatorPoint2D accumulatorPoint2D)
             : this(accumulatorPoint2D.X, accumulatorPoint2D.Y, accumulatorPoint2D.Theta, accumulatorPoint2D.TotalDistance, accumulatorPoint2D.PreviousIndex)
         { }
- 
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AccumulatorPoint2D"/> class.
         /// </summary>

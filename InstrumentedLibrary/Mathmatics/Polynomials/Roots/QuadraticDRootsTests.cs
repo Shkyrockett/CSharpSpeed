@@ -54,7 +54,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static IList<double> QuadraticDRoots(double a, double b, double c, double epsilon = Epsilon)
-            => QuadraticDRootsPoMax(a,  b,  c,  epsilon);
+            => QuadraticDRootsPoMax(a, b, c, epsilon);
 
         /// <summary>
         /// The quadratic roots.

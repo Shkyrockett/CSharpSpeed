@@ -130,7 +130,7 @@ namespace InstrumentedLibrary
         {
             set
             {
-                var euler = this.ToEulerAngles();
+                var euler = ToEulerAngles();
                 FromEulerAngles(euler.Roll, value, euler.Yaw);
             }
             get
@@ -153,7 +153,7 @@ namespace InstrumentedLibrary
         {
             set
             {
-                var euler = this.ToEulerAngles();
+                var euler = ToEulerAngles();
                 FromEulerAngles(euler.Roll, euler.Pitch, value);
             }
             get
@@ -176,7 +176,7 @@ namespace InstrumentedLibrary
         {
             set
             {
-                var euler = this.ToEulerAngles();
+                var euler = ToEulerAngles();
                 FromEulerAngles(value, euler.Pitch, euler.Yaw);
             }
             get

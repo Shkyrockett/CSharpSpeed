@@ -53,7 +53,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double X, double Y) CubicBezierDerivative(double p0X, double p0Y, double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double t)
-            => CubicBezierDerivative1(p0X,  p0Y,  p1X,  p1Y,  p2X,  p2Y,  p3X,  p3Y,  t);
+            => CubicBezierDerivative1(p0X, p0Y, p1X, p1Y, p2X, p2Y, p3X, p3Y, t);
 
         /// <summary>
         /// The cubic bezier derivative0.

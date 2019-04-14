@@ -103,7 +103,7 @@ namespace InstrumentedLibrary
         /// <param name="saturation"></param>
         /// <param name="intensity"></param>
         /// <param name="alpha"></param>
-        /// <returns>The <see cref="RGBA"/>.</returns>
+        /// <returns>The RGBA.</returns>
         /// <acknowledgment>
         /// http://dystopiancode.blogspot.com/2012/02/hsi-rgb-conversion-algorithms-in-c.html
         /// https://github.com/dystopiancode/colorspace-conversions

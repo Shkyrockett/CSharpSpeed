@@ -45,7 +45,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double X, double Y) PerpendicularClockwise(double i, double j)
-            => PerpendicularClockwise0(i,j);
+            => PerpendicularClockwise0(i, j);
 
         /// <summary>
         /// Find the Clockwise Perpendicular of a Vector.

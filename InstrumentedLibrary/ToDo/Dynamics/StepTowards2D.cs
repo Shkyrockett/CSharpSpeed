@@ -23,7 +23,7 @@ namespace InstrumentedLibrary
             var deltaY = vectorDirection.J - vectorOrigin.J;
 
             var deltaLength = Sqrt(deltaX * deltaX + deltaY * deltaY);
-            if (deltaLength == 0|| Abs(deltaLength) < length) return vectorDirection;
+            if (deltaLength == 0 || Abs(deltaLength) < length) return vectorDirection;
             var lengthRatio = length / deltaLength;
 
             var extendedDeltaX = deltaX * lengthRatio;

@@ -27,11 +27,10 @@ namespace InstrumentedLibrary
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
-            var point = new Point2D(1, 1);
-            var triangle = new List<Point2D> { new Point2D(0, 0), new Point2D(2, 0), new Point2D(0, 2) };
+            var triangle = new List<(double X, double Y)> { (0, 0), (2, 0), (0, 2) };
             //var PatrickMullenValues = PrecalcPointInPolygonContourPatrickMullenValues(polygon);
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { triangle, point }, new TestCaseResults(description: "Triangle, contains point.", trials: trials, expectedReturnValue: true, epsilon: double.Epsilon) },
+                { new object[] { triangle, 1d, 1d }, new TestCaseResults(description: "Triangle, contains point.", trials: trials, expectedReturnValue: true, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -47,18 +46,20 @@ namespace InstrumentedLibrary
         /// 
         /// </summary>
         /// <param name="polygon"></param>
-        /// <param name="point"></param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static bool PolygonContourContainsPoint(List<Point2D> polygon, Point2D point)
-            => PointInPolygonContourJerryKnauss2(polygon, point);
+        public static bool PolygonContourContainsPoint(List<(double X, double Y)> polygon, double X, double Y)
+            => PointInPolygonContourJerryKnauss2(polygon, X, Y);
 
         /// <summary>
         /// The point in polygon contour jerry knauss.
         /// </summary>
         /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns>The <see cref="bool"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/polygonmesh/
@@ -71,8 +72,9 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonContourJerryKnauss(
-            List<Point2D> polygon, Point2D point)
+            List<(double X, double Y)> polygon, double X, double Y)
         {
+            (double X, double Y) point = (X, Y);
             var result = false;
 
             for (var i = 0; i < polygon.Count - 1; i++)
@@ -93,7 +95,8 @@ namespace InstrumentedLibrary
         /// The point in polygon contour jerry knauss2.
         /// </summary>
         /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns>The <see cref="bool"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/polygonmesh/
@@ -106,8 +109,9 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonContourJerryKnauss2(
-            List<Point2D> polygon, Point2D point)
+            List<(double X, double Y)> polygon, double X, double Y)
         {
+            (double X, double Y) point = (X, Y);
             var j = polygon.Count - 1;
             var result = false;
 
@@ -135,8 +139,9 @@ namespace InstrumentedLibrary
         /// false if it is not.  If the point is exactly on the edge of the polygon,
         /// then the function may return true or false.
         /// </summary>
-        /// <param name="point">point to be tested</param>
         /// <param name="polygon">coordinates of corners</param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://alienryderflex.com/polygon/
@@ -148,8 +153,9 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonContourDarelRexFinley(
-            List<Point2D> polygon, Point2D point)
+            List<(double X, double Y)> polygon, double X, double Y)
         {
+            (double X, double Y) point = (X, Y);
             var j = polygon.Count - 1;
             var oddNodes = false;
 
@@ -179,8 +185,9 @@ namespace InstrumentedLibrary
         /// false if it is not.  If the point is exactly on the edge of the polygon,
         /// then the function may return true or false.
         /// </summary>
-        /// <param name="point">point to be tested</param>
         /// <param name="polygon">coordinates of corners</param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://alienryderflex.com/polygon/
@@ -192,8 +199,9 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonContourNathanMercer(
-            List<Point2D> polygon, Point2D point)
+            List<(double X, double Y)> polygon, double X, double Y)
         {
+            (double X, double Y) point = (X, Y);
             var j = polygon.Count - 1;
             var oddNodes = false;
 
@@ -223,8 +231,9 @@ namespace InstrumentedLibrary
         ///  NO if it is not.  If the point is exactly on the edge of the polygon,
         ///  then the function may return YES or NO.
         /// </summary>
-        /// <param name="point"></param>
         /// <param name="polygon"></param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://alienryderflex.com/polygon/
@@ -236,8 +245,9 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonContourLaschaLagidse(
-            List<Point2D> polygon, Point2D point)
+            List<(double X, double Y)> polygon, double X, double Y)
         {
+            (double X, double Y) point = (X, Y);
             int i;
             var j = polygon.Count - 1;
             var oddNodes = false;
@@ -270,8 +280,9 @@ namespace InstrumentedLibrary
         ///  NO if it is not.  If the point is exactly on the edge of the polygon,
         ///  then the function may return YES or NO.
         /// </summary>
-        /// <param name="point"></param>
         /// <param name="polygon">coordinates of corners</param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <param name="constant">storage for pre-calculated constants (same size as polyX)</param>
         /// <param name="multiple">storage for pre-calculated multipliers (same size as polyX)</param>
         /// <returns></returns>
@@ -280,9 +291,10 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonContourPatrickMullen(
-            List<Point2D> polygon, Point2D point,
+            List<(double X, double Y)> polygon, double X, double Y,
             List<double> constant, List<double> multiple)
         {
+            (double X, double Y) point = (X, Y);
             int i, j = polygon.Count - 1;
             var oddNodes = false;
 
@@ -309,9 +321,10 @@ namespace InstrumentedLibrary
         /// <acknowledgment>
         /// http://alienryderflex.com/polygon/
         /// </acknowledgment>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (List<double>, List<double>)? PrecalcPointInPolygonContourPatrickMullenValues(
-            List<Point2D> polygon)
+            List<(double X, double Y)> polygon)
         {
             if (polygon is null)
             {
@@ -347,7 +360,8 @@ namespace InstrumentedLibrary
         /// Determines if the given point is inside the polygon contour.
         /// </summary>
         /// <param name="polygon">the vertices of polygon</param>
-        /// <param name="point">the given point</param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns>true if the point is inside the polygon; otherwise, false</returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon
@@ -359,8 +373,9 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonContourMeowNET(
-            List<Point2D> polygon, Point2D point)
+            List<(double X, double Y)> polygon, double X, double Y)
         {
+            (double X, double Y) point = (X, Y);
             var result = false;
             var j = polygon.Count - 1;
             for (var i = 0; i < polygon.Count; i++)
@@ -382,7 +397,8 @@ namespace InstrumentedLibrary
         /// <summary>
         /// </summary>
         /// <param name="polygon"></param>
-        /// <param name="point"></param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://alienryderflex.com/polygon/
@@ -410,8 +426,9 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonContourAlienRyderFlex(
-            List<Point2D> polygon, Point2D point)
+            List<(double X, double Y)> polygon, double X, double Y)
         {
+            (double X, double Y) point = (X, Y);
             int i;
             var j = polygon.Count - 1;
             var oddNodes = false;
@@ -437,7 +454,8 @@ namespace InstrumentedLibrary
         /// <summary>
         /// </summary>
         /// <param name="polygon"></param>
-        /// <param name="point"></param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://alienryderflex.com/polygon/
@@ -465,8 +483,9 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonContourLaschaLagidse2(
-            List<Point2D> polygon, Point2D point)
+            List<(double X, double Y)> polygon, double X, double Y)
         {
+            (double X, double Y) point = (X, Y);
             int i;
             var j = polygon.Count - 1;
             var oddNodes = false;
@@ -490,7 +509,8 @@ namespace InstrumentedLibrary
         /// <summary>
         /// </summary>
         /// <param name="polygon"></param>
-        /// <param name="point"></param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon
@@ -504,8 +524,9 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonContourGilKr(
-            List<Point2D> polygon, Point2D point)
+            List<(double X, double Y)> polygon, double X, double Y)
         {
+            (double X, double Y) point = (X, Y);
             var nvert = polygon.Count;
             var c = false;
             for (int i = 0, j = nvert - 1; i < nvert; j = i++)
@@ -525,7 +546,8 @@ namespace InstrumentedLibrary
         /// The point in polygon contour m katz w randolph franklin.
         /// </summary>
         /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns>The <see cref="bool"/>.</returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/217578/how-can-i-determine-whether-a-2d-point-is-within-a-polygon
@@ -538,8 +560,9 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonContourMKatzWRandolphFranklin(
-            List<Point2D> polygon, Point2D point)
+            List<(double X, double Y)> polygon, double X, double Y)
         {
+            (double X, double Y) point = (X, Y);
             var minX = polygon[0].X;
             var maxX = polygon[0].X;
             var minY = polygon[0].Y;
@@ -577,7 +600,8 @@ namespace InstrumentedLibrary
         /// The point in polygon contour paul bourke.
         /// </summary>
         /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns>The <see cref="bool"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/polygonmesh/
@@ -591,8 +615,9 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonContourPaulBourke(
-            List<Point2D> polygon, Point2D point)
+            List<(double X, double Y)> polygon, double X, double Y)
         {
+            (double X, double Y) point = (X, Y);
             Point2D p1, p2;
             var counter = 0;
             int i;
@@ -629,7 +654,8 @@ namespace InstrumentedLibrary
         /// The point in polygon contour w randolph franklin.
         /// </summary>
         /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns>The <see cref="bool"/>.</returns>
         /// <acknowledgment>
         /// https://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
@@ -641,8 +667,9 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonContourWRandolphFranklin(
-            List<Point2D> polygon, Point2D point)
+            List<(double X, double Y)> polygon, double X, double Y)
         {
+            (double X, double Y) point = (X, Y);
             var inside = false;
             var nvert = polygon.Count;
             for (int i = 0, j = nvert - 1; i < nvert; j = i++)
@@ -661,7 +688,8 @@ namespace InstrumentedLibrary
         /// The point in polygon contour saeed amiri.
         /// </summary>
         /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns>The <see cref="bool"/>.</returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon
@@ -673,8 +701,9 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonContourSaeedAmiri(
-            List<Point2D> polygon, Point2D point)
+            List<(double X, double Y)> polygon, double X, double Y)
         {
+            (double X, double Y) point = (X, Y);
             var coef = polygon.Skip(1).Select((p, i) =>
                   ((p.X - polygon[i].X) * (point.Y - polygon[i].Y))
                 - ((p.Y - polygon[i].Y) * (point.X - polygon[i].X))
@@ -700,7 +729,8 @@ namespace InstrumentedLibrary
         /// The point in polygon contour philippe reverdy.
         /// </summary>
         /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns>The <see cref="bool"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/polygonmesh/
@@ -712,8 +742,9 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonContourPhilippeReverdy(
-            List<Point2D> polygon, Point2D point)
+            List<(double X, double Y)> polygon, double X, double Y)
         {
+            (double X, double Y) point = (X, Y);
             int i;
             double angle = 0;
             var p1 = new Point2D();
@@ -735,7 +766,8 @@ namespace InstrumentedLibrary
         /// The point in polygon contour rod stephens.
         /// </summary>
         /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns>The <see cref="bool"/>.Return true if the point is in the polygon.</returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
@@ -747,8 +779,9 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonContourRodStephens(
-            List<Point2D> polygon, Point2D point)
+            List<(double X, double Y)> polygon, double X, double Y)
         {
+            (double X, double Y) point = (X, Y);
             // Get the angle between the point and the
             // first and last vertices.
             var max_point = polygon.Count - 1;
@@ -776,7 +809,8 @@ namespace InstrumentedLibrary
         /// <summary>
         /// </summary>
         /// <param name="polygon"></param>
-        /// <param name="point"></param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon
@@ -789,8 +823,9 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonContourKeith(
-            List<Point2D> polygon, Point2D point)
+            List<(double X, double Y)> polygon, double X, double Y)
         {
+            (double X, double Y) point = (X, Y);
             Point2D p1, p2;
 
             var inside = false;
@@ -834,7 +869,8 @@ namespace InstrumentedLibrary
         /// is target point inside a 2D polygon?
         /// </summary>
         /// <param name="polygon">polygon points</param>
-        /// <param name="point">target point</param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns></returns>
         [DisplayName("Point in Polygon")]
         [Description("Bob Stein Point in Polygon method.")]
@@ -843,8 +879,9 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonContourBobStein(
-            List<Point2D> polygon, Point2D point)
+            List<(double X, double Y)> polygon, double X, double Y)
         {
+            (double X, double Y) point = (X, Y);
             double xnew, ynew;
             double xold, yold;
             double x1, y1;
@@ -893,7 +930,8 @@ namespace InstrumentedLibrary
         /// The point in polygon contour hormann agathos expanded.
         /// </summary>
         /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns>The <see cref="Inclusion"/>.</returns>
         /// <acknowledgment>
         /// http://angusj.com/delphi/clipper.php
@@ -904,8 +942,9 @@ namespace InstrumentedLibrary
         //[SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInPolygonContourHormannAgathosExpanded(List<Point2D> polygon, Point2D point)
+        public static Inclusion PointInPolygonContourHormannAgathosExpanded(List<(double X, double Y)> polygon, double X, double Y)
         {
+            (double X, double Y) point = (X, Y);
             // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
             // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
             // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
@@ -976,7 +1015,8 @@ namespace InstrumentedLibrary
         /// The point in polygon contour hormann agathos expanded2.
         /// </summary>
         /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns>The <see cref="Inclusion"/>.</returns>
         /// <acknowledgment>http://angusj.com/delphi/clipper.php</acknowledgment>
         //[DisplayName("Point in Polygon")]
@@ -985,8 +1025,9 @@ namespace InstrumentedLibrary
         //[SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInPolygonContourHormannAgathosExpanded2(List<Point2D> polygon, Point2D point)
+        public static Inclusion PointInPolygonContourHormannAgathosExpanded2(List<(double X, double Y)> polygon, double X, double Y)
         {
+            (double X, double Y) point = (X, Y);
             // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
             // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
             // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
@@ -1061,7 +1102,8 @@ namespace InstrumentedLibrary
         /// The point in polygon contour hormann agathos simplified.
         /// </summary>
         /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns>The <see cref="Inclusion"/>.</returns>
         /// <acknowledgment>http://angusj.com/delphi/clipper.php</acknowledgment>
         //[DisplayName("Point in Polygon")]
@@ -1070,8 +1112,9 @@ namespace InstrumentedLibrary
         //[SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInPolygonContourHormannAgathosSimplified(List<Point2D> polygon, Point2D point)
+        public static Inclusion PointInPolygonContourHormannAgathosSimplified(List<(double X, double Y)> polygon, double X, double Y)
         {
+            (double X, double Y) point = (X, Y);
             // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
             // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
             // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
@@ -1128,7 +1171,8 @@ namespace InstrumentedLibrary
         /// The point in polygon contour hormann agathos expanded3.
         /// </summary>
         /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns>The <see cref="Inclusion"/>.</returns>
         /// <acknowledgment>http://angusj.com/delphi/clipper.php</acknowledgment>
         //[DisplayName("Point in Polygon")]
@@ -1137,8 +1181,9 @@ namespace InstrumentedLibrary
         //[SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInPolygonContourHormannAgathosExpanded3(List<Point2D> polygon, Point2D point)
+        public static Inclusion PointInPolygonContourHormannAgathosExpanded3(List<(double X, double Y)> polygon, double X, double Y)
         {
+            (double X, double Y) point = (X, Y);
             // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
             // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
             // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
@@ -1217,7 +1262,8 @@ namespace InstrumentedLibrary
         /// Determines whether the specified point is contained withing the region defined by this <see cref="List{Point2D}"/>.
         /// </summary>
         /// <param name="polygon">The points that form the corners of the polygon.</param>
-        /// <param name="point">The coordinate of the test point.</param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns>
         /// Returns Outside (0) if false, Inside (+1) if true, Boundary (-1) if the point is on a polygon boundary.
         /// </returns>
@@ -1231,14 +1277,16 @@ namespace InstrumentedLibrary
         [Acknowledgment("http://angusj.com/delphi/clipper.php", "http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
-        public static bool PointInPolygonContourHormannAgathosNewFor(List<Point2D> polygon, Point2D point)
-            => PointInPolygonContourHormannAgathosNewFor(polygon, point, Epsilon) != Inclusion.Outside;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PointInPolygonContourHormannAgathosNewFor(List<(double X, double Y)> polygon, double X, double Y)
+            => PointInPolygonContourHormannAgathosNewFor(polygon, X, Y, Epsilon) != Inclusion.Outside;
 
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="PolygonContour2D"/>.
         /// </summary>
         /// <param name="points">The points that form the corners of the polygon.</param>
-        /// <param name="p">The coordinate of the test point.</param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>
         /// Returns Outside (0) if false, Inside (+1) if true, Boundary (-1) if the point is on a polygon boundary.
@@ -1248,12 +1296,14 @@ namespace InstrumentedLibrary
         /// See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann and Agathos
         /// http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
         /// </acknowledgment>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion PointInPolygonContourHormannAgathosNewFor(
-            List<Point2D> points,
-            Point2D p,
+            List<(double X, double Y)> points,
+            double X, double Y,
             double epsilon = Epsilon)
         {
+            (double X, double Y) p = (X, Y);
             // Default value is no inclusion.
             var result = Inclusion.Outside;
 
@@ -1336,6 +1386,47 @@ namespace InstrumentedLibrary
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Return true iff the point (x, y) is in the polygon
+        /// described by the array "poly" whose elements are 
+        /// vertex objects with "x" and "y" properties. Derived
+        /// from Pamela's function in
+        /// https://www.khanacademy.org/cs/p/5211412870725632
+        /// which implements the even-odd rule of ray tracing.
+        /// </summary>
+        /// <param name="poly">The poly.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// https://www.khanacademy.org/cs/p/5211412870725632
+        /// </acknowledgment>
+        [DisplayName("Point in Polygon")]
+        [Description("Determine whether a point is contained within a Polygon.")]
+        [Acknowledgment("https://www.khanacademy.org/cs/p/5211412870725632")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PolygonContainsPoint(
+            List<(double X, double Y)> poly, double x,
+            double y)
+        {
+            var isIn = false;
+            for (int i = 0, j = poly.Count - 1; i < poly.Count; j = i++)
+            {
+                var xi = poly[i].X;
+                var yi = poly[i].Y;
+                var xj = poly[j].X;
+                var yj = poly[j].Y;
+                var intersect = ((yi > y) != (yj > y)) && (x < ((xj - xi) * (y - yi) / (yj - yi)) + xi);
+                if (intersect)
+                {
+                    isIn = !isIn;
+                }
+            }
+            return isIn;
         }
     }
 }

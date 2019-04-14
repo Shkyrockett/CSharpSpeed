@@ -76,7 +76,7 @@ namespace InstrumentedLibrary
         public static (byte cyan, byte yellow, byte magenta, byte black, byte alpha) RGBAFColorToCYMKAColor0(float red, float green, float blue, float alpha)
         {
             var k = 1 - red < 1 - green ? 1 - red : 1 - green;
-            k = 1-blue < k ? 1-blue : k;
+            k = 1 - blue < k ? 1 - blue : k;
 
             var d = 1f / (1f - k);
 

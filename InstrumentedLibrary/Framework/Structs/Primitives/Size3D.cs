@@ -32,7 +32,7 @@ namespace InstrumentedLibrary
         /// Represents a <see cref="Size3D"/> that has <see cref="Width"/>, <see cref="Height"/>, and <see cref="Depth"/> values set to NaN.
         /// </summary>
         public static readonly Size3D NaN = new Size3D(double.NaN, double.NaN, double.NaN);
-		
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Size3D"/> class.
         /// </summary>

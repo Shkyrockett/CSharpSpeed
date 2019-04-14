@@ -109,7 +109,7 @@ namespace InstrumentedLibrary
                 var alpha = (2 * i + 2 - n % 4) / (2 * n) * Math.PI;
                 var radius = 1 == i % 2 ? innerRadius : outerRadius;
 
-                (double X, double Y) point = ( Math.Cos(alpha) * radius,Math.Sin(alpha) * radius);
+                (double X, double Y) point = (Math.Cos(alpha) * radius, Math.Sin(alpha) * radius);
                 points.Add(point);
             }
             return points.ToArray();

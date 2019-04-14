@@ -58,7 +58,7 @@ namespace InstrumentedLibrary
         /// <param name="saturation">The s.</param>
         /// <param name="value">The v.</param>
         /// <param name="alpha">The a.</param>
-        /// <returns>The <see cref="RGBA"/>.</returns>
+        /// <returns>The RGBA.</returns>
         /// <remarks>
         /// h = [0,360], s = [0,1], v = [0,1]
         ///		if s == 0, then h = -1 (undefined)
@@ -148,7 +148,7 @@ namespace InstrumentedLibrary
         /// <param name="saturation">The saturation.</param>
         /// <param name="value">The value.</param>
         /// <param name="alpha"></param>
-        /// <returns>The <see cref="RGBA"/>.</returns>
+        /// <returns>The RGBA.</returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/359612/how-to-change-rgb-color-to-hsv
         /// </acknowledgment>

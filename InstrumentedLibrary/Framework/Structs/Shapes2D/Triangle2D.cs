@@ -4,21 +4,39 @@ using System.Runtime.CompilerServices;
 
 namespace InstrumentedLibrary
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Triangle2D
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Triangle2D(Point2D a, Point2D b, Point2D c)
         {
-            this.A = a;
-            this.B = b;
-            this.C = c;
+            A = a;
+            B = b;
+            C = c;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Point2D A { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Point2D B { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Point2D C { get; set; }
 
         /// <summary>
@@ -29,6 +47,6 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Contains(Point2D point)
-            => PolygonContourContainsPointTests.PolygonContourContainsPoint(new List<Point2D> { A, B, C }, point);
+            => PolygonContourContainsPointTests.PolygonContourContainsPoint(new List<(double X, double Y)> { A, B, C }, point.X, point.Y);
     }
 }

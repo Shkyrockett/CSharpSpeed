@@ -45,7 +45,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static long GreatestCommonDivisor(long a, long b)
-            => GCD(a,b);
+            => GCD(a, b);
 
         /// <summary>
         /// Return the greatest common divisor (GCD) of a and b.

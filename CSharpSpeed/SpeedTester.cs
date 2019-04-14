@@ -254,10 +254,10 @@ namespace CSharpSpeed
             // This mess is to make sure to print reproducible floating point values in order to be able to correct test cases.
             switch (value)
             {
-                case double d:
-                    return $"{d:R}";
                 case float f:
                     return $"{f:R}";
+                case double d:
+                    return $"{d:R}";
                 case ValueTuple<float, float> t:
                     return $"({t.Item1:R}, {t.Item2:R})";
                 case ValueTuple<double, double> t:
@@ -284,12 +284,36 @@ namespace CSharpSpeed
                     return $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R}, {t.Item6:R}, {t.Item7:R})";
                 case float[] l:
                     return $"float\\[\\] {{{string.Join(", ", l.Select(x => $"{x:R}"))}}}";
+                case double[] l:
+                    return $"double\\[\\] {{{string.Join(", ", l.Select(x => $"{x:R}"))}}}";
+                case ValueTuple<float, float>[] v:
+                    return $"(float, float)\\[\\]{{{ string.Join(',', v.Select(o => ObjectValueToString(o)))}}}";
+                case ValueTuple<double, double>[] v:
+                    return $"(double, double)\\[\\]{{{ string.Join(',', v.Select(o => ObjectValueToString(o)))}}}";
+                case ValueTuple<float, float, float>[] v:
+                    return $"(float, float, float)\\[\\]{{{ string.Join(',', v.Select(o => ObjectValueToString(o)))}}}";
+                case ValueTuple<double, double, double>[] v:
+                    return $"(double, double, double)\\[\\]{{{ string.Join(',', v.Select(o => ObjectValueToString(o)))}}}";
+                case ValueTuple<float, float, float, float>[] v:
+                    return $"(float, float, float, float)\\[\\]{{{ string.Join(',', v.Select(o => ObjectValueToString(o)))}}}";
+                case ValueTuple<double, double, double, double>[] v:
+                    return $"(double, double, double, double)\\[\\]{{{ string.Join(',', v.Select(o => ObjectValueToString(o)))}}}";
+                case ValueTuple<float, float, float, float, float>[] v:
+                    return $"(float, float, float, float, float)\\[\\]{{{ string.Join(',', v.Select(o => ObjectValueToString(o)))}}}";
+                case ValueTuple<double, double, double, double, double>[] v:
+                    return $"(double, double, double, double, double)\\[\\]{{{ string.Join(',', v.Select(o => ObjectValueToString(o)))}}}";
+                case ValueTuple<float, float, float, float, float, float>[] v:
+                    return $"(float, float, float, float, float, float)\\[\\]{{{ string.Join(',', v.Select(o => ObjectValueToString(o)))}}}";
+                case ValueTuple<double, double, double, double, double, double>[] v:
+                    return $"(double, double, double, double, double, double)\\[\\]{{{ string.Join(',', v.Select(o => ObjectValueToString(o)))}}}";
+                case ValueTuple<float, float, float, float, float, float, float>[] v:
+                    return $"(float, float, float, float, float, float, float)\\[\\]{{{ string.Join(',', v.Select(o => ObjectValueToString(o)))}}}";
+                case ValueTuple<double, double, double, double, double, double, double>[] v:
+                    return $"(double, double, double, double, double, double, double)\\[\\]{{{ string.Join(',', v.Select(o => ObjectValueToString(o)))}}}";
                 case List<float> l:
                     return $"List\\<float\\> {{{string.Join(", ", l.Select(x => $"{x:R}"))}}}";
                 case IList<float> l:
                     return $"IList\\<float\\> {{{string.Join(", ", l.Select(x => $"{x:R}"))}}}";
-                case double[] l:
-                    return $"double\\[\\] {{{string.Join(", ", l.Select(x => $"{x:R}"))}}}";
                 case List<double> l:
                     return $"List\\<double\\> {{{string.Join(", ", l.Select(x => $"{x:R}"))}}}";
                 case IList<double> l:
@@ -467,6 +491,32 @@ namespace CSharpSpeed
                                 for (var i = 0; i < l.Count; i++)
                                 {
                                     if (l[i] != k[i])
+                                    {
+                                        equivalency = notEqual;
+                                        break;
+                                    }
+                                }
+                            }
+                            break;
+                        default:
+                            equivalency = Equals(testcase.Value.ReturnValue, testcase.Value.ExpectedReturnValue) ? equal : notEqual;
+                            break;
+                    }
+                    break;
+                case (double, double)[] a:
+                    switch (testcase.Value.ExpectedReturnValue)
+                    {
+                        case (double, double)[] b:
+                            equivalency = equal;
+                            if (a.Length != b.Length)
+                            {
+                                equivalency = notEqual;
+                            }
+                            else
+                            {
+                                for (var i = 0; i < a.Length; i++)
+                                {
+                                    if (a[i] != b[i])
                                     {
                                         equivalency = notEqual;
                                         break;

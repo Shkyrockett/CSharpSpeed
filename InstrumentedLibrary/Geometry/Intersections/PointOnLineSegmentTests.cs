@@ -174,5 +174,30 @@ namespace InstrumentedLibrary
             // Sqrt((Point.X - Line.A.X) ^ 2 + (Point.Y - Line.A.Y))
             return Abs(Distance2DTests.Distance2D(segmentAX, segmentAY, segmentBX, segmentBY) - Length1 + Length2) < DoubleEpsilon;
         }
+
+        /// <summary>
+        /// Return true iff the point (x, y) is in the line
+        /// segment (x1, y1) to (x2, y2).
+        /// </summary>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// https://www.khanacademy.org/profile/BobLyon/programs
+        /// </acknowledgment>
+        [DisplayName("Point On Line Segment Tests")]
+        [Description("Determines whether a point is on a line segment.")]
+        [Acknowledgment("https://www.khanacademy.org/profile/BobLyon/programs")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool LineContainsPoint(double x1, double y1, double x2, double y2, double x, double y)
+        {
+            return (y2 - y1) / (x2 - x1) == (y - y1) / (x - x1) && ValueBetweenTests.Between(x, x1, x2);
+        }
     }
 }

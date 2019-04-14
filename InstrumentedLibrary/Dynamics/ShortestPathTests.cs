@@ -24,38 +24,31 @@ namespace InstrumentedLibrary
         [DisplayName(nameof(ShortestPathTests))]
         public static List<SpeedTester> TestHarness()
         {
-            var set = new Polygon2D(
-                new List<PolygonContour2D>(
-                    new List<PolygonContour2D> {
-                        new PolygonContour2D( // Boundary
-                            new List<Point2D> {
-                                new Point2D(10, 10),
-                                new Point2D(300, 10),
-                                new Point2D(300, 300),
-                                new Point2D(10, 300),
-                                // Cut out
-                                new Point2D(10, 200),
-                                new Point2D(200, 80),
-                                new Point2D(10, 150)
-                            }
-                        ),
-                        new PolygonContour2D( // First inner triangle
-                            new List<Point2D> {
-                                new Point2D(20, 100),
-                                new Point2D(175, 60),
-                                new Point2D(40, 30)
-                            }
-                        ),
-                        new PolygonContour2D( // Second inner triangle
-                            new List<Point2D> {
-                                new Point2D(250, 150),
-                                new Point2D(150, 150),
-                                new Point2D(250, 200)
-                            }
-                        )
-                    }
-                )
-            );
+            var set = new List<List<(double X, double Y)>>{
+                // Boundary
+                new List<(double X, double Y)> {
+                    new Point2D(10, 10),
+                    new Point2D(300, 10),
+                    new Point2D(300, 300),
+                    new Point2D(10, 300),
+                    // Cut out
+                    new Point2D(10, 200),
+                    new Point2D(200, 80),
+                    new Point2D(10, 150)
+                },
+                // First inner triangle
+                new List<(double X, double Y)> {
+                    new Point2D(20, 100),
+                    new Point2D(175, 60),
+                    new Point2D(40, 30)
+                },
+                // Second inner triangle
+                new List<(double X, double Y)> {
+                    new Point2D(250, 150),
+                    new Point2D(150, 150),
+                    new Point2D(250, 200)
+                }
+            };
             var trials = 100;
             var tests = new Dictionary<object[], TestCaseResults> {
                 { new object[] { set, new Point2D(20, 20), new Point2D(200, 200) }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: new Point2D(1.625d, 1.25d), epsilon: double.Epsilon) },
@@ -79,7 +72,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static Polyline2D? ShortestPath(Polygon2D polygons, Point2D start, Point2D end)
+        public static List<(double X, double Y)> ShortestPath(List<List<(double X, double Y)>> polygons, Point2D start, Point2D end)
             => ShortestPath0(polygons, start, end);
 
         /// <summary>
@@ -106,13 +99,13 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polyline2D? ShortestPath0(Polygon2D polygons, Point2D start, Point2D end)
+        public static List<(double X, double Y)> ShortestPath0(List<List<(double X, double Y)>> polygons, Point2D start, Point2D end)
         {
             // (larger than total solution dist could ever be)
             const double maxLength = double.MaxValue;// 9999999.0;
 
             var pointList = new List<AccumulatorPoint2D>();
-            var solution = new List<Point2D>();
+            var solution = new List<(double x, double y)>();
 
             int pointCount, solutionNodes;
 
@@ -120,8 +113,8 @@ namespace InstrumentedLibrary
             double bestDist, newDist;
 
             //  Fail if either the start point or endpoint is outside the polygon set.
-            if (!PolygonContainsPointTests.PolygonContainsPoint(polygons, start)
-            || !PolygonContainsPointTests.PolygonContainsPoint(polygons, end))
+            if (!PolygonContainsPointTests.PolygonContainsPoint(polygons, start.X, start.Y)
+            || !PolygonContainsPointTests.PolygonContainsPoint(polygons, end.X, end.Y))
             {
                 return null;
             }
@@ -129,7 +122,7 @@ namespace InstrumentedLibrary
             //  If there is a straight-line solution, return with it immediately.
             if (PolygonContainsLineSegmentTests.PolygonContainsLineSegment(polygons, start, end))
             {
-                return new Polyline2D(new List<Point2D> { start, end });
+                return new List<(double X, double Y)> { start, end };
             }
 
             //  Build a point list that refers to the corners of the
@@ -138,9 +131,9 @@ namespace InstrumentedLibrary
             pointCount = 1;
             for (polyI = 0; polyI < polygons.Count; polyI++)
             {
-                for (i = 0; i < ((polygons.Contours as List<PolygonContour2D>)[polyI].Points as List<Point2D>).Count; i++)
+                for (i = 0; i < polygons[polyI].Count; i++)
                 {
-                    pointList.Add(((polygons.Contours as List<PolygonContour2D>)[polyI].Points as List<Point2D>)[i]);
+                    pointList.Add(new AccumulatorPoint2D(polygons[polyI][i]));
                     pointCount++;
                 }
             }
@@ -210,7 +203,7 @@ namespace InstrumentedLibrary
             solution.Add(end);
 
             //  Success.
-            return new Polyline2D(solution);
+            return solution;
         }
 
         /// <summary>
@@ -237,13 +230,13 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polyline2D? ShortestPath1(Polygon2D polygons, Point2D start, Point2D end)
+        public static List<(double X, double Y)> ShortestPath1(List<List<(double X, double Y)>> polygons, Point2D start, Point2D end)
         {
             // (larger than total solution dist could ever be)
             const double maxLength = double.MaxValue;
 
             var pointList = new List<AccumulatorPoint2D>();
-            var solution = new List<Point2D>();
+            var solution = new List<(double X, double Y)>();
 
             int pointCount;
             int solutionNodes;
@@ -255,8 +248,8 @@ namespace InstrumentedLibrary
             double newDist;
 
             //  Fail if either the start point or endpoint is outside the polygon set.
-            if (!PolygonContainsPointTests.PolygonContainsPoint(polygons, start)
-            || !PolygonContainsPointTests.PolygonContainsPoint(polygons, end))
+            if (!PolygonContainsPointTests.PolygonContainsPoint(polygons, start.X, start.Y)
+            || !PolygonContainsPointTests.PolygonContainsPoint(polygons, end.X, end.Y))
             {
                 return null;
             }
@@ -264,18 +257,18 @@ namespace InstrumentedLibrary
             //  If there is a straight-line solution, return with it immediately.
             if (PolygonContainsLineSegmentTests.PolygonContainsLineSegment(polygons, start, end))
             {
-                return new Polyline2D(new List<Point2D> { start, end });
+                return new List<(double X, double Y)> { start, end };
             }
 
             //  Build a point list that refers to the corners of the
             //  polygons, as well as to the start point and endpoint.
             pointList.Add(start);
             pointCount = 1;
-            foreach (var poly in polygons.Contours)
+            foreach (var poly in polygons)
             {
-                foreach (var point in poly.Points)
+                foreach (var point in poly)
                 {
-                    pointList.Add(point);
+                    pointList.Add(new AccumulatorPoint2D(point));
                     pointCount++;
                 }
             }
@@ -297,7 +290,7 @@ namespace InstrumentedLibrary
                 {
                     for (var tj = treeCount; tj < pointCount; tj++)
                     {
-                        if (PolygonContainsPointTests.PolygonContainsPoint(polygons, pointList[ti]) && PolygonContainsPointTests.PolygonContainsPoint(polygons, pointList[tj]))
+                        if (PolygonContainsPointTests.PolygonContainsPoint(polygons, pointList[ti].X, pointList[ti].Y) && PolygonContainsPointTests.PolygonContainsPoint(polygons, pointList[tj].X, pointList[tj].Y))
                         {
                             newDist = pointList[ti].TotalDistance + Distance2Point2DTests.Distance2D((Point2D)pointList[ti], (Point2D)pointList[tj]);
                             if (newDist < bestDist)
@@ -345,7 +338,7 @@ namespace InstrumentedLibrary
             solution.Add(end);
 
             //  Success.
-            return new Polyline2D(solution);
+            return solution;
         }
 
         /// <summary>
@@ -372,11 +365,11 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polyline2D? ShortestPath2(Polygon2D polygons, Point2D start, Point2D end)
+        public static List<(double X, double Y)> ShortestPath2(List<List<(double X, double Y)>> polygons, Point2D start, Point2D end)
         {
             // Fail if either the start point or endpoint is outside the polygon set.
-            if (!PolygonContainsPointTests.PolygonContainsPoint(polygons, start)
-            || !PolygonContainsPointTests.PolygonContainsPoint(polygons, end))
+            if (!PolygonContainsPointTests.PolygonContainsPoint(polygons, start.X, start.Y)
+            || !PolygonContainsPointTests.PolygonContainsPoint(polygons, end.X, end.Y))
             {
                 return null;
             }
@@ -384,14 +377,14 @@ namespace InstrumentedLibrary
             // If there is a straight-line solution, return with it immediately.
             if (PolygonContainsLineSegmentTests.PolygonContainsLineSegment(polygons, start, end))
             {
-                return new Polyline2D(new List<Point2D> { start, end });
+                return new List<(double X, double Y)> { start, end };
             }
 
             // (larger than total solution dist could ever be)
             const double maxLength = double.MaxValue;
 
             var pointList = new List<(double X, double Y, double TotalDistance, int Previous)>();
-            var solution = new List<Point2D>();
+            var solution = new List<(double X, double Y)>();
 
             int solutionNodes;
 
@@ -404,9 +397,9 @@ namespace InstrumentedLibrary
             // Build a point list that refers to the corners of the
             // polygons, as well as to the start point and endpoint.
             pointList.Add((start.X, start.Y, 0, 0));
-            foreach (var poly in polygons.Contours)
+            foreach (var poly in polygons)
             {
-                foreach (var point in poly.Points)
+                foreach (var point in poly)
                 {
                     pointList.Add((point.X, point.Y, 0, 0));
                 }
@@ -478,7 +471,7 @@ namespace InstrumentedLibrary
             solution.Add(end);
 
             // Success.
-            return new Polyline2D(solution);
+            return solution;
         }
     }
 }

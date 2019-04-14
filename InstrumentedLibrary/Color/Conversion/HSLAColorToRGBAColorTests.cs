@@ -48,7 +48,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (byte red, byte green, byte blue, byte alpha) HSLAColorToRGBAColor(double hue, double saturation, double luminance, double alpha)
-            =>HSLAColorToRGBAColor1( hue,  saturation,  luminance,  alpha);
+            => HSLAColorToRGBAColor1(hue, saturation, luminance, alpha);
 
         /// <summary>
         /// Given H,S,L in range of 0-1

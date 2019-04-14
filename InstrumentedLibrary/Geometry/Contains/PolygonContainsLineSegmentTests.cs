@@ -27,7 +27,7 @@ namespace InstrumentedLibrary
             var trials = 10000;
             var pointA = new Point2D(1, 1);
             var pointB = new Point2D(2, 2);
-            var triangle = new Polygon2D(new List<PolygonContour2D> { new PolygonContour2D(new List<Point2D> { new Point2D(0, 0), new Point2D(2, 0), new Point2D(0, 2) }) });
+            var triangle = new List<List<(double X, double Y)>> { new List<(double X, double Y)> { (0, 0), (2, 0), (0, 2) } };
             var tests = new Dictionary<object[], TestCaseResults> {
                 { new object[] {  triangle, pointA, pointB}, new TestCaseResults(description: "triangle, line segment outside.", trials: trials, expectedReturnValue: false, epsilon: double.Epsilon) },
             };
@@ -51,8 +51,8 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static bool PolygonContainsLineSegment(Polygon2D allPolys, Point2D start, Point2D end)
-            => LineInPolygonSet1( allPolys,  start,  end);
+        public static bool PolygonContainsLineSegment(List<List<(double X, double Y)>> allPolys, Point2D start, Point2D end)
+            => LineInPolygonSet1(allPolys, start, end);
 
         /// <summary>
         /// This function should be called with the full set of *all* relevant polygons.
@@ -75,7 +75,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool LineInPolygonSet1(Polygon2D allPolys, Point2D start, Point2D end)
+        public static bool LineInPolygonSet1(List<List<(double X, double Y)>> allPolys, Point2D start, Point2D end)
         {
             double theCos, theSin, dist, sX, sY, eX, eY, rotSX, rotSY, rotEX, rotEY, crossX;
             int i, j, polyI;
@@ -88,18 +88,18 @@ namespace InstrumentedLibrary
 
             for (polyI = 0; polyI < allPolys.Count; polyI++)
             {
-                for (i = 0; i < ((allPolys.Contours as List<PolygonContour2D>)[polyI].Points as List<Point2D>).Count; i++)
+                for (i = 0; i < allPolys[polyI].Count; i++)
                 {
                     j = i + 1;
-                    if (j == ((allPolys.Contours as List<PolygonContour2D>)[polyI].Points as List<Point2D>).Count)
+                    if (j == allPolys[polyI].Count)
                     {
                         j = 0;
                     }
 
-                    sX = ((allPolys.Contours as List<PolygonContour2D>)[polyI].Points as List<Point2D>)[i].X - start.X;
-                    sY = ((allPolys.Contours as List<PolygonContour2D>)[polyI].Points as List<Point2D>)[i].Y - start.Y;
-                    eX = ((allPolys.Contours as List<PolygonContour2D>)[polyI].Points as List<Point2D>)[j].X - start.X;
-                    eY = ((allPolys.Contours as List<PolygonContour2D>)[polyI].Points as List<Point2D>)[j].Y - start.Y;
+                    sX = allPolys[polyI][i].X - start.X;
+                    sY = allPolys[polyI][i].Y - start.Y;
+                    eX = allPolys[polyI][j].X - start.X;
+                    eY = allPolys[polyI][j].Y - start.Y;
                     if (Abs(sX) < DoubleEpsilon
                         && Abs(sY) < DoubleEpsilon
                         && Abs(eX - end.X) < DoubleEpsilon
@@ -139,7 +139,7 @@ namespace InstrumentedLibrary
                 }
             }
 
-            return PolygonContainsPointTests.PolygonContainsPoint(allPolys, new Point2D(start.X + (end.X * 0.5d), start.Y + (end.Y * 0.5d)));
+            return PolygonContainsPointTests.PolygonContainsPoint(allPolys, start.X + (end.X * 0.5d), start.Y + (end.Y * 0.5d));
         }
     }
 }

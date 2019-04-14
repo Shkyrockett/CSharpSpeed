@@ -48,7 +48,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double Distance2D(double ax, double ay, double bx, double by)
-            => Distance2Dv1(ax,  ay,  bx,  by);
+            => Distance2Dv1(ax, ay, bx, by);
 
         /// <summary>
         /// Distance between two 2D points.

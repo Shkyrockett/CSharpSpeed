@@ -23,11 +23,10 @@ namespace InstrumentedLibrary
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
-            var point = new Point2D(1, 1);
-            var triangle = new List<List<Point2D>> { new List<Point2D> { new Point2D(0, 0), new Point2D(2, 0), new Point2D(0, 2) } };
+            var triangle = new List<List<(double X, double Y)>> { new List<(double X, double Y)> { (0d, 0d), (2d, 0d), (0d, 2d) } };
             //var PatrickMullenValues = PrecalcPointInPolygonContourPatrickMullenValues(polygon);
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { triangle, point }, new TestCaseResults(description: "Triangle, point inside.", trials: trials, expectedReturnValue: true, epsilon: double.Epsilon) },
+                { new object[] { triangle, 1d, 1d }, new TestCaseResults(description: "Triangle, point inside.", trials: trials, expectedReturnValue: true, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -43,18 +42,22 @@ namespace InstrumentedLibrary
         /// 
         /// </summary>
         /// <param name="polygon"></param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <param name="point"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static bool PolygonContainsPoint(List<List<Point2D>> polygon, Point2D point)
-            => PointInPolygonSetShkyrockett0(polygon, point);
+        public static bool PolygonContainsPoint(List<List<(double X, double Y)>> polygon, double X, double Y)
+            => PointInPolygonSetShkyrockett0(polygon, X, Y);
 
         /// <summary>
         /// This function automatically knows that enclosed polygons are "no-go" areas.
         /// </summary>
         /// <param name="point"></param>
         /// <param name="polygons"></param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// Public-domain code by Darel Rex Finley, 2006.
@@ -67,9 +70,11 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonSetAlienRyderFlex(
-            List<List<Point2D>> polygons,
-            Point2D point)
+            List<List<(double X, double Y)>> polygons,
+            double X, double Y)
         {
+            var point = (X, Y);
+
             var oddNodes = false;
             int j;
 
@@ -105,6 +110,8 @@ namespace InstrumentedLibrary
         /// The point in polygon set.
         /// </summary>
         /// <param name="polygon">The polygon.</param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="bool"/>.</returns>
         [DisplayName("Point in Polygon set")]
@@ -112,20 +119,22 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointInPolygonSetShkyrockett0(List<List<Point2D>> polygon, Point2D point)
-            => PointInPolygonSetShkyrockett(polygon, point) != Inclusion.Outside;
+        public static bool PointInPolygonSetShkyrockett0(List<List<(double X, double Y)>> polygon, double X, double Y)
+            => PointInPolygonSetShkyrockett(polygon, X, Y) != Inclusion.Outside;
 
         /// <summary>
         /// This function automatically knows that enclosed polygons are "no-go" areas.
         /// </summary>
         /// <param name="point"></param>
         /// <param name="polygons"></param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion PointInPolygonSetShkyrockett(
-            List<List<Point2D>> polygons,
-            Point2D point)
+            List<List<(double X, double Y)>> polygons,
+             double X, double Y)
         {
             var returnValue = Inclusion.Outside;
 
@@ -133,7 +142,7 @@ namespace InstrumentedLibrary
             {
                 // Use alternating rule with XOR to determine if the point is in a polygon or a hole.
                 // If the point is in an odd number of polygons, it is inside. If even, it is a hole.
-                returnValue ^= PolygonContourContainsPointTests.PointInPolygonContourHormannAgathosExpanded(poly, point);
+                returnValue ^= PolygonContourContainsPointTests.PointInPolygonContourHormannAgathosExpanded(poly, X, Y);
 
                 // Any point on any boundary is on a boundary.
                 if (returnValue == Inclusion.Boundary)

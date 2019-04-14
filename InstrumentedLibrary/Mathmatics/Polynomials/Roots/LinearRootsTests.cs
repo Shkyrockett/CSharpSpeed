@@ -50,7 +50,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static IList<double> LinearRoots(double a, double b, double epsilon = Epsilon)
-            => LinearRoots0(a,  b,  epsilon);
+            => LinearRoots0(a, b, epsilon);
 
         /// <summary>
         /// The linear roots.

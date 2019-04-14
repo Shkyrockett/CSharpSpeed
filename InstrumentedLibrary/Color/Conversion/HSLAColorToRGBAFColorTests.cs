@@ -50,7 +50,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double red, double green, double blue, double alpha) HSLAColorToRGBAFColor(double hue, double saturation, double luminance, double alpha)
-            =>HSLAColorToRGBAFColor_( hue,  saturation,  luminance,  alpha);
+            => HSLAColorToRGBAFColor_(hue, saturation, luminance, alpha);
 
         /// <summary>
         /// The rgb f create from hsl.

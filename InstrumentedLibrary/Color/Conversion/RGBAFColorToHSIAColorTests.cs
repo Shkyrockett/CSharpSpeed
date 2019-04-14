@@ -107,7 +107,7 @@ namespace InstrumentedLibrary
         /// <param name="green">The g.</param>
         /// <param name="blue">The b.</param>
         /// <param name="alpha">The a.</param>
-        /// <returns>The <see cref="HSIA"/>.</returns>
+        /// <returns>The HSIA.</returns>
         /// <acknowledgment>
         /// http://dystopiancode.blogspot.com/2012/02/hsi-rgb-conversion-algorithms-in-c.html
         /// https://github.com/dystopiancode/colorspace-conversions

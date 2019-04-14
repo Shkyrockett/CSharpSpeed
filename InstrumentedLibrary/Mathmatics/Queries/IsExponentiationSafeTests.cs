@@ -45,7 +45,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static bool IsExponentiationSafe(int a, int b)
-            => IsExponentiationSafe0(a,b);
+            => IsExponentiationSafe0(a, b);
 
         /// <summary>
         /// The is exponentiation safe.

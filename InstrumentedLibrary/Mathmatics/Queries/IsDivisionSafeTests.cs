@@ -45,7 +45,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static bool IsDivisionSafe(int a, int b)
-            => IsDivisionSafe0(a,b);
+            => IsDivisionSafe0(a, b);
 
         /// <summary>
         /// The is division safe.

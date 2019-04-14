@@ -23,7 +23,7 @@ namespace InstrumentedLibrary
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
-            var triangles = new [] {
+            var triangles = new[] {
                 new List<List<(double X, double Y)>> {
                     new List<(double X, double Y)> { (0d, 0d), (1d, 0d), (0d, 1d) },
                     new List<(double X, double Y)> { (10d, 10d), (25d, 5d), (5d, 30d) }
@@ -50,7 +50,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static Rectangle2D PolygonBounds(List<List<(double X, double Y)>> paths)
-            => GetBounds0(paths);        
+            => GetBounds0(paths);
 
         /// <summary>
         /// Get the bounds.

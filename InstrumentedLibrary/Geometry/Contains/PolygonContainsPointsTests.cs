@@ -28,7 +28,7 @@ namespace InstrumentedLibrary
             var trials = 10000;
             var pointA = new Point2D(1, 1);
             var pointB = new Point2D(2, 2);
-            var triangle = new Polygon2D(new List<PolygonContour2D> { new PolygonContour2D(new List<Point2D> { new Point2D(0, 0), new Point2D(2, 0), new Point2D(0, 2) }) });
+            var triangle = new List<List<(double X, double Y)>> { new List<(double X, double Y)> { (0, 0), (2, 0), (0, 2) } };
             var tests = new Dictionary<object[], TestCaseResults> {
                 { new object[] { triangle, pointA, pointB, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: Inclusion.Outside, epsilon: double.Epsilon) },
             };
@@ -52,7 +52,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static Inclusion PolygonContainsPoints(Polygon2D polygons, Point2D start, Point2D end, double epsilon = Epsilon)
+        public static Inclusion PolygonContainsPoints(List<List<(double X, double Y)>> polygons, Point2D start, Point2D end, double epsilon = Epsilon)
             => PolygonSetContainsPoints0(polygons, start, end, epsilon);
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion PolygonSetContainsPoints0(
-            Polygon2D polygons,
+            List<List<(double X, double Y)>> polygons,
             Point2D start, Point2D end,
             double epsilon = Epsilon)
         {
@@ -99,20 +99,20 @@ namespace InstrumentedLibrary
             var theCos = end.X / dist;
             var theSin = end.Y / dist;
 
-            foreach (var poly in polygons.Contours)
+            foreach (var poly in polygons)
             {
-                for (var i = 0; i < poly.Points.Count(); i++)
+                for (var i = 0; i < poly.Count(); i++)
                 {
                     j = i + 1;
-                    if (j == poly.Points.Count())
+                    if (j == poly.Count())
                     {
                         j = 0;
                     }
 
-                    sX = (poly.Points as List<Point2D>)[i].X - start.X;
-                    sY = (poly.Points as List<Point2D>)[i].Y - start.Y;
-                    eX = (poly.Points as List<Point2D>)[j].X - start.X;
-                    eY = (poly.Points as List<Point2D>)[j].Y - start.Y;
+                    sX = (poly)[i].X - start.X;
+                    sY = (poly)[i].Y - start.Y;
+                    eX = (poly)[j].X - start.X;
+                    eY = (poly)[j].Y - start.Y;
 
                     if (Abs(sX) < epsilon && Abs(sY) < epsilon
                         && Abs(eX - end.X) < epsilon && Abs(eY - end.Y) < epsilon
@@ -150,7 +150,7 @@ namespace InstrumentedLibrary
                 }
             }
 
-            return PolygonContainsPointTests.PolygonContainsPoint(polygons, new Point2D(start.X + (end.X / 2.0), start.Y + (end.Y / 2.0))) ? Inclusion.Inside : Inclusion.Outside;
+            return PolygonContainsPointTests.PolygonContainsPoint(polygons, start.X + (end.X / 2.0), start.Y + (end.Y / 2.0)) ? Inclusion.Inside : Inclusion.Outside;
         }
     }
 }

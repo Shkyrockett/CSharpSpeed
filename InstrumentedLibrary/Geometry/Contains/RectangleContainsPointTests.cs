@@ -25,10 +25,9 @@ namespace InstrumentedLibrary
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
-            var point = new Point2D(1, 1);
-            var rectangle = new Rectangle2D(0, 0, 2, 2);
+            var rectangle = new Rectangle2D(0d, 0d, 2d, 2d);
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { rectangle, point }, new TestCaseResults(description: "rectangle contains point.", trials: trials, expectedReturnValue: Inclusion.Inside, epsilon: double.Epsilon) },
+                { new object[] { rectangle, 1d, 1d }, new TestCaseResults(description: "rectangle contains point.", trials: trials, expectedReturnValue: Inclusion.Inside, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -44,17 +43,21 @@ namespace InstrumentedLibrary
         /// 
         /// </summary>
         /// <param name="rectangle"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         /// <param name="point"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static Inclusion RectangleContainsPoint2D(Rectangle2D rectangle, Point2D point)
-            => Contains(rectangle, point);
+        public static Inclusion RectangleContainsPoint2D(Rectangle2D rectangle, double x, double y)
+            => Contains(rectangle, x, y);
 
         /// <summary>
         /// Determines whether the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/>.
         /// </summary>
         /// <param name="rectangle"></param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <param name="point"></param>
         /// <returns></returns>
         [DisplayName("Point in Rectangle")]
@@ -62,8 +65,9 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains(Rectangle2D rectangle, Point2D point)
+        public static Inclusion Contains(Rectangle2D rectangle, double X, double Y)
         {
+            var point = (X, Y);
             return (rectangle.X <= point.X
                 && point.X < rectangle.X + rectangle.Width
                 && rectangle.Y <= point.Y
@@ -74,6 +78,8 @@ namespace InstrumentedLibrary
         /// Determines whether the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/>.
         /// </summary>
         /// <param name="rectangle"></param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <param name="point"></param>
         /// <returns></returns>
         [DisplayName("Point in Rectangle")]
@@ -81,8 +87,9 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains2(Rectangle2D rectangle, Point2D point)
+        public static Inclusion Contains2(Rectangle2D rectangle, double X, double Y)
         {
+            var point = (X, Y);
             if (((Abs(rectangle.X - point.X) < DoubleEpsilon
                 || Abs(rectangle.Bottom - point.X) < DoubleEpsilon)
                 && ((rectangle.Y <= point.Y) == (rectangle.Bottom >= point.Y)))
@@ -103,6 +110,8 @@ namespace InstrumentedLibrary
         /// Determines whether the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/>.
         /// </summary>
         /// <param name="rectangle"></param>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
         /// <param name="point"></param>
         /// <returns></returns>
         [DisplayName("Point in Rectangle")]
@@ -110,8 +119,9 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointOnRectangleX(Rectangle2D rectangle, Point2D point)
+        public static Inclusion PointOnRectangleX(Rectangle2D rectangle, double X, double Y)
         {
+            var point = (X, Y);
             var top = Sqrt((rectangle.Right - rectangle.Left) * (rectangle.Right - rectangle.Left) + (rectangle.Top - rectangle.Top) * (rectangle.Top - rectangle.Top));
             var right = Sqrt((rectangle.Right - rectangle.Right) * (rectangle.Right - rectangle.Right) + (rectangle.Bottom - rectangle.Top) * (rectangle.Bottom - rectangle.Top));
             var tlp = (point.X - rectangle.Left) * (point.X - rectangle.Left) + (point.Y - rectangle.Top) * (point.Y - rectangle.Top);

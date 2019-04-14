@@ -47,7 +47,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double Slope(double i, double j)
-            => Slope0(i,j);
+            => Slope0(i, j);
 
         /// <summary>
         /// Calculates the Slope of a vector.

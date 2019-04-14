@@ -25,11 +25,11 @@ namespace InstrumentedLibrary
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
-            var pointA = new Point2D(1, 1);
-            var pointB = new Point2D(2, 2);
-            var triangle = new PolygonContour2D(new List<Point2D> { new Point2D(0, 0), new Point2D(2, 0), new Point2D(0, 2) });
+            (double X, double Y) pointA = (1, 1);
+            (double X, double Y) pointB = (2, 2);
+            var triangle = new List<(double X, double Y)> { (0, 0), (2, 0), (0, 2) };
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { pointA, pointB, triangle }, new TestCaseResults(description: "Triangle, line segment outside.", trials: trials, expectedReturnValue: false, epsilon: double.Epsilon) },
+                { new object[] { triangle, pointA, pointB }, new TestCaseResults(description: "Triangle, line segment outside.", trials: trials, expectedReturnValue: false, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -45,14 +45,14 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="polygon"></param>
         /// <param name="start"></param>
         /// <param name="end"></param>
-        /// <param name="polygon"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static bool PolygonContourContainsLineSegment(Point2D start, Point2D end, PolygonContour2D polygon)
-            => LineInPolygon0(start, end, polygon);
+        public static bool PolygonContourContainsLineSegment(List<(double X, double Y)> polygon, (double X, double Y) start, (double X, double Y) end)
+            => LineInPolygon0(polygon, start, end);
 
         /// <summary>
         /// This function should be called with the full set of *all* relevant polygons.
@@ -61,9 +61,9 @@ namespace InstrumentedLibrary
         /// test line-segment is exactly on the border of the polygon, particularly
         /// if the test line-segment *is* a side of a polygon.
         /// </summary>
+        /// <param name="polygon"></param>
         /// <param name="start"></param>
         /// <param name="end"></param>
-        /// <param name="polygon"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// Public-domain code by Darel Rex Finley, 2006.
@@ -75,14 +75,14 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool LineInPolygon0(Point2D start, Point2D end, PolygonContour2D polygon)
+        public static bool LineInPolygon0(List<(double X, double Y)> polygon, (double X, double Y) start, (double X, double Y) end)
         {
             end.X -= start.X;
             end.Y -= start.Y;
             var dist = Sqrt((end.X * end.X) + (end.Y * end.Y));
             var theCos = end.X / dist;
             var theSin = end.Y / dist;
-            var poly = polygon.Points as List<Point2D>;
+            var poly = polygon as List<(double X, double Y)>;
             for (var i = 0; i < poly.Count; i++)
             {
                 var j = i + 1;
@@ -132,7 +132,7 @@ namespace InstrumentedLibrary
                 }
             }
 
-            return PolygonContourContainsPointTests.PolygonContourContainsPoint(poly, new Point2D(start.X + (end.X * 0.5d), start.Y + (end.Y * 0.5d)));
+            return PolygonContourContainsPointTests.PolygonContourContainsPoint(poly, start.X + (end.X * 0.5d), start.Y + (end.Y * 0.5d));
         }
     }
 }

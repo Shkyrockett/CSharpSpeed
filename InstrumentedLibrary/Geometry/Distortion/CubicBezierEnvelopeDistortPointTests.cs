@@ -235,7 +235,7 @@ namespace InstrumentedLibrary
                 Y: topRight.Y * reverseNormalCubed.Y + 3d * topRightV.Y * normal.Y * reverseNormalSquared.Y + 3d * bottomRightV.Y * normalSquared.Y * reverseNormal.Y + bottomRight.Y * normalCubed.Y
                 );
             // Cubic interpolate the final result.
-            return new Point2D (
+            return new Point2D(
                 x: leftAnchor.X * reverseNormalCubed.X + 3d * leftHandle.X * normal.X * reverseNormalSquared.X + 3d * rightHandle.X * normalSquared.X * reverseNormal.X + rightAnchor.X * normalCubed.X,
                 y: leftAnchor.Y * reverseNormalCubed.X + 3d * leftHandle.Y * normal.X * reverseNormalSquared.X + 3d * rightHandle.Y * normalSquared.X * reverseNormal.X + rightAnchor.Y * normalCubed.X
                 );

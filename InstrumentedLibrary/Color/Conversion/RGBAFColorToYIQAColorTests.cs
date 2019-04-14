@@ -48,7 +48,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double y, double i, double q, double alpha) RGBAFColorToYIQAColor(double red, double green, double blue, double alpha)
-            => RGBAFColorToYIQAColor1( red,  green,  blue,  alpha);
+            => RGBAFColorToYIQAColor1(red, green, blue, alpha);
 
         /// <summary>
         /// The yiq create from rgb f.
