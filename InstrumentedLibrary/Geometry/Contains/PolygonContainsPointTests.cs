@@ -30,7 +30,7 @@ namespace InstrumentedLibrary
             };
 
             var results = new List<SpeedTester>();
-            foreach (var method in ReflectionHelper.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
+            foreach (var method in HelperExtensions.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
             {
                 var methodDescription = ((DescriptionAttribute)method.GetCustomAttribute(typeof(DescriptionAttribute)))?.Description;
                 results.Add(new SpeedTester(method, methodDescription, tests));
@@ -44,7 +44,6 @@ namespace InstrumentedLibrary
         /// <param name="polygon"></param>
         /// <param name="X"></param>
         /// <param name="Y"></param>
-        /// <param name="point"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
@@ -54,7 +53,6 @@ namespace InstrumentedLibrary
         /// <summary>
         /// This function automatically knows that enclosed polygons are "no-go" areas.
         /// </summary>
-        /// <param name="point"></param>
         /// <param name="polygons"></param>
         /// <param name="X"></param>
         /// <param name="Y"></param>
@@ -112,7 +110,6 @@ namespace InstrumentedLibrary
         /// <param name="polygon">The polygon.</param>
         /// <param name="X"></param>
         /// <param name="Y"></param>
-        /// <param name="point">The point.</param>
         /// <returns>The <see cref="bool"/>.</returns>
         [DisplayName("Point in Polygon set")]
         [Description("Point in Polygon set method.")]
@@ -125,7 +122,6 @@ namespace InstrumentedLibrary
         /// <summary>
         /// This function automatically knows that enclosed polygons are "no-go" areas.
         /// </summary>
-        /// <param name="point"></param>
         /// <param name="polygons"></param>
         /// <param name="X"></param>
         /// <param name="Y"></param>

@@ -25,11 +25,11 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 1d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (0d, 0d, 1d, 0d, 6.28318530717959d), epsilon: double.Epsilon) },
+                { new object[] { 0d, 0d, 1d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (0d, 0d, 1d, 0d, 6.283185307179586d), epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
-            foreach (var method in ReflectionHelper.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
+            foreach (var method in HelperExtensions.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
             {
                 var methodDescription = ((DescriptionAttribute)method.GetCustomAttribute(typeof(DescriptionAttribute)))?.Description;
                 results.Add(new SpeedTester(method, methodDescription, tests));

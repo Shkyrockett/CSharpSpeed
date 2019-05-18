@@ -16,6 +16,7 @@ namespace CSharpSpeed
         /// <param name="epsilon"></param>
         public TestCaseResults(string description, int trials, object expectedReturnValue, double epsilon = 0)
         {
+            _ = epsilon;
             Trials = trials;
             Description = description;
             ExpectedReturnValue = expectedReturnValue;

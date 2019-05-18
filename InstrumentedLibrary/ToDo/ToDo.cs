@@ -292,7 +292,6 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set the transformation without distortion.
         /// </summary>
-        /// <param name="gr">The gr.</param>
         /// <param name="world_rect">The world_rect.</param>
         /// <param name="device_rect">The device_rect.</param>
         /// <param name="invert_x">The invert_x.</param>
@@ -339,7 +338,6 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set the transformation.
         /// </summary>
-        /// <param name="gr">The gr.</param>
         /// <param name="world_rect">The world_rect.</param>
         /// <param name="device_rect">The device_rect.</param>
         /// <param name="invert_x">The invert_x.</param>
@@ -953,7 +951,6 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The draw rect at ellipse.
         /// </summary>
-        /// <param name="g">The g.</param>
         /// <param name="theta">The theta.</param>
         /// <param name="ellipse">The ellipse.</param>
         /// <param name="phi">The phi.</param>
@@ -977,8 +974,6 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Bow Curve (2D)
         /// </summary>
-        /// <param name="g"></param>
-        /// <param name="DPen"></param>
         /// <param name="Precision"></param>
         /// <param name="Offset"></param>
         /// <param name="Multiplyer"></param>
@@ -1010,8 +1005,6 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Butterfly Curve
         /// </summary>
-        /// <param name="g"></param>
-        /// <param name="DPen"></param>
         /// <param name="Precision"></param>
         /// <param name="Offset"></param>
         /// <param name="Multiplyer"></param>

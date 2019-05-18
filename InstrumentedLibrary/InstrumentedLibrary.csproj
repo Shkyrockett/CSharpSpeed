@@ -13,6 +13,7 @@
     <RepositoryUrl>https://github.com/Shkyrockett/CSharpSpeed</RepositoryUrl>
     <Description>A library of methods to profile their speed.</Description>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TieredCompilation>true</TieredCompilation>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">

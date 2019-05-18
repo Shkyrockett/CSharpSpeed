@@ -3,6 +3,9 @@ using System.Runtime.CompilerServices;
 
 namespace InstrumentedLibrary
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class ValueBetweenByteTests
     {
         /// <summary>

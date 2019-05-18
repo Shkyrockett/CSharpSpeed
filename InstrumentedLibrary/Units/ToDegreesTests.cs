@@ -10,7 +10,7 @@ using static InstrumentedLibrary.Maths;
 namespace InstrumentedLibrary
 {
     /// <summary>
-    /// 
+    /// Convert an angle in Radians to Degrees.
     /// </summary>
     [DisplayName("Convert an angle in Radians to Degrees")]
     [Description("Convert an angle in Radians to Degrees.")]
@@ -30,7 +30,7 @@ namespace InstrumentedLibrary
             };
 
             var results = new List<SpeedTester>();
-            foreach (var method in ReflectionHelper.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
+            foreach (var method in HelperExtensions.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
             {
                 var methodDescription = ((DescriptionAttribute)method.GetCustomAttribute(typeof(DescriptionAttribute)))?.Description;
                 results.Add(new SpeedTester(method, methodDescription, tests));
@@ -41,26 +41,26 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="radiens"></param>
+        /// <param name="radians"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static double ToDegrees(this double radiens)
-            => ToDegrees0(radiens);
+        public static double ToDegrees(this double radians)
+            => ToDegrees0(radians);
 
         /// <summary>
         /// Convert Radians to Degrees.
         /// </summary>
-        /// <param name="radiens">Angle in Radians.</param>
+        /// <param name="radians">Angle in Radians.</param>
         /// <returns>Angle in Degrees.</returns>
         [DisplayName("Convert an angle in Radians to Degrees")]
         [Description("Convert an angle in Radians to Degrees.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ToDegrees0(double radiens)
+        public static double ToDegrees0(double radians)
         {
-            return radiens * Degree;
+            return radians * Degree;
         }
     }
 }

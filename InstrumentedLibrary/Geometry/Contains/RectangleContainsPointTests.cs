@@ -31,7 +31,7 @@ namespace InstrumentedLibrary
             };
 
             var results = new List<SpeedTester>();
-            foreach (var method in ReflectionHelper.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
+            foreach (var method in HelperExtensions.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
             {
                 var methodDescription = ((DescriptionAttribute)method.GetCustomAttribute(typeof(DescriptionAttribute)))?.Description;
                 results.Add(new SpeedTester(method, methodDescription, tests));
@@ -45,7 +45,6 @@ namespace InstrumentedLibrary
         /// <param name="rectangle"></param>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        /// <param name="point"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
@@ -58,7 +57,6 @@ namespace InstrumentedLibrary
         /// <param name="rectangle"></param>
         /// <param name="X"></param>
         /// <param name="Y"></param>
-        /// <param name="point"></param>
         /// <returns></returns>
         [DisplayName("Point in Rectangle")]
         [Description("Point in Rectangle method.")]
@@ -80,7 +78,6 @@ namespace InstrumentedLibrary
         /// <param name="rectangle"></param>
         /// <param name="X"></param>
         /// <param name="Y"></param>
-        /// <param name="point"></param>
         /// <returns></returns>
         [DisplayName("Point in Rectangle")]
         [Description("Point in Rectangle method.")]
@@ -112,7 +109,6 @@ namespace InstrumentedLibrary
         /// <param name="rectangle"></param>
         /// <param name="X"></param>
         /// <param name="Y"></param>
-        /// <param name="point"></param>
         /// <returns></returns>
         [DisplayName("Point in Rectangle")]
         [Description("Point in Rectangle method.")]

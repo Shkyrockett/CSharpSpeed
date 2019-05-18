@@ -10,18 +10,30 @@ using System.Windows.Forms;
 
 namespace VisualValidator
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class Form1
         : Form
     {
-        private List<PictureBox> pictureBoxes = new List<PictureBox>();
+        /// <summary>
+        /// 
+        /// </summary>
+        private readonly List<PictureBox> pictureBoxes = new List<PictureBox>();
 
+        /// <summary>
+        /// 
+        /// </summary>
         private List<MethodInfo> methods;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Form1()
         {
             InitializeComponent();
 
-            pictureBoxes = pictureBoxes ?? new List<PictureBox>();
+            pictureBoxes ??= new List<PictureBox>();
 
             comboBox1.DataSource = TestReflectionHelper.GetTypesWithHelpAttribute(typeof(VisualizerProviderAttribute)).ToList();
             comboBox1.ValueMember = "Name";
@@ -39,7 +51,7 @@ namespace VisualValidator
             pictureBoxes?.RemoveAll(item => RemoveCanvas(flowLayoutPanel1, item));
             flowLayoutPanel1.ResumeLayout(true);
 
-            methods = ReflectionHelper.ListStaticMethodsWithAttribute((Type)((ComboBox)sender).SelectedItem, typeof(SourceCodeLocationProviderAttribute));
+            methods = HelperExtensions.ListStaticMethodsWithAttribute((Type)((ComboBox)sender).SelectedItem, typeof(SourceCodeLocationProviderAttribute));
             flowLayoutPanel1.SuspendLayout();
             foreach (var method in methods)
             {
@@ -64,6 +76,12 @@ namespace VisualValidator
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="pictureBox"></param>
+        /// <returns></returns>
         private bool RemoveCanvas(FlowLayoutPanel parent, PictureBox pictureBox)
         {
             parent.Controls.Remove(pictureBox);
@@ -72,7 +90,13 @@ namespace VisualValidator
             return true;
         }
 
-        private static void RemoveCanvas(FlowLayoutPanel parent, List<PictureBox> pictureBoxes, PictureBox pictureBox)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="pictureBoxes"></param>
+        /// <param name="pictureBox"></param>
+        internal static void RemoveCanvas(FlowLayoutPanel parent, List<PictureBox> pictureBoxes, PictureBox pictureBox)
         {
             parent.Controls.Remove(pictureBox);
             pictureBoxes.Remove(pictureBox);
@@ -80,6 +104,11 @@ namespace VisualValidator
             pictureBox.Dispose();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="pictureBoxes"></param>
         private static void AddCanvas(FlowLayoutPanel parent, List<PictureBox> pictureBoxes)
         {
             var pictureBox = new PictureBox();

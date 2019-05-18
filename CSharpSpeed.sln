@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpSpeedConsoleNetCore",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VisualValidator", "VisualValidator\VisualValidator.csproj", "{44AEBB33-2A06-467E-B19F-4FF09332320B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpSpeedUnitTests", "CSharpSpeedUnitTests\CSharpSpeedUnitTests.csproj", "{7F52B4F9-5F24-42C7-85CC-E25F68B92B98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpSpeedUnitTests", "CSharpSpeedUnitTests\CSharpSpeedUnitTests.csproj", "{7F52B4F9-5F24-42C7-85CC-E25F68B92B98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

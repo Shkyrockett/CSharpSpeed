@@ -30,7 +30,7 @@ namespace InstrumentedLibrary
             };
 
             var results = new List<SpeedTester>();
-            foreach (var method in ReflectionHelper.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
+            foreach (var method in HelperExtensions.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
             {
                 var methodDescription = ((DescriptionAttribute)method.GetCustomAttribute(typeof(DescriptionAttribute)))?.Description;
                 results.Add(new SpeedTester(method, methodDescription, tests));
@@ -106,10 +106,10 @@ namespace InstrumentedLibrary
             var points = new List<(double X, double Y)>();
             for (var i = 0; i <= 2 * n; i++)
             {
-                var alpha = (2 * i + 2 - n % 4) / (2 * n) * Math.PI;
+                var alpha = (2 * i + 2 - n % 4) / (2 * n) * PI;
                 var radius = 1 == i % 2 ? innerRadius : outerRadius;
 
-                (double X, double Y) point = (Math.Cos(alpha) * radius, Math.Sin(alpha) * radius);
+                (double X, double Y) point = (Cos(alpha) * radius, Sin(alpha) * radius);
                 points.Add(point);
             }
             return points.ToArray();
@@ -119,7 +119,6 @@ namespace InstrumentedLibrary
         /// Draw the stars.
         /// The pic canvas paint.
         /// </summary>
-        /// <param name="e">The paint event arguments.</param>
         /// <param name="NumPoints">The NumPoints.</param>
         /// <param name="bounds">The bounds.</param>
         /// <param name="chkHalfOnly">The chkHalfOnly.</param>
@@ -184,7 +183,6 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Draw a star centered at (x, y) using this skip value.
         /// </summary>
-        /// <param name="gr">The gr.</param>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
         /// <param name="orig_pts">The orig_pts.</param>
@@ -209,7 +207,6 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The pic gears paint.
         /// </summary>
-        /// <param name="e">The paint event arguments.</param>
         /// <param name="bounds">The bounds.</param>
         public static void PicGears_Paint(/*PaintEventArgs e,*/ Rectangle2D bounds)
         {
@@ -235,10 +232,6 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Draw a gear.
         /// </summary>
-        /// <param name="gr">The gr.</param>
-        /// <param name="axle_brush">The axle_brush.</param>
-        /// <param name="gear_brush">The gear_brush.</param>
-        /// <param name="gear_pen">The gear_pen.</param>
         /// <param name="center">The center.</param>
         /// <param name="radius">The radius.</param>
         /// <param name="tooth_length">The tooth_length.</param>

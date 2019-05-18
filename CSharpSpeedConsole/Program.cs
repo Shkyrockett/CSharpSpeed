@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Management;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace CSharpSpeedConsole
@@ -47,7 +48,7 @@ namespace CSharpSpeedConsole
             _ = args;
             foreach (var testSetClass in TestReflectionHelper.GetTypesWithHelpAttribute(typeof(SourceCodeLocationProviderAttribute)))
             {
-                var testSet = ReflectionHelper.ListStaticFactoryConstructorsList(testSetClass, typeof(List<SpeedTester>));
+                var testSet = HelperExtensions.ListStaticFactoryConstructorsList(testSetClass, typeof(List<SpeedTester>));
                 var tests = new List<SpeedTester>();
                 tests.Clear();
                 tests.AddRange(testSet[0]?.Invoke(null, null) as List<SpeedTester>);
@@ -89,23 +90,29 @@ namespace CSharpSpeedConsole
 
             // Present the machine specs for evaluation.
             sb.AppendLine("> ## Machine Specs for this Runs Results  ");
+            sb.AppendLine(">");
             sb.AppendLine("> The test cases below were run on a system with the following hardware specifications. Results will vary on the same system depending on current processing work load. So, take the numbers in the tables with a grain of salt.  ");
-            sb.AppendLine($"> **.NET Version:**  s");
-            sb.AppendLine($"> {System.Diagnostics.FileVersionInfo.GetVersionInfo(typeof(int).Assembly.Location).ProductVersion}  ");
-            sb.Append($"> **.NET CLR Version:** ");
-            sb.AppendLine($"{System.Runtime.InteropServices.RuntimeEnvironment.GetSystemVersion()}  ");
-            sb.AppendLine($"> **Processor:**  ");
-            sb.Append($"> {processorName}");
-            sb.AppendLine($"> **Physical Memory:**  ");
-            sb.Append($"{physicalMemory}");
+            sb.AppendLine(">");
             sb.Append($"> **Library Compiled as:**  ");
 #if DEBUG
             sb.AppendLine($"Debug  ");
 #else
             sb.AppendLine($"Release  ");
 #endif
-            sb.AppendLine();
+            sb.AppendLine(">");
+            // https://devblogs.microsoft.com/dotnet/announcing-net-core-3-preview-4/#user-content-improving-net-core-version-apis
+            sb.AppendLine($"> **.NET Version:** {Environment.Version}  ");
+            sb.AppendLine($"> **Runtime Framework:** {RuntimeInformation.FrameworkDescription}  ");
+            sb.AppendLine($"> **CoreCLR Build:** {((AssemblyInformationalVersionAttribute[])typeof(object).Assembly.GetCustomAttributes(typeof(AssemblyInformationalVersionAttribute), false))[0].InformationalVersion.Split('+')[0]}  ");
+            //sb.AppendLine($"> **CoreCLR Hash:** {((AssemblyInformationalVersionAttribute[])typeof(object).Assembly.GetCustomAttributes(typeof(AssemblyInformationalVersionAttribute), false))[0].InformationalVersion.Split('+')[1]}  ");
+            sb.AppendLine($"> **CoreFX Build:** {((AssemblyInformationalVersionAttribute[])typeof(Uri).Assembly.GetCustomAttributes(typeof(AssemblyInformationalVersionAttribute), false))[0].InformationalVersion.Split('+')[0]}  ");
+            //sb.AppendLine($"> **CoreFX Hash:** {((AssemblyInformationalVersionAttribute[])typeof(Uri).Assembly.GetCustomAttributes(typeof(AssemblyInformationalVersionAttribute), false))[0].InformationalVersion.Split('+')[1]}  ");
+            sb.AppendLine(">");
+            sb.AppendLine($"> **Processor:** {processorName}  ");
+            sb.AppendLine($"> **Physical Memory:**  ");
+            sb.Append($"{physicalMemory}");
 
+            sb.AppendLine();
             sb.AppendLine("## Results");
             sb.AppendLine();
             sb.AppendLine("The following are the results of the speed testing the code in the following file.");
@@ -201,10 +208,8 @@ namespace CSharpSpeedConsole
             }
 
             // Save the markdown.
-            using (var stream = File.CreateText(reportFile))
-            {
-                stream.Write(sb.ToString());
-            }
+            using var stream = File.CreateText(reportFile);
+            stream.Write(sb.ToString());
         }
 
         #region Helper Methods
@@ -220,12 +225,12 @@ namespace CSharpSpeedConsole
                 var searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                 foreach (ManagementObject queryObj in searcher.Get())
                 {
-                    sb.AppendLine($"Name: {queryObj["Name"]}  ");
+                    sb.Append($"Name: {queryObj["Name"]}");
                 }
             }
             catch (ManagementException)
             {
-                sb.AppendLine("Processor unknown");
+                sb.Append("Processor unknown");
             }
             return sb.ToString();
         }

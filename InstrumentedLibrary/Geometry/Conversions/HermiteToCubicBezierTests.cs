@@ -24,11 +24,11 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 1d, 2d, 3d, 4d, 5d, 6d, 7d, 1d, 0d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (0d, 1d, 1.33333333333333d, 2.33333333333333d, 4.66666666666667d, 5.66666666666667d, 6d, 7d), epsilon: double.Epsilon) },
+                { new object[] { 0d, 1d, 2d, 3d, 4d, 5d, 6d, 7d, 1d, 0d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (0d, 1d, 1.3333333333333335d, 2.3333333333333335d, 4.666666666666667d, 5.666666666666667d, 6d, 7d), epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
-            foreach (var method in ReflectionHelper.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
+            foreach (var method in HelperExtensions.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
             {
                 var methodDescription = ((DescriptionAttribute)method.GetCustomAttribute(typeof(DescriptionAttribute)))?.Description;
                 results.Add(new SpeedTester(method, methodDescription, tests));
@@ -85,6 +85,8 @@ namespace InstrumentedLibrary
             double dX, double dY,
             double tension, double bias)
         {
+            _ = tension;
+            _ = bias;
             return (aX, aY, bX - (cX - aX) / 6d, bY - (cY - aY) / 6d, cX + (dX - bX) / 6d, cY + (dY - bY) / 6d, dX, dY);
         }
     }
