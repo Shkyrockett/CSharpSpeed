@@ -16,14 +16,13 @@ namespace InstrumentedLibrary
     public static class MatrixDeterminant2x2Tests
     {
         /// <summary>
-        /// The point2d in polygon set test.
+        /// 
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
         [DisplayName(nameof(MatrixDeterminant2x2Tests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
-            //var PatrickMullenValues = PrecalcPointInPolygonContourPatrickMullenValues(polygon);
             var tests = new Dictionary<object[], TestCaseResults> {
                 { new object[] { 1d, 2d, 3d, 4d }, new TestCaseResults(description: "polygon, point.", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
             };

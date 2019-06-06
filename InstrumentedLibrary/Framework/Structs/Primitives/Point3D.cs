@@ -72,7 +72,7 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// Deconstruct this <see cref="Point4D"/> to a <see cref="ValueTuple{T1, T2, T3}"/>.
+        /// Deconstruct this <see cref="Point3D"/> to a <see cref="ValueTuple{T1, T2, T3}"/>.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>

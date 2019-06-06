@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
-        [DisplayName(nameof(LineSegmentsOverlapTests))]
+        [DisplayName(nameof(ValueBetweenTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 15000;

@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// 
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
-        [DisplayName(nameof(ToDegreesTests))]
+        [DisplayName(nameof(ValidateRGBAFloatTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;

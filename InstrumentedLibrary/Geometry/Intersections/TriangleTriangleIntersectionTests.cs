@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// Set of tests to run testing methods that calculate the 3D Hermite interpolation of points.
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
-        [DisplayName(nameof(LineSegmentLineSegmentIntersectionTests))]
+        [DisplayName(nameof(TriangleTriangleIntersectionTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;

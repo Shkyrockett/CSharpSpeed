@@ -18,6 +18,7 @@ namespace InstrumentedLibrary
     public struct Point2D
         : IFormattable
     {
+        #region Implementations
         /// <summary>
         /// Represents a <see cref="Point2D"/> that has <see cref="X"/>, and <see cref="Y"/> values set to zero.
         /// </summary>
@@ -32,7 +33,9 @@ namespace InstrumentedLibrary
         /// Represents a <see cref="Point2D"/> that has <see cref="X"/>, and <see cref="Y"/> values set to NaN.
         /// </summary>
         public static readonly Point2D NaN = new Point2D(double.NaN, double.NaN);
+        #endregion Implementations
 
+        #region Constructors
         /// <summary>
         /// Initializes a new  instance of the <see cref="Point2D"/> class.
         /// </summary>
@@ -68,9 +71,11 @@ namespace InstrumentedLibrary
         {
             (X, Y) = tuple;
         }
+        #endregion Constructors
 
+        #region Deconstructors
         /// <summary>
-        /// Deconstruct this <see cref="Point4D"/> to a <see cref="ValueTuple{T1, T2}"/>.
+        /// Deconstruct this <see cref="Point2D"/> to a <see cref="ValueTuple{T1, T2}"/>.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
@@ -82,7 +87,9 @@ namespace InstrumentedLibrary
             x = X;
             y = Y;
         }
+        #endregion Deconstructors
 
+        #region Properties
         /// <summary>
         /// Gets or sets the X component of a <see cref="Point2D"/> coordinate.
         /// </summary>
@@ -94,6 +101,7 @@ namespace InstrumentedLibrary
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double Y { get; set; }
+        #endregion Properties
 
         /// <summary>
         /// Unary addition operator.
@@ -139,9 +147,7 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="point"> The Point to be added to the Vector </param>
         /// <param name="vector"> The Vector to be added to the Point </param>
-        /// <returns>
-        /// Point - The result of the addition
-        /// </returns>
+        /// <returns> Point - The result of the addition </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator +(Point2D point, Vector2D vector) => new Point2D(point.X + vector.I, point.Y + vector.J);

@@ -1,5 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Reflection;
 using System.Runtime.CompilerServices;
+using CSharpSpeed;
 using static System.Math;
 using static InstrumentedLibrary.Maths;
 
@@ -8,8 +12,45 @@ namespace InstrumentedLibrary
     /// <summary>
     /// 
     /// </summary>
+    [DisplayName("Pinch Distort Point Tests")]
+    [Description("Pinch distort the location of a point.")]
+    [SourceCodeLocationProvider]
     public static class PinchRadiusDistortionTests
     {
+        /// <summary>
+        /// The point2d in circle2d test.
+        /// </summary>
+        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        [DisplayName(nameof(PinchRadiusDistortionTests))]
+        public static List<SpeedTester> TestHarness()
+        {
+            var trials = 10000;
+            var tests = new Dictionary<object[], TestCaseResults> {
+                { new object[] { new Point2D(10d, 10d), new Point2D(5d, 5d), 10d, 0.5d }, new TestCaseResults(description: "Pinch a point", trials: trials, expectedReturnValue: new Point2D(0d,  0d), epsilon: double.Epsilon) },
+            };
+
+            var results = new List<SpeedTester>();
+            foreach (var method in HelperExtensions.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
+            {
+                var methodDescription = ((DescriptionAttribute)method.GetCustomAttribute(typeof(DescriptionAttribute)))?.Description;
+                results.Add(new SpeedTester(method, methodDescription, tests));
+            }
+            return results;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="fulcrum"></param>
+        /// <param name="radius"></param>
+        /// <param name="strength"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Point2D Pinch(Point2D point, Point2D fulcrum, double radius, double strength = OneHalf)
+            => Pinch0(point, fulcrum, radius, strength);
+
         /// <summary>
         /// The pinch distortion.
         /// </summary>
@@ -18,9 +59,12 @@ namespace InstrumentedLibrary
         /// <param name="radius">The radius.</param>
         /// <param name="strength">The strength.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
+        [DisplayName("Pinch Distort Point Tests")]
+        [Description("Pinch distort the location of a point.")]
+        [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Pinch(Point2D point, Point2D fulcrum, double radius, double strength = OneHalf)
+        public static Point2D Pinch0(Point2D point, Point2D fulcrum, double radius, double strength = OneHalf)
         {
             if (fulcrum == point)
             {
@@ -67,6 +111,9 @@ namespace InstrumentedLibrary
         /// <param name="radius">The radius.</param>
         /// <param name="strength">The strength.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
+        [DisplayName("Pinch Distort Point Tests")]
+        [Description("Pinch distort the location of a point.")]
+        [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Pinch1(Point2D point, Point2D fulcrum, double radius, double strength = OneHalf)
@@ -104,6 +151,9 @@ namespace InstrumentedLibrary
         /// <param name="radius">The radius.</param>
         /// <param name="strength">The strength.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
+        [DisplayName("Pinch Distort Point Tests")]
+        [Description("Pinch distort the location of a point.")]
+        [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Pinch2(Point2D point, Point2D fulcrum, double radius, double strength = OneHalf)

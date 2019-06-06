@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// Set of tests to run testing methods that calculate whether a point is within a circle.
         /// </summary>
         /// <returns></returns>
-        [DisplayName(nameof(AngleWithinAngleTests))]
+        [DisplayName(nameof(SubtendedToParametricTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;

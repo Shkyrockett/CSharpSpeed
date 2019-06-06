@@ -21,7 +21,7 @@ namespace InstrumentedLibrary
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
-        [DisplayName(nameof(HermiteToCubicBezierTests))]
+        [DisplayName(nameof(VertexParabolaToStandardParabolaTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;

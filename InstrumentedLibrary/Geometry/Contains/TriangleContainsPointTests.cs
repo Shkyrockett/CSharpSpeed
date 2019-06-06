@@ -21,7 +21,7 @@ namespace InstrumentedLibrary
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
-        [DisplayName(nameof(RectangleContainsPointTests))]
+        [DisplayName(nameof(TriangleContainsPointTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;

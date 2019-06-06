@@ -18,6 +18,9 @@ namespace InstrumentedLibrary
     [VisualizerProvider]
     public static class CircleContainsPointTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public static List<object[]> TestObjects = new List<object[]> {
             new object[] { 0, 0, 2, 1, 1 },
             new object[] { 0, 0, 2, 3, 3 }
