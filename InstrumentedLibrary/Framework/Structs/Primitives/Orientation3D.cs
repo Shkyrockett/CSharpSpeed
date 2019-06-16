@@ -11,9 +11,10 @@ namespace InstrumentedLibrary
     /// The orientation struct.
     /// </summary>
     [DataContract, Serializable]
-    [DebuggerDisplay("{nameof(Roll)}: {Roll ?? double.NaN}, {nameof(Pitch)}: {Pitch ?? double.NaN}, {nameof(Yaw)}: {Yaw ?? double.NaN}")]
+    [DebuggerDisplay("{ToString()}")]
     public struct Orientation3D
     {
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="Orientation3D"/> struct.
         /// </summary>
@@ -51,7 +52,9 @@ namespace InstrumentedLibrary
             Pitch = pitch;
             Yaw = yaw;
         }
+        #endregion Constructors
 
+        #region Deconstructors
         /// <summary>
         /// Deconstruct this <see cref="Orientation3D"/> to a <see cref="ValueTuple{T1, T2, T3}"/>.
         /// </summary>
@@ -66,7 +69,9 @@ namespace InstrumentedLibrary
             pitch = Pitch;
             yaw = Yaw;
         }
+        #endregion Deconstructors
 
+        #region Properties
         /// <summary>
         /// Gets or sets the roll.
         /// </summary>
@@ -84,6 +89,9 @@ namespace InstrumentedLibrary
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double Yaw { get; set; }
+        #endregion Properties
+
+        #region Operators
 
         /// <summary>
         /// Compares two <see cref="Orientation3D"/> objects.
@@ -113,7 +121,9 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Orientation3D((double Roll, double Pitch, double Yaw) tuple) => new Orientation3D(tuple);
+        #endregion Operators
 
+        #region Public Methods
         /// <summary>
         /// Compares two <see cref="Orientation3D"/> objects.
         /// </summary>
@@ -198,7 +208,8 @@ namespace InstrumentedLibrary
         {
             if (this == null) return nameof(Orientation3D);
             var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(Orientation3D)}=[{nameof(Roll)}:{Roll.ToString(format, provider)}{s} {nameof(Pitch)}:{Pitch.ToString(format, provider)}{s} {nameof(Yaw)}:{Yaw.ToString(format, provider)}]";
+            return $"{nameof(Orientation3D)}({nameof(Roll)}:{Roll.ToString(format, provider)}{s} {nameof(Pitch)}:{Pitch.ToString(format, provider)}{s} {nameof(Yaw)}:{Yaw.ToString(format, provider)})";
         }
+        #endregion Public Methods
     }
 }

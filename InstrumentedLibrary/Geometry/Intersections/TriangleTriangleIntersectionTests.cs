@@ -1,10 +1,10 @@
 ﻿using CSharpSpeed;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using static InstrumentedLibrary.Maths;
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.CompilerServices;
+using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
 {

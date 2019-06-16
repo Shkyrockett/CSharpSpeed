@@ -13,9 +13,11 @@ namespace InstrumentedLibrary
     /// </summary>
     [DataContract, Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
+    [DebuggerDisplay("{ToString()}")]
     public struct AccumulatorPoint2D
         : IFormattable
     {
+        #region Implementations
         /// <summary>
         /// Represents a <see cref="AccumulatorPoint2D"/> that has <see cref="X"/>, and <see cref="Y"/> values set to zero.
         /// </summary>
@@ -25,7 +27,9 @@ namespace InstrumentedLibrary
         /// A Unit <see cref="AccumulatorPoint2D"/>.
         /// </summary>
         public static readonly AccumulatorPoint2D Unit = new AccumulatorPoint2D(1d, 1d);
+        #endregion Implementations
 
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="AccumulatorPoint2D"/> class.
         /// </summary>
@@ -35,7 +39,7 @@ namespace InstrumentedLibrary
         public AccumulatorPoint2D(AccumulatorPoint2D accumulatorPoint2D)
             : this(accumulatorPoint2D.X, accumulatorPoint2D.Y, accumulatorPoint2D.Theta, accumulatorPoint2D.TotalDistance, accumulatorPoint2D.PreviousIndex)
         { }
-
+ 
         /// <summary>
         /// Initializes a new instance of the <see cref="AccumulatorPoint2D"/> class.
         /// </summary>
@@ -76,7 +80,9 @@ namespace InstrumentedLibrary
             TotalDistance = totalDistance;
             PreviousIndex = previousIndex;
         }
+        #endregion Constructors
 
+        #region Deconstructors
         /// <summary>
         /// Deconstruct this <see cref="AccumulatorPoint2D"/> to a <see cref="ValueTuple{T1, T2}"/>.
         /// </summary>
@@ -110,7 +116,9 @@ namespace InstrumentedLibrary
             totalDistance = TotalDistance;
             previousIndex = PreviousIndex;
         }
+        #endregion Deconstructors
 
+        #region Properties
         /// <summary>
         /// Gets or sets the X component of a <see cref="AccumulatorPoint2D"/> coordinate.
         /// </summary>
@@ -144,6 +152,17 @@ namespace InstrumentedLibrary
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int PreviousIndex { get; set; }
 
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="Point2D"/> is empty.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        public bool IsEmpty
+            => Abs(X) < Epsilon
+            && Abs(Y) < Epsilon;
+        #endregion Properties
+
+        #region Operators
         /// <summary>
         /// Compares two <see cref="AccumulatorPoint2D"/> objects.
         /// The result specifies whether the values of the <see cref="X"/>, and <see cref="Y"/>
@@ -193,7 +212,30 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator (double X, double Y) (AccumulatorPoint2D point) => (point.X, point.Y);
+        #endregion Operators
 
+        #region Factories
+        /// <summary>
+        /// Parse a string for a <see cref="AccumulatorPoint2D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="AccumulatorPoint2D"/> data </param>
+        /// <returns>
+        /// Returns an instance of the <see cref="AccumulatorPoint2D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        public static Point2D Parse(string source)
+        {
+            var tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
+            var value = new Point2D(
+                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture));
+            // There should be no more tokens in this string.
+            tokenizer.LastTokenRequired();
+            return value;
+        }
+        #endregion Factories
+
+        #region Methods
         /// <summary>
         /// Compares two Vectors
         /// </summary>
@@ -281,7 +323,8 @@ namespace InstrumentedLibrary
         {
             if (this == null) return nameof(AccumulatorPoint2D);
             var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(AccumulatorPoint2D)}=[{nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(Theta)}:{Theta.ToString(format, provider)}{s} {nameof(TotalDistance)}:{TotalDistance.ToString(format, provider)}{s} {nameof(PreviousIndex)}:{PreviousIndex.ToString(format, provider)}]";
+            return $"{nameof(AccumulatorPoint2D)}({nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(Theta)}:{Theta.ToString(format, provider)}{s} {nameof(TotalDistance)}:{TotalDistance.ToString(format, provider)}{s} {nameof(PreviousIndex)}:{PreviousIndex.ToString(format, provider)})";
         }
+        #endregion Methods
     }
 }

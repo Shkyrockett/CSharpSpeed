@@ -6,8 +6,8 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using static System.Math;
 using static InstrumentedLibrary.Maths;
+using static System.Math;
 
 namespace InstrumentedLibrary
 {
@@ -16,9 +16,11 @@ namespace InstrumentedLibrary
     /// </summary>
     [DataContract, Serializable]
     [ComVisible(true)]
+    [DebuggerDisplay("{ToString()}")]
     public struct Quaternion4D
         : IFormattable
     {
+        #region Static Fields
         /// <summary>
         /// Represents a <see cref="Quaternion4D"/> that has <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/>, and <see cref="W"/> values set to zero.
         /// </summary>
@@ -38,7 +40,9 @@ namespace InstrumentedLibrary
         /// Represents a <see cref="Quaternion4D"/> that has <see cref="X"/> set to 0, <see cref="Y"/> set to 0, <see cref="Z"/> set to 0, and <see cref="W"/> set to 1.
         /// </summary>
         public static readonly Quaternion4D Identity = new Quaternion4D(0d, 0d, 0d, 1d);
+        #endregion Static Fields
 
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="Quaternion4D"/> class.
         /// </summary>
@@ -79,7 +83,9 @@ namespace InstrumentedLibrary
         public Quaternion4D(Vector3D vector, double scalar)
             : this(vector.I, vector.J, vector.K, scalar)
         { }
+        #endregion Constructors
 
+        #region Deconstructors
         /// <summary>
         /// Deconstruct this <see cref="Quaternion4D"/> to a <see cref="ValueTuple{T1, T2, T3, T4}"/>.
         /// </summary>
@@ -97,7 +103,9 @@ namespace InstrumentedLibrary
             z = Z;
             w = W;
         }
+        #endregion Deconstructors
 
+        #region Properties
         /// <summary>
         /// Gets or sets the <see cref="X"/> value of this Quaternion. 
         /// </summary>
@@ -253,6 +261,9 @@ namespace InstrumentedLibrary
                 return new Vector3D(fTXZ + fTWY, fTYZ - fTWX, 1d - (fTXX + fTYY));
             }
         }
+        #endregion Properties
+
+        #region Operators
 
         /// <summary>
         /// Compares two <see cref="Quaternion4D"/> instances for exact equality.
@@ -300,7 +311,7 @@ namespace InstrumentedLibrary
         /// <param name="quaternion">The <see cref="Quaternion4D"/> to be converted.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator (double X, double Y, double Z, double W) (Quaternion4D quaternion) => (quaternion.X, quaternion.Y, quaternion.Z, quaternion.W);
+        public static implicit operator (double X, double Y, double Z, double W)(Quaternion4D quaternion) => (quaternion.X, quaternion.Y, quaternion.Z, quaternion.W);
 
         /// <summary>
         /// Tuple to <see cref="Quaternion4D"/>.
@@ -310,7 +321,9 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Quaternion4D((double X, double Y, double Z, double W) tuple) => new Quaternion4D(tuple);
+        #endregion Operators
 
+        #region Factories
         /// <summary>
         /// set this quaternion's values from the rotation matrix built from the Axi.
         /// </summary>
@@ -472,6 +485,51 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// Parse.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <returns>The <see cref="Quaternion4D"/>.</returns>
+        [ParseMethod]
+        public static Quaternion4D Parse(string source)
+            => Parse(source, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Parse.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="provider">The provider.</param>
+        /// <returns>The <see cref="Quaternion4D"/>.</returns>
+        /// <exception cref="FormatException"></exception>
+        /// <exception cref="FormatException">The parts of the vectors must be decimal numbers</exception>
+        public static Quaternion4D Parse(string source, IFormatProvider provider)
+        {
+            var sep = Tokenizer.GetNumericListSeparator(provider);
+            var vals = source.Replace("Quaternion", string.Empty).Trim(' ', '{', '(', '[', '<', '}', ')', ']', '>').Split(sep);
+
+            if (vals.Length != 4)
+            {
+                throw new FormatException($"Cannot parse the text '{source}' because it does not have 4 parts separated by commas in the form (x,y,z,w) with optional parenthesis.");
+            }
+            else
+            {
+                try
+                {
+                    return new Quaternion4D(
+                        double.Parse(vals[0].Trim()),
+                        double.Parse(vals[1].Trim()),
+                        double.Parse(vals[2].Trim()),
+                        double.Parse(vals[3].Trim()));
+                }
+                catch (Exception ex)
+                {
+                    throw new FormatException("The parts of the vectors must be decimal numbers", ex);
+                }
+            }
+        }
+        #endregion Factories
+
+        #region Methods
+        /// <summary>
         /// Compares two <see cref="Quaternion4D"/> structs.
         /// </summary>
         /// <param name="a">The object to compare.</param>
@@ -576,5 +634,6 @@ namespace InstrumentedLibrary
             var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
             return $"{nameof(Quaternion4D)}=[{nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(Z)}:{Z.ToString(format, provider)}{s} {nameof(W)}:{W.ToString(format, provider)}]";
         }
+        #endregion Methods
     }
 }

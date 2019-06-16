@@ -12,9 +12,9 @@ namespace InstrumentedLibrary
     /// <summary>
     /// The <see cref="Point2D"/> struct.
     /// </summary>
-    [DataContract, Serializable]
     [ComVisible(true)]
-    [DebuggerDisplay("{nameof(X)}: {X ?? double.NaN}, {nameof(Y)}: {Y ?? double.NaN}")]
+    [DataContract, Serializable]
+    [DebuggerDisplay("{ToString()}")]
     public struct Point2D
         : IFormattable
     {
@@ -101,8 +101,18 @@ namespace InstrumentedLibrary
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double Y { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="Point2D"/> is empty.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        public bool IsEmpty
+            => Abs(X) < Epsilon
+            && Abs(Y) < Epsilon;
         #endregion Properties
 
+        #region Operators
         /// <summary>
         /// Unary addition operator.
         /// </summary>
@@ -273,7 +283,7 @@ namespace InstrumentedLibrary
 
         /// <summary>
         /// Compares two <see cref="Point2D"/> objects.
-        /// The result specifies whether the values of the <see cref="X"/> and <see cref="Y"/>
+        /// The result specifies whether the values of the <see cref="X"/>, and <see cref="Y"/>
         /// values of the two <see cref="Point2D"/> objects are equal.
         /// </summary>
         /// <param name="left"></param>
@@ -326,9 +336,56 @@ namespace InstrumentedLibrary
         /// <param name="point">The <see cref="Point2D"/> to be converted.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator (double X, double Y) (Point2D point) => (point.X, point.Y);
+        public static implicit operator (double X, double Y)(Point2D point) => (point.X, point.Y);
+        #endregion Operators
+
+        #region Factories
+        /// <summary>
+        /// Parse a string for a <see cref="Point2D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Point2D"/> data </param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Point2D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        [ParseMethod]
+        public static Point2D Parse(string source)
+            => Parse(source, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Parse a string for a <see cref="Point2D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Point2D"/> data </param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Point2D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        public static Point2D Parse(string source, IFormatProvider provider)
+        {
+            var tokenizer = new Tokenizer(source, provider);
+            var firstToken = tokenizer.NextTokenRequired();
+
+            var value = new Point2D(
+                Convert.ToDouble(firstToken, provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+                );
+
+            // There should be no more tokens in this string.
+            tokenizer.LastTokenRequired();
+            return value;
+        }
+        #endregion Factories
 
         #region Methods
+        /// <summary>
+        /// Get the hash code.
+        /// </summary>
+        /// <returns>The <see cref="int"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override int GetHashCode() => HashCode.Combine(X, Y);
+
         /// <summary>
         /// The compare.
         /// </summary>
@@ -370,12 +427,10 @@ namespace InstrumentedLibrary
             => Equals(this, value);
 
         /// <summary>
-        /// Get the hash code.
+        /// Clone.
         /// </summary>
-        /// <returns>The <see cref="int"/>.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() => HashCode.Combine(X, Y);
+        /// <returns>The <see cref="Point2D"/>.</returns>
+        internal Point2D Clone() => new Point2D(X, Y);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Point2D"/> struct.
@@ -410,7 +465,7 @@ namespace InstrumentedLibrary
         {
             if (this == null) return nameof(Point2D);
             var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(Point2D)}=[{nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}]";
+            return $"{nameof(Point2D)}({nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)})";
         }
         #endregion Methods
     }

@@ -12,12 +12,13 @@ namespace InstrumentedLibrary
     /// <summary>
     /// The <see cref="Point3D"/> struct.
     /// </summary>
-    [DataContract, Serializable]
     [ComVisible(true)]
-    [DebuggerDisplay("{nameof(X)}: {X ?? double.NaN}, {nameof(Y)}: {Y ?? double.NaN}, {nameof(Z)}: {Z ?? double.NaN}")]
+    [DataContract, Serializable]
+    [DebuggerDisplay("{ToString()}")]
     public struct Point3D
         : IFormattable
     {
+        #region Implementations
         /// <summary>
         /// Represents a <see cref="Point3D"/> that has <see cref="X"/>, <see cref="Y"/>, and <see cref="Z"/> values set to zero.
         /// </summary>
@@ -32,7 +33,9 @@ namespace InstrumentedLibrary
         /// Represents a <see cref="Point3D"/> that has <see cref="X"/>, <see cref="Y"/>, and <see cref="Z"/> values set to NaN.
         /// </summary>
         public static readonly Point3D NaN = new Point3D(double.NaN, double.NaN, double.NaN);
+        #endregion Implementations
 
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="Point3D"/> class.
         /// </summary>
@@ -70,13 +73,15 @@ namespace InstrumentedLibrary
         {
             (X, Y, Z) = tuple;
         }
+        #endregion Constructors
 
+        #region Deconstructors
         /// <summary>
         /// Deconstruct this <see cref="Point3D"/> to a <see cref="ValueTuple{T1, T2, T3}"/>.
         /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="z">The z.</param>
+        /// <param name="x">The <paramref name="x"/>.</param>
+        /// <param name="y">The <paramref name="y"/>.</param>
+        /// <param name="z">The <paramref name="z"/>.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -86,7 +91,9 @@ namespace InstrumentedLibrary
             y = Y;
             z = Z;
         }
+        #endregion Deconstructors
 
+        #region Properties
         /// <summary>
         /// Gets or sets the X component of a <see cref="Point3D"/> coordinate.
         /// </summary>
@@ -105,6 +112,18 @@ namespace InstrumentedLibrary
         [DataMember, XmlAttribute, SoapAttribute]
         public double Z { get; set; }
 
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="Point3D"/> is empty.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        public bool IsEmpty
+            => Abs(X) < Epsilon
+            && Abs(Y) < Epsilon
+            && Abs(Z) < Epsilon;
+        #endregion Properties
+
+        #region Operators
         /// <summary>
         /// Unary addition operator.
         /// </summary>
@@ -301,7 +320,48 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator (double X, double Y, double Z) (Point3D point) => (point.X, point.Y, point.Z);
+        #endregion Operators
 
+        #region Factories
+        /// <summary>
+        /// Parse a string for a <see cref="Point3D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Point3D"/> data </param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Point3D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        [ParseMethod]
+        public static Point3D Parse(string source)
+            => Parse(source, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Parse a string for a <see cref="Point3D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Point3D"/> data </param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Point3D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        public static Point3D Parse(string source, IFormatProvider provider)
+        {
+            var tokenizer = new Tokenizer(source, provider);
+            var firstToken = tokenizer.NextTokenRequired();
+
+            var value = new Point3D(
+                Convert.ToDouble(firstToken, provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+                );
+
+            // There should be no more tokens in this string.
+            tokenizer.LastTokenRequired();
+            return value;
+        }
+        #endregion Factories
+
+        #region Methods
         /// <summary>
         /// Compares two Vectors
         /// </summary>
@@ -382,7 +442,8 @@ namespace InstrumentedLibrary
         {
             if (this == null) return nameof(Point3D);
             var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(Point3D)}=[{nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(Z)}:{Z.ToString(format, provider)}]";
+            return $"{nameof(Point3D)}({nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(Z)}:{Z.ToString(format, provider)})";
         }
+        #endregion Methods
     }
 }

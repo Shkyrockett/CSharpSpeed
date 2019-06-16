@@ -12,10 +12,12 @@ namespace InstrumentedLibrary
     /// <summary>
     /// The <see cref="Matrix2x2D"/> struct.
     /// </summary>
-    [DataContract, Serializable]
     [ComVisible(true)]
+    [DataContract, Serializable]
+    [DebuggerDisplay("{ToString()}")]
     public struct Matrix2x2D
     {
+        #region Static Fields
         /// <summary>
         /// An Empty <see cref="Matrix2x2D"/>.
         /// </summary>
@@ -29,7 +31,9 @@ namespace InstrumentedLibrary
         public static readonly Matrix2x2D Identity = new Matrix2x2D(
             1d, 0d,
             0d, 1d);
+        #endregion Static Fields
 
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="Matrix2x2D"/> class.
         /// </summary>
@@ -72,7 +76,9 @@ namespace InstrumentedLibrary
         {
             (M0x0, M0x1, M1x0, M1x1) = tuple;
         }
+        #endregion Constructors
 
+        #region Deconstructors
         /// <summary>
         /// Deconstruct this <see cref="Matrix2x2D"/> to a <see cref="ValueTuple{T1, T2, T3, T4}"/>.
         /// </summary>
@@ -92,25 +98,31 @@ namespace InstrumentedLibrary
             m1x0 = M1x0;
             m1x1 = M1x1;
         }
+        #endregion Deconstructors
 
+        #region Properties
         /// <summary>
         /// Gets or sets the m0x0.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double M0x0 { get; set; }
 
         /// <summary>
         /// Gets or sets the m0x1.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double M0x1 { get; set; }
 
         /// <summary>
         /// Gets or sets the m1x0.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double M1x0 { get; set; }
 
         /// <summary>
         /// Gets or sets the m1x1.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double M1x1 { get; set; }
 
         /// <summary>
@@ -171,6 +183,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Matrix2x2D matrix1, Matrix2x2D matrix2) => !Equals(matrix1, matrix2);
 
+        #region Methods
         /// <summary>
         /// Returns the HashCode for this <see cref="Matrix2x2D"/>
         /// </summary>
@@ -182,14 +195,21 @@ namespace InstrumentedLibrary
         public override int GetHashCode() => HashCode.Combine(M0x0, M0x1, M1x0, M1x1);
 
         /// <summary>
-        /// Compares two Matrix2x3D
+        /// Get the enumerator.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Matrix2x2D a, Matrix2x2D b) => Equals(a, b);
+        /// <returns>The <see cref="T:IEnumerator{IEnumerable{double}}"/>.</returns>
+        public IEnumerator<IEnumerable<double>> GetEnumerator()
+            => new List<List<double>>
+            {
+                new List<double> { M0x0, M0x1 },
+                new List<double> { M1x0, M1x1 },
+            }.GetEnumerator();
+
+        /// <summary>
+        /// Get the enumerator.
+        /// </summary>
+        /// <returns>The <see cref="IEnumerator"/>.</returns>
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         /// <summary>
         /// Compares two Matrix instances for object equality.  In this equality
@@ -276,8 +296,10 @@ namespace InstrumentedLibrary
         public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Matrix4x4D);
+            if (IsIdentity) return nameof(Identity);
             var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(Matrix2x2D)}=[{nameof(M0x0)}:{M0x0.ToString(format, provider)}{s} {nameof(M0x1)}:{M0x1.ToString(format, provider)}{s} {nameof(M1x0)}:{M1x0.ToString(format, provider)}{s} {nameof(M1x1)}:{M1x1.ToString(format, provider)}]";
+            return $"{nameof(Matrix2x2D)}({nameof(M0x0)}:{M0x0.ToString(format, provider)}{s} {nameof(M0x1)}:{M0x1.ToString(format, provider)}{s} {nameof(M1x0)}:{M1x0.ToString(format, provider)}{s} {nameof(M1x1)}:{M1x1.ToString(format, provider)})";
         }
+        #endregion Methods
     }
 }

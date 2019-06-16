@@ -13,12 +13,13 @@ namespace InstrumentedLibrary
     /// <summary>
     /// The vector2d struct. Represents a vector in 2D coordinate space (double precision floating-point coordinates).
     /// </summary>
-    [DataContract, Serializable]
     [ComVisible(true)]
-    [DebuggerDisplay("{nameof(I)}: {I ?? double.NaN}, {nameof(J)}: {J ?? double.NaN}")]
+    [DataContract, Serializable]
+    [DebuggerDisplay("{ToString()}")]
     public struct Vector2D
         : IFormattable
     {
+        #region Static Fields
         /// <summary>
         /// Represents a <see cref="Vector2D"/> that has <see cref="I"/>, and <see cref="J"/> values set to zero.
         /// </summary>
@@ -43,7 +44,9 @@ namespace InstrumentedLibrary
         /// Represents a <see cref="Vector2D"/> that has <see cref="I"/> to 0, and <see cref="J"/> set to 1.
         /// </summary>
         public static readonly Vector2D YAxis = new Vector2D(0d, 1d);
+        #endregion Static Fields
 
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> struct.
         /// </summary>
@@ -114,12 +117,23 @@ namespace InstrumentedLibrary
         public Vector2D(double aI, double aJ, double bI, double bJ)
             : this()
         {
+            // This creates a normalized vector. It is debatable that it is what we actually want. We may only want the first line.
+
+            // Find the new vector.
             (var i, var j) = (bI - aI, bJ - aJ);
+
+            // Get the length of the vector.
             var d = Sqrt((i * i) + (j * j));
+
+            // Calculate the normalized vector.
             I = i * 1d / d;
             J = j * 1d / d;
-        }
 
+            // ToDo: What should happen when d is zero? What is the normalized size of a length 0 vector?
+        }
+        #endregion Constructors
+
+        #region Deconstructors
         /// <summary>
         /// Deconstruct this <see cref="Vector2D"/> to a <see cref="ValueTuple{T1, T2}"/>.
         /// </summary>
@@ -133,7 +147,9 @@ namespace InstrumentedLibrary
             i = I;
             j = J;
         }
+        #endregion Deconstructors
 
+        #region Properties
         /// <summary>
         /// Gets or sets the I or first component of a 2D Vector.
         /// </summary>
@@ -145,7 +161,9 @@ namespace InstrumentedLibrary
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double J { get; set; }
+        #endregion Properties
 
+        #region Operators
         /// <summary>
         /// The operator +.
         /// </summary>
@@ -316,7 +334,7 @@ namespace InstrumentedLibrary
         /// <param name="vector">The <see cref="Vector2D"/> to be converted.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator (double I, double J) (Vector2D vector) => (vector.I, vector.J);
+        public static implicit operator (double I, double J)(Vector2D vector) => (vector.I, vector.J);
 
         /// <summary>
         /// Tuple to <see cref="Vector2D"/>.
@@ -326,6 +344,54 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Vector2D((double X, double Y) tuple) => new Vector2D(tuple);
+        #endregion Operators
+
+        #region Factories
+        /// <summary>
+        /// Parse a string for a <see cref="Vector2D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Vector2D"/> data </param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Vector2D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        [ParseMethod]
+        public static Vector2D Parse(string source)
+            => Parse(source, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Parse a string for a <see cref="Vector2D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Vector2D"/> data </param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Vector2D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        public static Vector2D Parse(string source, IFormatProvider provider)
+        {
+            var tokenizer = new Tokenizer(source, provider);
+            var firstToken = tokenizer.NextTokenRequired();
+
+            var value = new Vector2D(
+                Convert.ToDouble(firstToken, provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+                );
+
+            // There should be no more tokens in this string.
+            tokenizer.LastTokenRequired();
+            return value;
+        }
+        #endregion Factories
+
+        #region Public Methods
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>A 32-bit signed <see cref="int"/> hash code.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override int GetHashCode() => HashCode.Combine(I, J);
 
         /// <summary>
         /// Compares two Vectors
@@ -349,11 +415,11 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The equals.
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="other">The other.</param>
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Vector2D value) => Equals(this, value);
+        public bool Equals(Vector2D other) => Equals(this, other);
 
         /// <summary>
         /// The equals.
@@ -364,14 +430,6 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Vector2D a, Vector2D b) => (a.I == b.I) & (a.J == b.J);
-
-        /// <summary>
-        /// Returns the hash code for this instance.
-        /// </summary>
-        /// <returns>A 32-bit signed <see cref="int"/> hash code.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() => HashCode.Combine(I, J);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Vector2D"/>.
@@ -406,7 +464,8 @@ namespace InstrumentedLibrary
         {
             if (this == null) return nameof(Vector2D);
             var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(Vector2D)}=[{nameof(I)}:{I.ToString(format, provider)}{s} {nameof(J)}:{J.ToString(format, provider)}]";
+            return $"{nameof(Vector2D)}({nameof(I)}: {I.ToString(format, provider)}{s} {nameof(J)}: {J.ToString(format, provider)})";
         }
+        #endregion Public Methods
     }
 }

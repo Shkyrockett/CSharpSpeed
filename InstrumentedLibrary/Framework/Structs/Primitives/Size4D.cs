@@ -12,12 +12,13 @@ namespace InstrumentedLibrary
     /// <summary>
     /// The size2d class.
     /// </summary>
-    [DataContract, Serializable]
     [ComVisible(true)]
-    [DebuggerDisplay("{nameof(Width)}: {Width ?? double.NaN}, {nameof(Height)}: {Height ?? double.NaN}, {nameof(Depth)}: {Depth ?? double.NaN}, {nameof(Breadth)}: {Breadth ?? double.NaN}")]
+    [DataContract, Serializable]
+    [DebuggerDisplay("{ToString()}")]
     public struct Size4D
         : IFormattable
     {
+        #region Implementations
         /// <summary>
         /// Represents a <see cref="Size4D"/> that has <see cref="Width"/>, <see cref="Height"/>, <see cref="Depth"/>, and <see cref="Breadth"/> values set to zero.
         /// </summary>
@@ -32,7 +33,9 @@ namespace InstrumentedLibrary
         /// Represents a <see cref="Size4D"/> that has <see cref="Width"/>, <see cref="Height"/>, <see cref="Depth"/>, and <see cref="Breadth"/> values set to NaN.
         /// </summary>
         public static readonly Size4D NaN = new Size4D(double.NaN, double.NaN, double.NaN, double.NaN);
+        #endregion Implementations
 
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="Size4D"/> class.
         /// </summary>
@@ -46,10 +49,20 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Initializes a new instance of the <see cref="Size4D"/> class.
         /// </summary>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        /// <param name="depth">The depth.</param>
-        /// <param name="breadth">The breadth.</param>
+        /// <param name="point"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Size4D(Point4D point)
+            : this(point.X, point.Y, point.Z, point.W)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Size4D"/> class.
+        /// </summary>
+        /// <param name="width">The Width component of the Size.</param>
+        /// <param name="height">The Height component of the Size.</param>
+        /// <param name="depth">The Depth component of the Size.</param>
+        /// <param name="breadth">The Breadth component of the Size.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Size4D(double width, double height, double depth, double breadth)
@@ -72,7 +85,9 @@ namespace InstrumentedLibrary
         {
             (Width, Height, Depth, Breadth) = tuple;
         }
+        #endregion Constructors
 
+        #region Deconstructors
         /// <summary>
         /// Deconstruct this <see cref="Size4D"/> to a <see cref="ValueTuple{T1, T2, T3, T4}"/>.
         /// </summary>
@@ -90,7 +105,9 @@ namespace InstrumentedLibrary
             depth = Depth;
             breadth = Breadth;
         }
+        #endregion Deconstructors
 
+        #region Properties
         /// <summary>
         /// Gets or sets the Width component of a <see cref="Size4D"/> coordinate.
         /// </summary>
@@ -114,7 +131,9 @@ namespace InstrumentedLibrary
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double Breadth { get; internal set; }
+        #endregion Properties
 
+        #region Operators
         /// <summary>
         /// The operator +.
         /// </summary>
@@ -269,7 +288,7 @@ namespace InstrumentedLibrary
         /// <param name="size">The <see cref="Size4D"/> to be converted.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator (double Width, double Height, double Depth, double Breadth) (Size4D size) => (size.Width, size.Height, size.Depth, size.Breadth);
+        public static implicit operator (double Width, double Height, double Depth, double Breadth)(Size4D size) => (size.Width, size.Height, size.Depth, size.Breadth);
 
         /// <summary>
         /// Implicit conversion from tuple.
@@ -280,6 +299,57 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Size4D((double Width, double Height, double Depth, double Breadth) tuple)
             => new Size4D(tuple);
+        #endregion Operators
+
+        #region Factories
+        /// <summary>
+        /// Parse a string for a <see cref="Size4D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Size4D"/> data </param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Size4D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        [ParseMethod]
+        public static Size4D Parse(string source)
+            => Parse(source, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Parse a string for a <see cref="Size4D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Size4D"/> data </param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Size4D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        public static Size4D Parse(string source, IFormatProvider provider)
+        {
+            var tokenizer = new Tokenizer(source, provider);
+            var firstToken = tokenizer.NextTokenRequired();
+
+            // The token will already have had whitespace trimmed so we can do a simple string compare.
+            var value = firstToken == nameof(Empty) ? Empty : new Size4D(
+                Convert.ToDouble(firstToken, provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+                );
+
+            // There should be no more tokens in this string.
+            tokenizer.LastTokenRequired();
+            return value;
+        }
+        #endregion Factories
+
+        #region Methods
+        /// <summary>
+        /// Get the hash code.
+        /// </summary>
+        /// <returns>The <see cref="int"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override int GetHashCode() => HashCode.Combine(Width, Height, Depth, Breadth);
 
         /// <summary>
         /// Compares two Vectors
@@ -321,14 +391,6 @@ namespace InstrumentedLibrary
         public bool Equals(Size4D value) => Equals(this, value);
 
         /// <summary>
-        /// Get the hash code.
-        /// </summary>
-        /// <returns>The <see cref="int"/>.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() => HashCode.Combine(Width, Height, Depth, Breadth);
-
-        /// <summary>
         /// Creates a human-readable string that represents this <see cref="Size4D"/> struct.
         /// </summary>
         /// <returns>A string representation of this <see cref="Size4D"/>.</returns>
@@ -361,7 +423,8 @@ namespace InstrumentedLibrary
         {
             if (this == null) return nameof(Size4D);
             var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(Size4D)}=[{nameof(Width)}:{Width.ToString(format, provider)}{s} {nameof(Height)}:{Height.ToString(format, provider)}{s} {nameof(Depth)}:{Depth.ToString(format, provider)}{s} {nameof(Breadth)}:{Breadth.ToString(format, provider)}]";
+            return $"{nameof(Size4D)}({nameof(Width)}:{Width.ToString(format, provider)}{s} {nameof(Height)}:{Height.ToString(format, provider)}{s} {nameof(Depth)}:{Depth.ToString(format, provider)}{s} {nameof(Breadth)}:{Breadth.ToString(format, provider)})";
         }
+        #endregion Methods
     }
 }

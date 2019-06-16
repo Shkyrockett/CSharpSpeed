@@ -10,7 +10,7 @@
     <Version>0.0.0.1</Version>
     <DocumentationFile>..\Builds\VisualValidator.xml</DocumentationFile>
     <OutputPath>..\Builds\</OutputPath>
-    <!--<GenerateAssemblyInfo>false</GenerateAssemblyInfo>-->
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Authors>Shkyrockett</Authors>
     <Copyright>Copyright © 2016 - 2019 Shkyrockett</Copyright>
     <RepositoryUrl>https://github.com/Shkyrockett/CSharpSpeed</RepositoryUrl>

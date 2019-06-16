@@ -10,14 +10,15 @@ using System.Xml.Serialization;
 namespace InstrumentedLibrary
 {
     /// <summary>
-    /// The size2d class.
+    /// The size3D struct.
     /// </summary>
-    [DataContract, Serializable]
     [ComVisible(true)]
-    [DebuggerDisplay("{nameof(Width)}: {Width ?? double.NaN}, {nameof(Height)}: {Height ?? double.NaN}, {nameof(Depth)}: {Depth ?? double.NaN}")]
+    [DataContract, Serializable]
+    [DebuggerDisplay("{ToString()}")]
     public struct Size3D
         : IFormattable
     {
+        #region Implementations
         /// <summary>
         /// Represents a <see cref="Size3D"/> that has <see cref="Width"/>, <see cref="Height"/>, and <see cref="Depth"/> values set to zero.
         /// </summary>
@@ -32,11 +33,15 @@ namespace InstrumentedLibrary
         /// Represents a <see cref="Size3D"/> that has <see cref="Width"/>, <see cref="Height"/>, and <see cref="Depth"/> values set to NaN.
         /// </summary>
         public static readonly Size3D NaN = new Size3D(double.NaN, double.NaN, double.NaN);
+        #endregion Implementations
 
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="Size3D"/> class.
         /// </summary>
         /// <param name="size"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Size3D(Size3D size)
             : this(size.Width, size.Height, size.Depth)
         { }
@@ -44,9 +49,19 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Initializes a new instance of the <see cref="Size3D"/> class.
         /// </summary>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
-        /// <param name="depth">The depth.</param>
+        /// <param name="point"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Size3D(Point3D point)
+            : this(point.X, point.Y, point.Z)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Size3D"/> class.
+        /// </summary>
+        /// <param name="width">The Width component of the Size.</param>
+        /// <param name="height">The Height component of the Size.</param>
+        /// <param name="depth">The Depth component of the Size.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Size3D(double width, double height, double depth)
@@ -68,7 +83,9 @@ namespace InstrumentedLibrary
         {
             (Width, Height, Depth) = tuple;
         }
+        #endregion Constructors
 
+        #region Deconstructors
         /// <summary>
         /// Deconstruct this <see cref="Size3D"/> to a <see cref="ValueTuple{T1, T2, T3}"/>.
         /// </summary>
@@ -84,25 +101,29 @@ namespace InstrumentedLibrary
             height = Height;
             depth = Depth;
         }
+        #endregion Deconstructors
 
+        #region Properties
         /// <summary>
         /// Gets or sets the Width component of a <see cref="Size3D"/> coordinate.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
-        public double Width { get; internal set; }
+        public double Width { get; set; }
 
         /// <summary>
         /// Gets or sets the Height component of a <see cref="Size3D"/> coordinate.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
-        public double Height { get; internal set; }
+        public double Height { get; set; }
 
         /// <summary>
         /// Gets or sets the Depth component of a <see cref="Size3D"/> coordinate.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
-        public double Depth { get; internal set; }
+        public double Depth { get; set; }
+        #endregion Properties
 
+        #region Operators
         /// <summary>
         /// The operator +.
         /// </summary>
@@ -247,6 +268,9 @@ namespace InstrumentedLibrary
         /// Converts the specified <see cref="Vector3D"/> structure to a <see cref="Size3D"/> structure.
         /// </summary>
         /// <param name="vector">The <see cref="Vector3D"/> to be converted.</param>
+        /// <returns>
+        /// Size - A Size equal to this Size
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Size3D(Vector3D vector) => new Size3D(vector.I, vector.J, vector.K);
@@ -257,7 +281,7 @@ namespace InstrumentedLibrary
         /// <param name="size">The <see cref="Size3D"/> to be converted.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator (double Width, double Height, double Depth) (Size3D size) => (size.Width, size.Height, size.Depth);
+        public static implicit operator (double Width, double Height, double Depth)(Size3D size) => (size.Width, size.Height, size.Depth);
 
         /// <summary>
         /// Implicit conversion from tuple.
@@ -268,6 +292,56 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Size3D((double Width, double Height, double Depth) tuple)
             => new Size3D(tuple);
+        #endregion Operators
+
+        #region Factories
+        /// <summary>
+        /// Parse a string for a <see cref="Size3D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Size3D"/> data </param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Size3D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        [ParseMethod]
+        public static Size3D Parse(string source)
+            => Parse(source, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Parse a string for a <see cref="Size3D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Size3D"/> data </param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Size3D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        public static Size3D Parse(string source, IFormatProvider provider)
+        {
+            var tokenizer = new Tokenizer(source, provider);
+            var firstToken = tokenizer.NextTokenRequired();
+
+            // The token will already have had whitespace trimmed so we can do a simple string compare.
+            var value = firstToken == nameof(Empty) ? Empty : new Size3D(
+                Convert.ToDouble(firstToken, provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+                );
+
+            // There should be no more tokens in this string.
+            tokenizer.LastTokenRequired();
+            return value;
+        }
+        #endregion Factories
+
+        #region Methods
+        /// <summary>
+        /// Get the hash code.
+        /// </summary>
+        /// <returns>The <see cref="int"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override int GetHashCode() => HashCode.Combine(Width, Height, Depth);
 
         /// <summary>
         /// Compares two Vectors
@@ -309,30 +383,12 @@ namespace InstrumentedLibrary
         public bool Equals(Size3D value) => Equals(this, value);
 
         /// <summary>
-        /// Get the hash code.
-        /// </summary>
-        /// <returns>The <see cref="int"/>.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() => HashCode.Combine(Width, Height, Depth);
-
-        /// <summary>
         /// Creates a human-readable string that represents this <see cref="Size3D"/> struct.
         /// </summary>
         /// <returns>A string representation of this <see cref="Size3D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Size3D"/> struct based on the IFormatProvider
-        /// passed in.  If the provider is null, the CurrentCulture is used.
-        /// </summary>
-        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
-        /// <returns>A string representation of this <see cref="Size3D"/>.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Size3D"/> struct based on the format string
@@ -349,7 +405,8 @@ namespace InstrumentedLibrary
         {
             if (this == null) return nameof(Size3D);
             var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(Size3D)}=[{nameof(Width)}:{Width.ToString(format, provider)}{s} {nameof(Height)}:{Height.ToString(format, provider)}{s} {nameof(Depth)}:{Depth.ToString(format, provider)}]";
+            return $"{nameof(Size3D)}({nameof(Width)}:{Width.ToString(format, provider)}{s} {nameof(Height)}:{Height.ToString(format, provider)}{s} {nameof(Depth)}:{Depth.ToString(format, provider)})";
         }
+        #endregion Methods
     }
 }

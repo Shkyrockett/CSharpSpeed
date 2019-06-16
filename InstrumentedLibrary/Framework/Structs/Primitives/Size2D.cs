@@ -12,12 +12,13 @@ namespace InstrumentedLibrary
     /// <summary>
     /// The size2d struct.
     /// </summary>
-    [DataContract, Serializable]
     [ComVisible(true)]
-    [DebuggerDisplay("{nameof(Width)}: {Width ?? double.NaN}, {nameof(Height)}: {Height ?? double.NaN}")]
+    [DataContract, Serializable]
+    [DebuggerDisplay("{ToString()}")]
     public struct Size2D
         : IFormattable
     {
+        #region Implementations
         /// <summary>
         /// Represents a <see cref="Size2D"/> that has <see cref="Width"/>, and <see cref="Height"/> values set to zero.
         /// </summary>
@@ -32,7 +33,9 @@ namespace InstrumentedLibrary
         /// Represents a <see cref="Size2D"/> that has <see cref="Width"/>, and <see cref="Height"/> values set to NaN.
         /// </summary>
         public static readonly Size2D NaN = new Size2D(double.NaN, double.NaN);
+        #endregion Implementations
 
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="Size2D"/> class.
         /// </summary>
@@ -41,6 +44,16 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Size2D(Size2D size)
             : this(size.Width, size.Height)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Size2D"/> class.
+        /// </summary>
+        /// <param name="point"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Size2D(Point2D point)
+            : this(point.X, point.Y)
         { }
 
         /// <summary>
@@ -68,7 +81,9 @@ namespace InstrumentedLibrary
         {
             (Width, Height) = tuple;
         }
+        #endregion Constructors
 
+        #region Deconstructors
         /// <summary>
         /// Deconstruct this <see cref="Size2D"/> to a <see cref="ValueTuple{T1, T2}"/>.
         /// </summary>
@@ -82,7 +97,9 @@ namespace InstrumentedLibrary
             width = Width;
             height = Height;
         }
+        #endregion Deconstructors
 
+        #region Properties
         /// <summary>
         /// Gets or sets the Width component of a <see cref="Size2D"/> coordinate.
         /// </summary>
@@ -95,6 +112,17 @@ namespace InstrumentedLibrary
         [DataMember, XmlAttribute, SoapAttribute]
         public double Height { get; set; }
 
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="Point2D"/> is empty.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        public bool IsEmpty
+            => Abs(Width) < Epsilon
+            && Abs(Height) < Epsilon;
+        #endregion Properties
+
+        #region Operators
         /// <summary>
         /// The operator +.
         /// </summary>
@@ -249,7 +277,7 @@ namespace InstrumentedLibrary
         /// <param name="size">The <see cref="Size2D"/> to be converted.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator (double Width, double Height) (Size2D size) => (size.Width, size.Height);
+        public static implicit operator (double Width, double Height)(Size2D size) => (size.Width, size.Height);
 
         /// <summary>
         /// Implicit conversion from tuple.
@@ -258,8 +286,64 @@ namespace InstrumentedLibrary
         /// <param name="tuple"> Size - the Size to convert to a Vector </param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Size2D((double Width, double Height) tuple)
-            => new Size2D(tuple);
+        public static implicit operator Size2D((double Width, double Height) tuple) => new Size2D(tuple);
+
+        /// <summary>
+        /// Converts the specified <see cref="Point2D"/> structure to a <see cref="ValueTuple{T1, T2}"/> structure.
+        /// </summary>
+        /// <param name="point">The <see cref="Point2D"/> to be converted.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator (double Width, double Height)(Size2D point) => (point.Width, point.Height);
+        #endregion Operators
+
+        #region Factories
+        /// <summary>
+        /// Parse a string for a <see cref="Size2D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Size2D"/> data </param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Size2D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        [ParseMethod]
+        public static Size2D Parse(string source)
+            => Parse(source, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Parse a string for a <see cref="Size2D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Size2D"/> data </param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Size2D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        public static Size2D Parse(string source, IFormatProvider provider)
+        {
+            var tokenizer = new Tokenizer(source, provider);
+            var firstToken = tokenizer.NextTokenRequired();
+
+            // The token will already have had whitespace trimmed so we can do a simple string compare.
+            var value = firstToken == nameof(Empty) ? Empty : new Size2D(
+                Convert.ToDouble(firstToken, provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+                );
+
+            // There should be no more tokens in this string.
+            tokenizer.LastTokenRequired();
+            return value;
+        }
+        #endregion Factories
+
+        #region Methods
+        /// <summary>
+        /// Get the hash code.
+        /// </summary>
+        /// <returns>The <see cref="int"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override int GetHashCode() => HashCode.Combine(Width, Height);
 
         /// <summary>
         /// Compares two Vectors
@@ -301,12 +385,16 @@ namespace InstrumentedLibrary
         public bool Equals(Size2D value) => Equals(this, value);
 
         /// <summary>
-        /// Get the hash code.
+        /// The to point2d.
         /// </summary>
-        /// <returns>The <see cref="int"/>.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() => HashCode.Combine(Width, Height);
+        /// <returns>The <see cref="Point2D"/>.</returns>
+        public Point2D ToPoint2D() => (Point2D)this;
+
+        /// <summary>
+        /// The truncate.
+        /// </summary>
+        /// <returns>The <see cref="Size2D"/>.</returns>
+        public Size2D Truncate() => new Size2D((int)Width, (int)Height);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Size2D"/> struct.
@@ -341,7 +429,8 @@ namespace InstrumentedLibrary
         {
             if (this == null) return nameof(Size2D);
             var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(Size2D)}=[{nameof(Width)}:{Width.ToString(format, provider)}{s} {nameof(Height)}:{Height.ToString(format, provider)}]";
+            return $"{nameof(Size2D)}({nameof(Width)}:{Width.ToString(format, provider)}{s} {nameof(Height)}:{Height.ToString(format, provider)})";
         }
+        #endregion Methods
     }
 }

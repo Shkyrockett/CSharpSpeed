@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Numerics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using static System.Math;
 using static InstrumentedLibrary.Maths;
-using System.Numerics;
+using static System.Math;
 
 namespace InstrumentedLibrary
 {

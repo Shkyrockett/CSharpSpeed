@@ -13,12 +13,13 @@ namespace InstrumentedLibrary
     /// <summary>
     /// The <see cref="Vector4D"/> struct. Represents a vector in 4D coordinate space (double precision floating-point coordinates).
     /// </summary>
-    [DataContract, Serializable]
     [ComVisible(true)]
-    [DebuggerDisplay("{nameof(I)}: {I ?? double.NaN}, {nameof(J)}: {J ?? double.NaN}, {nameof(K)}: {K ?? double.NaN}, {nameof(L)}: {L ?? double.NaN}")]
+    [DataContract, Serializable]
+    [DebuggerDisplay("{ToString()}")]
     public struct Vector4D
         : IFormattable
     {
+        #region Static Fields
         /// <summary>
         /// Represents a <see cref="Vector4D"/> that has <see cref="I"/>, <see cref="J"/>, <see cref="K"/>, and <see cref="L"/> values set to zero.
         /// </summary>
@@ -53,7 +54,9 @@ namespace InstrumentedLibrary
         /// Represents a <see cref="Vector4D"/> that has <see cref="I"/> set to 0, <see cref="J"/> set to 0, <see cref="K"/> set to 0, and <see cref="L"/> set to 1.
         /// </summary>
         public static readonly Vector4D WAxis = new Vector4D(0d, 0d, 0d, 1d);
+        #endregion Static Fields
 
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector4D"/> class as a copy of the one provided.
         /// </summary>
@@ -85,7 +88,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector4D"/> class.
         /// </summary>
-        /// <param name="tuple">The X, Y, Z and W values in tupple form.</param>
+        /// <param name="tuple">The X, Y, Z and W values in tuple form.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector4D((double X, double Y, double Z, double W) tuple)
@@ -93,6 +96,17 @@ namespace InstrumentedLibrary
         {
             (I, J, K, L) = tuple;
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Vector4D"/> struct.
+        /// </summary>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector4D((double X, double Y, double Z, double W) a, (double X, double Y, double Z, double W) b)
+            : this(a.X, a.Y, a.Z, a.W, b.X, b.Y, b.Z, b.W)
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector4D"/> class.
@@ -128,7 +142,9 @@ namespace InstrumentedLibrary
             K = k * 1d / d;
             L = l * 1d / d;
         }
+        #endregion Constructors
 
+        #region Deconstructors
         /// <summary>
         /// Deconstruct this <see cref="Vector4D"/> to a <see cref="ValueTuple{T1, T2, T3, T4}"/>.
         /// </summary>
@@ -146,7 +162,9 @@ namespace InstrumentedLibrary
             k = K;
             l = L;
         }
+        #endregion Deconstructors
 
+        #region Properties
         /// <summary>
         /// Gets or sets the I or first Component of a 4D Vector
         /// </summary>
@@ -171,6 +189,19 @@ namespace InstrumentedLibrary
         [DataMember, XmlAttribute, SoapAttribute]
         public double L { get; set; }
 
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="Vector4D"/> is empty.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        public bool IsEmpty
+            => Abs(I) < Epsilon
+            && Abs(J) < Epsilon
+            && Abs(K) < Epsilon
+            && Abs(L) < Epsilon;
+        #endregion Properties
+
+        #region Operators
         /// <summary>
         /// The operator +.
         /// </summary>
@@ -341,7 +372,7 @@ namespace InstrumentedLibrary
         /// <param name="vector">The <see cref="Vector4D"/> to be converted.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator (double I, double J, double K, double L) (Vector4D vector) => (vector.I, vector.J, vector.K, vector.L);
+        public static implicit operator (double I, double J, double K, double L)(Vector4D vector) => (vector.I, vector.J, vector.K, vector.L);
 
         /// <summary>
         /// Tuple to Vector4D
@@ -351,16 +382,56 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Vector4D((double X, double Y, double Z, double W) value) => new Vector4D(value);
+        #endregion Operators
+
+        #region Factories
+        /// <summary>
+        /// Parse a string for a <see cref="Vector4D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Vector4D"/> data </param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Vector4D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        [ParseMethod]
+        public static Vector4D Parse(string source)
+            => Parse(source, CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// Compares two Vectors
+        /// Parse a string for a <see cref="Vector4D"/> value.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="source"><see cref="string"/> with <see cref="Vector4D"/> data </param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Vector4D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        public static Vector4D Parse(string source, IFormatProvider provider)
+        {
+            var tokenizer = new Tokenizer(source, provider);
+            var firstToken = tokenizer.NextTokenRequired();
+
+            var value = new Vector4D(
+                Convert.ToDouble(firstToken, provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+                );
+
+            // There should be no more tokens in this string.
+            tokenizer.LastTokenRequired();
+            return value;
+        }
+        #endregion Factories
+
+        #region Public Methods
+        /// <summary>
+        /// Get the hash code.
+        /// </summary>
+        /// <returns>The <see cref="int"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Vector4D a, Vector4D b) => Equals(a, b);
+        public override int GetHashCode() => HashCode.Combine(I, J, K, L);
 
         /// <summary>
         /// The equals.
@@ -384,19 +455,11 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The equals.
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="other">The other.</param>
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Vector4D value) => Equals(this, value);
-
-        /// <summary>
-        /// Get the hash code.
-        /// </summary>
-        /// <returns>The <see cref="int"/>.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() => HashCode.Combine(I, J, K, L);
+        public bool Equals(Vector4D other) => Equals(this, other);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Vector4D"/> struct.
@@ -431,7 +494,8 @@ namespace InstrumentedLibrary
         {
             if (this == null) return nameof(Vector4D);
             var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(Vector4D)}=[{nameof(I)}:{I.ToString(format, provider)}{s} {nameof(J)}:{J.ToString(format, provider)}{s} {nameof(K)}:{K.ToString(format, provider)}{s} {nameof(L)}:{L.ToString(format, provider)}]";
+            return $"{nameof(Vector4D)}({nameof(I)}: {I.ToString(format, provider)}{s} {nameof(J)}: {J.ToString(format, provider)}{s} {nameof(K)}: {K.ToString(format, provider)}{s} {nameof(L)}: {L.ToString(format, provider)})";
         }
+        #endregion Public Methods
     }
 }

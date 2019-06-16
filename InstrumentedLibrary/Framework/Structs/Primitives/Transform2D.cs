@@ -11,13 +11,17 @@ namespace InstrumentedLibrary
     /// <summary>
     /// The transform2d struct.
     /// </summary>
+    [DebuggerDisplay("{ToString()}")]
     public struct Transform2D
     {
+        #region Implementations
         /// <summary>
         /// The identity.
         /// </summary>
         public static Transform2D Identity = new Transform2D(0d, 0d, 0d, 0d, 1d, 1d);
+        #endregion Implementations
 
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="Transform2D"/> class.
         /// </summary>
@@ -51,7 +55,9 @@ namespace InstrumentedLibrary
             ScaleX = scaleX;
             ScaleY = scaleY;
         }
+        #endregion Constructors
 
+        #region Deconstructors
         /// <summary>
         /// The deconstruct.
         /// </summary>
@@ -72,7 +78,9 @@ namespace InstrumentedLibrary
             scaleX = ScaleX;
             scaleY = ScaleY;
         }
+        #endregion Deconstructors
 
+        #region Properties
         /// <summary>
         /// Gets or sets the <see cref="X"/> coordinate of the location of the <see cref="Transform2D"/>.
         /// </summary>
@@ -219,6 +227,9 @@ namespace InstrumentedLibrary
         //[TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
         public Size2D Scale { get { return new Size2D(X, Y); } set { (ScaleX, ScaleY) = value; } }
+        #endregion Properties
+
+        #region Operators
 
         /// <summary>
         /// Compares two <see cref="Transform2D"/> instances for exact equality.
@@ -249,7 +260,12 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Transform2D transform1, Transform2D transform2) => !Equals(transform1, transform2);
+        #endregion Operators
 
+        #region Factories
+        #endregion Factories
+
+        #region Methods
         /// <summary>
         /// Compares two Vectors
         /// </summary>
@@ -331,7 +347,8 @@ namespace InstrumentedLibrary
         {
             if (this == null) return nameof(Point2D);
             var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(Transform2D)}=[{nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(SkewX)}:{SkewX.ToString(format, provider)}{s} {nameof(SkewY)}:{SkewY.ToString(format, provider)}{s} {nameof(ScaleX)}:{ScaleX.ToString(format, provider)}{s} {nameof(ScaleY)}:{ScaleY.ToString(format, provider)}]";
+            return $"{nameof(Transform2D)}({nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(SkewX)}:{SkewX.ToString(format, provider)}{s} {nameof(SkewY)}:{SkewY.ToString(format, provider)}{s} {nameof(ScaleX)}:{ScaleX.ToString(format, provider)}{s} {nameof(ScaleY)}:{ScaleY.ToString(format, provider)})";
         }
+        #endregion Methods
     }
 }

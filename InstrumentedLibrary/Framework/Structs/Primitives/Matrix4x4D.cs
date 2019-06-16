@@ -12,10 +12,12 @@ namespace InstrumentedLibrary
     /// <summary>
     /// The matrix4x4d struct.
     /// </summary>
-    [DataContract, Serializable]
     [ComVisible(true)]
+    [DataContract, Serializable]
+    [DebuggerDisplay("{ToString()}")]
     public struct Matrix4x4D
     {
+        #region Static Fields
         /// <summary>
         /// An Empty <see cref="Matrix4x4D"/>.
         /// </summary>
@@ -33,7 +35,9 @@ namespace InstrumentedLibrary
             0d, 1d, 0d, 0d,
             0d, 0d, 1d, 0d,
             0d, 0d, 0d, 1d);
+        #endregion Static Fields
 
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="Matrix4x4D"/> class.
         /// </summary>
@@ -114,7 +118,9 @@ namespace InstrumentedLibrary
             M2x0, M2x1, M2x2, M2x3,
             M3x0, M3x1, M3x2, M3x3) = tuple;
         }
+        #endregion Constructors
 
+        #region Deconstructors
         /// <summary>
         /// Deconstruct this <see cref="Matrix2x2D"/> to a <see cref="ValueTuple{T1, T2, T3, T4, T5, T6, T7, T8}"/>.
         /// </summary>
@@ -160,7 +166,9 @@ namespace InstrumentedLibrary
             m3x2 = M2x2;
             m3x3 = M2x3;
         }
+        #endregion Deconstructors
 
+        #region Properties
         /// <summary>
         /// Gets or sets the m0x0.
         /// </summary>
@@ -269,45 +277,36 @@ namespace InstrumentedLibrary
         [Description("The Fourth column of the " + nameof(Matrix4x4D))]
         public Vector4D Cw { get { return new Vector4D(M0x3, M1x3, M2x3, M3x3); } set { (M0x3, M1x3, M2x3, M3x3) = value; } }
 
-        ///// <summary>
-        ///// The X Row or row zero.
-        ///// </summary>
         /// <summary>
-        /// Gets or sets the rx.
+        /// Gets or sets the X Row or row one.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The First row of the " + nameof(Matrix4x4D))]
         public Vector4D Rx { get { return new Vector4D(M0x0, M0x1, M0x2, M0x3); } set { (M0x0, M0x1, M0x2, M0x3) = value; } }
 
-        ///// <summary>
-        ///// The Y Row or row one.
-        ///// </summary>
         /// <summary>
-        /// Gets or sets the ry.
+        /// Gets or sets the Y Row or row two.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The Second row of the " + nameof(Matrix4x4D))]
         public Vector4D Ry { get { return new Vector4D(M1x0, M1x1, M1x2, M1x3); } set { (M1x0, M1x1, M1x2, M1x3) = value; } }
 
-        ///// <summary>
-        ///// The Z Row or row one.
-        ///// </summary>
         /// <summary>
-        /// Gets or sets the rz.
+        /// Gets or sets the Z Row or row tree.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The Third row of the " + nameof(Matrix4x4D))]
         public Vector4D Rz { get { return new Vector4D(M2x0, M2x1, M2x2, M2x3); } set { (M2x0, M2x1, M2x2, M2x3) = value; } }
 
-        ///// <summary>
-        ///// The W Row or row one.
-        ///// </summary>
         /// <summary>
-        /// Gets or sets the rw.
+        /// Gets or sets the W Row or row four.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The Fourth row of the " + nameof(Matrix4x4D))]
         public Vector4D Rw { get { return new Vector4D(M3x0, M3x1, M3x2, M3x3); } set { (M3x0, M3x1, M3x2, M3x3) = value; } }
+        #endregion Properties
+
+        #region Operators
 
         /// <summary>
         /// Compares two Matrix instances for exact equality.
@@ -322,8 +321,7 @@ namespace InstrumentedLibrary
         /// <param name='matrix2'>The second Matrix to compare</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Matrix4x4D matrix1, Matrix4x4D matrix2)
-            => Equals(matrix1, matrix2);
+        public static bool operator ==(Matrix4x4D matrix1, Matrix4x4D matrix2) => Equals(matrix1, matrix2);
 
         /// <summary>
         /// Compares two Matrix instances for exact inequality.
@@ -338,9 +336,199 @@ namespace InstrumentedLibrary
         /// <param name='matrix2'>The second Matrix to compare</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Matrix4x4D matrix1, Matrix4x4D matrix2)
-            => !Equals(matrix1, matrix2);
+        public static bool operator !=(Matrix4x4D matrix1, Matrix4x4D matrix2) => !Equals(matrix1, matrix2);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static explicit operator Matrix4x4D(Matrix3x3D source)
+            => new Matrix4x4D(
+                source.M0x0, source.M0x1, source.M0x2, 0,
+                source.M1x0, source.M1x1, source.M1x2, 0,
+                source.M2x0, source.M2x1, source.M2x2, 0,
+                0, 0, 0, 1);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static explicit operator Matrix4x4D(Matrix2x2D source)
+            => new Matrix4x4D(
+                source.M0x0, source.M0x1, 0, 0,
+                source.M1x0, source.M1x1, 0, 0,
+                0, 0, 1, 0,
+                0, 0, 0, 1);
+
+        /// <summary>
+        /// Tuple to <see cref="Matrix4x4D"/>.
+        /// </summary>
+        /// <param name="matrix"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator (double, double, double, double, double, double, double, double, double, double, double, double, double, double, double, double)(Matrix4x4D matrix)
+            => (matrix.M0x0, matrix.M0x1, matrix.M0x2, matrix.M0x3, matrix.M1x0, matrix.M1x1, matrix.M1x2, matrix.M1x3, matrix.M2x0, matrix.M2x1, matrix.M2x2, matrix.M2x3, matrix.M3x0, matrix.M3x1, matrix.M3x2, matrix.M3x3);
+
+        /// <summary>
+        /// Tuple to <see cref="Matrix4x4D"/>.
+        /// </summary>
+        /// <param name="tuple"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Matrix4x4D((double, double, double, double, double, double, double, double, double, double, double, double, double, double, double, double) tuple)
+            => new Matrix4x4D(tuple);
+        #endregion Operators
+
+        #region Factories
+        /// <summary>
+        /// Creates a scaling transform around the origin
+        /// </summary>
+        /// <param name="scale"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D FromScale(Vector2D scale)
+            => new Matrix4x4D(
+                scale.I, 0, 0, 0,
+                0, scale.J, 0, 0,
+                0, 0, 1, 0,
+                0, 0, 0, 1);
+
+        /// <summary>
+        /// Creates a scaling transform around the origin
+        /// </summary>
+        /// <param name="scale"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D FromScale(Vector3D scale)
+            => new Matrix4x4D(
+                scale.I, 0, 0, 0,
+                0, scale.J, 0, 0,
+                0, 0, scale.K, 0,
+                0, 0, 0, 0);
+
+        /// <summary>
+        /// Creates a scaling transform around the origin
+        /// </summary>
+        /// <param name="scale"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D FromScale(Vector4D scale)
+            => new Matrix4x4D(
+                scale.I, 0, 0, 0,
+                0, scale.J, 0, 0,
+                0, 0, scale.K, 0,
+                0, 0, 0, scale.L);
+
+        /// <summary>
+        /// Creates a scaling transform around the origin
+        /// </summary>
+        /// <param name='scaleX'>The scale factor in the x dimension</param>
+        /// <param name='scaleY'>The scale factor in the y dimension</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D FromScale(double scaleX, double scaleY)
+            => new Matrix4x4D(
+                scaleX, 0, 0, 0,
+                0, scaleY, 0, 0,
+                0, 0, 1, 0,
+                0, 0, 0, 1);
+
+        /// <summary>
+        /// Creates a scaling transform around the origin
+        /// </summary>
+        /// <param name='scaleX'>The scale factor in the x dimension</param>
+        /// <param name='scaleY'>The scale factor in the y dimension</param>
+        /// <param name='scaleZ'>The scale factor in the z dimension</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D FromScale(double scaleX, double scaleY, double scaleZ)
+            => new Matrix4x4D(
+                scaleX, 0, 0, 0,
+                0, scaleY, 0, 0,
+                0, 0, scaleZ, 0,
+                0, 0, 0, 0);
+
+        /// <summary>
+        /// Creates a scaling transform around the origin
+        /// </summary>
+        /// <param name='scaleX'>The scale factor in the x dimension</param>
+        /// <param name='scaleY'>The scale factor in the y dimension</param>
+        /// <param name='scaleZ'>The scale factor in the z dimension</param>
+        /// <param name="scaleW">The scale factor in the w dimension</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D FromScale(double scaleX, double scaleY, double scaleZ, double scaleW)
+            => new Matrix4x4D(
+                scaleX, 0, 0, 0,
+                0, scaleY, 0, 0,
+                0, 0, scaleZ, 0,
+                0, 0, 0, scaleW);
+
+        /// <summary>
+        /// Parse a string for a <see cref="Matrix4x4D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Matrix4x4D"/> data </param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Matrix4x4D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        [ParseMethod]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Parse(string source) => Parse(source, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Parse a string for a <see cref="Matrix4x4D"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Matrix4x4D"/> data </param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Matrix4x4D"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D Parse(string source, IFormatProvider provider)
+        {
+            var tokenizer = new Tokenizer(source, provider);
+            var firstToken = tokenizer.NextTokenRequired();
+
+            // The token will already have had whitespace trimmed so we can do a simple string compare.
+            var value = firstToken == nameof(Identity) ? Identity : new Matrix4x4D(
+                Convert.ToDouble(firstToken, provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+                );
+
+            // There should be no more tokens in this string.
+            tokenizer.LastTokenRequired();
+            return value;
+        }
+        #endregion Factories
+
+        #region Methods
         /// <summary>
         /// Returns the HashCode for this Matrix
         /// </summary>
@@ -351,33 +539,32 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode() => new
         {
-            M0x0,
-            M0x1,
-            M0x2,
-            M0x3,
-            M1x0,
-            M1x1,
-            M1x2,
-            M1x3,
-            M2x0,
-            M2x1,
-            M2x2,
-            M2x3,
-            M3x0,
-            M3x1,
-            M3x2,
-            M3x3
+            M0x0, M0x1, M0x2, M0x3,
+			M1x0, M1x1, M1x2, M1x3,
+            M2x0, M2x1, M2x2, M2x3,
+            M3x0, M3x1, M3x2, M3x3
         }.GetHashCode();
 
-        /// <summary>
-        /// Compares two <see cref="Matrix4x4D"/>
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
         /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Matrix4x4D a, Matrix4x4D b) => Equals(a, b);
+        /// <summary>
+        /// Get the enumerator.
+        /// </summary>
+        /// <returns>The <see cref="T:IEnumerator{IEnumerable{double}}"/>.</returns>
+        public IEnumerator<IEnumerable<double>> GetEnumerator()
+            => new List<List<double>>
+            {
+                new List<double> { M0x0, M0x1, M0x2, M0x3 },
+                new List<double> { M1x0, M1x1, M1x2, M1x3 },
+                new List<double> { M2x0, M2x1, M2x2, M2x3 },
+                new List<double> { M3x0, M3x1, M3x2, M3x3 },
+            }.GetEnumerator();
+
+        /// <returns></returns>
+        /// <summary>
+        /// Get the enumerator.
+        /// </summary>
+        /// <returns>The <see cref="IEnumerator"/>.</returns>
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         /// <summary>
         /// Compares two <see cref="Matrix4x4D"/> instances for object equality.  In this equality
@@ -476,8 +663,10 @@ namespace InstrumentedLibrary
         public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Matrix4x4D);
+            if (IsIdentity) return nameof(Identity);
             var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(Matrix4x4D)}=[{nameof(M0x0)}:{M0x0.ToString(format, provider)}{s} {nameof(M0x1)}:{M0x1.ToString(format, provider)}{s} {nameof(M0x2)}:{M0x2.ToString(format, provider)}{s} {nameof(M0x3)}:{M0x3.ToString(format, provider)}{s} {nameof(M1x0)}:{M1x0.ToString(format, provider)}{s} {nameof(M1x1)}:{M1x1.ToString(format, provider)}{s} {nameof(M1x2)}:{M1x2.ToString(format, provider)}{s} {nameof(M1x3)}:{M1x3.ToString(format, provider)}{s} {nameof(M2x0)}:{M2x0.ToString(format, provider)}{s} {nameof(M2x1)}:{M2x1.ToString(format, provider)}{s} {nameof(M2x2)}:{M2x2.ToString(format, provider)}{s} {nameof(M2x3)}:{M2x3.ToString(format, provider)}{s} {nameof(M3x0)}:{M3x0.ToString(format, provider)}{s} {nameof(M3x1)}:{M3x1.ToString(format, provider)}{s} {nameof(M3x2)}:{M3x2.ToString(format, provider)}{s} {nameof(M3x3)}:{M3x3.ToString(format, provider)}]";
+            return $"{nameof(Matrix4x4D)}({nameof(M0x0)}:{M0x0.ToString(format, provider)}{s} {nameof(M0x1)}:{M0x1.ToString(format, provider)}{s} {nameof(M0x2)}:{M0x2.ToString(format, provider)}{s} {nameof(M0x3)}:{M0x3.ToString(format, provider)}{s} {nameof(M1x0)}:{M1x0.ToString(format, provider)}{s} {nameof(M1x1)}:{M1x1.ToString(format, provider)}{s} {nameof(M1x2)}:{M1x2.ToString(format, provider)}{s} {nameof(M1x3)}:{M1x3.ToString(format, provider)}{s} {nameof(M2x0)}:{M2x0.ToString(format, provider)}{s} {nameof(M2x1)}:{M2x1.ToString(format, provider)}{s} {nameof(M2x2)}:{M2x2.ToString(format, provider)}{s} {nameof(M2x3)}:{M2x3.ToString(format, provider)}{s} {nameof(M3x0)}:{M3x0.ToString(format, provider)}{s} {nameof(M3x1)}:{M3x1.ToString(format, provider)}{s} {nameof(M3x2)}:{M3x2.ToString(format, provider)}{s} {nameof(M3x3)}:{M3x3.ToString(format, provider)})";
         }
+        #endregion Methods
     }
 }
