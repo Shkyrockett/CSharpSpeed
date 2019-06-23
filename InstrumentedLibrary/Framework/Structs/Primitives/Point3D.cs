@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using static System.Math;
 
 namespace InstrumentedLibrary
 {
@@ -118,9 +119,9 @@ namespace InstrumentedLibrary
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public bool IsEmpty
-            => Abs(X) < Epsilon
-            && Abs(Y) < Epsilon
-            && Abs(Z) < Epsilon;
+            => Abs(X) < double.Epsilon
+            && Abs(Y) < double.Epsilon
+            && Abs(Z) < double.Epsilon;
         #endregion Properties
 
         #region Operators
@@ -323,42 +324,42 @@ namespace InstrumentedLibrary
         #endregion Operators
 
         #region Factories
-        /// <summary>
-        /// Parse a string for a <see cref="Point3D"/> value.
-        /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Point3D"/> data </param>
-        /// <returns>
-        /// Returns an instance of the <see cref="Point3D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-        /// </returns>
-        [ParseMethod]
-        public static Point3D Parse(string source)
-            => Parse(source, CultureInfo.InvariantCulture);
+        ///// <summary>
+        ///// Parse a string for a <see cref="Point3D"/> value.
+        ///// </summary>
+        ///// <param name="source"><see cref="string"/> with <see cref="Point3D"/> data </param>
+        ///// <returns>
+        ///// Returns an instance of the <see cref="Point3D"/> struct converted
+        ///// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        ///// </returns>
+        //[ParseMethod]
+        //public static Point3D Parse(string source)
+        //    => Parse(source, CultureInfo.InvariantCulture);
 
-        /// <summary>
-        /// Parse a string for a <see cref="Point3D"/> value.
-        /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Point3D"/> data </param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// Returns an instance of the <see cref="Point3D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-        /// </returns>
-        public static Point3D Parse(string source, IFormatProvider provider)
-        {
-            var tokenizer = new Tokenizer(source, provider);
-            var firstToken = tokenizer.NextTokenRequired();
+        ///// <summary>
+        ///// Parse a string for a <see cref="Point3D"/> value.
+        ///// </summary>
+        ///// <param name="source"><see cref="string"/> with <see cref="Point3D"/> data </param>
+        ///// <param name="provider"></param>
+        ///// <returns>
+        ///// Returns an instance of the <see cref="Point3D"/> struct converted
+        ///// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        ///// </returns>
+        //public static Point3D Parse(string source, IFormatProvider provider)
+        //{
+        //    var tokenizer = new Tokenizer(source, provider);
+        //    var firstToken = tokenizer.NextTokenRequired();
 
-            var value = new Point3D(
-                Convert.ToDouble(firstToken, provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
-                );
+        //    var value = new Point3D(
+        //        Convert.ToDouble(firstToken, provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+        //        );
 
-            // There should be no more tokens in this string.
-            tokenizer.LastTokenRequired();
-            return value;
-        }
+        //    // There should be no more tokens in this string.
+        //    tokenizer.LastTokenRequired();
+        //    return value;
+        //}
         #endregion Factories
 
         #region Methods

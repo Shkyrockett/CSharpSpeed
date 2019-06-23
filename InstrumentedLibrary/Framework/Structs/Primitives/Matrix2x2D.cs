@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -6,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using static System.Math;
 
 namespace InstrumentedLibrary
 {
@@ -182,6 +185,7 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Matrix2x2D matrix1, Matrix2x2D matrix2) => !Equals(matrix1, matrix2);
+        #endregion
 
         #region Methods
         /// <summary>
@@ -205,11 +209,11 @@ namespace InstrumentedLibrary
                 new List<double> { M1x0, M1x1 },
             }.GetEnumerator();
 
-        /// <summary>
-        /// Get the enumerator.
-        /// </summary>
-        /// <returns>The <see cref="IEnumerator"/>.</returns>
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        ///// <summary>
+        ///// Get the enumerator.
+        ///// </summary>
+        ///// <returns>The <see cref="IEnumerator"/>.</returns>
+        //IEnumerator GetEnumerator() => GetEnumerator();
 
         /// <summary>
         /// Compares two Matrix instances for object equality.  In this equality
@@ -296,7 +300,7 @@ namespace InstrumentedLibrary
         public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Matrix4x4D);
-            if (IsIdentity) return nameof(Identity);
+            //if (IsIdentity) return nameof(Identity);
             var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
             return $"{nameof(Matrix2x2D)}({nameof(M0x0)}:{M0x0.ToString(format, provider)}{s} {nameof(M0x1)}:{M0x1.ToString(format, provider)}{s} {nameof(M1x0)}:{M1x0.ToString(format, provider)}{s} {nameof(M1x1)}:{M1x1.ToString(format, provider)})";
         }

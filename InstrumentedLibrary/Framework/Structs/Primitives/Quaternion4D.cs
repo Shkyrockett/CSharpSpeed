@@ -484,48 +484,48 @@ namespace InstrumentedLibrary
             return quat;
         }
 
-        /// <summary>
-        /// Parse.
-        /// </summary>
-        /// <param name="source">The source.</param>
-        /// <returns>The <see cref="Quaternion4D"/>.</returns>
-        [ParseMethod]
-        public static Quaternion4D Parse(string source)
-            => Parse(source, CultureInfo.InvariantCulture);
+        ///// <summary>
+        ///// Parse.
+        ///// </summary>
+        ///// <param name="source">The source.</param>
+        ///// <returns>The <see cref="Quaternion4D"/>.</returns>
+        //[ParseMethod]
+        //public static Quaternion4D Parse(string source)
+        //    => Parse(source, CultureInfo.InvariantCulture);
 
-        /// <summary>
-        /// Parse.
-        /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="provider">The provider.</param>
-        /// <returns>The <see cref="Quaternion4D"/>.</returns>
-        /// <exception cref="FormatException"></exception>
-        /// <exception cref="FormatException">The parts of the vectors must be decimal numbers</exception>
-        public static Quaternion4D Parse(string source, IFormatProvider provider)
-        {
-            var sep = Tokenizer.GetNumericListSeparator(provider);
-            var vals = source.Replace("Quaternion", string.Empty).Trim(' ', '{', '(', '[', '<', '}', ')', ']', '>').Split(sep);
+        ///// <summary>
+        ///// Parse.
+        ///// </summary>
+        ///// <param name="source">The source.</param>
+        ///// <param name="provider">The provider.</param>
+        ///// <returns>The <see cref="Quaternion4D"/>.</returns>
+        ///// <exception cref="FormatException"></exception>
+        ///// <exception cref="FormatException">The parts of the vectors must be decimal numbers</exception>
+        //public static Quaternion4D Parse(string source, IFormatProvider provider)
+        //{
+        //    var sep = Tokenizer.GetNumericListSeparator(provider);
+        //    var vals = source.Replace("Quaternion", string.Empty).Trim(' ', '{', '(', '[', '<', '}', ')', ']', '>').Split(sep);
 
-            if (vals.Length != 4)
-            {
-                throw new FormatException($"Cannot parse the text '{source}' because it does not have 4 parts separated by commas in the form (x,y,z,w) with optional parenthesis.");
-            }
-            else
-            {
-                try
-                {
-                    return new Quaternion4D(
-                        double.Parse(vals[0].Trim()),
-                        double.Parse(vals[1].Trim()),
-                        double.Parse(vals[2].Trim()),
-                        double.Parse(vals[3].Trim()));
-                }
-                catch (Exception ex)
-                {
-                    throw new FormatException("The parts of the vectors must be decimal numbers", ex);
-                }
-            }
-        }
+        //    if (vals.Length != 4)
+        //    {
+        //        throw new FormatException($"Cannot parse the text '{source}' because it does not have 4 parts separated by commas in the form (x,y,z,w) with optional parenthesis.");
+        //    }
+        //    else
+        //    {
+        //        try
+        //        {
+        //            return new Quaternion4D(
+        //                double.Parse(vals[0].Trim()),
+        //                double.Parse(vals[1].Trim()),
+        //                double.Parse(vals[2].Trim()),
+        //                double.Parse(vals[3].Trim()));
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            throw new FormatException("The parts of the vectors must be decimal numbers", ex);
+        //        }
+        //    }
+        //}
         #endregion Factories
 
         #region Methods

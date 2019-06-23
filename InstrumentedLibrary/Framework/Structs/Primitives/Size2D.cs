@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using static System.Math;
 
 namespace InstrumentedLibrary
 {
@@ -118,8 +119,8 @@ namespace InstrumentedLibrary
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public bool IsEmpty
-            => Abs(Width) < Epsilon
-            && Abs(Height) < Epsilon;
+            => Abs(Width) < double.Epsilon
+            && Abs(Height) < double.Epsilon;
         #endregion Properties
 
         #region Operators
@@ -287,53 +288,45 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Size2D((double Width, double Height) tuple) => new Size2D(tuple);
-
-        /// <summary>
-        /// Converts the specified <see cref="Point2D"/> structure to a <see cref="ValueTuple{T1, T2}"/> structure.
-        /// </summary>
-        /// <param name="point">The <see cref="Point2D"/> to be converted.</param>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator (double Width, double Height)(Size2D point) => (point.Width, point.Height);
         #endregion Operators
 
         #region Factories
-        /// <summary>
-        /// Parse a string for a <see cref="Size2D"/> value.
-        /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Size2D"/> data </param>
-        /// <returns>
-        /// Returns an instance of the <see cref="Size2D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-        /// </returns>
-        [ParseMethod]
-        public static Size2D Parse(string source)
-            => Parse(source, CultureInfo.InvariantCulture);
+        ///// <summary>
+        ///// Parse a string for a <see cref="Size2D"/> value.
+        ///// </summary>
+        ///// <param name="source"><see cref="string"/> with <see cref="Size2D"/> data </param>
+        ///// <returns>
+        ///// Returns an instance of the <see cref="Size2D"/> struct converted
+        ///// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        ///// </returns>
+        //[ParseMethod]
+        //public static Size2D Parse(string source)
+        //    => Parse(source, CultureInfo.InvariantCulture);
 
-        /// <summary>
-        /// Parse a string for a <see cref="Size2D"/> value.
-        /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Size2D"/> data </param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// Returns an instance of the <see cref="Size2D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-        /// </returns>
-        public static Size2D Parse(string source, IFormatProvider provider)
-        {
-            var tokenizer = new Tokenizer(source, provider);
-            var firstToken = tokenizer.NextTokenRequired();
+        ///// <summary>
+        ///// Parse a string for a <see cref="Size2D"/> value.
+        ///// </summary>
+        ///// <param name="source"><see cref="string"/> with <see cref="Size2D"/> data </param>
+        ///// <param name="provider"></param>
+        ///// <returns>
+        ///// Returns an instance of the <see cref="Size2D"/> struct converted
+        ///// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        ///// </returns>
+        //public static Size2D Parse(string source, IFormatProvider provider)
+        //{
+        //    var tokenizer = new Tokenizer(source, provider);
+        //    var firstToken = tokenizer.NextTokenRequired();
 
-            // The token will already have had whitespace trimmed so we can do a simple string compare.
-            var value = firstToken == nameof(Empty) ? Empty : new Size2D(
-                Convert.ToDouble(firstToken, provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
-                );
+        //    // The token will already have had whitespace trimmed so we can do a simple string compare.
+        //    var value = firstToken == nameof(Empty) ? Empty : new Size2D(
+        //        Convert.ToDouble(firstToken, provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+        //        );
 
-            // There should be no more tokens in this string.
-            tokenizer.LastTokenRequired();
-            return value;
-        }
+        //    // There should be no more tokens in this string.
+        //    tokenizer.LastTokenRequired();
+        //    return value;
+        //}
         #endregion Factories
 
         #region Methods

@@ -91,10 +91,10 @@ namespace InstrumentedLibrary
             Point2D bottomLeft, Point2D bottomLeftH, Point2D bottomLeftV)
         {
             var norm = NormalizeBoundedPoint2DTests.NormalizePoint(bounds, point);
-            var left = InterpolateCubicBezier1DTests.CubicBezier(topLeft.X, topLeftV.X, bottomLeftV.X, bottomLeft.X, norm.Y);
-            var right = InterpolateCubicBezier1DTests.CubicBezier(topRight.X, topRightV.X, bottomRightV.X, bottomRight.X, norm.Y);
-            var top = InterpolateCubicBezier1DTests.CubicBezier(topLeft.Y, topLeftH.Y, topRightH.Y, topRight.Y, norm.X);
-            var bottom = InterpolateCubicBezier1DTests.CubicBezier(bottomLeft.Y, bottomLeftH.Y, bottomRightH.Y, bottomRight.Y, norm.X);
+            var left = InterpolateBezierCubic1DTests.CubicBezier(topLeft.X, topLeftV.X, bottomLeftV.X, bottomLeft.X, norm.Y);
+            var right = InterpolateBezierCubic1DTests.CubicBezier(topRight.X, topRightV.X, bottomRightV.X, bottomRight.X, norm.Y);
+            var top = InterpolateBezierCubic1DTests.CubicBezier(topLeft.Y, topLeftH.Y, topRightH.Y, topRight.Y, norm.X);
+            var bottom = InterpolateBezierCubic1DTests.CubicBezier(bottomLeft.Y, bottomLeftH.Y, bottomRightH.Y, bottomRight.Y, norm.X);
             var x = InterpolateLinear1DTests.LinearInterpolate1D(left, right, norm.X);
             var y = InterpolateLinear1DTests.LinearInterpolate1D(top, bottom, norm.Y);
             return new Point2D(x, y);
@@ -294,11 +294,11 @@ namespace InstrumentedLibrary
             // Install "Match Margin" Extension to enable word match highlighting, to help visualize where a variable resides in the ASCI map. 
 
             var normal = (X: (point.X - bounds.X) / bounds.Width, Y: (point.Y - bounds.Top) / bounds.Height);
-            var leftAnchor = InterpolateCubicBezier2DTests.CubicBezierCurve(topLeft.X, topLeft.Y, topLeftV.X, topLeftV.Y, bottomLeftV.X, bottomLeftV.Y, bottomLeft.X, bottomLeft.Y, normal.Y);
+            var leftAnchor = BezierInterpolateCubic2DTests.CubicBezierCurve(topLeft.X, topLeft.Y, topLeftV.X, topLeftV.Y, bottomLeftV.X, bottomLeftV.Y, bottomLeft.X, bottomLeft.Y, normal.Y);
             var leftHandle = InterpolateLinear2DTests.LinearInterpolate2D(topLeftH.X, topLeftH.Y, bottomLeftH.X, bottomLeftH.Y, normal.Y);
             var rightHandle = InterpolateLinear2DTests.LinearInterpolate2D(topRightH.X, topRightH.Y, bottomRightH.X, bottomRightH.Y, normal.Y);
-            var rightAnchor = InterpolateCubicBezier2DTests.CubicBezierCurve(topRight.X, topRight.Y, topRightV.X, topRightV.Y, bottomRightV.X, bottomRightV.Y, bottomRight.X, bottomRight.Y, normal.Y);
-            return new Point2D(InterpolateCubicBezier2DTests.CubicBezierCurve(leftAnchor.X, leftAnchor.Y, leftHandle.X, leftHandle.Y, rightHandle.X, rightHandle.Y, rightAnchor.X, rightAnchor.Y, normal.X));
+            var rightAnchor = BezierInterpolateCubic2DTests.CubicBezierCurve(topRight.X, topRight.Y, topRightV.X, topRightV.Y, bottomRightV.X, bottomRightV.Y, bottomRight.X, bottomRight.Y, normal.Y);
+            return new Point2D(BezierInterpolateCubic2DTests.CubicBezierCurve(leftAnchor.X, leftAnchor.Y, leftHandle.X, leftHandle.Y, rightHandle.X, rightHandle.Y, rightAnchor.X, rightAnchor.Y, normal.X));
         }
     }
 }

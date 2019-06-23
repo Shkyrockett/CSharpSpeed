@@ -9,6 +9,7 @@ namespace InstrumentedLibrary
     /// The circle struct.
     /// </summary>
     public struct Ellipse2D
+        : IClosedShape
     {
         /// <summary>
         /// The empty.
@@ -132,6 +133,6 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="string"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString() => $"{nameof(Rectangle2D)}=[{nameof(X)}:{X:R}, {nameof(Y)}:{Y:R}, {nameof(RadiusA)}:{RadiusA:R}, {nameof(RadiusB)}:{RadiusB:R}, {nameof(Angle)}:{Angle:R}]";
+        public string ToString(string format, IFormatProvider formatProvider) => $"{nameof(Rectangle2D)}=[{nameof(X)}:{X:R}, {nameof(Y)}:{Y:R}, {nameof(RadiusA)}:{RadiusA:R}, {nameof(RadiusB)}:{RadiusB:R}, {nameof(Angle)}:{Angle:R}]";
     }
 }

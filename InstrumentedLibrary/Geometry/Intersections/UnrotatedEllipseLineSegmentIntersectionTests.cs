@@ -414,8 +414,8 @@ namespace InstrumentedLibrary
             double a2X, double a2Y,
             double epsilon = Epsilon)
         {
-            var (Center, MajorRadius, MinorRadius) = (Center: (X: centerX, Y: centerY), MajorRadius: rx, MinorRadius: ry);
-            var (A, B) = (A: (X: a1X, Y: a1Y), B: (X: a2X, Y: a2Y));
+            var (Center, MajorRadius, MinorRadius) = ((X: centerX, Y: centerY), rx, ry);
+            var (A, B) = ((X: a1X, Y: a1Y), (X: a2X, Y: a2Y));
 
             var result = new Intersection(IntersectionState.NoIntersection);
 

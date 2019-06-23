@@ -102,10 +102,10 @@ namespace InstrumentedLibrary
             // Install "Match Margin" Extension to enable word match highlighting, to help visualize where a variable resides in the ASCI map. 
 
             var normal = (X: (point.X - bounds.X) / bounds.Width, Y: (point.Y - bounds.Top) / bounds.Height);
-            var leftAnchor = InterpolateQuadraticBezier2DTests.QuadraticBezierInterpolate2D(topLeft.X, topLeft.Y, leftHandle.X, leftHandle.Y, bottomLeft.X, bottomLeft.Y, normal.Y);
+            var leftAnchor = InterpolateBezierQuadratic2DTests.QuadraticBezierInterpolate2D(topLeft.X, topLeft.Y, leftHandle.X, leftHandle.Y, bottomLeft.X, bottomLeft.Y, normal.Y);
             var handle = InterpolateLinear2DTests.LinearInterpolate2D(topHandle.X, topHandle.Y, bottomHandle.X, bottomHandle.Y, normal.Y);
-            var rightAnchor = InterpolateQuadraticBezier2DTests.QuadraticBezierInterpolate2D(topRight.X, topRight.Y, rightHandle.X, rightHandle.Y, bottomRight.X, bottomRight.Y, normal.Y);
-            return new Point2D(InterpolateQuadraticBezier2DTests.QuadraticBezierInterpolate2D(leftAnchor.X, leftAnchor.Y, handle.X, handle.Y, rightAnchor.X, rightAnchor.Y, normal.X));
+            var rightAnchor = InterpolateBezierQuadratic2DTests.QuadraticBezierInterpolate2D(topRight.X, topRight.Y, rightHandle.X, rightHandle.Y, bottomRight.X, bottomRight.Y, normal.Y);
+            return new Point2D(InterpolateBezierQuadratic2DTests.QuadraticBezierInterpolate2D(leftAnchor.X, leftAnchor.Y, handle.X, handle.Y, rightAnchor.X, rightAnchor.Y, normal.X));
         }
     }
 }

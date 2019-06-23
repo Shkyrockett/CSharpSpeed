@@ -68,5 +68,29 @@ namespace InstrumentedLibrary
         {
             return (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
         }
+
+        /// <summary>
+        /// The square of the distance between two points.
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/
+        /// </acknowledgment>
+        [DisplayName("Square Distance between two points")]
+        [Description("Calculates the square distance between two points.")]
+        [Acknowledgment("http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double DistSqu(double x1, double y1, double x2, double y2)
+        {
+            var x = x1 - x2;
+            var y = y1 - y2;
+            return x * x + y * y;
+        }
     }
 }

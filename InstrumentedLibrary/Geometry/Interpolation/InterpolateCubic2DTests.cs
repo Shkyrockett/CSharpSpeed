@@ -25,6 +25,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
+                { new object[] { 0d, 0d, 1d, 1d, 2d, 1d, 3d, 0d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (1.5d, 1.25d), epsilon: double.Epsilon) },
                 { new object[] { 0d, 1d, 2d, 3d, 4d, 5d, 6d, 7d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:(3d, 4d), epsilon: double.Epsilon) },
             };
 
@@ -96,6 +97,49 @@ namespace InstrumentedLibrary
             return (
                 (aX0 * t * mu2) + (aX1 * mu2) + (aX2 * t) + x1,
                 (aY0 * t * mu2) + (aY1 * mu2) + (aY2 * t) + y1);
+        }
+
+        /// <summary>
+        /// The cubic bezier interpolate2d 4.
+        /// </summary>
+        /// <param name="aX">The aX.</param>
+        /// <param name="aY">The aY.</param>
+        /// <param name="bX">The bX.</param>
+        /// <param name="bY">The bY.</param>
+        /// <param name="cX">The cX.</param>
+        /// <param name="cY">The cY.</param>
+        /// <param name="dX">The dX.</param>
+        /// <param name="dY">The dY.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
+        [DisplayName("Cubic Bezier Interpolate 5")]
+        [Description("Simple Cubic Bezier Interpolation.")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y) CubicBezierInterpolate2D_4(
+            double aX, double aY,
+            double bX, double bY,
+            double cX, double cY,
+            double dX, double dY,
+            double t)
+        {
+            //(double X, double Y) P = (v3 - v2) - (v0 - v1);
+            //(double X, double Y) Q = (v0 - v1) - P;
+            //(double X, double Y) R = v2 - v0;
+            //(double X, double Y) S = v1;
+            //(double X, double Y) P * Pow(x, 3) + Q * Pow(x, 2) + R * x + S;
+            var PX = dX - cX - (aX - bX);
+            var PY = dY - cY - (aY - bY);
+            var QX = aX - bX - PX;
+            var QY = aY - bY - PY;
+            var RX = cX - aX;
+            var RY = cY - aY;
+            var SX = bX;
+            var SY = bY;
+            return (
+                (PX * (t * t * t)) + (QX * (t * t)) + (RX * t) + SX,
+                (PY * (t * t * t)) + (QY * (t * t)) + (RY * t) + SY);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -6,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using static System.Math;
 
 namespace InstrumentedLibrary
 {
@@ -473,59 +475,59 @@ namespace InstrumentedLibrary
                 0, 0, scaleZ, 0,
                 0, 0, 0, scaleW);
 
-        /// <summary>
-        /// Parse a string for a <see cref="Matrix4x4D"/> value.
-        /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Matrix4x4D"/> data </param>
-        /// <returns>
-        /// Returns an instance of the <see cref="Matrix4x4D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-        /// </returns>
-        [ParseMethod]
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix4x4D Parse(string source) => Parse(source, CultureInfo.InvariantCulture);
+        ///// <summary>
+        ///// Parse a string for a <see cref="Matrix4x4D"/> value.
+        ///// </summary>
+        ///// <param name="source"><see cref="string"/> with <see cref="Matrix4x4D"/> data </param>
+        ///// <returns>
+        ///// Returns an instance of the <see cref="Matrix4x4D"/> struct converted
+        ///// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        ///// </returns>
+        ////[ParseMethod]
+        //[DebuggerStepThrough]
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static Matrix4x4D Parse(string source) => Parse(source, CultureInfo.InvariantCulture);
 
-        /// <summary>
-        /// Parse a string for a <see cref="Matrix4x4D"/> value.
-        /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Matrix4x4D"/> data </param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// Returns an instance of the <see cref="Matrix4x4D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix4x4D Parse(string source, IFormatProvider provider)
-        {
-            var tokenizer = new Tokenizer(source, provider);
-            var firstToken = tokenizer.NextTokenRequired();
+        ///// <summary>
+        ///// Parse a string for a <see cref="Matrix4x4D"/> value.
+        ///// </summary>
+        ///// <param name="source"><see cref="string"/> with <see cref="Matrix4x4D"/> data </param>
+        ///// <param name="provider"></param>
+        ///// <returns>
+        ///// Returns an instance of the <see cref="Matrix4x4D"/> struct converted
+        ///// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        ///// </returns>
+        //[DebuggerStepThrough]
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static Matrix4x4D Parse(string source, IFormatProvider provider)
+        //{
+        //    var tokenizer = new Tokenizer(source, provider);
+        //    var firstToken = tokenizer.NextTokenRequired();
 
-            // The token will already have had whitespace trimmed so we can do a simple string compare.
-            var value = firstToken == nameof(Identity) ? Identity : new Matrix4x4D(
-                Convert.ToDouble(firstToken, provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
-                );
+        //    // The token will already have had whitespace trimmed so we can do a simple string compare.
+        //    var value = firstToken == nameof(Identity) ? Identity : new Matrix4x4D(
+        //        Convert.ToDouble(firstToken, provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+        //        );
 
-            // There should be no more tokens in this string.
-            tokenizer.LastTokenRequired();
-            return value;
-        }
+        //    // There should be no more tokens in this string.
+        //    tokenizer.LastTokenRequired();
+        //    return value;
+        //}
         #endregion Factories
 
         #region Methods
@@ -559,12 +561,12 @@ namespace InstrumentedLibrary
                 new List<double> { M3x0, M3x1, M3x2, M3x3 },
             }.GetEnumerator();
 
-        /// <returns></returns>
-        /// <summary>
-        /// Get the enumerator.
-        /// </summary>
-        /// <returns>The <see cref="IEnumerator"/>.</returns>
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        ///// <returns></returns>
+        ///// <summary>
+        ///// Get the enumerator.
+        ///// </summary>
+        ///// <returns>The <see cref="IEnumerator"/>.</returns>
+        //IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         /// <summary>
         /// Compares two <see cref="Matrix4x4D"/> instances for object equality.  In this equality
@@ -663,7 +665,7 @@ namespace InstrumentedLibrary
         public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Matrix4x4D);
-            if (IsIdentity) return nameof(Identity);
+            //if (IsIdentity) return nameof(Identity);
             var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
             return $"{nameof(Matrix4x4D)}({nameof(M0x0)}:{M0x0.ToString(format, provider)}{s} {nameof(M0x1)}:{M0x1.ToString(format, provider)}{s} {nameof(M0x2)}:{M0x2.ToString(format, provider)}{s} {nameof(M0x3)}:{M0x3.ToString(format, provider)}{s} {nameof(M1x0)}:{M1x0.ToString(format, provider)}{s} {nameof(M1x1)}:{M1x1.ToString(format, provider)}{s} {nameof(M1x2)}:{M1x2.ToString(format, provider)}{s} {nameof(M1x3)}:{M1x3.ToString(format, provider)}{s} {nameof(M2x0)}:{M2x0.ToString(format, provider)}{s} {nameof(M2x1)}:{M2x1.ToString(format, provider)}{s} {nameof(M2x2)}:{M2x2.ToString(format, provider)}{s} {nameof(M2x3)}:{M2x3.ToString(format, provider)}{s} {nameof(M3x0)}:{M3x0.ToString(format, provider)}{s} {nameof(M3x1)}:{M3x1.ToString(format, provider)}{s} {nameof(M3x2)}:{M3x2.ToString(format, provider)}{s} {nameof(M3x3)}:{M3x3.ToString(format, provider)})";
         }

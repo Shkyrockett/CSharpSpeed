@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using static System.Math;
 
 namespace InstrumentedLibrary
 {
@@ -295,43 +296,43 @@ namespace InstrumentedLibrary
         #endregion Operators
 
         #region Factories
-        /// <summary>
-        /// Parse a string for a <see cref="Size3D"/> value.
-        /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Size3D"/> data </param>
-        /// <returns>
-        /// Returns an instance of the <see cref="Size3D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-        /// </returns>
-        [ParseMethod]
-        public static Size3D Parse(string source)
-            => Parse(source, CultureInfo.InvariantCulture);
+        ///// <summary>
+        ///// Parse a string for a <see cref="Size3D"/> value.
+        ///// </summary>
+        ///// <param name="source"><see cref="string"/> with <see cref="Size3D"/> data </param>
+        ///// <returns>
+        ///// Returns an instance of the <see cref="Size3D"/> struct converted
+        ///// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        ///// </returns>
+        //[ParseMethod]
+        //public static Size3D Parse(string source)
+        //    => Parse(source, CultureInfo.InvariantCulture);
 
-        /// <summary>
-        /// Parse a string for a <see cref="Size3D"/> value.
-        /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Size3D"/> data </param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// Returns an instance of the <see cref="Size3D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-        /// </returns>
-        public static Size3D Parse(string source, IFormatProvider provider)
-        {
-            var tokenizer = new Tokenizer(source, provider);
-            var firstToken = tokenizer.NextTokenRequired();
+        ///// <summary>
+        ///// Parse a string for a <see cref="Size3D"/> value.
+        ///// </summary>
+        ///// <param name="source"><see cref="string"/> with <see cref="Size3D"/> data </param>
+        ///// <param name="provider"></param>
+        ///// <returns>
+        ///// Returns an instance of the <see cref="Size3D"/> struct converted
+        ///// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        ///// </returns>
+        //public static Size3D Parse(string source, IFormatProvider provider)
+        //{
+        //    var tokenizer = new Tokenizer(source, provider);
+        //    var firstToken = tokenizer.NextTokenRequired();
 
-            // The token will already have had whitespace trimmed so we can do a simple string compare.
-            var value = firstToken == nameof(Empty) ? Empty : new Size3D(
-                Convert.ToDouble(firstToken, provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
-                );
+        //    // The token will already have had whitespace trimmed so we can do a simple string compare.
+        //    var value = firstToken == nameof(Empty) ? Empty : new Size3D(
+        //        Convert.ToDouble(firstToken, provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+        //        );
 
-            // There should be no more tokens in this string.
-            tokenizer.LastTokenRequired();
-            return value;
-        }
+        //    // There should be no more tokens in this string.
+        //    tokenizer.LastTokenRequired();
+        //    return value;
+        //}
         #endregion Factories
 
         #region Methods

@@ -195,10 +195,10 @@ namespace InstrumentedLibrary
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public bool IsEmpty
-            => Abs(I) < Epsilon
-            && Abs(J) < Epsilon
-            && Abs(K) < Epsilon
-            && Abs(L) < Epsilon;
+            => Abs(I) < double.Epsilon
+            && Abs(J) < double.Epsilon
+            && Abs(K) < double.Epsilon
+            && Abs(L) < double.Epsilon;
         #endregion Properties
 
         #region Operators
@@ -385,43 +385,43 @@ namespace InstrumentedLibrary
         #endregion Operators
 
         #region Factories
-        /// <summary>
-        /// Parse a string for a <see cref="Vector4D"/> value.
-        /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Vector4D"/> data </param>
-        /// <returns>
-        /// Returns an instance of the <see cref="Vector4D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-        /// </returns>
-        [ParseMethod]
-        public static Vector4D Parse(string source)
-            => Parse(source, CultureInfo.InvariantCulture);
+        ///// <summary>
+        ///// Parse a string for a <see cref="Vector4D"/> value.
+        ///// </summary>
+        ///// <param name="source"><see cref="string"/> with <see cref="Vector4D"/> data </param>
+        ///// <returns>
+        ///// Returns an instance of the <see cref="Vector4D"/> struct converted
+        ///// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        ///// </returns>
+        //[ParseMethod]
+        //public static Vector4D Parse(string source)
+        //    => Parse(source, CultureInfo.InvariantCulture);
 
-        /// <summary>
-        /// Parse a string for a <see cref="Vector4D"/> value.
-        /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Vector4D"/> data </param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// Returns an instance of the <see cref="Vector4D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-        /// </returns>
-        public static Vector4D Parse(string source, IFormatProvider provider)
-        {
-            var tokenizer = new Tokenizer(source, provider);
-            var firstToken = tokenizer.NextTokenRequired();
+        ///// <summary>
+        ///// Parse a string for a <see cref="Vector4D"/> value.
+        ///// </summary>
+        ///// <param name="source"><see cref="string"/> with <see cref="Vector4D"/> data </param>
+        ///// <param name="provider"></param>
+        ///// <returns>
+        ///// Returns an instance of the <see cref="Vector4D"/> struct converted
+        ///// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        ///// </returns>
+        //public static Vector4D Parse(string source, IFormatProvider provider)
+        //{
+        //    var tokenizer = new Tokenizer(source, provider);
+        //    var firstToken = tokenizer.NextTokenRequired();
 
-            var value = new Vector4D(
-                Convert.ToDouble(firstToken, provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
-                );
+        //    var value = new Vector4D(
+        //        Convert.ToDouble(firstToken, provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+        //        );
 
-            // There should be no more tokens in this string.
-            tokenizer.LastTokenRequired();
-            return value;
-        }
+        //    // There should be no more tokens in this string.
+        //    tokenizer.LastTokenRequired();
+        //    return value;
+        //}
         #endregion Factories
 
         #region Public Methods

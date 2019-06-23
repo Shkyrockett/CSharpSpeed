@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using static System.Math;
 
 namespace InstrumentedLibrary
 {
@@ -323,40 +324,40 @@ namespace InstrumentedLibrary
         #endregion Operators
 
         #region Factories
-        /// <summary>
-        /// Parse a string for a <see cref="Point4D"/> value.
-        /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Point4D"/> data </param>
-        /// <returns>
-        /// Returns an instance of the <see cref="Point4D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-        /// </returns>
-        [ParseMethod]
-        public static Point4D Parse(string source)
-            => Parse(source, CultureInfo.InvariantCulture);
+        ///// <summary>
+        ///// Parse a string for a <see cref="Point4D"/> value.
+        ///// </summary>
+        ///// <param name="source"><see cref="string"/> with <see cref="Point4D"/> data </param>
+        ///// <returns>
+        ///// Returns an instance of the <see cref="Point4D"/> struct converted
+        ///// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        ///// </returns>
+        //[ParseMethod]
+        //public static Point4D Parse(string source)
+        //    => Parse(source, CultureInfo.InvariantCulture);
 
-        /// <summary>
-        /// Parse a string for a <see cref="Point4D"/> value.
-        /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Point4D"/> data </param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// Returns an instance of the <see cref="Point4D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-        /// </returns>
-        public static Point4D Parse(string source, IFormatProvider provider)
-        {
-            var tokenizer = new Tokenizer(source, provider);
-            var value = new Point4D(
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
-                );
-            // There should be no more tokens in this string.
-            tokenizer.LastTokenRequired();
-            return value;
-        }
+        ///// <summary>
+        ///// Parse a string for a <see cref="Point4D"/> value.
+        ///// </summary>
+        ///// <param name="source"><see cref="string"/> with <see cref="Point4D"/> data </param>
+        ///// <param name="provider"></param>
+        ///// <returns>
+        ///// Returns an instance of the <see cref="Point4D"/> struct converted
+        ///// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        ///// </returns>
+        //public static Point4D Parse(string source, IFormatProvider provider)
+        //{
+        //    var tokenizer = new Tokenizer(source, provider);
+        //    var value = new Point4D(
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+        //        );
+        //    // There should be no more tokens in this string.
+        //    tokenizer.LastTokenRequired();
+        //    return value;
+        //}
         #endregion Factories
 
         #region Methods

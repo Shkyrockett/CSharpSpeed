@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -9,6 +10,7 @@ namespace InstrumentedLibrary
     /// The polygon contour class.
     /// </summary>
     public struct PolygonContour2D
+        : IClosedShape
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PolygonContour2D"/> class.
@@ -50,6 +52,6 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="string"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString() => $"{nameof(PolygonContour2D)}=[{string.Join(",", Points)}]";
+        public string ToString(string format, IFormatProvider formatProvider) => $"{nameof(PolygonContour2D)}({string.Join(",", Points)})";
     }
 }

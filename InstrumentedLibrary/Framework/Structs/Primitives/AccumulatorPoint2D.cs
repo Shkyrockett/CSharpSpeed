@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using static System.Math;
 
 namespace InstrumentedLibrary
 {
@@ -158,8 +159,8 @@ namespace InstrumentedLibrary
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public bool IsEmpty
-            => Abs(X) < Epsilon
-            && Abs(Y) < Epsilon;
+            => Abs(X) < double.Epsilon
+            && Abs(Y) < double.Epsilon;
         #endregion Properties
 
         #region Operators
@@ -215,24 +216,24 @@ namespace InstrumentedLibrary
         #endregion Operators
 
         #region Factories
-        /// <summary>
-        /// Parse a string for a <see cref="AccumulatorPoint2D"/> value.
-        /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="AccumulatorPoint2D"/> data </param>
-        /// <returns>
-        /// Returns an instance of the <see cref="AccumulatorPoint2D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-        /// </returns>
-        public static Point2D Parse(string source)
-        {
-            var tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
-            var value = new Point2D(
-                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture));
-            // There should be no more tokens in this string.
-            tokenizer.LastTokenRequired();
-            return value;
-        }
+        ///// <summary>
+        ///// Parse a string for a <see cref="AccumulatorPoint2D"/> value.
+        ///// </summary>
+        ///// <param name="source"><see cref="string"/> with <see cref="AccumulatorPoint2D"/> data </param>
+        ///// <returns>
+        ///// Returns an instance of the <see cref="AccumulatorPoint2D"/> struct converted
+        ///// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        ///// </returns>
+        //public static Point2D Parse(string source)
+        //{
+        //    var tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
+        //    var value = new Point2D(
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture));
+        //    // There should be no more tokens in this string.
+        //    tokenizer.LastTokenRequired();
+        //    return value;
+        //}
         #endregion Factories
 
         #region Methods

@@ -9,11 +9,26 @@ namespace InstrumentedLibrary
     /// The circle struct.
     /// </summary>
     public struct Circle2D
+        : IClosedShape
     {
+        #region Implementations
         /// <summary>
         /// The empty.
         /// </summary>
         public static Circle2D Empty = new Circle2D(0, 0, 0);
+        #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Circle2D"/> class.
+        /// </summary>
+        /// <param name="circle"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public Circle2D(Circle2D circle)
+            : this(circle.X, circle.Y, circle.Radius)
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Circle2D"/> class.
@@ -33,6 +48,19 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="Circle2D"/> class.
+        /// </summary>
+        /// <param name="tuple"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public Circle2D((double x, double y, double radius) tuple)
+            : this(tuple.x, tuple.y, tuple.radius)
+        { }
+        #endregion
+
+        #region Properties
+        /// <summary>
         /// Gets or sets the center <see cref="X"/> coordinate.
         /// </summary>
         public double X { get; set; }
@@ -46,6 +74,7 @@ namespace InstrumentedLibrary
         /// Gets or sets the radius.
         /// </summary>
         public double Radius { get; set; }
+        #endregion
 
         /// <summary>
         /// Deconstruct this <see cref="Circle2D"/> to a <see cref="ValueTuple{T1, T2, T3}"/>.
@@ -96,6 +125,6 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="string"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString() => $"{nameof(Circle2D)}=[{nameof(X)}:{X:R}, {nameof(Y)}:{Y:R}, {nameof(Radius)}:{Radius:R}]";
+        public string ToString(string format, IFormatProvider formatProvider) => $"{nameof(Circle2D)}({nameof(X)}:{X:R}, {nameof(Y)}:{Y:R}, {nameof(Radius)}:{Radius:R})";
     }
 }

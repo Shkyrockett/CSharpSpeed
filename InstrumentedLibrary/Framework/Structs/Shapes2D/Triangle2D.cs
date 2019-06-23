@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
@@ -8,6 +9,7 @@ namespace InstrumentedLibrary
     /// 
     /// </summary>
     public class Triangle2D
+        : IClosedShape
     {
         /// <summary>
         /// 
@@ -46,7 +48,14 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Contains(Point2D point)
-            => PolygonContourContainsPointTests.PolygonContourContainsPoint(new List<(double X, double Y)> { A, B, C }, point.X, point.Y);
+        public bool Contains(Point2D point) => PolygonContourContainsPointTests.PolygonContourContainsPoint(new List<(double X, double Y)> { A, B, C }, point.X, point.Y);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="formatProvider"></param>
+        /// <returns></returns>
+        public string ToString(string format, IFormatProvider formatProvider) => throw new NotImplementedException();
     }
 }

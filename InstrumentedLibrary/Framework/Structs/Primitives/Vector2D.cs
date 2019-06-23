@@ -17,7 +17,7 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Vector2D
-        : IFormattable
+        : IFormattable, IShapeSegment
     {
         #region Static Fields
         /// <summary>
@@ -347,41 +347,41 @@ namespace InstrumentedLibrary
         #endregion Operators
 
         #region Factories
-        /// <summary>
-        /// Parse a string for a <see cref="Vector2D"/> value.
-        /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Vector2D"/> data </param>
-        /// <returns>
-        /// Returns an instance of the <see cref="Vector2D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-        /// </returns>
-        [ParseMethod]
-        public static Vector2D Parse(string source)
-            => Parse(source, CultureInfo.InvariantCulture);
+        ///// <summary>
+        ///// Parse a string for a <see cref="Vector2D"/> value.
+        ///// </summary>
+        ///// <param name="source"><see cref="string"/> with <see cref="Vector2D"/> data </param>
+        ///// <returns>
+        ///// Returns an instance of the <see cref="Vector2D"/> struct converted
+        ///// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        ///// </returns>
+        //[ParseMethod]
+        //public static Vector2D Parse(string source)
+        //    => Parse(source, CultureInfo.InvariantCulture);
 
-        /// <summary>
-        /// Parse a string for a <see cref="Vector2D"/> value.
-        /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Vector2D"/> data </param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// Returns an instance of the <see cref="Vector2D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-        /// </returns>
-        public static Vector2D Parse(string source, IFormatProvider provider)
-        {
-            var tokenizer = new Tokenizer(source, provider);
-            var firstToken = tokenizer.NextTokenRequired();
+        ///// <summary>
+        ///// Parse a string for a <see cref="Vector2D"/> value.
+        ///// </summary>
+        ///// <param name="source"><see cref="string"/> with <see cref="Vector2D"/> data </param>
+        ///// <param name="provider"></param>
+        ///// <returns>
+        ///// Returns an instance of the <see cref="Vector2D"/> struct converted
+        ///// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        ///// </returns>
+        //public static Vector2D Parse(string source, IFormatProvider provider)
+        //{
+        //    var tokenizer = new Tokenizer(source, provider);
+        //    var firstToken = tokenizer.NextTokenRequired();
 
-            var value = new Vector2D(
-                Convert.ToDouble(firstToken, provider),
-                Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
-                );
+        //    var value = new Vector2D(
+        //        Convert.ToDouble(firstToken, provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+        //        );
 
-            // There should be no more tokens in this string.
-            tokenizer.LastTokenRequired();
-            return value;
-        }
+        //    // There should be no more tokens in this string.
+        //    tokenizer.LastTokenRequired();
+        //    return value;
+        //}
         #endregion Factories
 
         #region Public Methods
