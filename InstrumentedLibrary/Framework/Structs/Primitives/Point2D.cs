@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -94,13 +95,13 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets or sets the X component of a <see cref="Point2D"/> coordinate.
         /// </summary>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(X)), XmlAttribute(nameof(X)), SoapAttribute(nameof(X))]
         public double X { get; set; }
 
         /// <summary>
         /// Gets or sets the Y component of a <see cref="Point2D"/> coordinate.
         /// </summary>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(Y)), XmlAttribute(nameof(Y)), SoapAttribute(nameof(Y))]
         public double Y { get; set; }
 
         /// <summary>
@@ -465,8 +466,8 @@ namespace InstrumentedLibrary
         public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Point2D);
-            var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(Point2D)}({nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)})";
+            var sep = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
+            return $"{nameof(Point2D)}({nameof(X)}: {X.ToString(format, provider)}{sep} {nameof(Y)}: {Y.ToString(format, provider)})";
         }
         #endregion Methods
     }

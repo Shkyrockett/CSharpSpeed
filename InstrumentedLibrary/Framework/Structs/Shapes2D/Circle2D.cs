@@ -1,15 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace InstrumentedLibrary
 {
     /// <summary>
     /// The circle struct.
     /// </summary>
+    [ComVisible(true)]
+    [DataContract, Serializable]
+    [DebuggerDisplay("{ToString()}")]
     public struct Circle2D
-        : IClosedShape
+        : IClosedShape, ICachableProperties
     {
         #region Implementations
         /// <summary>
@@ -59,38 +67,51 @@ namespace InstrumentedLibrary
         { }
         #endregion
 
+        #region Deconstructors
+        /// <summary>
+        /// Deconstruct this <see cref="Circle2D"/> to a <see cref="ValueTuple{T1, T2, T3}"/>.
+        /// </summary>
+        /// <param name="X"></param>
+        /// <param name="Y"></param>
+        /// <param name="Radius"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void Deconstruct(out double X, out double Y, out double Radius)
+        {
+            X = this.X;
+            Y = this.Y;
+            Radius = this.Radius;
+        }
+        #endregion Deconstructors
+
         #region Properties
         /// <summary>
         /// Gets or sets the center <see cref="X"/> coordinate.
         /// </summary>
+        [DataMember(Name = nameof(X)), XmlAttribute(nameof(X)), SoapAttribute(nameof(X))]
         public double X { get; set; }
 
         /// <summary>
         /// Gets or sets the center <see cref="Y"/> coordinate.
         /// </summary>
+        [DataMember(Name = nameof(Y)), XmlAttribute(nameof(Y)), SoapAttribute(nameof(Y))]
         public double Y { get; set; }
 
         /// <summary>
         /// Gets or sets the radius.
         /// </summary>
+        [DataMember(Name = nameof(Radius)), XmlAttribute(nameof(Radius)), SoapAttribute(nameof(Radius))]
         public double Radius { get; set; }
-        #endregion
 
         /// <summary>
-        /// Deconstruct this <see cref="Circle2D"/> to a <see cref="ValueTuple{T1, T2, T3}"/>.
+        /// Property cache for commonly used properties that may take time to calculate.
         /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="top">The top.</param>
-        /// <param name="radius">The radius.</param>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public void Deconstruct(out double left, out double top, out double radius)
-        {
-            left = X;
-            top = Y;
-            radius = Radius;
-        }
+        [Browsable(false)]
+        [field: NonSerialized]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        Dictionary<object, object> ICachableProperties.PropertyCache { get; set; }
+        #endregion
 
         /// <summary>
         /// The equals.
@@ -120,11 +141,29 @@ namespace InstrumentedLibrary
         public override int GetHashCode() => HashCode.Combine(X, Y, Radius);
 
         /// <summary>
+        /// Creates a <see cref="string"/> representation of this <see cref="IShape"/> interface based on the current culture.
+        /// </summary>
+        /// <returns>A <see cref="string"/> representation of this instance of the <see cref="IShape"/> object.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
         /// The to string.
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider formatProvider) => $"{nameof(Circle2D)}({nameof(X)}:{X:R}, {nameof(Y)}:{Y:R}, {nameof(Radius)}:{Radius:R})";
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            //if (this is null)
+            //{
+            //    return nameof(Circle2D);
+            //}
+
+            var sep = ((formatProvider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
+            return $"{nameof(Circle2D)}({nameof(X)}: {X.ToString(format, formatProvider)}{sep} {nameof(Y)}: {Y.ToString(format, formatProvider)}{sep} {nameof(Radius)}: {Radius.ToString(format, formatProvider)})";
+        }
     }
 }
+

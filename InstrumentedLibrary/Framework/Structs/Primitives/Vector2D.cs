@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -153,13 +154,13 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets or sets the I or first component of a 2D Vector.
         /// </summary>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(I)), XmlAttribute(nameof(I)), SoapAttribute(nameof(I))]
         public double I { get; set; }
 
         /// <summary>
         /// Gets or sets the j or second Component of a 2D Vector.
         /// </summary>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(J)), XmlAttribute(nameof(J)), SoapAttribute(nameof(J))]
         public double J { get; set; }
         #endregion Properties
 
@@ -463,8 +464,8 @@ namespace InstrumentedLibrary
         public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Vector2D);
-            var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(Vector2D)}({nameof(I)}: {I.ToString(format, provider)}{s} {nameof(J)}: {J.ToString(format, provider)})";
+            var sep = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
+            return $"{nameof(Vector2D)}({nameof(I)}: {I.ToString(format, provider)}{sep} {nameof(J)}: {J.ToString(format, provider)})";
         }
         #endregion Public Methods
     }

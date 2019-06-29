@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
@@ -11,6 +12,8 @@ namespace InstrumentedLibrary
     /// <summary>
     /// The transform2d struct.
     /// </summary>
+    [ComVisible(true)]
+    [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Transform2D
     {
@@ -84,7 +87,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets or sets the <see cref="X"/> coordinate of the location of the <see cref="Transform2D"/>.
         /// </summary>
-        [XmlAttribute("x")]
+        [DataMember(Name = nameof(X)), XmlAttribute(nameof(X)), SoapAttribute(nameof(X))]
         [Browsable(true)]
         [Category("Elements")]
         [Description("The center x coordinate location of the " + nameof(Transform2D) + ".")]
@@ -96,7 +99,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets or sets the <see cref="Y"/> coordinate of the location of the <see cref="Transform2D"/>.
         /// </summary>
-        [XmlAttribute("y")]
+        [DataMember(Name = nameof(Y)), XmlAttribute(nameof(Y)), SoapAttribute(nameof(Y))]
         [Browsable(true)]
         [Category("Elements")]
         [Description("The center y coordinate location of the " + nameof(Transform2D) + ".")]
@@ -108,7 +111,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets or sets the horizontal skew value of the <see cref="Transform2D"/>.
         /// </summary>
-        [XmlAttribute("skew-x")]
+        [DataMember(Name = nameof(SkewX)), XmlAttribute(nameof(SkewX)), SoapAttribute(nameof(SkewX))]
         [Browsable(true)]
         [Category("Elements")]
         [Description("The x skew of the " + nameof(Transform2D) + ".")]
@@ -120,7 +123,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets or sets the vertical skew value of the <see cref="Transform2D"/>.
         /// </summary>
-        [XmlAttribute("skew-y")]
+        [DataMember(Name = nameof(SkewY)), XmlAttribute(nameof(SkewY)), SoapAttribute(nameof(SkewY))]
         [Browsable(true)]
         [Category("Elements")]
         [Description("The y skew of the " + nameof(Transform2D) + ".")]
@@ -132,7 +135,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets or sets the horizontal scale of the <see cref="Transform2D"/>.
         /// </summary>
-        [XmlAttribute("scale-x")]
+        [DataMember(Name = nameof(ScaleX)), XmlAttribute(nameof(ScaleX)), SoapAttribute(nameof(ScaleX))]
         [Browsable(true)]
         [Category("Elements")]
         [Description("The x scale of the " + nameof(Transform2D) + ".")]
@@ -144,7 +147,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets or sets the vertical scale of the <see cref="Transform2D"/>.
         /// </summary>
-        [XmlAttribute("scale-y")]
+        [DataMember(Name = nameof(ScaleY)), XmlAttribute(nameof(ScaleY)), SoapAttribute(nameof(ScaleY))]
         [Browsable(true)]
         [Category("Elements")]
         [Description("The y scale of the " + nameof(Transform2D) + ".")]
@@ -179,7 +182,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets or sets the <see cref="Rotation"/> angle of the <see cref="Transform2D"/> in Degrees.
         /// </summary>
-        [XmlAttribute("angle")]
+        [DataMember(Name = "Angle"), XmlAttribute("Angle"), SoapAttribute("Angle")]
         [Browsable(false)]
         //[GeometryAngleDegrees]
         [Category("Elements")]
@@ -346,8 +349,8 @@ namespace InstrumentedLibrary
         public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Point2D);
-            var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(Transform2D)}({nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(SkewX)}:{SkewX.ToString(format, provider)}{s} {nameof(SkewY)}:{SkewY.ToString(format, provider)}{s} {nameof(ScaleX)}:{ScaleX.ToString(format, provider)}{s} {nameof(ScaleY)}:{ScaleY.ToString(format, provider)})";
+            var sep = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
+            return $"{nameof(Transform2D)}({nameof(X)}: {X.ToString(format, provider)}{sep} {nameof(Y)}: {Y.ToString(format, provider)}{sep} {nameof(SkewX)}: {SkewX.ToString(format, provider)}{sep} {nameof(SkewY)}: {SkewY.ToString(format, provider)}{sep} {nameof(ScaleX)}: {ScaleX.ToString(format, provider)}{sep} {nameof(ScaleY)}: {ScaleY.ToString(format, provider)})";
         }
         #endregion Methods
     }

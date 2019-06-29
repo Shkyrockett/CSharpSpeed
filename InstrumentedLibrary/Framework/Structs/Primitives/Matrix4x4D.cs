@@ -174,82 +174,98 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets or sets the m0x0.
         /// </summary>
+        [DataMember(Name = nameof(M0x0)), XmlAttribute(nameof(M0x0)), SoapAttribute(nameof(M0x0))]
         public double M0x0 { get; set; }
 
         /// <summary>
         /// Gets or sets the m0x1.
         /// </summary>
+        [DataMember(Name = nameof(M0x1)), XmlAttribute(nameof(M0x1)), SoapAttribute(nameof(M0x1))]
         public double M0x1 { get; set; }
 
         /// <summary>
         /// Gets or sets the m0x2.
         /// </summary>
+        [DataMember(Name = nameof(M0x2)), XmlAttribute(nameof(M0x2)), SoapAttribute(nameof(M0x2))]
         public double M0x2 { get; set; }
 
         /// <summary>
         /// Gets or sets the m0x3.
         /// </summary>
+        [DataMember(Name = nameof(M0x3)), XmlAttribute(nameof(M0x3)), SoapAttribute(nameof(M0x3))]
         public double M0x3 { get; set; }
 
         /// <summary>
         /// Gets or sets the m1x0.
         /// </summary>
+        [DataMember(Name = nameof(M1x0)), XmlAttribute(nameof(M1x0)), SoapAttribute(nameof(M1x0))]
         public double M1x0 { get; set; }
 
         /// <summary>
         /// Gets or sets the m1x1.
         /// </summary>
+        [DataMember(Name = nameof(M1x1)), XmlAttribute(nameof(M1x1)), SoapAttribute(nameof(M1x1))]
         public double M1x1 { get; set; }
 
         /// <summary>
         /// Gets or sets the m1x2.
         /// </summary>
+        [DataMember(Name = nameof(M1x2)), XmlAttribute(nameof(M1x2)), SoapAttribute(nameof(M1x2))]
         public double M1x2 { get; set; }
 
         /// <summary>
         /// Gets or sets the m1x3.
         /// </summary>
+        [DataMember(Name = nameof(M1x3)), XmlAttribute(nameof(M1x3)), SoapAttribute(nameof(M1x3))]
         public double M1x3 { get; set; }
 
         /// <summary>
         /// Gets or sets the m2x0.
         /// </summary>
+        [DataMember(Name = nameof(M2x0)), XmlAttribute(nameof(M2x0)), SoapAttribute(nameof(M2x0))]
         public double M2x0 { get; set; }
 
         /// <summary>
         /// Gets or sets the m2x1.
         /// </summary>
+        [DataMember(Name = nameof(M2x1)), XmlAttribute(nameof(M2x1)), SoapAttribute(nameof(M2x1))]
         public double M2x1 { get; set; }
 
         /// <summary>
         /// Gets or sets the m2x2.
         /// </summary>
+        [DataMember(Name = nameof(M2x2)), XmlAttribute(nameof(M2x2)), SoapAttribute(nameof(M2x2))]
         public double M2x2 { get; set; }
 
         /// <summary>
         /// Gets or sets the m2x3.
         /// </summary>
+        [DataMember(Name = nameof(M2x3)), XmlAttribute(nameof(M2x3)), SoapAttribute(nameof(M2x3))]
         public double M2x3 { get; set; }
 
         /// <summary>
         /// Gets or sets the m3x0.
         /// </summary>
+        [DataMember(Name = nameof(M3x0)), XmlAttribute(nameof(M3x0)), SoapAttribute(nameof(M3x0))]
         public double M3x0 { get; set; }
 
         /// <summary>
         /// Gets or sets the m3x1.
         /// </summary>
+        [DataMember(Name = nameof(M3x1)), XmlAttribute(nameof(M3x1)), SoapAttribute(nameof(M3x1))]
         public double M3x1 { get; set; }
 
         /// <summary>
         /// Gets or sets the m3x2.
         /// </summary>
+        [DataMember(Name = nameof(M3x2)), XmlAttribute(nameof(M3x2)), SoapAttribute(nameof(M3x2))]
         public double M3x2 { get; set; }
 
         /// <summary>
         /// Gets or sets the m3x3.
         /// </summary>
-        public double M3x3 { get; set; }
+         [DataMember(Name = nameof(M3x3)), XmlAttribute(nameof(M3x3)), SoapAttribute(nameof(M3x3))]
+       public double M3x3 { get; set; }
 
         /// <summary>
         /// Gets or sets the cx.
@@ -666,8 +682,8 @@ namespace InstrumentedLibrary
         {
             if (this == null) return nameof(Matrix4x4D);
             //if (IsIdentity) return nameof(Identity);
-            var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(Matrix4x4D)}({nameof(M0x0)}:{M0x0.ToString(format, provider)}{s} {nameof(M0x1)}:{M0x1.ToString(format, provider)}{s} {nameof(M0x2)}:{M0x2.ToString(format, provider)}{s} {nameof(M0x3)}:{M0x3.ToString(format, provider)}{s} {nameof(M1x0)}:{M1x0.ToString(format, provider)}{s} {nameof(M1x1)}:{M1x1.ToString(format, provider)}{s} {nameof(M1x2)}:{M1x2.ToString(format, provider)}{s} {nameof(M1x3)}:{M1x3.ToString(format, provider)}{s} {nameof(M2x0)}:{M2x0.ToString(format, provider)}{s} {nameof(M2x1)}:{M2x1.ToString(format, provider)}{s} {nameof(M2x2)}:{M2x2.ToString(format, provider)}{s} {nameof(M2x3)}:{M2x3.ToString(format, provider)}{s} {nameof(M3x0)}:{M3x0.ToString(format, provider)}{s} {nameof(M3x1)}:{M3x1.ToString(format, provider)}{s} {nameof(M3x2)}:{M3x2.ToString(format, provider)}{s} {nameof(M3x3)}:{M3x3.ToString(format, provider)})";
+            var sep = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
+            return $"{nameof(Matrix4x4D)}({nameof(M0x0)}: {M0x0.ToString(format, provider)}{sep} {nameof(M0x1)}: {M0x1.ToString(format, provider)}{sep} {nameof(M0x2)}: {M0x2.ToString(format, provider)}{sep} {nameof(M0x3)}: {M0x3.ToString(format, provider)}{sep} {nameof(M1x0)}: {M1x0.ToString(format, provider)}{sep} {nameof(M1x1)}: {M1x1.ToString(format, provider)}{sep} {nameof(M1x2)}: {M1x2.ToString(format, provider)}{sep} {nameof(M1x3)}: {M1x3.ToString(format, provider)}{sep} {nameof(M2x0)}: {M2x0.ToString(format, provider)}{sep} {nameof(M2x1)}: {M2x1.ToString(format, provider)}{sep} {nameof(M2x2)}: {M2x2.ToString(format, provider)}{sep} {nameof(M2x3)}: {M2x3.ToString(format, provider)}{sep} {nameof(M3x0)}: {M3x0.ToString(format, provider)}{sep} {nameof(M3x1)}: {M3x1.ToString(format, provider)}{sep} {nameof(M3x2)}: {M3x2.ToString(format, provider)}{sep} {nameof(M3x3)}: {M3x3.ToString(format, provider)})";
         }
         #endregion Methods
     }

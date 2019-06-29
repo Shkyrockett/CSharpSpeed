@@ -4,23 +4,64 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Linq;
+using CSharpSpeed;
+using System.ComponentModel;
+using System.Reflection;
 
 namespace InstrumentedLibrary
 {
     /// <summary>
     /// 
     /// </summary>
+    [DisplayName("Split Any Number Bezier")]
+    [Description("Split Any Number Bezier.")]
+    [SourceCodeLocationProvider]
     public static class SplitNBezierTests
     {
+        /// <summary>
+        /// The polygon centroid test.
+        /// </summary>
+        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        [DisplayName(nameof(SplitNBezierTests))]
+        public static List<SpeedTester> TestHarness()
+        {
+            var trials = 1000;
+            var tests = new Dictionary<object[], TestCaseResults> {
+                { new object[] { new Point2D[] { (0d, 0d), (0d, 5d), (5d, 5d), (5d, 0d) }, new double[] { 0.5d } }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: true, epsilon: double.Epsilon) },
+            };
+
+            var results = new List<SpeedTester>();
+            foreach (var method in HelperExtensions.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
+            {
+                var methodDescription = ((DescriptionAttribute)method.GetCustomAttribute(typeof(DescriptionAttribute)))?.Description;
+                results.Add(new SpeedTester(method, methodDescription, tests));
+            }
+            return results;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        /// <param name="ts"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Point2D[][] SplitBezier(Point2D[] points, params double[] ts)
+            => SplitBezier_(points, ts);
+
         /// <summary>
         /// The split.
         /// </summary>
         /// <param name="points">The Bézier.</param>
         /// <param name="ts">The ts.</param>
         /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
+        [DisplayName("Split Any Number Bezier")]
+        [Description("Split Any Number Bezier.")]
+        [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D[][] SplitBezier(Point2D[] points, params double[] ts)
+        public static Point2D[][] SplitBezier_(Point2D[] points, params double[] ts)
         {
             if (ts is null)
             {

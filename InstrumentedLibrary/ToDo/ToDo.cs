@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using static System.Math;
@@ -91,7 +92,7 @@ namespace InstrumentedLibrary
             //// always be at least two ears.
             //Debug.Assert(false);
 
-            return null;
+            return new Triangle2D();
         }
 
         /// <summary>

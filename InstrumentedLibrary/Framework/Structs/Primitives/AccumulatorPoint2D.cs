@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
@@ -12,9 +13,10 @@ namespace InstrumentedLibrary
     /// <summary>
     /// The <see cref="AccumulatorPoint2D"/> struct.
     /// </summary>
+    [ComVisible(true)]
     [DataContract, Serializable]
-    [TypeConverter(typeof(ExpandableObjectConverter))]
     [DebuggerDisplay("{ToString()}")]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public struct AccumulatorPoint2D
         : IFormattable
     {
@@ -123,13 +125,13 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets or sets the X component of a <see cref="AccumulatorPoint2D"/> coordinate.
         /// </summary>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(X)), XmlAttribute(nameof(X)), SoapAttribute(nameof(X))]
         public double X { get; set; }
 
         /// <summary>
         /// Gets or sets the Y component of a <see cref="AccumulatorPoint2D"/> coordinate.
         /// </summary>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(Y)), XmlAttribute(nameof(Y)), SoapAttribute(nameof(Y))]
         public double Y { get; set; }
 
         /// <summary>
@@ -323,8 +325,8 @@ namespace InstrumentedLibrary
         public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(AccumulatorPoint2D);
-            var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(AccumulatorPoint2D)}({nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(Theta)}:{Theta.ToString(format, provider)}{s} {nameof(TotalDistance)}:{TotalDistance.ToString(format, provider)}{s} {nameof(PreviousIndex)}:{PreviousIndex.ToString(format, provider)})";
+            var sep = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
+            return $"{nameof(AccumulatorPoint2D)}({nameof(X)}: {X.ToString(format, provider)}{sep} {nameof(Y)}: {Y.ToString(format, provider)}{sep} {nameof(Theta)}: {Theta.ToString(format, provider)}{sep} {nameof(TotalDistance)}: {TotalDistance.ToString(format, provider)}{sep} {nameof(PreviousIndex)}: {PreviousIndex.ToString(format, provider)})";
         }
         #endregion Methods
     }

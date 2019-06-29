@@ -126,7 +126,7 @@ namespace InstrumentedLibrary
             };
 
         /// <summary>
-        /// Raises a <see cref="QuadraticBezier"/> to a <see cref="CubicBezier"/>.
+        /// Raises a <see cref="QuadraticBezier2D"/> to a <see cref="CubicBezier2D"/>.
         /// </summary>
         /// <param name="a">The starting point of the Quadratic Bézier curve.</param>
         /// <param name="b">The handle of the Quadratic Bézier curve.</param>

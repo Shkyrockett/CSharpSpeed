@@ -156,19 +156,19 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets or sets the I or first Component of a 3D Vector
         /// </summary>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(I)), XmlAttribute(nameof(I)), SoapAttribute(nameof(I))]
         public double I { get; set; }
 
         /// <summary>
         /// Gets or sets the j or second Component of a 3D Vector
         /// </summary>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(J)), XmlAttribute(nameof(J)), SoapAttribute(nameof(J))]
         public double J { get; set; }
 
         /// <summary>
         /// Gets or sets the k or third Component of a 3D Vector
         /// </summary>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(K)), XmlAttribute(nameof(K)), SoapAttribute(nameof(K))]
         public double K { get; set; }
 
         /// <summary>
@@ -483,8 +483,8 @@ namespace InstrumentedLibrary
         public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Vector3D);
-            var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(Vector3D)}({nameof(I)}: {I.ToString(format, provider)}{s} {nameof(J)}: {J.ToString(format, provider)}{s} {nameof(K)}: {K.ToString(format, provider)})";
+            var sep = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
+            return $"{nameof(Vector3D)}({nameof(I)}: {I.ToString(format, provider)}{sep} {nameof(J)}: {J.ToString(format, provider)}{sep} {nameof(K)}: {K.ToString(format, provider)})";
         }
         #endregion Public Methods
     }

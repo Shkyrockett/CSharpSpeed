@@ -104,13 +104,13 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets or sets the Width component of a <see cref="Size2D"/> coordinate.
         /// </summary>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(Width)), XmlAttribute(nameof(Width)), SoapAttribute(nameof(Width))]
         public double Width { get; set; }
 
         /// <summary>
         /// Gets or sets the Height component of a <see cref="Size2D"/> coordinate.
         /// </summary>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(Height)), XmlAttribute(nameof(Height)), SoapAttribute(nameof(Height))]
         public double Height { get; set; }
 
         /// <summary>
@@ -421,8 +421,8 @@ namespace InstrumentedLibrary
         public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Size2D);
-            var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(Size2D)}({nameof(Width)}:{Width.ToString(format, provider)}{s} {nameof(Height)}:{Height.ToString(format, provider)})";
+            var sep = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
+            return $"{nameof(Size2D)}({nameof(Width)}: {Width.ToString(format, provider)}{sep} {nameof(Height)}: {Height.ToString(format, provider)})";
         }
         #endregion Methods
     }

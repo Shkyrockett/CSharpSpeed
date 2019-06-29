@@ -1,7 +1,10 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -10,8 +13,46 @@ namespace InstrumentedLibrary
     /// <summary>
     /// 
     /// </summary>
+    [DisplayName("Split Line Segment")]
+    [Description("Split Line Segment.")]
+    [SourceCodeLocationProvider]
     public static class SplitLineSegmentTests
     {
+        /// <summary>
+        /// The polygon centroid test.
+        /// </summary>
+        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        [DisplayName(nameof(SplitLineSegmentTests))]
+        public static List<SpeedTester> TestHarness()
+        {
+            var trials = 1000;
+            var tests = new Dictionary<object[], TestCaseResults> {
+                { new object[] { 0d, 0d, 5d, 5d, new double[] { 0.5d } }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: true, epsilon: double.Epsilon) },
+            };
+
+            var results = new List<SpeedTester>();
+            foreach (var method in HelperExtensions.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
+            {
+                var methodDescription = ((DescriptionAttribute)method.GetCustomAttribute(typeof(DescriptionAttribute)))?.Description;
+                results.Add(new SpeedTester(method, methodDescription, tests));
+            }
+            return results;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bX"></param>
+        /// <param name="bY"></param>
+        /// <param name="ts"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static LineSegment2D[] Split(double aX, double aY, double bX, double bY, params double[] ts)
+            => Split_(aX, aY, bX, bY, ts);
+
         /// <summary>
         /// The split.
         /// </summary>
@@ -21,9 +62,12 @@ namespace InstrumentedLibrary
         /// <param name="bY"></param>
         /// <param name="ts">The ts.</param>
         /// <returns>The <see cref="T:LineSegment[]"/>.</returns>
+        [DisplayName("Split Line Segment")]
+        [Description("Split Line Segment.")]
+        [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static LineSegment2D[] Split(double aX, double aY, double bX, double bY, params double[] ts)
+        public static LineSegment2D[] Split_(double aX, double aY, double bX, double bY, params double[] ts)
         {
             if (ts is null)
             {

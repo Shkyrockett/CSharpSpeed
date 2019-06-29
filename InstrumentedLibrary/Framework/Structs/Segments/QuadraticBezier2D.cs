@@ -1,15 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace InstrumentedLibrary
 {
     /// <summary>
     /// 
     /// </summary>
+    [ComVisible(true)]
+    [DataContract, Serializable]
+    [DebuggerDisplay("{ToString()}")]
     public struct QuadraticBezier2D
-        : IShapeSegment
+        : IShapeSegment, ICachableProperties
     {
+        private Point2D a;
+        private Point2D b;
+        private Point2D c;
         #region Constructors
         /// <summary>
         /// 
@@ -20,6 +32,7 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public QuadraticBezier2D(Point2D a, Point2D b, Point2D c)
+            : this()
         {
             A = a;
             B = b;
@@ -65,21 +78,102 @@ namespace InstrumentedLibrary
         { }
         #endregion
 
+        #region Deconstructors
+        /// <summary>
+        /// Deconstruct this <see cref="QuadraticBezier2D"/> to a <see cref="ValueTuple{T1, T2, T3}"/>.
+        /// </summary>
+        /// <param name="AX"></param>
+        /// <param name="AY"></param>
+        /// <param name="BX"></param>
+        /// <param name="BY"></param>
+        /// <param name="CX"></param>
+        /// <param name="CY"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void Deconstruct(out double AX, out double AY, out double BX, out double BY, out double CX, out double CY)
+        {
+            AX = this.A.X;
+            AY = this.A.Y;
+            BX = this.B.X;
+            BY = this.B.Y;
+            CX = this.C.X;
+            CY = this.C.Y;
+        }
+
+        /// <summary>
+        /// Deconstruct this <see cref="QuadraticBezier2D"/> to a <see cref="ValueTuple{T1, T2, T3}"/>.
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="C"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void Deconstruct(out Point2D A, out Point2D B, out Point2D C)
+        {
+            A = this.A;
+            B = this.B;
+            C = this.C;
+        }
+        #endregion Deconstructors
+
         #region Properties
         /// <summary>
         /// 
         /// </summary>
-        public Point2D A { get; internal set; }
+        [DataMember(Name = nameof(A)), XmlElement(nameof(A)), SoapElement(nameof(A))]
+        public Point2D A { get { return a; } set { a = value; (this as ICachableProperties).ClearCache(); } }
 
         /// <summary>
         /// 
         /// </summary>
-        public Point2D B { get; internal set; }
+        [DataMember(Name = nameof(B)), XmlElement(nameof(B)), SoapElement(nameof(B))]
+        public Point2D B { get { return b; } set { b = value; (this as ICachableProperties).ClearCache(); } }
 
         /// <summary>
         /// 
         /// </summary>
-        public Point2D C { get; internal set; }
+        [DataMember(Name = nameof(C)), XmlElement(nameof(C)), SoapElement(nameof(C))]
+        public Point2D C { get { return c; } set { c = value; (this as ICachableProperties).ClearCache(); } }
+
+        /// <summary>
+        /// Gets the curve x Polynomial.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public Polynomial CurveX
+        {
+            get
+            {
+                var (a, b, c) = this;
+                var curveX = (Polynomial)(this as ICachableProperties).CachingProperty(() => Polynomial.Bezier(a.X, b.X, c.X));
+                curveX.IsReadonly = true;
+                return curveX;
+            }
+        }
+
+        /// <summary>
+        /// Gets the curve y Polynomial.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public Polynomial CurveY
+        {
+            get
+            {
+                var (a, b, c) = this;
+                var curveX = (Polynomial)(this as ICachableProperties).CachingProperty(() => Polynomial.Bezier(a.Y, b.Y, c.Y));
+                curveX.IsReadonly = true;
+                return curveX;
+            }
+        }
+
+        /// <summary>
+        /// Property cache for commonly used properties that may take time to calculate.
+        /// </summary>
+        [Browsable(false)]
+        [field: NonSerialized]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        Dictionary<object, object> ICachableProperties.PropertyCache { get; set; }
         #endregion
 
         #region Operators
@@ -140,11 +234,28 @@ namespace InstrumentedLibrary
         public CubicBezier2D ToCubicBezier2D() => new CubicBezier2D(A.X, A.Y, B.X, B.Y, C.X, C.Y);
 
         /// <summary>
+        /// Creates a <see cref="string"/> representation of this <see cref="IShape"/> interface based on the current culture.
+        /// </summary>
+        /// <returns>A <see cref="string"/> representation of this instance of the <see cref="IShape"/> object.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="format"></param>
         /// <param name="formatProvider"></param>
         /// <returns></returns>
-        public string ToString(string format, IFormatProvider formatProvider) => throw new NotImplementedException();
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            //if (this is null)
+            //{
+            //    return nameof(QuadraticBezier2D);
+            //}
+
+            var sep = ((formatProvider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
+            return $"{nameof(QuadraticBezier2D)}({nameof(A)}: {A.ToString(format, formatProvider)}{sep} {nameof(B)}: {B.ToString(format, formatProvider)}{sep} {nameof(C)}: {C.ToString(format, formatProvider)})";
+        }
     }
 }

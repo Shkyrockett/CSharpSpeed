@@ -102,25 +102,25 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets or sets the <see cref="X"/> component of a <see cref="Point4D"/> coordinate.
         /// </summary>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(X)), XmlAttribute(nameof(X)), SoapAttribute(nameof(X))]
         public double X { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="Y"/> component of a <see cref="Point4D"/> coordinate.
         /// </summary>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(Y)), XmlAttribute(nameof(Y)), SoapAttribute(nameof(Y))]
         public double Y { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="Z"/> component of a <see cref="Point4D"/> coordinate.
         /// </summary>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(Z)), XmlAttribute(nameof(Z)), SoapAttribute(nameof(Z))]
         public double Z { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="W"/> component of a <see cref="Point4D"/> coordinate.
         /// </summary>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(W)), XmlAttribute(nameof(W)), SoapAttribute(nameof(W))]
         public double W { get; set; }
         #endregion Properties
 
@@ -430,8 +430,8 @@ namespace InstrumentedLibrary
         public string ToString(string format, IFormatProvider formatProvider)
         {
             if (this == null) return nameof(Point4D);
-            var s = ((formatProvider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(Point4D)}({nameof(X)}: {X.ToString(format, formatProvider)}{s} {nameof(Y)}: {Y.ToString(format, formatProvider)}{s} {nameof(Z)}: {Z.ToString(format, formatProvider)}{s} {nameof(W)}: {W.ToString(format, formatProvider)})";
+            var sep = ((formatProvider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
+            return $"{nameof(Point4D)}({nameof(X)}: {X.ToString(format, formatProvider)}{sep} {nameof(Y)}: {Y.ToString(format, formatProvider)}{sep} {nameof(Z)}: {Z.ToString(format, formatProvider)}{sep} {nameof(W)}: {W.ToString(format, formatProvider)})";
         }
         #endregion Methods
     }

@@ -19,8 +19,6 @@ namespace InstrumentedLibrary
         /// <param name="bY"></param>
         /// <param name="cX"></param>
         /// <param name="cY"></param>
-        /// <param name="dX"></param>
-        /// <param name="dY"></param>
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>

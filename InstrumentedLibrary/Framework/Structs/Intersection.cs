@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
@@ -214,11 +215,31 @@ namespace InstrumentedLibrary
         public bool Equals(Intersection value) => Equals(this, value);
 
         /// <summary>
-        /// The to string.
+        /// Creates a string representation of this <see cref="Size2D"/> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
+        /// <returns>A string representation of this <see cref="Size2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString() => $"{nameof(Intersection)}=[{nameof(State)}:{State}, {nameof(Points)}:{Points}]";
+        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Intersection"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
+        /// <returns>A string representation of this <see cref="Intersection"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(string format, IFormatProvider provider)
+        {
+            _ = format;
+            var sep = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
+            return $"{nameof(Intersection)}({nameof(State)}: {State}{sep} {nameof(Points)}: {string.Join(sep, Points)})";
+        }
     }
 }

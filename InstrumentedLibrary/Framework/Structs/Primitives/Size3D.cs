@@ -108,19 +108,19 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets or sets the Width component of a <see cref="Size3D"/> coordinate.
         /// </summary>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(Width)), XmlAttribute(nameof(Width)), SoapAttribute(nameof(Width))]
         public double Width { get; set; }
 
         /// <summary>
         /// Gets or sets the Height component of a <see cref="Size3D"/> coordinate.
         /// </summary>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(Height)), XmlAttribute(nameof(Height)), SoapAttribute(nameof(Height))]
         public double Height { get; set; }
 
         /// <summary>
         /// Gets or sets the Depth component of a <see cref="Size3D"/> coordinate.
         /// </summary>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(Depth)), XmlAttribute(nameof(Depth)), SoapAttribute(nameof(Depth))]
         public double Depth { get; set; }
         #endregion Properties
 
@@ -405,8 +405,8 @@ namespace InstrumentedLibrary
         public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Size3D);
-            var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(Size3D)}({nameof(Width)}:{Width.ToString(format, provider)}{s} {nameof(Height)}:{Height.ToString(format, provider)}{s} {nameof(Depth)}:{Depth.ToString(format, provider)})";
+            var sep = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
+            return $"{nameof(Size3D)}({nameof(Width)}: {Width.ToString(format, provider)}{sep} {nameof(Height)}: {Height.ToString(format, provider)}{sep} {nameof(Depth)}: {Depth.ToString(format, provider)})";
         }
         #endregion Methods
     }

@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 using static InstrumentedLibrary.Maths;
 using static System.Math;
 
@@ -12,9 +16,13 @@ namespace InstrumentedLibrary
     /// <summary>
     /// 
     /// </summary>
+    [ComVisible(true)]
+    [DataContract, Serializable]
+    [DebuggerDisplay("{ToString()}")]
     public struct Matrix3x2D
         : IEnumerable
     {
+        #region Implementations
         /// <summary>
         /// An Empty <see cref="Matrix3x2D"/>.
         /// </summary>
@@ -24,7 +32,9 @@ namespace InstrumentedLibrary
         /// An Identity <see cref="Matrix3x2D"/>.
         /// </summary>
         public static readonly Matrix3x2D Identity = CreateIdentity();
+        #endregion
 
+        #region Fields
         /// <summary>
         /// The type.
         /// </summary>
@@ -59,7 +69,9 @@ namespace InstrumentedLibrary
         /// The offset y.
         /// </summary>
         private double offsetY;
+        #endregion
 
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="Matrix3x2D"/> class of the form:<br/>
         /// / m11, m12, 0 \<br/>
@@ -82,10 +94,40 @@ namespace InstrumentedLibrary
             // scale+translation and use special case algorithms.
             DeriveMatrixType();
         }
+        #endregion
 
+        #region Deconstructors
+        /// <summary>
+        /// Deconstruct this <see cref="Matrix3x2D"/> to a <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}"/>.
+        /// </summary>
+        /// <param name="m0x0">The m0x0.</param>
+        /// <param name="m0x1">The m0x1.</param>
+        /// <param name="m1x0">The m1x0.</param>
+        /// <param name="m1x1">The m1x1.</param>
+        /// <param name="offsetX"></param>
+        /// <param name="offsetY"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void Deconstruct(
+            out double m0x0, out double m0x1,
+            out double m1x0, out double m1x1,
+            out double offsetX, out double offsetY)
+        {
+            m0x0 = this.m0x0;
+            m0x1 = this.m0x1;
+            m1x0 = this.m1x0;
+            m1x1 = this.m1x1;
+            offsetX = this.offsetX;
+            offsetY = this.offsetY;
+        }
+        #endregion Deconstructors
+
+        #region Properties
         /// <summary>
         /// Gets or sets the m11.
         /// </summary>
+        [DataMember(Name = nameof(M11)), XmlAttribute(nameof(M11)), SoapAttribute(nameof(M11))]
         public double M11
         {
             get
@@ -115,6 +157,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets or sets the m12.
         /// </summary>
+        [DataMember(Name = nameof(M12)), XmlAttribute(nameof(M12)), SoapAttribute(nameof(M12))]
         public double M12
         {
             get
@@ -141,6 +184,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets or sets the m21.
         /// </summary>
+        [DataMember(Name = nameof(M21)), XmlAttribute(nameof(M21)), SoapAttribute(nameof(M21))]
         public double M21
         {
             get
@@ -196,6 +240,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets or sets the offset x.
         /// </summary>
+        [DataMember(Name = nameof(OffsetX)), XmlAttribute(nameof(OffsetX)), SoapAttribute(nameof(OffsetX))]
         public double OffsetX
         {
             get
@@ -225,6 +270,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets or sets the offset y.
         /// </summary>
+        [DataMember(Name = nameof(OffsetY)), XmlAttribute(nameof(OffsetY)), SoapAttribute(nameof(OffsetY))]
         public double OffsetY
         {
             get
@@ -256,12 +302,14 @@ namespace InstrumentedLibrary
         /// true if the matrix is identity.  If it returns false
         /// the matrix may still be identity.
         /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         private bool IsDistinguishedIdentity
             => type == MatrixTypes.Identity;
 
         /// <summary>
         /// Tests whether or not a given transform is an identity transform
         /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool IsIdentity
             => type == MatrixTypes.Identity
             || (
@@ -275,9 +323,12 @@ namespace InstrumentedLibrary
         /// <summary>
         /// HasInverse Property - returns true if this matrix is invert-able, false otherwise.
         /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool HasInverse
             => !Determinant.NearZero();
+        #endregion
 
+        #region Operators
         /// <summary>
         /// Operator Point * Matrix
         /// </summary>
@@ -328,6 +379,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Matrix3x2D matrix1, Matrix3x2D matrix2)
             => !Equals(matrix1, matrix2);
+        #endregion
 
         /// <summary>
         /// Sets the transformation to the identity.
@@ -1501,9 +1553,8 @@ namespace InstrumentedLibrary
                 return nameof(Identity);
             }
             // Helper to get the numeric list separator for a given culture.
-            var sep = ',';
-            IFormattable formatable = $"{nameof(Matrix3x2D)}=[{nameof(M11)}={m0x0}{sep}{nameof(M12)}={m0x1}{sep}{nameof(M21)}={m1x0}{sep}{nameof(M22)}={m1x1}{sep}{nameof(OffsetX)}={offsetX}{sep}{nameof(OffsetY)}={offsetY}]";
-            return formatable.ToString(format, provider);
+            var sep = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
+            return $"{nameof(Matrix3x2D)}({nameof(M11)}: {m0x0.ToString(format, provider)}{sep} {nameof(M12)}: {m0x1.ToString(format, provider)}{sep} {nameof(M21)}: {m1x0.ToString(format, provider)}{sep} {nameof(M22)}: {m1x1.ToString(format, provider)}{sep} {nameof(OffsetX)}: {offsetX.ToString(format, provider)}{sep} {nameof(OffsetY)}: {offsetY.ToString(format, provider)})";
         }
 
         /// <returns></returns>

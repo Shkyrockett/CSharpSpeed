@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
@@ -10,6 +11,7 @@ namespace InstrumentedLibrary
     /// <summary>
     /// The orientation struct.
     /// </summary>
+    [ComVisible(true)]
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Orientation3D
@@ -75,19 +77,19 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets or sets the roll.
         /// </summary>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(Roll)), XmlAttribute(nameof(Roll)), SoapAttribute(nameof(Roll))]
         public double Roll { get; set; }
 
         /// <summary>
         /// Gets or sets the pitch.
         /// </summary>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(Pitch)), XmlAttribute(nameof(Pitch)), SoapAttribute(nameof(Pitch))]
         public double Pitch { get; set; }
 
         /// <summary>
         /// Gets or sets the yaw.
         /// </summary>
-        [DataMember, XmlAttribute, SoapAttribute]
+        [DataMember(Name = nameof(Yaw)), XmlAttribute(nameof(Yaw)), SoapAttribute(nameof(Yaw))]
         public double Yaw { get; set; }
         #endregion Properties
 
@@ -207,8 +209,8 @@ namespace InstrumentedLibrary
         public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Orientation3D);
-            var s = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(Orientation3D)}({nameof(Roll)}:{Roll.ToString(format, provider)}{s} {nameof(Pitch)}:{Pitch.ToString(format, provider)}{s} {nameof(Yaw)}:{Yaw.ToString(format, provider)})";
+            var sep = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
+            return $"{nameof(Orientation3D)}({nameof(Roll)}: {Roll.ToString(format, provider)}{sep} {nameof(Pitch)}: {Pitch.ToString(format, provider)}{sep} {nameof(Yaw)}: {Yaw.ToString(format, provider)})";
         }
         #endregion Public Methods
     }

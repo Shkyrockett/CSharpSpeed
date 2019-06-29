@@ -6,6 +6,9 @@ using System.Globalization;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 using static InstrumentedLibrary.Maths;
 using static System.Math;
 
@@ -14,6 +17,9 @@ namespace InstrumentedLibrary
     /// <summary>
     /// The polynomial struct.
     /// </summary>
+    [ComVisible(true)]
+    [DataContract, Serializable]
+    [DebuggerDisplay("{ToString()}")]
     public struct Polynomial
     {
         #region Constants
@@ -230,6 +236,7 @@ namespace InstrumentedLibrary
         /// Gets the degree of the polynomial.
         /// </summary>
         /// <returns></returns>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public PolynomialDegree Degree
             // If degree uninitialized look up the real order then cache it and return.
             => (degree ??= RealOrder(Epsilon)).Value;
@@ -238,6 +245,7 @@ namespace InstrumentedLibrary
         /// Gets the raw number of coefficients found in the polynomial, including any leading zero coefficients.
         /// </summary>
         /// <returns></returns>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int Count
             // Get the length of the coefficients array, but let's just say that an uninitialized coefficients array is just a zero constant.
             => coefficients?.Length ?? 0;
@@ -248,6 +256,7 @@ namespace InstrumentedLibrary
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool CanSolveRealRoots
             // Set this to the highest degree currently solvable using the Roots() method.
             => Degree <= PolynomialDegree.Quintic;
@@ -260,6 +269,7 @@ namespace InstrumentedLibrary
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool IsReadonly
         {
             get { return isReadonly; }

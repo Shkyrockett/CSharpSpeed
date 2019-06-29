@@ -4,16 +4,54 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Linq;
+using CSharpSpeed;
+using System.ComponentModel;
+using System.Reflection;
 
 namespace InstrumentedLibrary
 {
     /// <summary>
     /// 
     /// </summary>
+    [DisplayName("Right Bisect Any Number Bezier")]
+    [Description("Right Bisect Any Number Bezier.")]
+    [SourceCodeLocationProvider]
     public static class RightBisectNBezierTests
     {
         /// <summary>
-        /// Cut a <see cref="BezierSegment"/> into multiple fragments at the given t indices, using "De Casteljau" algorithm.
+        /// The polygon centroid test.
+        /// </summary>
+        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        [DisplayName(nameof(RightBisectNBezierTests))]
+        public static List<SpeedTester> TestHarness()
+        {
+            var trials = 1000;
+            var tests = new Dictionary<object[], TestCaseResults> {
+                { new object[] { new Point2D[] { (0d, 0d), (0d, 5d), (5d, 5d), (5d, 0d) }, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: true, epsilon: double.Epsilon) },
+            };
+
+            var results = new List<SpeedTester>();
+            foreach (var method in HelperExtensions.ListStaticMethodsWithAttribute(MethodBase.GetCurrentMethod().DeclaringType, typeof(SourceCodeLocationProviderAttribute)))
+            {
+                var methodDescription = ((DescriptionAttribute)method.GetCustomAttribute(typeof(DescriptionAttribute)))?.Description;
+                results.Add(new SpeedTester(method, methodDescription, tests));
+            }
+            return results;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="points"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static Point2D[] RightBisectNBezier(Point2D[] points, double t)
+            => RightBisectNBezier_(points, t);
+
+        /// <summary>
+        /// Cut a Bezier into multiple fragments at the given t indices, using "De Casteljau" algorithm.
         /// The value at which to split the curve. Should be strictly inside ]0,1[ interval.
         /// </summary>
         /// <param name="points">The points.</param>
@@ -24,9 +62,12 @@ namespace InstrumentedLibrary
         /// http://pomax.github.io/bezierinfo/#decasteljau
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DisplayName("Right Bisect Any Number Bezier")]
+        [Description("Right Bisect Any Number Bezier.")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D[] RightBisectNBezier(Point2D[] points, double t)
+        public static Point2D[] RightBisectNBezier_(Point2D[] points, double t)
         {
             if (t < 0d || t > 1d)
             {

@@ -282,7 +282,7 @@ namespace CSharpSpeed
                 case IList<Complex> l:
                     return $"IList\\<Complex\\> {{{string.Join(", ", l.Select(x => $"{x:R}"))}}}";
                 case object[] l:
-                    return string.Join(", ", l.Select(x => x.ToString()));
+                    return $"object\\[\\] {{{string.Join(", ", l.Select(x => x?.ToString() ?? "Null"))}}}";
                 case null:
                     return "Null";
                 default:
