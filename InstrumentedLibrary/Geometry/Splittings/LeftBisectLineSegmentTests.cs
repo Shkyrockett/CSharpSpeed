@@ -79,7 +79,7 @@ namespace InstrumentedLibrary
                 return new LineSegment2D(aX, aY, bX, bY);
             }
 
-            var (cX, cY) = InterpolateLinear2DTests.LinearInterpolate2D(aX, aY, bX, bY, t);
+            var (cX, cY) = InterpolateLinear2DTests.LinearInterpolate2D(t, aX, aY, bX, bY);
 
             return new LineSegment2D(aX, aY, cX, cY);
         }

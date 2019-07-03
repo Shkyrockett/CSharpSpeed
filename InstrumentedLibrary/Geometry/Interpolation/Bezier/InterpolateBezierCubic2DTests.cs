@@ -26,8 +26,8 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 1d, 1d, 2d, 1d, 3d, 0d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (1.5d, 0.75d), epsilon: double.Epsilon) },
-                { new object[] { 0d, 1d, 2d, 3d, 4d, 5d, 6d, 7d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (3d, 4d), epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 0d, 1d, 1d, 2d, 1d, 3d, 0d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (1.5d, 0.75d), epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 1d, 2d, 3d, 4d, 5d, 6d, 7d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (3d, 4d), epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -42,6 +42,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
         /// <param name="x1"></param>
@@ -50,16 +51,16 @@ namespace InstrumentedLibrary
         /// <param name="y2"></param>
         /// <param name="x3"></param>
         /// <param name="y3"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static (double X, double Y) CubicBezierInterpolate2D(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3, double t)
-            => CubicBezierInterpolate2D_0(x0, y0, x1, y1, x2, y2, x3, y3, t);
+        public static (double X, double Y) CubicBezierInterpolate2D(double t, double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
+            => CubicBezierInterpolate2D_0(t, x0, y0, x1, y1, x2, y2, x3, y3);
 
         /// <summary>
         /// Four control point Bezier interpolation mu ranges from 0 to 1, start to end of curve.
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
         /// <param name="x1"></param>
@@ -68,19 +69,13 @@ namespace InstrumentedLibrary
         /// <param name="y2"></param>
         /// <param name="x3"></param>
         /// <param name="y3"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         [DisplayName("Cubic Bezier Interpolate 1")]
         [Description("Simple Cubic Bezier Interpolation.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) CubicBezierInterpolate2D_0(
-            double x0, double y0,
-            double x1, double y1,
-            double x2, double y2,
-            double x3, double y3,
-            double t)
+        public static (double X, double Y) CubicBezierInterpolate2D_0(double t, double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
         {
             var mum1 = 1d - t;
             var mum13 = mum1 * mum1 * mum1;
@@ -97,6 +92,7 @@ namespace InstrumentedLibrary
         /// coordinates of a cubic bezier curve. This is a separate function
         /// because we need it for both x and y values.
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="aX"></param>
         /// <param name="aY"></param>
         /// <param name="bX"></param>
@@ -105,7 +101,6 @@ namespace InstrumentedLibrary
         /// <param name="cY"></param>
         /// <param name="dX"></param>
         /// <param name="dY"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://www.lemoda.net/maths/bezier-length/index.html
@@ -116,12 +111,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) CubicBezierInterpolate2D_1(
-        double aX, double aY,
-        double bX, double bY,
-        double cX, double cY,
-        double dX, double dY,
-        double t)
+        public static (double X, double Y) CubicBezierInterpolate2D_1(double t, double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)
         {
             // Formula from Wikipedia article on Bézier curves.
             return (
@@ -133,6 +123,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// evaluate a point on a bezier-curve. t goes from 0 to 1.0
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
         /// <param name="x1"></param>
@@ -141,7 +132,6 @@ namespace InstrumentedLibrary
         /// <param name="y2"></param>
         /// <param name="x3"></param>
         /// <param name="y3"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://www.cubic.org/docs/bezier.htm
@@ -152,30 +142,26 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) CubicBezierInterpolate2D_2(
-            double x0, double y0,
-            double x1, double y1,
-            double x2, double y2,
-            double x3, double y3,
-            double t)
+        public static (double X, double Y) CubicBezierInterpolate2D_2(double t, double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
         {
             // point between a and b
-            (var abX, var abY) = InterpolateLinear2DTests.LinearInterpolate2D(x0, y0, x1, y1, t);
+            (var abX, var abY) = InterpolateLinear2DTests.LinearInterpolate2D(t, x0, y0, x1, y1);
             // point between b and c
-            (var bcX, var bcY) = InterpolateLinear2DTests.LinearInterpolate2D(x1, y1, x2, y2, t);
+            (var bcX, var bcY) = InterpolateLinear2DTests.LinearInterpolate2D(t, x1, y1, x2, y2);
             // point between c and d
-            (var cdX, var cdY) = InterpolateLinear2DTests.LinearInterpolate2D(x2, y2, x3, y3, t);
+            (var cdX, var cdY) = InterpolateLinear2DTests.LinearInterpolate2D(t, x2, y2, x3, y3);
             // point between ab and bc
-            (var abbcX, var abbcY) = InterpolateLinear2DTests.LinearInterpolate2D(abX, abY, bcX, bcY, t);
+            (var abbcX, var abbcY) = InterpolateLinear2DTests.LinearInterpolate2D(t, abX, abY, bcX, bcY);
             // point between bc and cd
-            (var bccdX, var bccdY) = InterpolateLinear2DTests.LinearInterpolate2D(bcX, bcY, cdX, cdY, t);
+            (var bccdX, var bccdY) = InterpolateLinear2DTests.LinearInterpolate2D(t, bcX, bcY, cdX, cdY);
             // point on the bezier-curve
-            return InterpolateLinear2DTests.LinearInterpolate2D(abbcX, abbcY, bccdX, bccdY, t);
+            return InterpolateLinear2DTests.LinearInterpolate2D(t, abbcX, abbcY, bccdX, bccdY);
         }
 
         /// <summary>
         /// Function to Plot a Cubic Bezier
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="aX">the starting point, or A in the above diagram</param>
         /// <param name="aY">the starting point, or A in the above diagram</param>
         /// <param name="bX">the first control point, or B</param>
@@ -184,19 +170,13 @@ namespace InstrumentedLibrary
         /// <param name="cY">the second control point, or C</param>
         /// <param name="dX">the end point, or D</param>
         /// <param name="dY">the end point, or D</param>
-        /// <param name="t"></param>
         /// <returns></returns>
         [DisplayName("Cubic Bezier Interpolate 4")]
         [Description("Simple Cubic Bezier Interpolation.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) CubicBezierInterpolate2D_3(
-            double aX, double aY,
-            double bX, double bY,
-            double cX, double cY,
-            double dX, double dY,
-            double t)
+        public static (double X, double Y) CubicBezierInterpolate2D_3(double t, double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)
         {
             var v = 1d - t;
             return (
@@ -207,6 +187,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The interpolate cubic.
         /// </summary>
+        /// <param name="t">The t.</param>
         /// <param name="x0">The x0.</param>
         /// <param name="y0">The y0.</param>
         /// <param name="x1">The x1.</param>
@@ -215,7 +196,6 @@ namespace InstrumentedLibrary
         /// <param name="y2">The y2.</param>
         /// <param name="x3">The x3.</param>
         /// <param name="y3">The y3.</param>
-        /// <param name="t">The t.</param>
         /// <returns>The <see cref="T:(double X, double Y)"/>.</returns>
         /// <acknowledgment>
         /// https://groups.google.com/d/msg/comp.graphics.algorithms/SRm97nRWlw4/R1Rn38ep8n0J
@@ -225,7 +205,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) InterpolateCubic(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3, double t)
+        public static (double X, double Y) InterpolateCubic(double t, double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
         {
             return (
                 (-(t * t * t) * (x0 - (3 * x1) + (3 * x2) - x3)) + (3 * t * t * (x0 - (2 * x1) + x2)) + (3 * t * (x1 - x0)) + x0,
@@ -236,6 +216,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The cubic bezier curve.
         /// </summary>
+        /// <param name="t">The t.</param>
         /// <param name="p0X">The p0X.</param>
         /// <param name="p0Y">The p0Y.</param>
         /// <param name="p1X">The p1X.</param>
@@ -244,7 +225,6 @@ namespace InstrumentedLibrary
         /// <param name="p2Y">The p2Y.</param>
         /// <param name="p3X">The p3X.</param>
         /// <param name="p3Y">The p3Y.</param>
-        /// <param name="t">The t.</param>
         /// <returns>The <see cref="T:(double X, double Y)"/>.</returns>
         /// <acknowledgment>
         /// http://en.wikipedia.org/wiki/B%C3%A9zier_curve
@@ -254,7 +234,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) CubicBezierCurve(double p0X, double p0Y, double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double t)
+        public static (double X, double Y) CubicBezierCurve(double t, double p0X, double p0Y, double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y)
         {
             return (
                 (Pow(1 - t, 3) * p0X) + (3 * Pow(1 - t, 2) * t * p1X) + (3 * (1 - t) * Pow(t, 2) * p2X) + (Pow(t, 3) * p3X),
@@ -264,6 +244,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The cubic bezier curve.
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="aX"></param>
         /// <param name="aY"></param>
         /// <param name="bX"></param>
@@ -272,7 +253,6 @@ namespace InstrumentedLibrary
         /// <param name="cY"></param>
         /// <param name="dX"></param>
         /// <param name="dY"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         /// <returns>The <see cref="T:(double X, double Y)"/>.</returns>
         /// <acknowledgment>
@@ -284,7 +264,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) CubicBezierInterpolateGetPoint(double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY, double t)
+        public static (double X, double Y) CubicBezierInterpolateGetPoint(double t, double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)
         {
             return (
                 aX + (t * ((-aX * 3d) + (t * ((3d * aX) - aX * t)))) + (t * ((3d * bX) + (t * ((-6d * bX) + bX * 3d * t)))) + (t * t * (cX * 3d - cX * 3d * t)) + dX * t * t * t,

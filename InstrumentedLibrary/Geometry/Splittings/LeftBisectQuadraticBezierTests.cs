@@ -76,9 +76,9 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuadraticBezier2D LeftBisectQuadraticBezier_(double aX, double aY, double bX, double bY, double cX, double cY, double t)
         {
-            var (dX, dY) = InterpolateLinear2DTests.LinearInterpolate2D(aX, aY, bX, bY, t);
-            var (eX, eY) = InterpolateLinear2DTests.LinearInterpolate2D(bX, bY, cX, cY, t);
-            var (fX, fY) = InterpolateLinear2DTests.LinearInterpolate2D(dX, dY, eX, eY, t);
+            var (dX, dY) = InterpolateLinear2DTests.LinearInterpolate2D(t, aX, aY, bX, bY);
+            var (eX, eY) = InterpolateLinear2DTests.LinearInterpolate2D(t, bX, bY, cX, cY);
+            var (fX, fY) = InterpolateLinear2DTests.LinearInterpolate2D(t, dX, dY, eX, eY);
 
             return new QuadraticBezier2D(aX, aY, dX, dY, fX, fY);
         }

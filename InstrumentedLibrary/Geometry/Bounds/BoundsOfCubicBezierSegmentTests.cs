@@ -78,7 +78,7 @@ namespace InstrumentedLibrary
             double dx, double dy)
         {
             var sortOfCloseLength = (int)CubicBezierSegmentLengthTests.CubicBezierArcLength(ax, ay, bx, by, cx, cy, dx, dy);
-            var points = new List<(double X, double Y)>(FunctionalInterpolationTests.Interpolate0to1((i) => InterpolateCubic2DTests.CubicInterpolate2D(ax, ay, bx, by, cx, cy, dx, dy, i), sortOfCloseLength));
+            var points = new List<(double X, double Y)>(FunctionalInterpolationTests.Interpolate0to1(sortOfCloseLength, (i) => InterpolateCubic2DTests.CubicInterpolate2D(i, ax, ay, bx, by, cx, cy, dx, dy)));
 
             var left = points[0].X;
             var top = points[0].Y;
@@ -149,7 +149,7 @@ namespace InstrumentedLibrary
 
                 if (t1 > 0d && t1 < 1d)
                 {
-                    var x1 = InterpolateCubic1DTests.CubicInterpolate1D(ax, bx, cx, dx, t1);
+                    var x1 = InterpolateCubic1DTests.CubicInterpolate1D(t1, ax, bx, cx, dx);
                     if (x1 < xl)
                     {
                         xl = x1;
@@ -165,7 +165,7 @@ namespace InstrumentedLibrary
 
                 if (t2 > 0d && t2 < 1d)
                 {
-                    var x2 = InterpolateCubic1DTests.CubicInterpolate1D(ax, bx, cx, dx, t2);
+                    var x2 = InterpolateCubic1DTests.CubicInterpolate1D(t2, ax, bx, cx, dx);
                     if (x2 < xl)
                     {
                         xl = x2;
@@ -200,7 +200,7 @@ namespace InstrumentedLibrary
 
                 if (t1 > 0d && t1 < 1d)
                 {
-                    var y1 = InterpolateCubic1DTests.CubicInterpolate1D(ay, by, cy, dy, t1);
+                    var y1 = InterpolateCubic1DTests.CubicInterpolate1D(t1, ay, by, cy, dy);
                     if (y1 < yl)
                     {
                         yl = y1;
@@ -216,7 +216,7 @@ namespace InstrumentedLibrary
 
                 if (t2 > 0 && t2 < 1)
                 {
-                    var y2 = InterpolateCubic1DTests.CubicInterpolate1D(ay, by, cy, dy, t2);
+                    var y2 = InterpolateCubic1DTests.CubicInterpolate1D(t2, ay, by, cy, dy);
                     if (y2 < yl)
                     {
                         yl = y2;

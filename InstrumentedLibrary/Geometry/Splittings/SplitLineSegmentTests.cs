@@ -85,7 +85,7 @@ namespace InstrumentedLibrary
             var previous = start.A;
             for (var i = 0; i < filtered.Length; i++)
             {
-                var next = InterpolateLinear2DTests.LinearInterpolate2D(aX, aY, bX, bY, filtered[i]);
+                var next = InterpolateLinear2DTests.LinearInterpolate2D(filtered[i], aX, aY, bX, bY);
                 list[i] = new LineSegment2D(previous, next);
                 previous = next;
             }

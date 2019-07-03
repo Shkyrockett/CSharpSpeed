@@ -24,7 +24,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 1d, 2d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:1d, epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 1d, 2d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:1d, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -39,36 +39,32 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="v0"></param>
         /// <param name="v1"></param>
         /// <param name="v2"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static double QuadraticBezierInterpolate1D(double v0, double v1, double v2, double t)
-            => QuadraticBezierInterpolate1D_0(v0, v1, v2, t);
+        public static double QuadraticBezierInterpolate1D(double t, double v0, double v1, double v2)
+            => QuadraticBezierInterpolate1D_0(t, v0, v1, v2);
 
         /// <summary>
         /// Three control point Bézier interpolation mu ranges from 0 to 1, start to end of the curve.
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="v0"></param>
         /// <param name="v1"></param>
         /// <param name="v2"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         [DisplayName("Quadratic Bezier Interpolate 1")]
         [Description("Simple Quadratic Bezier Interpolation.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double QuadraticBezierInterpolate1D_0(
-            double v0,
-            double v1,
-            double v2,
-            double t)
+        public static double QuadraticBezierInterpolate1D_0(double t, double v0, double v1, double v2)
         {
-            var mu1 = 1 - t;
+            var mu1 = 1d - t;
             var mu12 = mu1 * mu1;
             var mu2 = t * t;
 
@@ -78,10 +74,10 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Evaluate a point on a Bézier-curve. t goes from 0 to 1.0
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="v0"></param>
         /// <param name="v1"></param>
         /// <param name="v2"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://www.cubic.org/docs/bezier.htm
@@ -92,51 +88,43 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double QuadraticBezierInterpolate1D_1(
-            double v0,
-            double v1,
-            double v2,
-            double t)
+        public static double QuadraticBezierInterpolate1D_1(double t, double v0, double v1, double v2)
         {
             // point between a and b
-            var ab = InterpolateLinear1DTests.LinearInterpolate1D(v0, v1, t);
+            var ab = InterpolateLinear1DTests.LinearInterpolate1D(t, v0, v1);
 
             // point between b and c
-            var bc = InterpolateLinear1DTests.LinearInterpolate1D(v1, v2, t);
+            var bc = InterpolateLinear1DTests.LinearInterpolate1D(t, v1, v2);
 
             // point on the bezier-curve
-            return InterpolateLinear1DTests.LinearInterpolate1D(ab, bc, t);
+            return InterpolateLinear1DTests.LinearInterpolate1D(t, ab, bc);
         }
 
         /// <summary>
         /// Three control point Bézier interpolation mu ranges from 0 to 1, start to end of the curve.
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="v0"></param>
         /// <param name="v1"></param>
         /// <param name="v2"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         [DisplayName("Quadratic Bezier Interpolate 1")]
         [Description("Simple Quadratic Bezier Interpolation.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double QuadraticBezierInterpolate1D_2(
-            double v0,
-            double v1,
-            double v2,
-            double t)
+        public static double QuadraticBezierInterpolate1D_2(double t, double v0, double v1, double v2)
         {
-            return (v0 * ((1 - t) * (1 - t))) + (2 * v1 * (1 - t) * t) + (v2 * (t * t));
+            return (v0 * ((1d - t) * (1d - t))) + (2 * v1 * (1d - t) * t) + (v2 * (t * t));
         }
 
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="A"></param>
         /// <param name="B"></param>
         /// <param name="C"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://blog.demofox.org/2015/07/05/the-de-casteljeau-algorithm-for-evaluating-bezier-curves/
@@ -147,11 +135,11 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double BezierQuadratic(double A, double B, double C, double t)
+        public static double BezierQuadratic(double t, double A, double B, double C)
         {
-            var AB = InterpolateLinear1DTests.BezierLinear(A, B, t);
-            var BC = InterpolateLinear1DTests.BezierLinear(B, C, t);
-            return InterpolateLinear1DTests.BezierLinear(AB, BC, t);
+            var AB = InterpolateLinear1DTests.BezierLinear(t, A, B);
+            var BC = InterpolateLinear1DTests.BezierLinear(t, B, C);
+            return InterpolateLinear1DTests.BezierLinear(t, AB, BC);
         }
     }
 }

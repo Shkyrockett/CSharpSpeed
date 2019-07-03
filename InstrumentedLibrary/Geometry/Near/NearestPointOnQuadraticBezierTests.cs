@@ -35,7 +35,7 @@ namespace InstrumentedLibrary
             var minDistance = double.MaxValue;
             foreach (var candidate in candidates)
             {
-                var ptAtCandidate = InterpolateBezierQuadratic2DTests.QuadraticBezierInterpolate2D(aX, aY, bX, bY, cX, cY, candidate);
+                var ptAtCandidate = InterpolateBezierQuadratic2DTests.QuadraticBezierInterpolate2D(candidate, aX, aY, bX, bY, cX, cY);
                 var distance = SquareDistanceTests.SquareDistance(ptAtCandidate.X, ptAtCandidate.Y, x, y);
                 if (distance < minDistance)
                 {

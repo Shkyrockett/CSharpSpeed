@@ -24,8 +24,8 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 1d, 2d, 3d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:1.5d, epsilon: double.Epsilon) },
-                { new object[] { 0d, 3d, 6d, 7d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:4.25d, epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 1d, 2d, 3d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:1.5d, epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 3d, 6d, 7d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:4.25d, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -40,25 +40,25 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="v0"></param>
         /// <param name="v1"></param>
         /// <param name="v2"></param>
         /// <param name="v3"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static double CubicBezier(double v0, double v1, double v2, double v3, double t)
-            => CubicBezier_(v0, v1, v2, v3, t);
+        public static double CubicBezier(double t, double v0, double v1, double v2, double v3)
+            => CubicBezier_(t, v0, v1, v2, v3);
 
         /// <summary>
         /// The cubic bezier.
         /// </summary>
+        /// <param name="t">The t.</param>
         /// <param name="v0">The v0.</param>
         /// <param name="v1">The v1.</param>
         /// <param name="v2">The v2.</param>
         /// <param name="v3">The v3.</param>
-        /// <param name="t">The t.</param>
         /// <returns>The <see cref="double"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/bezier/index.html
@@ -69,7 +69,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CubicBezier_(double v0, double v1, double v2, double v3, double t)
+        public static double CubicBezier_(double t, double v0, double v1, double v2, double v3)
         {
             // The inverse of t.
             var ti = 1d - t;
@@ -86,11 +86,11 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="A"></param>
         /// <param name="B"></param>
         /// <param name="C"></param>
         /// <param name="D"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://blog.demofox.org/2015/07/05/the-de-casteljeau-algorithm-for-evaluating-bezier-curves/
@@ -101,21 +101,21 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double BezierCubic(double A, double B, double C, double D, double t)
+        public static double BezierCubic(double t, double A, double B, double C, double D)
         {
-            var ABC = InterpolateBezierQuadratic1DTests.BezierQuadratic(A, B, C, t);
-            var BCD = InterpolateBezierQuadratic1DTests.BezierQuadratic(B, C, D, t);
-            return InterpolateLinear1DTests.BezierLinear(ABC, BCD, t);
+            var ABC = InterpolateBezierQuadratic1DTests.BezierQuadratic(t, A, B, C);
+            var BCD = InterpolateBezierQuadratic1DTests.BezierQuadratic(t, B, C, D);
+            return InterpolateLinear1DTests.BezierLinear(t, ABC, BCD);
         }
 
         /// <summary>
         /// The EvalBez method.
         /// </summary>
+        /// <param name="t">The t.</param>
         /// <param name="p0">The p0.</param>
         /// <param name="p1">The p1.</param>
         /// <param name="p2">The p2.</param>
         /// <param name="p3">The p3.</param>
-        /// <param name="t">The t.</param>
         /// <returns>The <see cref="double"/>.</returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/24809978/calculating-the-bounding-box-of-cubic-bezier-curve
@@ -128,7 +128,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double EvalBez(double p0, double p1, double p2, double p3, double t)
+        public static double EvalBez(double t, double p0, double p1, double p2, double p3)
         {
             return (p0 * (1 - t) * (1 - t) * (1 - t)) + (3 * p1 * t * (1 - t) * (1 - t)) + (3 * p2 * t * t * (1 - t)) + (p3 * t * t * t);
         }

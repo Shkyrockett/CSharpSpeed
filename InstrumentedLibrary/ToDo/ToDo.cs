@@ -54,7 +54,7 @@ namespace InstrumentedLibrary
             var Lut = new List<Point2D>(100);
             for (double t = 0; t <= 1; t += 0.01)
             {
-                Lut[(int)(t * 100)] = new Point2D(InterpolateCubic2DTests.CubicInterpolate2D(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y, t));
+                Lut[(int)(t * 100)] = new Point2D(InterpolateCubic2DTests.CubicInterpolate2D(t, a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y));
             }
 
             return Lut;
@@ -434,7 +434,7 @@ namespace InstrumentedLibrary
         {
             var UnitVectorAB = new Vector2D(Value1, Value2);
             var PerpendicularAB = new Vector2D(PerpendicularClockwiseVectorTests.PerpendicularClockwise(UnitVectorAB.I, UnitVectorAB.J)) * 0.5d * Offset;
-            return new Point2D(InterpolateLinear2DTests.LinearInterpolate2D(Value1.X, Value1.Y, Value2.X, Value2.Y, Weight)) * (Size2D)PerpendicularAB;
+            return new Point2D(InterpolateLinear2DTests.LinearInterpolate2D(Weight, Value1.X, Value1.Y, Value2.X, Value2.Y)) * (Size2D)PerpendicularAB;
         }
         #endregion Linear Offset Interpolation
 
@@ -552,7 +552,7 @@ namespace InstrumentedLibrary
             for (double Index = 0; Index < 1; Index += Precision)
             {
                 Node++;
-                BPoints[Node] = new Point2D(BezierInterpolateCubic2DTests.CubicBezierInterpolate2D(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y, Index));
+                BPoints[Node] = new Point2D(BezierInterpolateCubic2DTests.CubicBezierInterpolate2D(Index, a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y));
             }
 
             return new List<Point2D>(BPoints);
@@ -584,7 +584,7 @@ namespace InstrumentedLibrary
             for (var i = 0; i <= numberOfPoints; i++)
             {
                 t += dt;
-                curve.Add(new Point2D(BezierInterpolateCubic2DTests.CubicBezierInterpolate2D(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y, t)));
+                curve.Add(new Point2D(BezierInterpolateCubic2DTests.CubicBezierInterpolate2D(t, a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y)));
             }
             return curve;
         }
@@ -615,7 +615,7 @@ namespace InstrumentedLibrary
             for (double Index = 0; Index <= 1; Index += Precision)
             {
                 Node++;
-                BPoints[Node] = new Point2D(BezierInterpolateCubic2DTests.CubicBezierCurve(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y, Index));
+                BPoints[Node] = new Point2D(BezierInterpolateCubic2DTests.CubicBezierCurve(Index, a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y));
             }
 
             return new List<Point2D>(BPoints);

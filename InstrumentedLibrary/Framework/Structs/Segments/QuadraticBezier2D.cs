@@ -22,6 +22,7 @@ namespace InstrumentedLibrary
         private Point2D a;
         private Point2D b;
         private Point2D c;
+
         #region Constructors
         /// <summary>
         /// 
@@ -223,7 +224,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2D Interpolate(double v) => new Point2D(InterpolateBezierQuadratic2DTests.QuadraticBezierInterpolate2D(A.X, A.Y, B.X, B.Y, C.X, C.Y, v));
+        public Point2D Interpolate(double v) => new Point2D(InterpolateBezierQuadratic2DTests.QuadraticBezierInterpolate2D(v, A.X, A.Y, B.X, B.Y, C.X, C.Y));
 
         /// <summary>
         /// 

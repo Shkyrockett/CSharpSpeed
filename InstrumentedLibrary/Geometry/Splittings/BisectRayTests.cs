@@ -68,7 +68,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (IShapeSegment A, IShapeSegment B) BisectRay_(double x, double y, double i, double j, double t)
         {
-            var (X, Y) = InterpolateLinear2DTests.LinearInterpolate2D(x, y, x + i, y + j, t);
+            var (X, Y) = InterpolateLinear2DTests.LinearInterpolate2D(t, x, y, x + i, y + j);
 
             return (
                 new LineSegment2D(x, y, X, Y),

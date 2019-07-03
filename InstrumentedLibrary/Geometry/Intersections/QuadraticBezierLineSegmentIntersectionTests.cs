@@ -132,8 +132,8 @@ namespace InstrumentedLibrary
                 {
                     // Possible point -- pending bounds check
                     var point = new Point2D(
-                        InterpolateLinear1DTests.LinearInterpolate1D(InterpolateLinear1DTests.LinearInterpolate1D(p1X, p2X, t), InterpolateLinear1DTests.LinearInterpolate1D((double)p2X, (double)p3X, (double)t), t),
-                        InterpolateLinear1DTests.LinearInterpolate1D(InterpolateLinear1DTests.LinearInterpolate1D(p1Y, p2Y, t), InterpolateLinear1DTests.LinearInterpolate1D(p2Y, p3Y, t), t));
+                        InterpolateLinear1DTests.LinearInterpolate1D(t, InterpolateLinear1DTests.LinearInterpolate1D(t, p1X, p2X), InterpolateLinear1DTests.LinearInterpolate1D((double)t, (double)p2X, (double)p3X)),
+                        InterpolateLinear1DTests.LinearInterpolate1D(t, InterpolateLinear1DTests.LinearInterpolate1D(t, p1Y, p2Y), InterpolateLinear1DTests.LinearInterpolate1D(t, p2Y, p3Y)));
                     var x = point.X;
                     var y = point.Y;
                     var result = new Intersection(IntersectionState.Intersection);
@@ -211,9 +211,9 @@ namespace InstrumentedLibrary
                 var t = roots[i];
                 if (0 <= t && t <= 1)
                 {
-                    var p4 = InterpolateLinear2DTests.LinearInterpolate2D(p1X, p1Y, p2X, p2Y, t);
-                    var p5 = InterpolateLinear2DTests.LinearInterpolate2D(p2X, p2Y, p3X, p3Y, t);
-                    var p6 = InterpolateLinear2DTests.LinearInterpolate2D(p4.X, p4.Y, p5.X, p5.Y, t);
+                    var p4 = InterpolateLinear2DTests.LinearInterpolate2D(t, p1X, p1Y, p2X, p2Y);
+                    var p5 = InterpolateLinear2DTests.LinearInterpolate2D(t, p2X, p2Y, p3X, p3Y);
+                    var p6 = InterpolateLinear2DTests.LinearInterpolate2D(t, p4.X, p4.Y, p5.X, p5.Y);
                     if (a1X == a2X)
                     {
                         if (min.Y <= p6.Y && p6.Y <= max.Y)
@@ -293,9 +293,9 @@ namespace InstrumentedLibrary
                 var t = roots[i];
                 if (0 <= t && t <= 1)
                 {
-                    var p4 = InterpolateLinear2DTests.LinearInterpolate2D(p1X, p1Y, p2X, p2Y, t);
-                    var p5 = InterpolateLinear2DTests.LinearInterpolate2D(p2X, p2Y, p3X, p3Y, t);
-                    var p6 = InterpolateLinear2DTests.LinearInterpolate2D(p4.X, p4.Y, p5.X, p5.Y, t);
+                    var p4 = InterpolateLinear2DTests.LinearInterpolate2D(t, p1X, p1Y, p2X, p2Y);
+                    var p5 = InterpolateLinear2DTests.LinearInterpolate2D(t, p2X, p2Y, p3X, p3Y);
+                    var p6 = InterpolateLinear2DTests.LinearInterpolate2D(t, p4.X, p4.Y, p5.X, p5.Y);
                     if (a1X == a2X)
                     {
                         result.AppendPoint(p6);

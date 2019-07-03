@@ -26,7 +26,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 1d, 2d, 3d, 4d, 5d, 6d, 7d, 8d, 9d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:(4d, 5d), epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 1d, 2d, 3d, 4d, 5d, 6d, 7d, 8d, 9d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:(4d, 5d), epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -41,6 +41,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="aX"></param>
         /// <param name="aY"></param>
         /// <param name="bX"></param>
@@ -51,16 +52,16 @@ namespace InstrumentedLibrary
         /// <param name="dY"></param>
         /// <param name="eX"></param>
         /// <param name="eY"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static (double X, double Y) QuarticBezierInterpolateGetPoint(double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY, double eX, double eY, double t)
-            =>QuarticBezierInterpolateGetPoint1( aX,  aY,  bX,  bY,  cX,  cY,  dX,  dY,  eX,  eY,  t);
+        public static (double X, double Y) QuarticBezierInterpolateGetPoint(double t, double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY, double eX, double eY)
+            => QuarticBezierInterpolateGetPoint1(t, aX, aY, bX, bY, cX, cY, dX, dY, eX, eY);
 
         /// <summary>
         /// The Quartic bezier curve.
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="aX"></param>
         /// <param name="aY"></param>
         /// <param name="bX"></param>
@@ -71,7 +72,6 @@ namespace InstrumentedLibrary
         /// <param name="dY"></param>
         /// <param name="eX"></param>
         /// <param name="eY"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         /// <returns>The <see cref="T:(double X, double Y)"/>.</returns>
         [DisplayName("Quartic Bezier Interpolate 1")]
@@ -79,7 +79,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) QuarticBezierInterpolateGetPoint1(double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY, double eX, double eY, double t)
+        public static (double X, double Y) QuarticBezierInterpolateGetPoint1(double t, double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY, double eX, double eY)
         {
             return (
                 (aX * (1d - t) * (1d - t) * (1d - t) * (1d - t)) + 4d * bX * t * (1d - t) * (1d - t) * (1d - t) + 6d * cX * t * t * (1d - t) * (1d - t) + 4d * dX * t * t * t * (1d - t) + eX * t * t * t * t,
@@ -90,6 +90,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Function to Plot a Quartic Bezier
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="aX">the starting point, or A in the above diagram</param>
         /// <param name="aY">the starting point, or A in the above diagram</param>
         /// <param name="bX">the first control point, or B</param>
@@ -100,20 +101,13 @@ namespace InstrumentedLibrary
         /// <param name="dY">the end point, or D</param>
         /// <param name="eX"></param>
         /// <param name="eY"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         [DisplayName("Quartic Bezier Interpolate 1")]
         [Description("Simple Quartic Bezier Interpolation.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) QuarticBezierInterpolate2D(
-            double aX, double aY,
-            double bX, double bY,
-            double cX, double cY,
-            double dX, double dY,
-            double eX, double eY,
-            double t)
+        public static (double X, double Y) QuarticBezierInterpolate2D(double t, double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY, double eX, double eY)
         {
             var v = 1d - t;
             return (

@@ -175,7 +175,7 @@ namespace InstrumentedLibrary
 
             if (roots[0] >= 0d && roots[0] <= 1d && roots[2] >= 0d && roots[2] <= 1d)
             {
-                return InterpolateCubic2DTests.CubicInterpolate2D(x0, y0, x1, y1, x2, y2, x3, y3, roots[0]);
+                return InterpolateCubic2DTests.CubicInterpolate2D(roots[0], x0, y0, x1, y1, x2, y2, x3, y3);
             }
 
             return null;

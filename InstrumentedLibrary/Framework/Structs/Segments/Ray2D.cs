@@ -24,6 +24,7 @@ namespace InstrumentedLibrary
         private double y;
         private double i;
         private double j;
+
         #region Constructors
         /// <summary>
         /// 

@@ -25,7 +25,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 1d, 2d, 3d, 4d, 5d, 6d, 7d, 8d, 9d, 10d, 11d, 0.5d, 1d, 0d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:0.5d, epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 1d, 2d, 3d, 4d, 5d, 6d, 7d, 8d, 9d, 10d, 11d, 1d, 0d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:0.5d, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -40,6 +40,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="mu"></param>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
         /// <param name="z0"></param>
@@ -52,18 +53,18 @@ namespace InstrumentedLibrary
         /// <param name="x3"></param>
         /// <param name="y3"></param>
         /// <param name="z3"></param>
-        /// <param name="mu"></param>
         /// <param name="tension"></param>
         /// <param name="bias"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static (double X, double Y, double Z) HermiteInterpolate3D(double x0, double y0, double z0, double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3, double mu, double tension, double bias)
-            => HermiteInterpolate3D_(x0, y0, z0, x1, y1, z1, x2, y2, z2, x3, y3, z3, mu, tension, bias);
+        public static (double X, double Y, double Z) HermiteInterpolate3D(double mu, double x0, double y0, double z0, double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3, double tension, double bias)
+            => HermiteInterpolate3D_(mu, x0, y0, z0, x1, y1, z1, x2, y2, z2, x3, y3, z3, tension, bias);
 
         /// <summary>
         /// The hermite interpolate3d.
         /// </summary>
+        /// <param name="mu">The mu.</param>
         /// <param name="x0">The x0.</param>
         /// <param name="y0">The y0.</param>
         /// <param name="z0">The z0.</param>
@@ -76,7 +77,6 @@ namespace InstrumentedLibrary
         /// <param name="x3">The x3.</param>
         /// <param name="y3">The y3.</param>
         /// <param name="z3">The z3.</param>
-        /// <param name="mu">The mu.</param>
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
@@ -89,12 +89,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) HermiteInterpolate3D_(
-            double x0, double y0, double z0,
-            double x1, double y1, double z1,
-            double x2, double y2, double z2,
-            double x3, double y3, double z3,
-            double mu, double tension, double bias)
+        public static (double X, double Y, double Z) HermiteInterpolate3D_(double mu, double x0, double y0, double z0, double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3, double tension, double bias)
         {
             var mu2 = mu * mu;
             var mu3 = mu2 * mu;

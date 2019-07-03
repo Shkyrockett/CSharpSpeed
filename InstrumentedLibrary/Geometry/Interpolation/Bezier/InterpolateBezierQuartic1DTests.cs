@@ -26,7 +26,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 3d, 6d, 7d, 9d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: 5.3125d, epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 3d, 6d, 7d, 9d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: 5.3125d, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -41,32 +41,32 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="A"></param>
-        /// <param name="B"></param>
-        /// <param name="C"></param>
-        /// <param name="D"></param>
-        /// <param name="E"></param>
         /// <param name="t"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static double InterpolateBezierQuartic1D(double A, double B, double C, double D, double E, double t)
-            => BezierQuartic(A, B, C, D, E, t);
+        public static double InterpolateBezierQuartic1D(double t, double a, double b, double c, double d, double e)
+            => BezierQuartic(t, a, b, c, d, e);
 
         /// <summary>
         /// The Quartic bezier curve.
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="aV"></param>
         /// <param name="bV"></param>
         /// <param name="cV"></param>
         /// <param name="dV"></param>
         /// <param name="eV"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         /// <returns>The <see cref="T:(double X, double Y)"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double QuarticBezierInterpolateGetValue(double aV, double bV, double cV, double dV, double eV, double t)
+        public static double QuarticBezierInterpolateGetValue(double t, double aV, double bV, double cV, double dV, double eV)
         {
             return (aV * (1d - t) * (1d - t) * (1d - t) * (1d - t)) + 4d * bV * t * (1d - t) * (1d - t) * (1d - t) + 6d * cV * t * t * (1d - t) * (1d - t) + 4d * dV * t * t * t * (1d - t) + eV * t * t * t * t;
         }
@@ -74,16 +74,16 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Function to Plot a Quartic Bezier
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="aV"></param>
         /// <param name="bV"></param>
         /// <param name="cV"></param>
         /// <param name="dV"></param>
         /// <param name="eV"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double QuarticBezierInterpolate1D(double aV, double bV, double cV, double dV, double eV, double t)
+        public static double QuarticBezierInterpolate1D(double t, double aV, double bV, double cV, double dV, double eV)
         {
             var v = 1d - t;
             return (aV * v * v * v * v) + (4d * bV * t * v * v * v) + (6d * cV * t * t * v * v) + (4d * dV * t * t * t * v) + (eV * t * t * t * t);
@@ -92,12 +92,12 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="A"></param>
-        /// <param name="B"></param>
-        /// <param name="C"></param>
-        /// <param name="D"></param>
-        /// <param name="E"></param>
         /// <param name="t"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://blog.demofox.org/2015/07/05/the-de-casteljeau-algorithm-for-evaluating-bezier-curves/
@@ -108,11 +108,11 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double BezierQuartic(double A, double B, double C, double D, double E, double t)
+        public static double BezierQuartic(double t, double a, double b, double c, double d, double e)
         {
-            var ABCD = InterpolateBezierCubic1DTests.BezierCubic(A, B, C, D, t);
-            var BCDE = InterpolateBezierCubic1DTests.BezierCubic(B, C, D, E, t);
-            return InterpolateLinear1DTests.BezierLinear(ABCD, BCDE, t);
+            var abcd = InterpolateBezierCubic1DTests.BezierCubic(t, a, b, c, d);
+            var bcde = InterpolateBezierCubic1DTests.BezierCubic(t, b, c, d, e);
+            return InterpolateLinear1DTests.BezierLinear(t, abcd, bcde);
         }
     }
 }

@@ -26,7 +26,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 1d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:0.5d, epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 1d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:0.5d, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -41,21 +41,21 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="v1"></param>
         /// <param name="v2"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static double LinearInterpolate1D(double v1, double v2, double t)
-            => LinearInterpolate1D_0(v1, v2, t);
+        public static double LinearInterpolate1D(double t, double v1, double v2)
+            => LinearInterpolate1D_0(t, v1, v2);
 
         /// <summary>
         /// Precise method which guarantees v = v1 when t = 1.
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="v1"></param>
         /// <param name="v2"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://en.wikipedia.org/wiki/Linear_interpolation
@@ -67,18 +67,18 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double LinearInterpolate1D_0(
-            double v1, double v2, double t)
+            double t, double v1, double v2)
         {
-            return ((1 - t) * v1) + (t * v2);
+            return ((1d - t) * v1) + (t * v2);
         }
 
         /// <summary>
         /// Imprecise method which does not guarantee v = v1 when t = 1, due to floating-point arithmetic error.
         /// This form may be used when the hardware has a native Fused Multiply-Add instruction.
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="v1"></param>
         /// <param name="v2"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://en.wikipedia.org/wiki/Linear_interpolation
@@ -90,7 +90,7 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double LinearInterpolate1D_1(
-            double v1, double v2, double t)
+            double t, double v1, double v2)
         {
             return v1 + (t * (v2 - v1));
         }
@@ -98,9 +98,9 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The linear interpolate1d 3.
         /// </summary>
+        /// <param name="t">The t.</param>
         /// <param name="v1">The v1.</param>
         /// <param name="v2">The v2.</param>
-        /// <param name="t">The t.</param>
         /// <returns>The <see cref="double"/>.</returns>
         /// <acknowledgment>
         /// https://en.wikipedia.org/wiki/Linear_interpolation
@@ -112,17 +112,17 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double LinearInterpolate1D_2(
-            double v1, double v2, double t)
+            double t, double v1, double v2)
         {
-            return (Abs(v1 - v2) < DoubleEpsilon) ? 0 : v1 - (1 / (v1 - v2) * t);
+            return (Abs(v1 - v2) < DoubleEpsilon) ? 0 : v1 - (1d / (v1 - v2) * t);
         }
 
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://blog.demofox.org/2015/07/05/the-de-casteljeau-algorithm-for-evaluating-bezier-curves/
@@ -133,7 +133,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double BezierLinear(double a, double b, double t)
+        public static double BezierLinear(double t, double a, double b)
         {
             return (a * (1d - t)) + b * t;
         }

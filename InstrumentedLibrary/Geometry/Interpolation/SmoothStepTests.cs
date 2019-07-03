@@ -24,7 +24,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 1d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: 0.5d, epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 1d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: 0.5d, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -39,34 +39,34 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="amount"></param>
         /// <param name="value1"></param>
         /// <param name="value2"></param>
-        /// <param name="amount"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static double SmoothStep(double value1, double value2, double amount)
-            => SmoothStep_(value1, value2, amount);
+        public static double SmoothStep(double amount, double value1, double value2)
+            => SmoothStep_(amount, value1, value2);
 
         /// <summary>
         /// Interpolates between two values using a cubic equation.
         /// </summary>
+        /// <param name="amount">Weighting value.</param>
         /// <param name="value1">Source value.</param>
         /// <param name="value2">Source value.</param>
-        /// <param name="amount">Weighting value.</param>
         /// <returns>Interpolated value.</returns>
         [DisplayName("Smooth Step Between Two Values")]
         [Description("Smooth step between two values.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SmoothStep_(double value1, double value2, double amount)
+        public static double SmoothStep_(double amount, double value1, double value2)
         {
             // It is expected that 0 < amount < 1
             // If amount < 0, return value1
             // If amount > 1, return value2
             var result = ClampTests.Clamp(amount, 0d, 1d);
-            result = HermiteInterpolate1DTests.Hermite(value1, 0d, value2, 0d, result, 1d, 0d);
+            result = HermiteInterpolate1DTests.Hermite(result, value1, 0d, value2, 0d, 1d, 0d);
 
             return result;
         }

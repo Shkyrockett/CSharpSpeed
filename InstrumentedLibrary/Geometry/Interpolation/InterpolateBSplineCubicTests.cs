@@ -25,7 +25,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { (IList<(double X, double Y)>)new List<(double X, double Y)> { (0d, 0d), (1d, 1d), (2d, 0d), (3d, 1d) }, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:(3d, 4d), epsilon: double.Epsilon) },
+                { new object[] { 0.5d, (IList<(double X, double Y)>)new List<(double X, double Y)> { (0d, 0d), (1d, 1d), (2d, 0d), (3d, 1d) } }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:(3d, 4d), epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -40,26 +40,26 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="points"></param>
         /// <param name="index"></param>
+        /// <param name="points"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static (double X, double Y) InterpolateBSpline(IList<(double X, double Y)> points, double index)
-            => InterpolateBSpline_(points, index);
+        public static (double X, double Y) InterpolateBSpline(double index, IList<(double X, double Y)> points)
+            => InterpolateBSpline_(index, points);
 
         /// <summary>
         /// Function to Interpolate a Cubic Bezier Spline
         /// </summary>
-        /// <param name="points"></param>
         /// <param name="index"></param>
+        /// <param name="points"></param>
         /// <returns></returns>
         [DisplayName("Cubic B-Spline Interpolate 2D Tests")]
         [Description("Find a point on a 2D Cubic B-Spline curve.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) InterpolateBSpline_(IList<(double X, double Y)> points, double index)
+        public static (double X, double Y) InterpolateBSpline_(double index, IList<(double X, double Y)> points)
         {
             if (points.Count >= 4)
             {
@@ -100,15 +100,15 @@ namespace InstrumentedLibrary
         /// General Bézier curve Number of control points is n+1 0 less than or equal to mu less than 1
         /// IMPORTANT, the last point is not computed.
         /// </summary>
-        /// <param name="points"></param>
         /// <param name="index"></param>
+        /// <param name="points"></param>
         /// <returns></returns>
         [DisplayName("Cubic B-Spline Interpolate 2D Tests")]
         [Description("Find a point on a 2D Cubic B-Spline curve.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Interpolate(IList<(double X, double Y)> points, double index)
+        public static (double X, double Y) Interpolate(double index, IList<(double X, double Y)> points)
         {
             var n = points.Count - 1;
             int kn;
@@ -157,15 +157,15 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Function to Interpolate a Cubic Bezier Spline
         /// </summary>
-        /// <param name="Points"></param>
         /// <param name="Index"></param>
+        /// <param name="Points"></param>
         /// <returns></returns>
         [DisplayName("Cubic B-Spline Interpolate 2D Tests")]
         [Description("Find a point on a 2D Cubic B-Spline curve.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) InterpolateCubicBSplinePoint(IList<(double X, double Y)> Points, double Index)
+        public static (double X, double Y) InterpolateCubicBSplinePoint(double Index, IList<(double X, double Y)> Points)
         {
             var VPoints = new (double X, double Y)[4];
 

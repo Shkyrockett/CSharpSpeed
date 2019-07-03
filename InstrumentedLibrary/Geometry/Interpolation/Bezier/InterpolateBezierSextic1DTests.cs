@@ -26,7 +26,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 3d, 6d, 7d, 9d, 11d, 13d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: 7.21875d, epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 3d, 6d, 7d, 9d, 11d, 13d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: 7.21875d, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -41,31 +41,31 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="A"></param>
-        /// <param name="B"></param>
-        /// <param name="C"></param>
-        /// <param name="D"></param>
-        /// <param name="E"></param>
-        /// <param name="F"></param>
-        /// <param name="G"></param>
         /// <param name="t"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static double BezierInterpolateBezierSextic1DTestsSextic(double A, double B, double C, double D, double E, double F, double G, double t)
-            => BezierSextic(A, B, C, D, E, F, G, t);
+        public static double BezierInterpolateBezierSextic1DTestsSextic(double t, double a, double b, double c, double d, double e, double f, double g)
+            => BezierSextic(t, a, b, c, d, e, f, g);
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="A"></param>
-        /// <param name="B"></param>
-        /// <param name="C"></param>
-        /// <param name="D"></param>
-        /// <param name="E"></param>
-        /// <param name="F"></param>
-        /// <param name="G"></param>
         /// <param name="t"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://blog.demofox.org/2015/07/05/the-de-casteljeau-algorithm-for-evaluating-bezier-curves/
@@ -76,11 +76,11 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double BezierSextic(double A, double B, double C, double D, double E, double F, double G, double t)
+        public static double BezierSextic(double t, double a, double b, double c, double d, double e, double f, double g)
         {
-            var ABCDEF = InterpolateBezierQuintic1DTests.BezierQuintic(A, B, C, D, E, F, t);
-            var BCDEFG = InterpolateBezierQuintic1DTests.BezierQuintic(B, C, D, E, F, G, t);
-            return InterpolateLinear1DTests.BezierLinear(ABCDEF, BCDEFG, t);
+            var abcdef = InterpolateBezierQuintic1DTests.BezierQuintic(t, a, b, c, d, e, f);
+            var bcdefg = InterpolateBezierQuintic1DTests.BezierQuintic(t, b, c, d, e, f, g);
+            return InterpolateLinear1DTests.BezierLinear(t, abcdef, bcdefg);
         }
     }
 }

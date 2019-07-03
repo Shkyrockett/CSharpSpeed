@@ -24,8 +24,8 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 1d, 1d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:0.5d, epsilon: double.Epsilon) },
-                { new object[] { 0d, 1d, 2d, 3d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:1.5d, epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 0d, 1d, 1d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:0.5d, epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 1d, 2d, 3d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:1.5d, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -40,25 +40,25 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="v1"></param>
         /// <param name="v2"></param>
         /// <param name="v3"></param>
         /// <param name="v4"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static double CatmullRomInterpolate1D(double v1, double v2, double v3, double v4, double t)
-            => CatmullRomSpline(v1, v2, v3, v4, t);
+        public static double CatmullRomInterpolate1D(double t, double v1, double v2, double v3, double v4)
+            => CatmullRomSpline(t, v1, v2, v3, v4);
 
         /// <summary>
         /// Performs a Catmull-Rom interpolation using the specified positions.
         /// </summary>
+        /// <param name="t">Weighting factor.</param>
         /// <param name="v1">The first position in the interpolation.</param>
         /// <param name="v2">The second position in the interpolation.</param>
         /// <param name="v3">The third position in the interpolation.</param>
         /// <param name="v4">The fourth position in the interpolation.</param>
-        /// <param name="t">Weighting factor.</param>
         /// <returns>A position that is the result of the Catmull-Rom interpolation.</returns>
         /// <acknowledgment>
         /// http://www.mvps.org/directx/articles/catmull/
@@ -69,12 +69,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CatmullRom(
-            double v1,
-            double v2,
-            double v3,
-            double v4,
-            double t)
+        public static double CatmullRom(double t, double v1, double v2, double v3, double v4)
         {
             var tSquared = t * t;
             var tCubed = tSquared * t;
@@ -88,11 +83,11 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The catmull rom spline.
         /// </summary>
+        /// <param name="t">The t.</param>
         /// <param name="v0">The v0.</param>
         /// <param name="v1">The v1.</param>
         /// <param name="v2">The v2.</param>
         /// <param name="v3">The v3.</param>
-        /// <param name="t">The t.</param>
         /// <returns>The <see cref="double"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
@@ -103,12 +98,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CatmullRomSpline(
-            double v0,
-            double v1,
-            double v2,
-            double v3,
-            double t)
+        public static double CatmullRomSpline(double t, double v0, double v1, double v2, double v3)
         {
             var mu2 = t * t;
             var a0 = -0.5d * v0 + 1.5d * v1 - 1.5d * v2 + 0.5d * v3;

@@ -82,7 +82,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) LineSegmentCenter2(double x1, double y1, double x2, double y2)
         {
-            return InterpolateLinear2DTests.LinearInterpolate2D(x1, y1, x2, y2, 0.5d);
+            return InterpolateLinear2DTests.LinearInterpolate2D(0.5d, x1, y1, x2, y2);
         }
     }
 }

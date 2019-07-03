@@ -121,12 +121,12 @@ namespace InstrumentedLibrary
             double cx, double cy)
         {
             var length = 0d;
-            var p = InterpolateBezierQuadratic2DTests.QuadraticBezierInterpolate2D(ax, ay, bx, by, cx, cy, 0);
+            var p = InterpolateBezierQuadratic2DTests.QuadraticBezierInterpolate2D(0, ax, ay, bx, by, cx, cy);
             var prevX = p.X;
             var prevY = p.Y;
             for (var t = 0.005; t <= 1.0; t += 0.005)
             {
-                p = InterpolateBezierQuadratic2DTests.QuadraticBezierInterpolate2D(ay, ax, by, bx, cx, cy, t);
+                p = InterpolateBezierQuadratic2DTests.QuadraticBezierInterpolate2D(t, ay, ax, by, bx, cx, cy);
                 var deltaX = p.X - prevX;
                 var deltaY = p.Y - prevY;
                 length += Sqrt((deltaX * deltaX) + (deltaY * deltaY));

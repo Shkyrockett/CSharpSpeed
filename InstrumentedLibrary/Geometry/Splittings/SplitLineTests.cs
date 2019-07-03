@@ -82,12 +82,12 @@ namespace InstrumentedLibrary
 
             var n = filtered.Length;
             var shapes = new IShapeSegment[n + 1];
-            var prev = InterpolateLinear2DTests.LinearInterpolate2D(x, y, x + i, y + j, filtered[0]);
+            var prev = InterpolateLinear2DTests.LinearInterpolate2D(filtered[0], x, y, x + i, y + j);
             shapes[0] = new Ray2D(prev, (-i, -j));
 
             for (var index = 1; index < n; index++)
             {
-                var next = InterpolateLinear2DTests.LinearInterpolate2D(x, y, x + i, y + j, filtered[index]);
+                var next = InterpolateLinear2DTests.LinearInterpolate2D(filtered[index], x, y, x + i, y + j);
                 shapes[index] = new LineSegment2D(prev, next);
                 prev = next;
             }

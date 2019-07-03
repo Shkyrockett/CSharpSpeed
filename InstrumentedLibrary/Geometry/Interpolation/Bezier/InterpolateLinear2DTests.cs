@@ -27,9 +27,9 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 1d, 1d, 0d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:(0d, 0d), epsilon: double.Epsilon) },
-                { new object[] { 0d, 0d, 1d, 1d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:(0.5d, 0.5d), epsilon: double.Epsilon) },
-                { new object[] { 0d, 0d, 1d, 1d, 1d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:(1d, 1d), epsilon: double.Epsilon) },
+                { new object[] { 0d, 0d, 0d, 1d, 1d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (0d, 0d), epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 0d, 1d, 1d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (0.5d, 0.5d), epsilon: double.Epsilon) },
+                { new object[] { 1d, 0d, 0d, 1d, 1d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (1d, 1d), epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -44,35 +44,32 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static (double X, double Y) LinearInterpolate2D(double x0, double y0, double x1, double y1, double t)
-            => Lerp_(x0, y0, x1, y1, t);
+        public static (double X, double Y) LinearInterpolate2D(double t, double x0, double y0, double x1, double y1)
+            => Lerp_(t, x0, y0, x1, y1);
 
         /// <summary>
         /// The linear interpolation method.
         /// </summary>
+        /// <param name="t">The t.</param>
         /// <param name="x0">The x0.</param>
         /// <param name="y0">The y0.</param>
         /// <param name="x1">The x1.</param>
         /// <param name="y1">The y1.</param>
-        /// <param name="t">The t.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         [DisplayName("Lerp")]
         [Description("Simple Linear Interpolation.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Lerp_(
-            double x0, double y0,
-            double x1, double y1,
-            double t)
+        public static (double X, double Y) Lerp_(double t, double x0, double y0, double x1, double y1)
         {
             return (x0 + (x1 - x0) * t, y0 + (y1 - y0) * t);
         }
@@ -80,11 +77,11 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Precise method which guarantees v = v1 when t = 1.
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://en.wikipedia.org/wiki/Linear_interpolation
@@ -96,10 +93,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) LinearInterpolate2D_0(
-            double x1, double y1,
-            double x2, double y2,
-            double t)
+        public static (double X, double Y) LinearInterpolate2D_0(double t, double x1, double y1, double x2, double y2)
         {
             return (
                 ((1d - t) * x1) + (t * x2),
@@ -111,11 +105,11 @@ namespace InstrumentedLibrary
         /// Imprecise method which does not guarantee v = v1 when t = 1, due to floating-point arithmetic error.
         /// This form may be used when the hardware has a native Fused Multiply-Add instruction.
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://en.wikipedia.org/wiki/Linear_interpolation
@@ -127,10 +121,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) LinearInterpolate2D_1(
-            double x1, double y1,
-            double x2, double y2,
-            double t)
+        public static (double X, double Y) LinearInterpolate2D_1(double t, double x1, double y1, double x2, double y2)
         {
             return (
                 x1 + (t * (x2 - x1)),
@@ -141,11 +132,11 @@ namespace InstrumentedLibrary
         /// <summary>
         /// simple linear interpolation between two points
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://www.cubic.org/docs/bezier.htm
@@ -156,39 +147,33 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) LinearInterpolate2D_2(
-            double x1, double y1,
-            double x2, double y2,
-            double t)
+        public static (double X, double Y) LinearInterpolate2D_2(double t, double x1, double y1, double x2, double y2)
         {
             return (
-                InterpolateLinear1DTests.LinearInterpolate1D(x1, x2, t),
-                InterpolateLinear1DTests.LinearInterpolate1D(y1, y2, t)
+                InterpolateLinear1DTests.LinearInterpolate1D(t, x1, x2),
+                InterpolateLinear1DTests.LinearInterpolate1D(t, y1, y2)
                 );
         }
 
         /// <summary>
-        /// The linear interpolate2d 3.
+        /// The linear interpolate2d 4.
         /// </summary>
+        /// <param name="t">The t.</param>
         /// <param name="x1">The x1.</param>
         /// <param name="y1">The y1.</param>
         /// <param name="x2">The x2.</param>
         /// <param name="y2">The y2.</param>
-        /// <param name="t">The t.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         [DisplayName("Linear Interpolate 4")]
         [Description("Simple Linear Interpolation.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) LinearInterpolate2D_3(
-            double x1, double y1,
-            double x2, double y2,
-            double t)
+        public static (double X, double Y) LinearInterpolate2D_3(double t, double x1, double y1, double x2, double y2)
         {
             return (
-                (Abs(x1 - x2) < DoubleEpsilon) ? 0 : x1 - (1 / (x1 - x2) * t),
-                (Abs(y1 - y2) < DoubleEpsilon) ? 0 : y1 - (1 / (y1 - y2) * t)
+                (Abs(x1 - x2) < DoubleEpsilon) ? 0d : x1 - (1d / (x1 - x2) * t),
+                (Abs(y1 - y2) < DoubleEpsilon) ? 0d : y1 - (1d / (y1 - y2) * t)
                 );
         }
     }

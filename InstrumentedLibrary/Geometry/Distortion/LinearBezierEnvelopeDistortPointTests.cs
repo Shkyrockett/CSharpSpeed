@@ -88,9 +88,9 @@ namespace InstrumentedLibrary
             // Install "Match Margin" Extension to enable word match highlighting, to help visualize where a variable resides in the ASCI map. 
 
             var normal = (X: (point.X - bounds.X) / bounds.Width, Y: (point.Y - bounds.Top) / bounds.Height);
-            var leftAnchor = InterpolateLinear2DTests.LinearInterpolate2D(topLeft.X, topLeft.Y, bottomLeft.X, bottomLeft.Y, normal.Y);
-            var rightAnchor = InterpolateLinear2DTests.LinearInterpolate2D(topRight.X, topRight.Y, bottomRight.X, bottomRight.Y, normal.Y);
-            return new Point2D(InterpolateLinear2DTests.LinearInterpolate2D(leftAnchor.X, leftAnchor.Y, rightAnchor.X, rightAnchor.Y, normal.X));
+            var leftAnchor = InterpolateLinear2DTests.LinearInterpolate2D(normal.Y, topLeft.X, topLeft.Y, bottomLeft.X, bottomLeft.Y);
+            var rightAnchor = InterpolateLinear2DTests.LinearInterpolate2D(normal.Y, topRight.X, topRight.Y, bottomRight.X, bottomRight.Y);
+            return new Point2D(InterpolateLinear2DTests.LinearInterpolate2D(normal.X, leftAnchor.X, leftAnchor.Y, rightAnchor.X, rightAnchor.Y));
         }
     }
 }

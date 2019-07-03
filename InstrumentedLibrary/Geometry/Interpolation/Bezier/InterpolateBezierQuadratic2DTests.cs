@@ -24,7 +24,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 1d, 2d, 3d, 4d, 5d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:(2d, 3d), epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 1d, 2d, 3d, 4d, 5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:(2d, 3d), epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -39,61 +39,57 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static (double X, double Y) QuadraticBezierInterpolate2D(double x0, double y0, double x1, double y1, double x2, double y2, double t)
-            => QuadraticBezierInterpolate2D_0(x0, y0, x1, y1, x2, y2, t);
+        public static (double X, double Y) QuadraticBezierInterpolate2D(double t, double x0, double y0, double x1, double y1, double x2, double y2)
+            => QuadraticBezierInterpolate2D_0(t, x0, y0, x1, y1, x2, y2);
 
         /// <summary>
         /// Three control point Bézier interpolation mu ranges from 0 to 1, start to end of the curve.
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         [DisplayName("Quadratic Bezier Interpolate 1")]
         [Description("Simple Quadratic Bezier Interpolation.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) QuadraticBezierInterpolate2D_0(
-            double x0, double y0,
-            double x1, double y1,
-            double x2, double y2,
-            double t)
+        public static (double X, double Y) QuadraticBezierInterpolate2D_0(double t, double x0, double y0, double x1, double y1, double x2, double y2)
         {
-            var mu1 = 1 - t;
+            var mu1 = 1d - t;
             var mu12 = mu1 * mu1;
             var mu2 = t * t;
 
             return (
-                (x0 * mu12) + (2 * x1 * mu1 * t) + (x2 * mu2),
-                (y0 * mu12) + (2 * y1 * mu1 * t) + (y2 * mu2)
+                (x0 * mu12) + (2d * x1 * mu1 * t) + (x2 * mu2),
+                (y0 * mu12) + (2d * y1 * mu1 * t) + (y2 * mu2)
                 );
         }
 
         /// <summary>
         /// Evaluate a point on a Bézier-curve. t goes from 0 to 1.0
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://www.cubic.org/docs/bezier.htm
@@ -104,20 +100,16 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) QuadraticBezierInterpolate2D_1(
-            double x0, double y0,
-            double x1, double y1,
-            double x2, double y2,
-            double t)
+        public static (double X, double Y) QuadraticBezierInterpolate2D_1(double t, double x0, double y0, double x1, double y1, double x2, double y2)
         {
             // point between a and b
-            var ab = InterpolateLinear2DTests.LinearInterpolate2D(x0, y0, x1, y1, t);
+            var ab = InterpolateLinear2DTests.LinearInterpolate2D(t, x0, y0, x1, y1);
 
             // point between b and c
-            var bc = InterpolateLinear2DTests.LinearInterpolate2D(x1, y1, x2, y2, t);
+            var bc = InterpolateLinear2DTests.LinearInterpolate2D(t, x1, y1, x2, y2);
 
             // point on the bezier-curve
-            return InterpolateLinear2DTests.LinearInterpolate2D(ab.X, ab.Y, bc.X, bc.Y, t);
+            return InterpolateLinear2DTests.LinearInterpolate2D(t, ab.X, ab.Y, bc.X, bc.Y);
         }
     }
 }

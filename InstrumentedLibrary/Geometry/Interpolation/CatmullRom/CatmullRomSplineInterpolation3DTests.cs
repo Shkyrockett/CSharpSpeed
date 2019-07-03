@@ -25,8 +25,8 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 0d, 0d, 0d, 1d, 1d, 1d, 1d, 1d, 0d, 0d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:(0.5d, 0.5625d, 1.125d), epsilon: double.Epsilon) },
-                { new object[] { 0d, 1d, 2d, 3d, 4d, 5d, 6d, 7d, 8d, 9d, 10d, 11d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:(4.5d, 4.5d, 6.5d), epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 0d, 0d, 0d, 0d, 1d, 1d, 1d, 1d, 1d, 0d, 0d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:(0.5d, 0.5625d, 1.125d), epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 1d, 2d, 3d, 4d, 5d, 6d, 7d, 8d, 9d, 10d, 11d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:(4.5d, 4.5d, 6.5d), epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -41,6 +41,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
         /// <param name="z1"></param>
@@ -53,16 +54,16 @@ namespace InstrumentedLibrary
         /// <param name="x4"></param>
         /// <param name="y4"></param>
         /// <param name="z4"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static (double X, double Y, double Z) CatmullRomInterpolate3D(double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3, double x4, double y4, double z4, double t)
-            => CatmullRomSpline(x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4, t);
+        public static (double X, double Y, double Z) CatmullRomInterpolate3D(double t, double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3, double x4, double y4, double z4)
+            => CatmullRomSpline(t, x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4);
 
         /// <summary>
         /// Performs a Catmull-Rom interpolation using the specified positions.
         /// </summary>
+        /// <param name="t">Weighting factor.</param>
         /// <param name="x1">The first position in the interpolation.</param>
         /// <param name="y1"></param>
         /// <param name="z1"></param>
@@ -75,7 +76,6 @@ namespace InstrumentedLibrary
         /// <param name="x4">The fourth position in the interpolation.</param>
         /// <param name="y4"></param>
         /// <param name="z4"></param>
-        /// <param name="t">Weighting factor.</param>
         /// <returns>A position that is the result of the Catmull-Rom interpolation.</returns>
         /// <acknowledgment>
         /// http://www.mvps.org/directx/articles/catmull/
@@ -86,12 +86,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) CatmullRom(
-            double x1, double y1, double z1,
-            double x2, double y2, double z2,
-            double x3, double y3, double z3,
-            double x4, double y4, double z4,
-            double t)
+        public static (double X, double Y, double Z) CatmullRom(double t, double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3, double x4, double y4, double z4)
         {
             var tSquared = t * t;
             var tCubed = tSquared * t;
@@ -113,6 +108,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The catmull rom spline.
         /// </summary>
+        /// <param name="t">The t.</param>
         /// <param name="x0">The x0.</param>
         /// <param name="y0">The y0.</param>
         /// <param name="z0">The z0.</param>
@@ -125,7 +121,6 @@ namespace InstrumentedLibrary
         /// <param name="x3">The x3.</param>
         /// <param name="y3">The y3.</param>
         /// <param name="z3">The z3.</param>
-        /// <param name="t">The t.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
@@ -136,12 +131,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) CatmullRomSpline(
-            double x0, double y0, double z0,
-            double x1, double y1, double z1,
-            double x2, double y2, double z2,
-            double x3, double y3, double z3,
-            double t)
+        public static (double X, double Y, double Z) CatmullRomSpline(double t, double x0, double y0, double z0, double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3)
         {
             var mu2 = t * t;
 

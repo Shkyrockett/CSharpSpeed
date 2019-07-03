@@ -26,7 +26,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 1d, 1d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (0.49999999999999994d, 0.49999999999999994d), epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 0d, 1d, 1d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (0.49999999999999994d, 0.49999999999999994d), epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -41,25 +41,25 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static (double X, double Y) Sine(double x1, double y1, double x2, double y2, double t)
-            => InterpolateSine(x1, y1, x2, y2, t);
+        public static (double X, double Y) Sine(double t, double x1, double y1, double x2, double y2)
+            => InterpolateSine(t, x1, y1, x2, y2);
 
         /// <summary>
         /// The sine.
         /// </summary>
+        /// <param name="t">The t.</param>
         /// <param name="x1">The x1.</param>
         /// <param name="y1">The y1.</param>
         /// <param name="x2">The x2.</param>
         /// <param name="y2">The y2.</param>
-        /// <param name="t">The t.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
@@ -70,10 +70,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Sine_(
-            double x1, double y1,
-            double x2, double y2,
-            double t)
+        public static (double X, double Y) Sine_(double t, double x1, double y1, double x2, double y2)
         {
             var mu2 = (1d - Sin(t * PI)) / 2d;
             return (x1 * (1d - mu2) + x2 * mu2, y1 * (1d - mu2) + y2 * mu2);
@@ -82,11 +79,11 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Function For sine interpolated Line
         /// </summary>
+        /// <param name="index"></param>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
-        /// <param name="index"></param>
         /// <returns>Returns the interpolated point of the index value.</returns>
         [DisplayName("Sine Interpolate 2D")]
         [Description("Sine Interpolation.")]
@@ -95,9 +92,9 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) InterpolateSine(
-            double x1, double y1,
-            double x2, double y2,
-            double index)
+            double index, double x1,
+            double y1, double x2,
+            double y2)
         {
             var a = new Point2D(x1, y1);
             var b = new Point2D(x2, y2);

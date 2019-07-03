@@ -231,7 +231,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2D Interpolate(double v) => new Point2D(InterpolateLinear2DTests.LinearInterpolate2D(A.X, A.Y, B.X, B.Y, v));
+        public Point2D Interpolate(double v) => new Point2D(InterpolateLinear2DTests.LinearInterpolate2D(v, A.X, A.Y, B.X, B.Y));
 
         /// <summary>
         /// 

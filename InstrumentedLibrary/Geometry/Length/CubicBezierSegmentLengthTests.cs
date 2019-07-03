@@ -187,7 +187,7 @@ namespace InstrumentedLibrary
             for (var i = 0; i <= steps; i++)
             {
                 t = (double)i / steps;
-                var dot = InterpolateCubic2DTests.CubicInterpolate2D(ax, ay, bx, by, cx, cy, dx, dy, t);
+                var dot = InterpolateCubic2DTests.CubicInterpolate2D(t, ax, ay, bx, by, cx, cy, dx, dy);
                 if (i > 0)
                 {
                     var x_diff = dot.X - previous_dot.X;

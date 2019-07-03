@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Text;
+using static System.Math;
+using static InstrumentedLibrary.Maths;
+
+namespace InstrumentedLibrary
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    public static class SineInOutValueEasingTests
+    {
+        /// <summary>
+        /// Easing equation function for a sinusoidal (sin(t)) easing in/out:
+        /// acceleration until halfway, then deceleration.
+        /// </summary>
+        /// <param name="t">Current time elapsed in ticks.</param>
+        /// <param name="b">Starting value.</param>
+        /// <param name="c">Final value.</param>
+        /// <param name="d">Duration of animation.</param>
+        /// <returns>The correct value.</returns>
+        /// <acknowledgment>
+        /// https://github.com/darrendavid/wpf-animation
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double SineInOut(double t, double b, double c, double d)
+        {
+            return ((t /= d * 0.5d) < 1d) ? (c * 0.5d * Sin(HalfPi * t)) + b : (-c * 0.5d * (Cos(HalfPi * --t) - 2d)) + b;
+        }
+    }
+}

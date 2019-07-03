@@ -145,7 +145,7 @@ namespace InstrumentedLibrary
                 }
                 else
                 {
-                    var p = InterpolateLinear2DTests.LinearInterpolate2D(x0, y0, x1, y1, t1);
+                    var p = InterpolateLinear2DTests.LinearInterpolate2D(t1, x0, y0, x1, y1);
                     // Find the determinant of the chord.
                     var determinant = (sX - p.X) * (eY - p.Y) - (eX - p.X) * (sY - p.Y);
 
@@ -155,7 +155,7 @@ namespace InstrumentedLibrary
                         result.AppendPoint(p);
                     }
 
-                    p = InterpolateLinear2DTests.LinearInterpolate2D(x0, y0, x1, y1, t2);
+                    p = InterpolateLinear2DTests.LinearInterpolate2D(t2, x0, y0, x1, y1);
                     // Find the determinant of the chord.
                     determinant = (sX - p.X) * (eY - p.Y) - (eX - p.X) * (sY - p.Y);
                     if (0d <= t2 && t2 <= 1 && (Sign(determinant) != Sign(sweepAngle)))
@@ -170,7 +170,7 @@ namespace InstrumentedLibrary
                 var t = -b / a;
                 if (t >= 0d && t <= 1d)
                 {
-                    var p = InterpolateLinear2DTests.LinearInterpolate2D(x0, y0, x1, y1, t);
+                    var p = InterpolateLinear2DTests.LinearInterpolate2D(t, x0, y0, x1, y1);
 
                     // Find the determinant of the matrix representing the chord.
                     var determinant = (sX - p.X) * (eY - p.Y) - (eX - p.X) * (sY - p.Y);
@@ -178,7 +178,7 @@ namespace InstrumentedLibrary
                     // Add the point if it is on the sweep side of the chord.
                     if (Sign(determinant) != Sign(sweepAngle))
                     {
-                        result.AppendPoint(InterpolateLinear2DTests.LinearInterpolate2D(x0, y0, x1, y1, t));
+                        result.AppendPoint(InterpolateLinear2DTests.LinearInterpolate2D(t, x0, y0, x1, y1));
                     }
                 }
                 else

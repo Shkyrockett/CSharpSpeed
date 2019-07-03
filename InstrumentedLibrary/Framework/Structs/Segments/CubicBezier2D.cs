@@ -256,7 +256,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2D Interpolate(double v) => BezierInterpolateCubic2DTests.CubicBezierCurve(A.X, A.Y, B.X, B.Y, C.X, C.Y, D.X, D.Y, v);
+        public Point2D Interpolate(double v) => BezierInterpolateCubic2DTests.CubicBezierCurve(v, A.X, A.Y, B.X, B.Y, C.X, C.Y, D.X, D.Y);
 
         /// <summary>
         /// 

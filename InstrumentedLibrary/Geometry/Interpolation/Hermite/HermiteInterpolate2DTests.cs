@@ -25,7 +25,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 1d, 2d, 3d, 4d, 5d, 6d, 7d, 0.5d, 1d, 0d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:0.5d, epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 1d, 2d, 3d, 4d, 5d, 6d, 7d, 1d, 0d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:0.5d, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -40,6 +40,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="index"></param>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
         /// <param name="x1"></param>
@@ -48,18 +49,18 @@ namespace InstrumentedLibrary
         /// <param name="y2"></param>
         /// <param name="x3"></param>
         /// <param name="y3"></param>
-        /// <param name="index"></param>
         /// <param name="tension"></param>
         /// <param name="bias"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static (double X, double Y) HermiteInterpolate2D(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3, double index, double tension, double bias)
-            => HermiteInterpolate2D(x0, y0, x1, y1, x2, y2, x3, y3, index, tension, bias);
+        public static (double X, double Y) HermiteInterpolate2D(double index, double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3, double tension, double bias)
+            => HermiteInterpolate2D(index, x0, y0, x1, y1, x2, y2, x3, y3, tension, bias);
 
         /// <summary>
         /// The hermite interpolate2d.
         /// </summary>
+        /// <param name="index">The mu.</param>
         /// <param name="x0">The x0.</param>
         /// <param name="y0">The y0.</param>
         /// <param name="x1">The x1.</param>
@@ -68,7 +69,6 @@ namespace InstrumentedLibrary
         /// <param name="y2">The y2.</param>
         /// <param name="x3">The x3.</param>
         /// <param name="y3">The y3.</param>
-        /// <param name="index">The mu.</param>
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
@@ -81,12 +81,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) HermiteInterpolate2D_(
-            double x0, double y0,
-            double x1, double y1,
-            double x2, double y2,
-            double x3, double y3,
-            double index, double tension, double bias)
+        public static (double X, double Y) HermiteInterpolate2D_(double index, double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3, double tension, double bias)
         {
             var mu2 = index * index;
             var mu3 = mu2 * index;
@@ -115,6 +110,7 @@ namespace InstrumentedLibrary
         /// positive is towards First segment,
         /// negative towards the other
         /// </summary>
+        /// <param name="index"></param>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
         /// <param name="x1"></param>
@@ -123,7 +119,6 @@ namespace InstrumentedLibrary
         /// <param name="y2"></param>
         /// <param name="x3"></param>
         /// <param name="y3"></param>
-        /// <param name="index"></param>
         /// <param name="tension"></param>
         /// <param name="bias"></param>
         /// <returns></returns>
@@ -133,12 +128,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Interpolate1(
-            double x0, double y0,
-            double x1, double y1,
-            double x2, double y2,
-            double x3, double y3,
-            double index, double tension, double bias)
+        public static (double X, double Y) Interpolate1(double index, double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3, double tension, double bias)
         {
             var a = new Point2D(x0, y0);
             var aTan = new Point2D(x1, y1);
@@ -175,6 +165,7 @@ namespace InstrumentedLibrary
         /// positive is towards First segment,
         /// negative towards the other
         /// </summary>
+        /// <param name="index"></param>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
         /// <param name="x1"></param>
@@ -183,7 +174,6 @@ namespace InstrumentedLibrary
         /// <param name="y2"></param>
         /// <param name="x3"></param>
         /// <param name="y3"></param>
-        /// <param name="index"></param>
         /// <param name="tension"></param>
         /// <param name="bias"></param>
         /// <returns></returns>
@@ -193,12 +183,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Interpolate2(
-            double x0, double y0,
-            double x1, double y1,
-            double x2, double y2,
-            double x3, double y3,
-            double index, double tension, double bias)
+        public static (double X, double Y) Interpolate2(double index, double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3, double tension, double bias)
         {
             var a = new Point2D(x0, y0);
             var aTan = new Point2D(x1, y1);

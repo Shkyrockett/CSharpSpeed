@@ -212,12 +212,12 @@ namespace InstrumentedLibrary
                 var t = roots[i];
                 if (0 <= t && t <= 1)
                 {
-                    var p5 = InterpolateLinear2DTests.LinearInterpolate2D(p1X, p1Y, p2X, p2Y, t);
-                    var p6 = InterpolateLinear2DTests.LinearInterpolate2D(p2X, p2Y, p3X, p3Y, t);
-                    var p7 = InterpolateLinear2DTests.LinearInterpolate2D(p3X, p3Y, p4X, p4Y, t);
-                    var p8 = InterpolateLinear2DTests.LinearInterpolate2D(p5.X, p5.Y, p6.X, p6.Y, t);
-                    var p9 = InterpolateLinear2DTests.LinearInterpolate2D(p6.X, p6.Y, p7.X, p7.Y, t);
-                    var p10 = InterpolateLinear2DTests.LinearInterpolate2D(p8.X, p8.Y, p9.X, p9.Y, t);
+                    var p5 = InterpolateLinear2DTests.LinearInterpolate2D(t, p1X, p1Y, p2X, p2Y);
+                    var p6 = InterpolateLinear2DTests.LinearInterpolate2D(t, p2X, p2Y, p3X, p3Y);
+                    var p7 = InterpolateLinear2DTests.LinearInterpolate2D(t, p3X, p3Y, p4X, p4Y);
+                    var p8 = InterpolateLinear2DTests.LinearInterpolate2D(t, p5.X, p5.Y, p6.X, p6.Y);
+                    var p9 = InterpolateLinear2DTests.LinearInterpolate2D(t, p6.X, p6.Y, p7.X, p7.Y);
+                    var p10 = InterpolateLinear2DTests.LinearInterpolate2D(t, p8.X, p8.Y, p9.X, p9.Y);
                     if (a1X == a2X)
                     {
                         if (min.Y <= p10.Y && p10.Y <= max.Y)
@@ -314,12 +314,12 @@ namespace InstrumentedLibrary
                 var t = roots[i];
                 if (0 <= t && t <= 1)
                 {
-                    var p5 = InterpolateLinear2DTests.LinearInterpolate2D(p1X, p1Y, p2X, p2Y, t);
-                    var p6 = InterpolateLinear2DTests.LinearInterpolate2D(p2X, p2Y, p3X, p3Y, t);
-                    var p7 = InterpolateLinear2DTests.LinearInterpolate2D(p3X, p3Y, p4X, p4Y, t);
-                    var p8 = InterpolateLinear2DTests.LinearInterpolate2D(p5.X, p5.Y, p6.X, p6.Y, t);
-                    var p9 = InterpolateLinear2DTests.LinearInterpolate2D(p6.X, p6.Y, p7.X, p7.Y, t);
-                    var p10 = InterpolateLinear2DTests.LinearInterpolate2D(p8.X, p8.Y, p9.X, p9.Y, t);
+                    var p5 = InterpolateLinear2DTests.LinearInterpolate2D(t, p1X, p1Y, p2X, p2Y);
+                    var p6 = InterpolateLinear2DTests.LinearInterpolate2D(t, p2X, p2Y, p3X, p3Y);
+                    var p7 = InterpolateLinear2DTests.LinearInterpolate2D(t, p3X, p3Y, p4X, p4Y);
+                    var p8 = InterpolateLinear2DTests.LinearInterpolate2D(t, p5.X, p5.Y, p6.X, p6.Y);
+                    var p9 = InterpolateLinear2DTests.LinearInterpolate2D(t, p6.X, p6.Y, p7.X, p7.Y);
+                    var p10 = InterpolateLinear2DTests.LinearInterpolate2D(t, p8.X, p8.Y, p9.X, p9.Y);
                     if (a1X == a2X)
                     {
                         result.State = IntersectionState.Intersection;

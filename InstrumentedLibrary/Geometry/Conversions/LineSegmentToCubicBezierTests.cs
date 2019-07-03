@@ -67,8 +67,8 @@ namespace InstrumentedLibrary
             double x0, double y0,
             double x1, double y1)
         {
-            var p2 = InterpolateLinear2DTests.LinearInterpolate2D(x0, y0, x1, y1, OneThird);
-            var p3 = InterpolateLinear2DTests.LinearInterpolate2D(x0, y0, x1, y1, TwoThirds);
+            var p2 = InterpolateLinear2DTests.LinearInterpolate2D(OneThird, x0, y0, x1, y1);
+            var p3 = InterpolateLinear2DTests.LinearInterpolate2D(TwoThirds, x0, y0, x1, y1);
             return (x0, y0, p2.X, p2.Y, p3.X, p3.Y, x1, y1);
         }
     }

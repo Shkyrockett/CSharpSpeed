@@ -68,7 +68,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Ray2D RightBisectLine_(double x, double y, double i, double j, double t)
         {
-            var (hX, hY) = InterpolateLinear2DTests.LinearInterpolate2D(x, y, x + i, y + j, t);
+            var (hX, hY) = InterpolateLinear2DTests.LinearInterpolate2D(t, x, y, x + i, y + j);
 
             return new Ray2D(hX, hY, i, j);
         }

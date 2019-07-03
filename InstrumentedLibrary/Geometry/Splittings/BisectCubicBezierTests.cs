@@ -79,12 +79,12 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (CubicBezier2D A, CubicBezier2D B) BisectCubicBezier_(double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY, double t)
         {
-            var (eX, eY) = InterpolateLinear2DTests.LinearInterpolate2D(aX, aY, bX, bY, t);
-            var (fX, fY) = InterpolateLinear2DTests.LinearInterpolate2D(bX, bY, cX, cY, t);
-            var (gX, gY) = InterpolateLinear2DTests.LinearInterpolate2D(cX, cY, dX, dY, t);
-            var (hX, hY) = InterpolateLinear2DTests.LinearInterpolate2D(eX, eY, fX, fY, t);
-            var (jX, jY) = InterpolateLinear2DTests.LinearInterpolate2D(fX, fY, gX, gY, t);
-            var (kX, kY) = InterpolateLinear2DTests.LinearInterpolate2D(hX, hY, jX, jY, t);
+            var (eX, eY) = InterpolateLinear2DTests.LinearInterpolate2D(t, aX, aY, bX, bY);
+            var (fX, fY) = InterpolateLinear2DTests.LinearInterpolate2D(t, bX, bY, cX, cY);
+            var (gX, gY) = InterpolateLinear2DTests.LinearInterpolate2D(t, cX, cY, dX, dY);
+            var (hX, hY) = InterpolateLinear2DTests.LinearInterpolate2D(t, eX, eY, fX, fY);
+            var (jX, jY) = InterpolateLinear2DTests.LinearInterpolate2D(t, fX, fY, gX, gY);
+            var (kX, kY) = InterpolateLinear2DTests.LinearInterpolate2D(t, hX, hY, jX, jY);
 
             return (
                 (aX, aY, eX, eY, hX, hY, kX, kY),

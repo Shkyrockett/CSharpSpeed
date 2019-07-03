@@ -25,7 +25,7 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 1d, 2d, 3d, 4d, 5d, 6d, 7d, 8d, 9d, 10d, 11d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:(4.5d, 5.5d, 6.5d), epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 1d, 2d, 3d, 4d, 5d, 6d, 7d, 8d, 9d, 10d, 11d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:(4.5d, 5.5d, 6.5d), epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -40,6 +40,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
         /// <param name="z0"></param>
@@ -52,16 +53,16 @@ namespace InstrumentedLibrary
         /// <param name="x3"></param>
         /// <param name="y3"></param>
         /// <param name="z3"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static (double X, double Y, double Z) CubicInterpolate3D(double x0, double y0, double z0, double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3, double t)
-            => CubicInterpolate3D_(x0, y0, z0, x1, y1, z1, x2, y2, z2, x3, y3, z3, t);
+        public static (double X, double Y, double Z) CubicInterpolate3D(double t, double x0, double y0, double z0, double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3)
+            => CubicInterpolate3D_(t, x0, y0, z0, x1, y1, z1, x2, y2, z2, x3, y3, z3);
 
         /// <summary>
         /// The cubic interpolate3d.
         /// </summary>
+        /// <param name="t">The t.</param>
         /// <param name="x0">The x0.</param>
         /// <param name="y0">The y0.</param>
         /// <param name="z0">The z0.</param>
@@ -74,7 +75,6 @@ namespace InstrumentedLibrary
         /// <param name="x3">The x3.</param>
         /// <param name="y3">The y3.</param>
         /// <param name="z3">The z3.</param>
-        /// <param name="t">The t.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
@@ -85,12 +85,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) CubicInterpolate3D_(
-            double x0, double y0, double z0,
-            double x1, double y1, double z1,
-            double x2, double y2, double z2,
-            double x3, double y3, double z3,
-            double t)
+        public static (double X, double Y, double Z) CubicInterpolate3D_(double t, double x0, double y0, double z0, double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3)
         {
             var mu2 = t * t;
 

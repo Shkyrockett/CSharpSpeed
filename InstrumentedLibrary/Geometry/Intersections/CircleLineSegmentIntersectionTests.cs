@@ -192,7 +192,7 @@ namespace InstrumentedLibrary
                     result = new Intersection(IntersectionState.Intersection);
                     if (0 <= u1 && u1 <= 1)
                     {
-                        result.Points.Add(InterpolateLinear2DTests.LinearInterpolate2D(lAX, lAY, lBX, lBY, u1));
+                        result.Points.Add(InterpolateLinear2DTests.LinearInterpolate2D(u1, lAX, lAY, lBX, lBY));
                     }
                 }
             }
@@ -210,12 +210,12 @@ namespace InstrumentedLibrary
                     result = new Intersection(IntersectionState.Intersection);
                     if (0 <= u1 && u1 <= 1)
                     {
-                        result.Points.Add(InterpolateLinear2DTests.LinearInterpolate2D(lAX, lAY, lBX, lBY, u1));
+                        result.Points.Add(InterpolateLinear2DTests.LinearInterpolate2D(u1, lAX, lAY, lBX, lBY));
                     }
 
                     if (0 <= u2 && u2 <= 1)
                     {
-                        result.Points.Add(InterpolateLinear2DTests.LinearInterpolate2D(lAX, lAY, lBX, lBY, u2));
+                        result.Points.Add(InterpolateLinear2DTests.LinearInterpolate2D(u2, lAX, lAY, lBX, lBY));
                     }
                 }
             }

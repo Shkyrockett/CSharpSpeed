@@ -297,8 +297,8 @@ namespace InstrumentedLibrary
 
             // Get the end points of the chord.
             var bounds = new Rectangle2D(
-                InterpolateRotatedEllipticalArcTests.EllipticalArc(cX, cY, r1, r2, angle, startAngle, sweepAngle, 0),
-                InterpolateRotatedEllipticalArcTests.EllipticalArc(cX, cY, r1, r2, angle, startAngle, sweepAngle, 1));
+                InterpolateRotatedEllipticalArcTests.EllipticalArc(0, cX, cY, r1, r2, angle, startAngle, sweepAngle),
+                InterpolateRotatedEllipticalArcTests.EllipticalArc(1, cX, cY, r1, r2, angle, startAngle, sweepAngle));
 
             // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
             if (AngleWithinAngleTests.Within(angles[0], angle + startAngle, sweepAngle))
@@ -386,8 +386,8 @@ namespace InstrumentedLibrary
 
             // Get the end points of the chord.
             var bounds = new Rectangle2D(
-                InterpolateRotatedEllipticalArcTests.EllipticalArc(cX, cY, r1, r2, angle, startAngle, sweepAngle, 0),
-                InterpolateRotatedEllipticalArcTests.EllipticalArc(cX, cY, r1, r2, angle, startAngle, sweepAngle, 1));
+                InterpolateRotatedEllipticalArcTests.EllipticalArc(0, cX, cY, r1, r2, angle, startAngle, sweepAngle),
+                InterpolateRotatedEllipticalArcTests.EllipticalArc(1, cX, cY, r1, r2, angle, startAngle, sweepAngle));
 
             // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
             if (AngleWithinAngleTests.Within(angles[0], angle + startAngle, sweepAngle))

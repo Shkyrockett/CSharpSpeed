@@ -74,7 +74,7 @@ namespace InstrumentedLibrary
             var sortOfCloseLength = QuadraticBezierSegmentLengthTests.QuadraticBezierArcLength(ax, ay, bx, by, cx, cy);
 
             // ToDo: Need to make this more efficient. Don't need to rebuild the point array every time.
-            var points = new List<(double X, double Y)>(FunctionalInterpolationTests.Interpolate0to1((i) => InterpolateBezierQuadratic2DTests.QuadraticBezierInterpolate2D(ax, ay, bx, by, cx, cy, i), (int)(sortOfCloseLength / 3)));
+            var points = new List<(double X, double Y)>(FunctionalInterpolationTests.Interpolate0to1((int)(sortOfCloseLength / 3), (i) => InterpolateBezierQuadratic2DTests.QuadraticBezierInterpolate2D(i, ax, ay, bx, by, cx, cy)));
 
             var left = points[0].X;
             var top = points[0].Y;

@@ -24,8 +24,8 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 1d, 2d, 3d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: 1.5d, epsilon: double.Epsilon) },
-                { new object[] { 0d, 3d, 6d, 7d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: 4.75d, epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 1d, 2d, 3d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: 1.5d, epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 3d, 6d, 7d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: 4.75d, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -40,25 +40,25 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="v0"></param>
         /// <param name="v1"></param>
         /// <param name="v2"></param>
         /// <param name="v3"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static double CubicInterpolate1D(double v0, double v1, double v2, double v3, double t)
-            => CubicInterpolate1D_(v0, v1, v2, v3, t);
+        public static double CubicInterpolate1D(double t, double v0, double v1, double v2, double v3)
+            => CubicInterpolate1D_(t, v0, v1, v2, v3);
 
         /// <summary>
         /// The cubic interpolate1d.
         /// </summary>
+        /// <param name="t">The t.</param>
         /// <param name="v0">The v0.</param>
         /// <param name="v1">The v1.</param>
         /// <param name="v2">The v2.</param>
         /// <param name="v3">The v3.</param>
-        /// <param name="t">The t.</param>
         /// <returns>The <see cref="double"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
@@ -69,7 +69,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CubicInterpolate1D_(double v0, double v1, double v2, double v3, double t)
+        public static double CubicInterpolate1D_(double t, double v0, double v1, double v2, double v3)
         {
             var mu2 = t * t;
             var a0 = v3 - v2 - v0 + v1;

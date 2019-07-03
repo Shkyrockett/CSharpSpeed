@@ -25,8 +25,8 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 1d, 1d, 2d, 1d, 3d, 0d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (3d, 0d), epsilon: double.Epsilon) },
-                { new object[] { 0d, 1d, 2d, 3d, 4d, 5d, 6d, 7d, 0.5d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (6d, 6d), epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 0d, 1d, 1d, 2d, 1d, 3d, 0d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (3d, 0d), epsilon: double.Epsilon) },
+                { new object[] { 0.5d, 0d, 1d, 2d, 3d, 4d, 5d, 6d, 7d }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: (6d, 6d), epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -41,6 +41,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="t"></param>
         /// <param name="p0X"></param>
         /// <param name="p0Y"></param>
         /// <param name="p1X"></param>
@@ -49,16 +50,16 @@ namespace InstrumentedLibrary
         /// <param name="p2Y"></param>
         /// <param name="p3X"></param>
         /// <param name="p3Y"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static (double X, double Y) CubicBezierDerivative(double p0X, double p0Y, double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double t)
-            => CubicBezierDerivative1(p0X, p0Y, p1X, p1Y, p2X, p2Y, p3X, p3Y, t);
+        public static (double X, double Y) CubicBezierDerivative(double t, double p0X, double p0Y, double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y)
+            => CubicBezierDerivative1(t, p0X, p0Y, p1X, p1Y, p2X, p2Y, p3X, p3Y);
 
         /// <summary>
         /// The cubic bezier derivative0.
         /// </summary>
+        /// <param name="t">The t.</param>
         /// <param name="p0X"></param>
         /// <param name="p0Y"></param>
         /// <param name="p1X"></param>
@@ -67,7 +68,6 @@ namespace InstrumentedLibrary
         /// <param name="p2Y"></param>
         /// <param name="p3X"></param>
         /// <param name="p3Y"></param>
-        /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         /// <acknowledgment>
         /// http://www.cs.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/Bezier/bezier-der.html
@@ -78,12 +78,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DebuggerStepThrough]
-        public static (double X, double Y) CubicBezierDerivative0(
-            double p0X, double p0Y,
-            double p1X, double p1Y,
-            double p2X, double p2Y,
-            double p3X, double p3Y,
-            double t)
+        public static (double X, double Y) CubicBezierDerivative0(double t, double p0X, double p0Y, double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y)
         {
             return (
                 3d * Pow(1d - t, 2d) * (p1X - p0X) + 6d * (1d - t) * t * (p2X - p1X) + 3d * Pow(t, 2d) * (p3X - p2X),
@@ -94,6 +89,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The cubic bezier derivative1.
         /// </summary>
+        /// <param name="t">The t.</param>
         /// <param name="p0X"></param>
         /// <param name="p0Y"></param>
         /// <param name="p1X"></param>
@@ -102,7 +98,6 @@ namespace InstrumentedLibrary
         /// <param name="p2Y"></param>
         /// <param name="p3X"></param>
         /// <param name="p3Y"></param>
-        /// <param name="t">The t.</param>
         /// <returns>The (double X, double Y).</returns>
         /// <acknowledgment>
         /// http://www.cs.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/Bezier/bezier-der.html
@@ -113,12 +108,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [DebuggerStepThrough]
-        public static (double X, double Y) CubicBezierDerivative1(
-            double p0X, double p0Y,
-            double p1X, double p1Y,
-            double p2X, double p2Y,
-            double p3X, double p3Y,
-            double t)
+        public static (double X, double Y) CubicBezierDerivative1(double t, double p0X, double p0Y, double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y)
         {
             var mu1 = 1d - t;
             var mu12 = mu1 * mu1;
