@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the 2D Hermite interpolation of points.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(HermiteInterpolate2DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -81,7 +81,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) HermiteInterpolate2D_(double index, double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3, double tension, double bias)
+        public static (double X, double Y) HermiteInterpolate2D1(double index, double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3, double tension, double bias)
         {
             var mu2 = index * index;
             var mu3 = mu2 * index;

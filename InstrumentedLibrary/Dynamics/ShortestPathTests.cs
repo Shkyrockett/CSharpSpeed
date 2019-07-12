@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the wrapped angle of an angle.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(ShortestPathTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -129,7 +129,7 @@ namespace InstrumentedLibrary
             //  polygons, as well as to the start point and endpoint.
             pointList.Add(start);
             pointCount = 1;
-            for (polyI = 0; polyI < polygons.Count; polyI++)
+            for (polyI = 0; polyI < polygons?.Count; polyI++)
             {
                 for (i = 0; i < polygons[polyI].Count; i++)
                 {
@@ -264,14 +264,15 @@ namespace InstrumentedLibrary
             //  polygons, as well as to the start point and endpoint.
             pointList.Add(start);
             pointCount = 1;
-            foreach (var poly in polygons)
-            {
-                foreach (var point in poly)
+            if (!(polygons is null))
+                foreach (var poly in polygons)
                 {
-                    pointList.Add(new AccumulatorPoint2D(point));
-                    pointCount++;
+                    foreach (var point in poly)
+                    {
+                        pointList.Add(new AccumulatorPoint2D(point));
+                        pointCount++;
+                    }
                 }
-            }
 
             pointList.Add(end);
             pointCount++;
@@ -397,13 +398,14 @@ namespace InstrumentedLibrary
             // Build a point list that refers to the corners of the
             // polygons, as well as to the start point and endpoint.
             pointList.Add((start.X, start.Y, 0, 0));
-            foreach (var poly in polygons)
-            {
-                foreach (var point in poly)
+            if (!(polygons is null))
+                foreach (var poly in polygons)
                 {
-                    pointList.Add((point.X, point.Y, 0, 0));
+                    foreach (var point in poly)
+                    {
+                        pointList.Add((point.X, point.Y, 0, 0));
+                    }
                 }
-            }
 
             pointList.Add((end.X, end.Y, 0, 0));
 
@@ -421,7 +423,7 @@ namespace InstrumentedLibrary
                 {
                     for (var tj = treeCount; tj < pointList.Count; tj++)
                     {
-                        if (PolygonContainsPointsTests.PolygonContainsPoints(polygons, new Point2D(pointList[ti].X, pointList[ti].Y), new Point2D(pointList[tj].X, pointList[tj].Y)) == Inclusion.Inside)
+                        if (PolygonContainsPointsTests.PolygonContainsPoints(polygons, new Point2D(pointList[ti].X, pointList[ti].Y), new Point2D(pointList[tj].X, pointList[tj].Y)) == Inclusions.Inside)
                         {
                             newDist = pointList[ti].TotalDistance + Distance2Point2DTests.Distance2D(new Point2D(pointList[ti].X, pointList[ti].Y), new Point2D(pointList[tj].X, pointList[tj].Y));
                             if (newDist < bestDist)

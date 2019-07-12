@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the 2D cubic interpolation of a point.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(BezierInterpolateCubic2DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -59,7 +59,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double X, double Y, double Z) CubicBezierInterpolate2D(double t, double aX, double aY, double aZ, double bX, double bY, double bZ, double cX, double cY, double cZ, double dX, double dY, double dZ)
-            => CubicBezierInterpolate3D_1(t, aX, aY, aZ, bX, bY, bZ, cX, cY, cZ, dX, dY, dZ);
+            => CubicBezierInterpolate3D1(t, aX, aY, aZ, bX, bY, bZ, cX, cY, cZ, dX, dY, dZ);
 
         /// <summary>
         /// Calculate parametric value of x or y given t and the four point
@@ -89,7 +89,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) CubicBezierInterpolate3D_1(double t, double aX, double aY, double aZ, double bX, double bY, double bZ, double cX, double cY, double cZ, double dX, double dY, double dZ)
+        public static (double X, double Y, double Z) CubicBezierInterpolate3D1(double t, double aX, double aY, double aZ, double bX, double bY, double bZ, double cX, double cY, double cZ, double dX, double dY, double dZ)
         {
             // Formula from Wikipedia article on Bézier curves.
             return (

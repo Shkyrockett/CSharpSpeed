@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the cross product of three 2D points.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(NearestPointOnLineSegmentTests))]
         public static List<SpeedTester> TestHarness()
         {

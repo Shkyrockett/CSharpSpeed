@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(CircleLineIntersectionTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -96,20 +96,20 @@ namespace InstrumentedLibrary
             if ((A <= epsilon) || (det < 0))
             {
                 // No real solutions.
-                return new Intersection(IntersectionState.NoIntersection);
+                return new Intersection(IntersectionStates.NoIntersection);
             }
             else if (Abs(det) < DoubleEpsilon)
             {
                 // One solution.
                 t = -B / (2 * A);
-                var intersection = new Intersection(IntersectionState.Intersection);
+                var intersection = new Intersection(IntersectionStates.Intersection);
                 intersection.AppendPoint((lAX + t * dx, lAY + t * dy));
                 return intersection;
             }
             else
             {
                 // Two solutions.
-                var intersection = new Intersection(IntersectionState.Intersection);
+                var intersection = new Intersection(IntersectionStates.Intersection);
                 t = (-B + Sqrt(det)) / (2d * A);
                 intersection.AppendPoint((lAX + t * dx, lAY + t * dy));
                 t = (-B - Sqrt(det)) / (2d * A);
@@ -146,7 +146,8 @@ namespace InstrumentedLibrary
             double lBX, double lBY,
             double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
+            _ = epsilon;
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // If the circle or line segment are empty, return no intersections.
             if ((r == 0d) || ((lAX == lBX) && (lAY == lBY)))
@@ -175,7 +176,7 @@ namespace InstrumentedLibrary
                 var t = -b / (2 * a);
 
                 // Add the points.
-                result = new Intersection(IntersectionState.Intersection);
+                result = new Intersection(IntersectionStates.Intersection);
                 result.AppendPoint(new Point2D(lAX + t * dx, lAY + t * dy));
             }
             else if (discriminant > 0)
@@ -185,7 +186,7 @@ namespace InstrumentedLibrary
                 var t2 = (-b - Sqrt(discriminant)) / (2 * a);
 
                 // Add the points.
-                result = new Intersection(IntersectionState.Intersection);
+                result = new Intersection(IntersectionStates.Intersection);
                 result.AppendPoint(new Point2D(lAX + t1 * dx, lAY + t1 * dy));
                 result.AppendPoint(new Point2D(lAX + t2 * dx, lAY + t2 * dy));
             }

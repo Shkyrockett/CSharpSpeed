@@ -15,7 +15,7 @@ namespace InstrumentedLibrary
         /// Get the types with help attribute.
         /// </summary>
         /// <param name="attribute">The attribute.</param>
-        /// <returns>The <see cref="T:IEnumerable{Type}"/>.</returns>
+        /// <returns>The <see cref="IEnumerable{Type}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<Type> GetTypesWithHelpAttribute(Type attribute)

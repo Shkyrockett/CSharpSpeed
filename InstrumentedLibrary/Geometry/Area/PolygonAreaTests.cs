@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the area of a polygon.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(PolygonAreaTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -66,17 +66,20 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double PolygonAreaAngusJ((double X, double Y)[] polygon)
         {
-            var cnt = polygon.Length;
-            if (cnt < 3)
-            {
-                return 0d;
-            }
-
             var area = 0d;
-            for (int i = 0, j = cnt - 1; i < cnt; ++i)
+            if (!(polygon is null))
             {
-                area += (polygon[j].X + polygon[i].X) * (polygon[j].Y - polygon[i].Y);
-                j = i;
+                var cnt = polygon.Length;
+                if (cnt < 3)
+                {
+                    return 0d;
+                }
+
+                for (int i = 0, j = cnt - 1; i < cnt; ++i)
+                {
+                    area += (polygon[j].X + polygon[i].X) * (polygon[j].Y - polygon[i].Y);
+                    j = i;
+                }
             }
 
             return -area * 0.5d;
@@ -98,13 +101,17 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double PolygonAreaAlienRyderFlex((double X, double Y)[] polygon)
         {
-            var j = polygon.Length - 1;
             var area = 0d;
-            for (var i = 0; i < polygon.Length; i++)
+            if (!(polygon is null))
             {
-                area += (polygon[j].X + polygon[i].X) * (polygon[j].Y - polygon[i].Y); j = i;
+                var j = polygon.Length - 1;
+                for (var i = 0; i < polygon.Length; i++)
+                {
+                    area += (polygon[j].X + polygon[i].X) * (polygon[j].Y - polygon[i].Y); j = i;
+                }
+                area *= 0.5d;
             }
-            area *= 0.5d;
+
             return area < 0d ? -area : area;
         }
 
@@ -126,7 +133,7 @@ namespace InstrumentedLibrary
         {
             var area = 0d;
 
-            for (var i = 0; i < polygon.Length; i++)
+            for (var i = 0; i < polygon?.Length; i++)
             {
                 var j = (i + 1) % polygon.Length;
                 area += polygon[i].X * polygon[j].Y;
@@ -153,12 +160,17 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double PolygonArea2((double X, double Y)[] polygon)
         {
-            var points = new List<(double X, double Y)>(polygon) { };
-            points.Add(polygon[0]);
+            if (!(polygon is null))
+            {
+                var points = new List<(double X, double Y)>(polygon) { };
+                points.Add(polygon[0]);
 
-            return Abs(points.Take(points.Count - 1)
-               .Select((p, i) => (points[i + 1].X - p.X) * (points[i + 1].Y + p.Y))
-               .Sum() / 2d);
+                return Abs(points.Take(points.Count - 1)
+                   .Select((p, i) => (points[i + 1].X - p.X) * (points[i + 1].Y + p.Y))
+                   .Sum() / 2d);
+            }
+
+            return default;
         }
 
         /// <summary>
@@ -177,9 +189,14 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double PolygonArea3((double X, double Y)[] polygon)
         {
-            var points = new List<(double X, double Y)>(polygon) { };
-            points.Add(polygon[0]);
-            return Abs(points.Take(points.Count - 1).Select((p, i) => (p.X * points[i + 1].Y) - (p.Y * points[i + 1].X)).Sum() / 2d);
+            if (!(polygon is null))
+            {
+                var points = new List<(double X, double Y)>(polygon) { };
+                points.Add(polygon[0]);
+                return Abs(points.Take(points.Count - 1).Select((p, i) => (p.X * points[i + 1].Y) - (p.Y * points[i + 1].X)).Sum() / 2d);
+            }
+
+            return default;
         }
 
         /// <summary>
@@ -198,7 +215,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double PolygonAreaOnlyUser((double X, double Y)[] polygon)
         {
-            if (polygon.Length < 3)
+            if (polygon is null || polygon.Length < 3)
             {
                 return 0d;
             }

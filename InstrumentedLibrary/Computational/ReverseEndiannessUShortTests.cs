@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the 2D cubic interpolation of a point.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(ReverseEndiannessUShortTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -74,7 +74,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ushort ReverseEndianness_(ushort value)
+        public static ushort ReverseEndianness1(ushort value)
         {
             // Don't need to AND with 0xFF00 or 0x00FF since the final
             // cast back to ushort will clear out all bits above [ 15 .. 00 ].

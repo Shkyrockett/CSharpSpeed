@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The interpolate cubic bezier1d test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(InterpolateBezierQuartic1DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -63,7 +63,7 @@ namespace InstrumentedLibrary
         /// <param name="dV"></param>
         /// <param name="eV"></param>
         /// <returns></returns>
-        /// <returns>The <see cref="T:(double X, double Y)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuarticBezierInterpolateGetValue(double t, double aV, double bV, double cV, double dV, double eV)

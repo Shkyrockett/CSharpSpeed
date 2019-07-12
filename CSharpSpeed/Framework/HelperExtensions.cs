@@ -17,12 +17,12 @@ namespace CSharpSpeed
         /// The list static factory constructors.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns>The <see cref="T:List{MethodInfo}"/>.</returns>
+        /// <returns>The <see cref="List{MethodInfo}"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<MethodInfo> ListStaticFactoryConstructors(this Type type)
             => new List<MethodInfo>
             (
-                from method in type.GetMethods()
+                from method in type?.GetMethods()
                 where method.IsStatic
                 where method.ReturnType == type
                 select method
@@ -33,12 +33,12 @@ namespace CSharpSpeed
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="type2">The type2.</param>
-        /// <returns>The <see cref="T:List{MethodInfo}"/>.</returns>
+        /// <returns>The <see cref="List{MethodInfo}"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<MethodInfo> ListStaticFactoryConstructorsList(this Type type, Type type2)
             => new List<MethodInfo>
             (
-                from method in type.GetMethods()
+                from method in type?.GetMethods()
                 where method.IsStatic
                 where method.ReturnType == type2
                 select method
@@ -49,11 +49,11 @@ namespace CSharpSpeed
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="attributeType">The attribute.</param>
-        /// <returns>The <see cref="T:List{MethodInfo}"/>.</returns>
+        /// <returns>The <see cref="List{MethodInfo}"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<MethodInfo> ListStaticMethodsWithAttribute(this Type type, Type attributeType)
             => new List<MethodInfo>(
-                from method in type.GetMethods()
+                from method in type?.GetMethods()
                 where method.IsStatic
                 where method.GetCustomAttributes(attributeType).Any()
                 select method
@@ -63,7 +63,7 @@ namespace CSharpSpeed
         /// The list classes with attribute.
         /// </summary>
         /// <param name="attributeType">The attributeType.</param>
-        /// <returns>The <see cref="T:IEnumerable{TypeInfo}"/>.</returns>
+        /// <returns>The <see cref="IEnumerable{TypeInfo}"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<TypeInfo> ListClassesWithAttribute(this Type attributeType)
             => (from assembly in AppDomain.CurrentDomain.GetAssemblies()
@@ -77,13 +77,14 @@ namespace CSharpSpeed
         /// <param name="array">The array.</param>
         /// <returns>The <see cref="string"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string ArrayToUrlListString(this string[] array)
+        public static string ArrayToAddressListString(this string[] array)
         {
             var sb = new StringBuilder();
-            foreach (var item in array)
-            {
-                sb.AppendLine($"- [{item}]({item})");
-            }
+            if (!(array is null))
+                foreach (var item in array)
+                {
+                    sb.AppendLine($"- [{item}]({item})");
+                }
             return sb.ToString();
         }
 
@@ -105,189 +106,99 @@ namespace CSharpSpeed
         public static string ObjectValueToString(this object value)
         {
             // This mess is to make sure to print reproducible floating point values in order to be able to correct test cases, and enable printing some complex types.
-            switch (value)
+            return value switch
             {
-                case float f:
-                    return $"{f:R}";
-                case double d:
-                    return $"{d:R}";
-                case ValueTuple<float, float> t:
-                    return $"({t.Item1:R}, {t.Item2:R})";
-                case ValueTuple<double, double> t:
-                    return $"({t.Item1:R}, {t.Item2:R})";
-                case ValueTuple<float, float, float> t:
-                    return $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R})";
-                case ValueTuple<double, double, double> t:
-                    return $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R})";
-                case ValueTuple<float, float, float, float> t:
-                    return $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R})";
-                case ValueTuple<double, double, double, double> t:
-                    return $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R})";
-                case ValueTuple<float, float, float, float, float> t:
-                    return $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R})";
-                case ValueTuple<double, double, double, double, double> t:
-                    return $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R})";
-                case ValueTuple<float, float, float, float, float, float> t:
-                    return $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R}, {t.Item6:R})";
-                case ValueTuple<double, double, double, double, double, double> t:
-                    return $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R}, {t.Item6:R})";
-                case ValueTuple<float, float, float, float, float, float, float> t:
-                    return $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R}, {t.Item6:R}, {t.Item7:R})";
-                case ValueTuple<double, double, double, double, double, double, double> t:
-                    return $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R}, {t.Item6:R}, {t.Item7:R})";
-                case ValueTuple<float, float, float, float, float, float, float, ValueTuple<float>> t:
-                    return $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R}, {t.Item6:R}, {t.Item7:R}, {t.Item8:R})";
-                case ValueTuple<double, double, double, double, double, double, double, ValueTuple<double>> t:
-                    return $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R}, {t.Item6:R}, {t.Item7:R}, {t.Item8:R})";
-                case ValueTuple<float, float, float, float, float, float, float, ValueTuple<float, float>> t:
-                    return $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R}, {t.Item6:R}, {t.Item7:R}, {t.Item8:R}, {t.Item9:R})";
-                case ValueTuple<double, double, double, double, double, double, double, ValueTuple<double, double>> t:
-                    return $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R}, {t.Item6:R}, {t.Item7:R}, {t.Item8:R}, {t.Item9:R})";
-                case float[] l:
-                    return $"float\\[\\] {{{string.Join(", ", l.Select(x => $"{x:R}"))}}}";
-                case double[] l:
-                    return $"double\\[\\] {{{string.Join(", ", l.Select(x => $"{x:R}"))}}}";
-                case (float, float)[] v:
-                    return $"(float, float)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case (double, double)[] v:
-                    return $"(double, double)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case (float, float, float)[] v:
-                    return $"(float, float, float)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case (double, double, double)[] v:
-                    return $"(double, double, double)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case (float, float, float, float)[] v:
-                    return $"(float, float, float, float)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case (double, double, double, double)[] v:
-                    return $"(double, double, double, double)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case (float, float, float, float, float)[] v:
-                    return $"(float, float, float, float, float)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case (double, double, double, double, double)[] v:
-                    return $"(double, double, double, double, double)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case (float, float, float, float, float, float)[] v:
-                    return $"(float, float, float, float, float, float)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case (double, double, double, double, double, double)[] v:
-                    return $"(double, double, double, double, double, double)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case (float, float, float, float, float, float, float)[] v:
-                    return $"(float, float, float, float, float, float, float)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case (double, double, double, double, double, double, double)[] v:
-                    return $"(double, double, double, double, double, double, double)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case (float, float, float, float, float, float, float, float)[] v:
-                    return $"(float, float, float, float, float, float, float, float)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case (double, double, double, double, double, double, double, double)[] v:
-                    return $"(double, double, double, double, double, double, double, double)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case (float, float, float, float, float, float, float, float, float)[] v:
-                    return $"(float, float, float, float, float, float, float, float, float)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case (double, double, double, double, double, double, double, double, double)[] v:
-                    return $"(double, double, double, double, double, double, double, double, double)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case List<float> l:
-                    return $"List\\<float\\>{{{string.Join(", ", l.Select(x => $"{x:R}"))}}}";
-                case List<double> l:
-                    return $"List\\<double\\>{{{string.Join(", ", l.Select(x => $"{x:R}"))}}}";
-                case List<(float, float)> v:
-                    return $"List\\<(float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case List<(double, double)> v:
-                    return $"List\\<(double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case List<(float, float, float)> v:
-                    return $"List\\<(float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case List<(double, double, double)> v:
-                    return $"List\\<(double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case List<(float, float, float, float)> v:
-                    return $"List\\<(float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case List<(double, double, double, double)> v:
-                    return $"List\\<(double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case List<(float, float, float, float, float)> v:
-                    return $"List\\<(float, float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case List<(double, double, double, double, double)> v:
-                    return $"List\\<(double, double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case List<(float, float, float, float, float, float)> v:
-                    return $"List\\<(float, float, float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case List<(double, double, double, double, double, double)> v:
-                    return $"List\\<(double, double, double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case List<(float, float, float, float, float, float, float)> v:
-                    return $"List\\<(float, float, float, float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case List<(double, double, double, double, double, double, double)> v:
-                    return $"List\\<(double, double, double, double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case List<(float, float, float, float, float, float, float, float)> v:
-                    return $"List\\<(float, float, float, float, float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case List<(double, double, double, double, double, double, double, double)> v:
-                    return $"List\\<(double, double, double, double, double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case List<(float, float, float, float, float, float, float, float, float)> v:
-                    return $"List\\<(float, float, float, float, float, float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case List<(double, double, double, double, double, double, double, double, double)> v:
-                    return $"List\\<(double, double, double, double, double, double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<float> l:
-                    return $"IList\\<float\\>{{{string.Join(", ", l.Select(x => $"{x:R}"))}}}";
-                case IList<double> l:
-                    return $"IList\\<double\\>{{{string.Join(", ", l.Select(x => $"{x:R}"))}}}";
-                case IList<(float, float)> v:
-                    return $"IList\\<(float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<(double, double)> v:
-                    return $"IList\\<(double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<(float, float, float)> v:
-                    return $"IList\\<(float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<(double, double, double)> v:
-                    return $"IList\\<(double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<(float, float, float, float)> v:
-                    return $"IList\\<(float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<(double, double, double, double)> v:
-                    return $"IList\\<(double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<(float, float, float, float, float)> v:
-                    return $"IList\\<(float, float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<(double, double, double, double, double)> v:
-                    return $"IList\\<(double, double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<(float, float, float, float, float, float)> v:
-                    return $"IList\\<(float, float, float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<(double, double, double, double, double, double)> v:
-                    return $"IList\\<(double, double, double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<(float, float, float, float, float, float, float)> v:
-                    return $"IList\\<(float, float, float, float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<(double, double, double, double, double, double, double)> v:
-                    return $"IList\\<(double, double, double, double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<(float, float, float, float, float, float, float, float)> v:
-                    return $"IList\\<(float, float, float, float, float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<(double, double, double, double, double, double, double, double)> v:
-                    return $"IList\\<(double, double, double, double, double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<(float, float, float, float, float, float, float, float, float)> v:
-                    return $"IList\\<(float, float, float, float, float, float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<(double, double, double, double, double, double, double, double, double)> v:
-                    return $"IList\\<(double, double, double, double, double, double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case (float, float)[][] v:
-                    return $"(float, float)\\[\\]\\[\\]\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case (double, double)[][] v:
-                    return $"(double, double)\\[\\]\\[\\]\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case (float, float, float)[][] v:
-                    return $"(float, float, float)\\[\\]\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case (double, double, double)[][] v:
-                    return $"(double, double, double)\\[\\]\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<(float, float)[]> v:
-                    return $"IList\\<(float, float)\\[\\]\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<(double, double)[]> v:
-                    return $"IList\\<(double, double)\\[\\]\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<(float, float, float)[]> v:
-                    return $"IList\\<(float, float, float)\\[\\]\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<(double, double, double)[]> v:
-                    return $"IList\\<(double, double, double)\\[\\]\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<List<(float, float)>> v:
-                    return $"IList\\<List\\<(float, float)\\>\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<List<(double, double)>> v:
-                    return $"IList\\<List\\<(double, double)\\>\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<List<(float, float, float)>> v:
-                    return $"IList\\<List\\<(float, float, float)\\>\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case IList<List<(double, double, double)>> v:
-                    return $"IList\\<List\\<(double, double, double)\\>\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}";
-                case Complex[] l:
-                    return $"Complex\\[\\] {{{string.Join(", ", l.Select(x => $"{x:R}"))}}}";
-                case List<Complex> l:
-                    return $"List\\<Complex\\> {{{string.Join(", ", l.Select(x => $"{x:R}"))}}}";
-                case IList<Complex> l:
-                    return $"IList\\<Complex\\> {{{string.Join(", ", l.Select(x => $"{x:R}"))}}}";
-                case object[] l:
-                    return $"object\\[\\] {{{string.Join(", ", l.Select(x => x?.ToString() ?? "Null"))}}}";
-                case null:
-                    return "Null";
-                default:
-                    return value.ToString();
-            }
+                float f => $"{f:R}",
+                double d => $"{d:R}",
+                ValueTuple<float, float> t => $"({t.Item1:R}, {t.Item2:R})",
+                ValueTuple<double, double> t => $"({t.Item1:R}, {t.Item2:R})",
+                ValueTuple<float, float, float> t => $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R})",
+                ValueTuple<double, double, double> t => $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R})",
+                ValueTuple<float, float, float, float> t => $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R})",
+                ValueTuple<double, double, double, double> t => $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R})",
+                ValueTuple<float, float, float, float, float> t => $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R})",
+                ValueTuple<double, double, double, double, double> t => $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R})",
+                ValueTuple<float, float, float, float, float, float> t => $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R}, {t.Item6:R})",
+                ValueTuple<double, double, double, double, double, double> t => $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R}, {t.Item6:R})",
+                ValueTuple<float, float, float, float, float, float, float> t => $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R}, {t.Item6:R}, {t.Item7:R})",
+                ValueTuple<double, double, double, double, double, double, double> t => $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R}, {t.Item6:R}, {t.Item7:R})",
+                ValueTuple<float, float, float, float, float, float, float, ValueTuple<float>> t => $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R}, {t.Item6:R}, {t.Item7:R}, {t.Item8:R})",
+                ValueTuple<double, double, double, double, double, double, double, ValueTuple<double>> t => $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R}, {t.Item6:R}, {t.Item7:R}, {t.Item8:R})",
+                ValueTuple<float, float, float, float, float, float, float, ValueTuple<float, float>> t => $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R}, {t.Item6:R}, {t.Item7:R}, {t.Item8:R}, {t.Item9:R})",
+                ValueTuple<double, double, double, double, double, double, double, ValueTuple<double, double>> t => $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R}, {t.Item4:R}, {t.Item5:R}, {t.Item6:R}, {t.Item7:R}, {t.Item8:R}, {t.Item9:R})",
+                float[] l => $"float\\[\\] {{{string.Join(", ", l.Select(x => $"{x:R}"))}}}",
+                double[] l => $"double\\[\\] {{{string.Join(", ", l.Select(x => $"{x:R}"))}}}",
+                (float, float)[] v => $"(float, float)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                (double, double)[] v => $"(double, double)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                (float, float, float)[] v => $"(float, float, float)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                (double, double, double)[] v => $"(double, double, double)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                (float, float, float, float)[] v => $"(float, float, float, float)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                (double, double, double, double)[] v => $"(double, double, double, double)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                (float, float, float, float, float)[] v => $"(float, float, float, float, float)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                (double, double, double, double, double)[] v => $"(double, double, double, double, double)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                (float, float, float, float, float, float)[] v => $"(float, float, float, float, float, float)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                (double, double, double, double, double, double)[] v => $"(double, double, double, double, double, double)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                (float, float, float, float, float, float, float)[] v => $"(float, float, float, float, float, float, float)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                (double, double, double, double, double, double, double)[] v => $"(double, double, double, double, double, double, double)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                (float, float, float, float, float, float, float, float)[] v => $"(float, float, float, float, float, float, float, float)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                (double, double, double, double, double, double, double, double)[] v => $"(double, double, double, double, double, double, double, double)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                (float, float, float, float, float, float, float, float, float)[] v => $"(float, float, float, float, float, float, float, float, float)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                (double, double, double, double, double, double, double, double, double)[] v => $"(double, double, double, double, double, double, double, double, double)\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                List<float> l => $"List\\<float\\>{{{string.Join(", ", l.Select(x => $"{x:R}"))}}}",
+                List<double> l => $"List\\<double\\>{{{string.Join(", ", l.Select(x => $"{x:R}"))}}}",
+                List<(float, float)> v => $"List\\<(float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                List<(double, double)> v => $"List\\<(double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                List<(float, float, float)> v => $"List\\<(float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                List<(double, double, double)> v => $"List\\<(double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                List<(float, float, float, float)> v => $"List\\<(float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                List<(double, double, double, double)> v => $"List\\<(double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                List<(float, float, float, float, float)> v => $"List\\<(float, float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                List<(double, double, double, double, double)> v => $"List\\<(double, double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                List<(float, float, float, float, float, float)> v => $"List\\<(float, float, float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                List<(double, double, double, double, double, double)> v => $"List\\<(double, double, double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                List<(float, float, float, float, float, float, float)> v => $"List\\<(float, float, float, float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                List<(double, double, double, double, double, double, double)> v => $"List\\<(double, double, double, double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                List<(float, float, float, float, float, float, float, float)> v => $"List\\<(float, float, float, float, float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                List<(double, double, double, double, double, double, double, double)> v => $"List\\<(double, double, double, double, double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                List<(float, float, float, float, float, float, float, float, float)> v => $"List\\<(float, float, float, float, float, float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                List<(double, double, double, double, double, double, double, double, double)> v => $"List\\<(double, double, double, double, double, double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<float> l => $"IList\\<float\\>{{{string.Join(", ", l.Select(x => $"{x:R}"))}}}",
+                IList<double> l => $"IList\\<double\\>{{{string.Join(", ", l.Select(x => $"{x:R}"))}}}",
+                IList<(float, float)> v => $"IList\\<(float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<(double, double)> v => $"IList\\<(double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<(float, float, float)> v => $"IList\\<(float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<(double, double, double)> v => $"IList\\<(double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<(float, float, float, float)> v => $"IList\\<(float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<(double, double, double, double)> v => $"IList\\<(double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<(float, float, float, float, float)> v => $"IList\\<(float, float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<(double, double, double, double, double)> v => $"IList\\<(double, double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<(float, float, float, float, float, float)> v => $"IList\\<(float, float, float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<(double, double, double, double, double, double)> v => $"IList\\<(double, double, double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<(float, float, float, float, float, float, float)> v => $"IList\\<(float, float, float, float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<(double, double, double, double, double, double, double)> v => $"IList\\<(double, double, double, double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<(float, float, float, float, float, float, float, float)> v => $"IList\\<(float, float, float, float, float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<(double, double, double, double, double, double, double, double)> v => $"IList\\<(double, double, double, double, double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<(float, float, float, float, float, float, float, float, float)> v => $"IList\\<(float, float, float, float, float, float, float, float, float)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<(double, double, double, double, double, double, double, double, double)> v => $"IList\\<(double, double, double, double, double, double, double, double, double)\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                (float, float)[][] v => $"(float, float)\\[\\]\\[\\]\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                (double, double)[][] v => $"(double, double)\\[\\]\\[\\]\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                (float, float, float)[][] v => $"(float, float, float)\\[\\]\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                (double, double, double)[][] v => $"(double, double, double)\\[\\]\\[\\]{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<(float, float)[]> v => $"IList\\<(float, float)\\[\\]\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<(double, double)[]> v => $"IList\\<(double, double)\\[\\]\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<(float, float, float)[]> v => $"IList\\<(float, float, float)\\[\\]\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<(double, double, double)[]> v => $"IList\\<(double, double, double)\\[\\]\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<List<(float, float)>> v => $"IList\\<List\\<(float, float)\\>\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<List<(double, double)>> v => $"IList\\<List\\<(double, double)\\>\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<List<(float, float, float)>> v => $"IList\\<List\\<(float, float, float)\\>\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                IList<List<(double, double, double)>> v => $"IList\\<List\\<(double, double, double)\\>\\>{{{ string.Join(", ", v.Select(o => ObjectValueToString(o)))}}}",
+                Complex[] l => $"Complex\\[\\] {{{string.Join(", ", l.Select(x => $"{x:R}"))}}}",
+                List<Complex> l => $"List\\<Complex\\> {{{string.Join(", ", l.Select(x => $"{x:R}"))}}}",
+                IList<Complex> l => $"IList\\<Complex\\> {{{string.Join(", ", l.Select(x => $"{x:R}"))}}}",
+                object[] l => $"object\\[\\] {{{string.Join(", ", l.Select(x => x?.ToString() ?? "Null"))}}}",
+                null => "Null",
+                _ => value?.ToString(),
+            };
         }
 
         /// <summary>

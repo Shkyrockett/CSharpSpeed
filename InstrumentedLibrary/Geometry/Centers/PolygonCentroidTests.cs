@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The polygon centroid test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(PolygonCentroidTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -64,36 +64,39 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Centroid0((double x, double y)[] polygon)
         {
-            // Add the first point at the end of the array.
-            var num_points = polygon.Length;
-            var pts = new (double X, double Y)[num_points + 1];
-            polygon.CopyTo(pts, 0);
-            pts[num_points] = polygon[0];
-
-            // Find the centroid.
             var X = 0d;
             var Y = 0d;
-            double second_factor;
-            for (var i = 0; i < num_points; i++)
+            if (!(polygon is null))
             {
-                second_factor =
-                    (pts[i].X * pts[i + 1].Y)
-                    - (pts[i + 1].X * pts[i].Y);
-                X += (pts[i].X + pts[i + 1].X) * second_factor;
-                Y += (pts[i].Y + pts[i + 1].Y) * second_factor;
-            }
+                // Add the first point at the end of the array.
+                var num_points = polygon.Length;
+                var pts = new (double X, double Y)[num_points + 1];
+                polygon.CopyTo(pts, 0);
+                pts[num_points] = polygon[0];
 
-            // Divide by 6 times the polygon's area.
-            var polygon_area = PolygonSignedAreaTests.SignedPolygonArea(polygon);
-            X /= 6d * polygon_area;
-            Y /= 6d * polygon_area;
+                // Find the centroid.
+                double second_factor;
+                for (var i = 0; i < num_points; i++)
+                {
+                    second_factor =
+                        (pts[i].X * pts[i + 1].Y)
+                        - (pts[i + 1].X * pts[i].Y);
+                    X += (pts[i].X + pts[i + 1].X) * second_factor;
+                    Y += (pts[i].Y + pts[i + 1].Y) * second_factor;
+                }
 
-            // If the values are negative, the polygon is
-            // oriented counterclockwise so reverse the signs.
-            if (X < 0)
-            {
-                X = -X;
-                Y = -Y;
+                // Divide by 6 times the polygon's area.
+                var polygon_area = PolygonSignedAreaTests.SignedPolygonArea(polygon);
+                X /= 6d * polygon_area;
+                Y /= 6d * polygon_area;
+
+                // If the values are negative, the polygon is
+                // oriented counterclockwise so reverse the signs.
+                if (X < 0)
+                {
+                    X = -X;
+                    Y = -Y;
+                }
             }
 
             return new Point2D(X, Y);
@@ -119,7 +122,7 @@ namespace InstrumentedLibrary
             var area = 0d;
             var cx = 0d;
             var cy = 0d;
-            for (int i = poly.Length - 1, j = 0; j < poly.Length; i = j, j++)
+            for (int i = (poly?.Length).Value - 1, j = 0; j < poly.Length; i = j, j++)
             {
                 var a = (poly[i].x * poly[j].y) - (poly[j].x * poly[i].y);
                 cx += (poly[i].x + poly[j].x) * a;

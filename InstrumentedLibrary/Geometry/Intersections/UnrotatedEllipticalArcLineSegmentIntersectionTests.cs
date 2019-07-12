@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(UnrotatedEllipticalArcLineSegmentIntersectionTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -89,8 +89,9 @@ namespace InstrumentedLibrary
             double x0, double y0,
             double x1, double y1, double epsilon = Epsilon)
         {
+            _ = epsilon;
             // Initialize the resulting intersection structure.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // Translate the line to put the ellipse centered at the origin.
             var origin = new Vector2D(x0, y0);
@@ -110,7 +111,7 @@ namespace InstrumentedLibrary
             // Check whether line segment is outside of the ellipse.
             if (discriminant < 0d)
             {
-                return new Intersection(IntersectionState.Outside);
+                return new Intersection(IntersectionStates.Outside);
             }
 
             // Find the start and end angles.
@@ -141,7 +142,7 @@ namespace InstrumentedLibrary
                 var t2 = (-b + root) / a;
                 if ((t1 < 0d || 1d < t1) && (t2 < 0d || 1d < t2))
                 {
-                    result = (t1 < 0d && t2 < 0d) || (t1 > 1d && t2 > 1d) ? new Intersection(IntersectionState.Outside) : new Intersection(IntersectionState.Inside);
+                    result = (t1 < 0d && t2 < 0d) || (t1 > 1d && t2 > 1d) ? new Intersection(IntersectionStates.Outside) : new Intersection(IntersectionStates.Inside);
                 }
                 else
                 {
@@ -183,13 +184,13 @@ namespace InstrumentedLibrary
                 }
                 else
                 {
-                    result = new Intersection(IntersectionState.Outside);
+                    result = new Intersection(IntersectionStates.Outside);
                 }
             }
 
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;

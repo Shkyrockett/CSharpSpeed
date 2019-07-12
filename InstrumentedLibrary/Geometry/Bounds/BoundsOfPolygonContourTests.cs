@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that Find the bounds of polygons.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(BoundsOfPolygonContourTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -93,36 +93,41 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D PolygonBounds1(List<(double X, double Y)> path)
         {
-            var result = new Rectangle2D
+            if (!(path is null))
             {
-                Left = path[0].X,
-                Top = path[0].Y,
-                Right = path[0].X,
-                Bottom = path[0].Y
-            };
+                var result = new Rectangle2D
+                {
+                    Left = path[0].X,
+                    Top = path[0].Y,
+                    Right = path[0].X,
+                    Bottom = path[0].Y
+                };
 
-            for (var i = 0; i < path.Count; i++)
-            {
-                if (path[i].X < result.Left)
+                for (var i = 0; i < path.Count; i++)
                 {
-                    result.Left = path[i].X;
-                }
-                else if (path[i].X > result.Right)
-                {
-                    result.Right = path[i].X;
+                    if (path[i].X < result.Left)
+                    {
+                        result.Left = path[i].X;
+                    }
+                    else if (path[i].X > result.Right)
+                    {
+                        result.Right = path[i].X;
+                    }
+
+                    if (path[i].Y < result.Top)
+                    {
+                        result.Top = path[i].Y;
+                    }
+                    else if (path[i].Y > result.Bottom)
+                    {
+                        result.Bottom = path[i].Y;
+                    }
                 }
 
-                if (path[i].Y < result.Top)
-                {
-                    result.Top = path[i].Y;
-                }
-                else if (path[i].Y > result.Bottom)
-                {
-                    result.Bottom = path[i].Y;
-                }
+                return result;
             }
 
-            return result;
+            return default;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the angle of three 2D points.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(Angle3Vector2DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -50,7 +50,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double AngleVector(double x1, double y1, double x2, double y2, double x3, double y3)
-            => AngleVector_0(x1, y1, x2, y2, x3, y3);
+            => AngleVector0(x1, y1, x2, y2, x3, y3);
 
         /// <summary>
         /// The angle vector 0.
@@ -77,7 +77,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double AngleVector_0(
+        public static double AngleVector0(
             double x1, double y1,
             double x2, double y2,
             double x3, double y3)
@@ -110,7 +110,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double AngleVector_1(
+        public static double AngleVector1(
             double aX, double aY,
             double bX, double bY,
             double cX, double cY)

@@ -18,13 +18,16 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct EllipticalArc2D
-        : IShapeSegment, ICachableProperties
+        : IShapeSegment, ICachableProperties, IEquatable<EllipticalArc2D>
     {
         #region Implementations
         /// <summary>
         /// The empty.
         /// </summary>
-        public static EllipticalArc2D Empty = new EllipticalArc2D(0d, 0d, 0d, 0d, 0d, 0d, Maths.Tau);
+        public static readonly EllipticalArc2D Empty = new EllipticalArc2D(0d, 0d, 0d, 0d, 0d, 0d, Maths.Tau);
+        #endregion
+
+        #region Fields
         private double x;
         private double y;
         private double radiusA;
@@ -139,6 +142,62 @@ namespace InstrumentedLibrary
         #endregion
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator ==(EllipticalArc2D left, EllipticalArc2D right) => left.Equals(right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator !=(EllipticalArc2D left, EllipticalArc2D right) => !(left == right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj) => obj is EllipticalArc2D && Equals((EllipticalArc2D)obj);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(EllipticalArc2D other) => other.x == x && other.y == y && other.angle == angle && other.startAngle == startAngle && other.sweepAngle == sweepAngle;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(EllipticalArc2D left, EllipticalArc2D right) => left.Equals(right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override int GetHashCode() => HashCode.Combine(x, y, radiusA, radiusB, angle, startAngle, sweepAngle);
+
+        /// <summary>
         /// Creates a <see cref="string"/> representation of this <see cref="IShape"/> interface based on the current culture.
         /// </summary>
         /// <returns>A <see cref="string"/> representation of this instance of the <see cref="IShape"/> object.</returns>
@@ -156,11 +215,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider formatProvider)
         {
-            //if (this is null)
-            //{
-            //    return nameof(Ellipse2D);
-            //}
-
+            if (this == null) return nameof(Ellipse2D);
             var sep = ((formatProvider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
             return $"{nameof(EllipticalArc2D)}({nameof(X)}: {X.ToString(format, formatProvider)}{sep} {nameof(Y)}: {Y.ToString(format, formatProvider)}{sep} {nameof(RadiusA)}: {RadiusA.ToString(format, formatProvider)}{sep} {nameof(RadiusB)}: {RadiusB.ToString(format, formatProvider)}{sep} {nameof(Angle)}: {Angle.ToString(format, formatProvider)}{sep} {nameof(StartAngle)}: {StartAngle.ToString(format, formatProvider)}{sep} {nameof(SweepAngle)}: {SweepAngle.ToString(format, formatProvider)})";
         }

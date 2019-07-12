@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -13,6 +14,16 @@ namespace InstrumentedLibrary
     public static class ExponentialInPercentageEasingTests
     {
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double ExpoIn(double t)
+            => ExpoIn1( t);
+
+        /// <summary>
         /// Exponential in.
         /// </summary>
         /// <param name="t">Current time elapsed in ticks.</param>
@@ -22,7 +33,9 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ExpoIn(double t)
-            => Pow(2d, 10d * (t - 1d));
+        public static double ExpoIn1(double t)
+        {
+            return Pow(2d, 10d * (t - 1d));
+        }
     }
 }

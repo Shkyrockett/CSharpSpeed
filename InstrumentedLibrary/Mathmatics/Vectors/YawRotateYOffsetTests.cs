@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(ToDegreesTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -51,7 +51,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double X, double Y, double Z) RotateY(double x1, double y1, double z1, double yOff, double zOff, double rad)
-            => RotateY_(x1, y1, z1, yOff, zOff, rad);
+            => RotateY1(x1, y1, z1, yOff, zOff, rad);
 
         /// <summary>
         /// The rotate y.
@@ -71,7 +71,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) RotateY_(double x1, double y1, double z1, double xOff, double zOff, double rad)
+        public static (double X, double Y, double Z) RotateY1(double x1, double y1, double z1, double xOff, double zOff, double rad)
         {
             var sin = Sin(rad);
             var cos = Cos(rad);

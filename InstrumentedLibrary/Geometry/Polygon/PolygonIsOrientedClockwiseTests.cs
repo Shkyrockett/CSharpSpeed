@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The polygon centroid test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(PolygonIsOrientedClockwiseTests))]
         public static List<SpeedTester> TestHarness()
         {

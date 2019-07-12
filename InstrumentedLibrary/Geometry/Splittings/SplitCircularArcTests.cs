@@ -21,7 +21,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The polygon centroid test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(SplitCircularArcTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -52,7 +52,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static CircularArc2D[] SplitCircularArc(double x, double y, double radius, double startAngle, double sweepAngle, params double[] ts)
-            => SplitCircularArc_(x, y, radius, startAngle, sweepAngle, ts);
+            => SplitCircularArc1(x, y, radius, startAngle, sweepAngle, ts);
 
         /// <summary>
         /// The split.
@@ -63,13 +63,13 @@ namespace InstrumentedLibrary
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:CircularArc[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DisplayName("Split Circular Arc")]
         [Description("Split Circular Arc.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CircularArc2D[] SplitCircularArc_(double x, double y, double radius, double startAngle, double sweepAngle, params double[] ts)
+        public static CircularArc2D[] SplitCircularArc1(double x, double y, double radius, double startAngle, double sweepAngle, params double[] ts)
         {
             if (ts is null)
             {

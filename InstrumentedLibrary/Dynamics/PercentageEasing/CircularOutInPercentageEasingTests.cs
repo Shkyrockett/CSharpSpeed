@@ -1,8 +1,11 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using static InstrumentedLibrary.EasingConstants;
+using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
 {
@@ -11,6 +14,16 @@ namespace InstrumentedLibrary
     /// </summary>
     public static class CircularOutInPercentageEasingTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double CircOutIn(double t)
+            => CircOutIn1( t);
+
         /// <summary>
         /// Easing equation function for a circular (sqrt(1-t^2)) easing in/out:
         /// acceleration until halfway, then deceleration.
@@ -22,9 +35,9 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CircOutIn(double t)
+        public static double CircOutIn1(double t)
         {
-            return (t < 0.5d) ? CircularOutPercentageEasingTests.CircOut(t * 2d) : CircularInPercentageEasingTests.CircIn((t * 2d) - 1d);
+            return (t < OneHalf) ? CircularOutPercentageEasingTests.CircOut(t * 2d) : CircularInPercentageEasingTests.CircIn((t * 2d) - 1d);
         }
     }
 }

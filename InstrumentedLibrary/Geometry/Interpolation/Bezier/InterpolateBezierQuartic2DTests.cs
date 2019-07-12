@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the 2D cubic interpolation of a point.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(InterpolateBezierQuartic2DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -73,7 +73,7 @@ namespace InstrumentedLibrary
         /// <param name="eX"></param>
         /// <param name="eY"></param>
         /// <returns></returns>
-        /// <returns>The <see cref="T:(double X, double Y)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         [DisplayName("Quartic Bezier Interpolate 1")]
         [Description("Simple Quartic Bezier Interpolation.")]
         [SourceCodeLocationProvider]

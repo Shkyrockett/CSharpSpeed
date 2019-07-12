@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(CubicBezierLineSegmentIntersectionTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -96,8 +96,9 @@ namespace InstrumentedLibrary
             double l1x, double l1y,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             // ToDo: Figure out why this can't handle intersection with horizontal lines.
-            var I = new Intersection(IntersectionState.NoIntersection);
+            var I = new Intersection(IntersectionStates.NoIntersection);
 
             var A = l1y - l0y;      //A=y2-y1
             var B = l0x - l1x;      //B=x1-x2
@@ -136,7 +137,7 @@ namespace InstrumentedLibrary
                 {
                     /*intersection point*/
                     I.AppendPoint(new Point2D(x, y));
-                    I.State = IntersectionState.Intersection;
+                    I.State = IntersectionStates.Intersection;
                 }
             }
             return I;
@@ -183,7 +184,7 @@ namespace InstrumentedLibrary
             Vector2D n;
             var min = MinPointTests.MinPoint(a1X, a1Y, a2X, a2Y);
             var max = MaxPointTests.MaxPoint(a1X, a1Y, a2X, a2Y);
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
             a = new Vector2D(p1X, p1Y) * (-1);
             b = new Vector2D(p2X, p2Y) * 3;
             c = new Vector2D(p3X, p3Y) * (-3);
@@ -222,7 +223,7 @@ namespace InstrumentedLibrary
                     {
                         if (min.Y <= p10.Y && p10.Y <= max.Y)
                         {
-                            result.State = IntersectionState.Intersection;
+                            result.State = IntersectionStates.Intersection;
                             result.AppendPoint(p10);
                         }
                     }
@@ -230,13 +231,13 @@ namespace InstrumentedLibrary
                     {
                         if (min.X <= p10.X && p10.X <= max.X)
                         {
-                            result.State = IntersectionState.Intersection;
+                            result.State = IntersectionStates.Intersection;
                             result.AppendPoint(p10);
                         }
                     }
                     else if (GreaterThanOrEqualTests.GreaterThanOrEqual(p10.X, p10.X, min.Y, min.Y) && LessThanOrEqualTests.LessThanOrEqual(p10.X, p10.Y, max.X, max.Y))
                     {
-                        result.State = IntersectionState.Intersection;
+                        result.State = IntersectionStates.Intersection;
                         result.AppendPoint(p10);
                     }
                 }
@@ -285,7 +286,7 @@ namespace InstrumentedLibrary
             Vector2D n;
             var min = MinPointTests.MinPoint(a1X, a1Y, a2X, a2Y);
             var max = MaxPointTests.MaxPoint(a1X, a1Y, a2X, a2Y);
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
             a = new Vector2D(p1X, p1Y) * (-1);
             b = new Vector2D(p2X, p2Y) * 3;
             c = new Vector2D(p3X, p3Y) * (-3);
@@ -322,17 +323,17 @@ namespace InstrumentedLibrary
                     var p10 = InterpolateLinear2DTests.LinearInterpolate2D(t, p8.X, p8.Y, p9.X, p9.Y);
                     if (a1X == a2X)
                     {
-                        result.State = IntersectionState.Intersection;
+                        result.State = IntersectionStates.Intersection;
                         result.AppendPoint(p10);
                     }
                     else if (a1Y == a2Y)
                     {
-                        result.State = IntersectionState.Intersection;
+                        result.State = IntersectionStates.Intersection;
                         result.AppendPoint(p10);
                     }
                     else if (GreaterThanOrEqualTests.GreaterThanOrEqual(p10.X, p10.Y, min.X, min.Y) && LessThanOrEqualTests.LessThanOrEqual(p10.X, p10.Y, max.X, max.Y))
                     {
-                        result.State = IntersectionState.Intersection;
+                        result.State = IntersectionStates.Intersection;
                         result.AppendPoint(p10);
                     }
                 }

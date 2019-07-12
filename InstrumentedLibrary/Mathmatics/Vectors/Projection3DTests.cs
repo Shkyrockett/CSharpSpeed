@@ -50,7 +50,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double X, double Y, double Z) Projection(double x1, double y1, double z1, double x2, double y2, double z2)
-            => Projection_(x1, y1, z1, x2, y2, z2);
+            => Projection1(x1, y1, z1, x2, y2, z2);
 
         /// <summary>
         /// The projection.
@@ -70,7 +70,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) Projection_(
+        public static (double X, double Y, double Z) Projection1(
                 double x1, double y1, double z1,
                 double x2, double y2, double z2)
         {

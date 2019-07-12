@@ -21,7 +21,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The polygon centroid test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(SplitEllipseTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -52,7 +52,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static EllipticalArc2D[] Split(double x, double y, double rX, double rY, double angle, params double[] ts)
-            => Split_(x, y, rX, rY, angle, ts);
+            => Split1(x, y, rX, rY, angle, ts);
 
         /// <summary>
         /// The split.
@@ -63,13 +63,13 @@ namespace InstrumentedLibrary
         /// <param name="rY"></param>
         /// <param name="angle"></param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:EllipticalArc[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DisplayName("Split Ellipse")]
         [Description("Split Ellipse.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static EllipticalArc2D[] Split_(double x, double y, double rX, double rY, double angle, params double[] ts)
+        public static EllipticalArc2D[] Split1(double x, double y, double rX, double rY, double angle, params double[] ts)
         {
             if (ts is null || ts.Length == 0)
             {

@@ -21,7 +21,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(PolygonContainsPointsTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -30,7 +30,7 @@ namespace InstrumentedLibrary
             var pointB = new Point2D(2, 2);
             var triangle = new List<List<(double X, double Y)>> { new List<(double X, double Y)> { (0, 0), (2, 0), (0, 2) } };
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { triangle, pointA, pointB, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: Inclusion.Outside, epsilon: double.Epsilon) },
+                { new object[] { triangle, pointA, pointB, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: Inclusions.Outside, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -52,7 +52,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static Inclusion PolygonContainsPoints(List<List<(double X, double Y)>> polygons, Point2D start, Point2D end, double epsilon = Epsilon)
+        public static Inclusions PolygonContainsPoints(List<List<(double X, double Y)>> polygons, Point2D start, Point2D end, double epsilon = Epsilon)
             => PolygonSetContainsPoints0(polygons, start, end, epsilon);
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace InstrumentedLibrary
         /// <param name="start">The start.</param>
         /// <param name="end">The end.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
+        /// <returns>The <see cref="Inclusions"/>.</returns>
         /// <acknowledgment>
         /// Public-domain code by Darel Rex Finley, 2006.
         /// http://alienryderflex.com/shortest_path/
@@ -77,7 +77,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PolygonSetContainsPoints0(
+        public static Inclusions PolygonSetContainsPoints0(
             List<List<(double X, double Y)>> polygons,
             Point2D start, Point2D end,
             double epsilon = Epsilon)
@@ -99,58 +99,61 @@ namespace InstrumentedLibrary
             var theCos = end.X / dist;
             var theSin = end.Y / dist;
 
-            foreach (var poly in polygons)
+            if (!(polygons is null))
             {
-                for (var i = 0; i < poly.Count(); i++)
+                foreach (var poly in polygons)
                 {
-                    j = i + 1;
-                    if (j == poly.Count())
+                    for (var i = 0; i < poly.Count(); i++)
                     {
-                        j = 0;
-                    }
-
-                    sX = (poly)[i].X - start.X;
-                    sY = (poly)[i].Y - start.Y;
-                    eX = (poly)[j].X - start.X;
-                    eY = (poly)[j].Y - start.Y;
-
-                    if (Abs(sX) < epsilon && Abs(sY) < epsilon
-                        && Abs(eX - end.X) < epsilon && Abs(eY - end.Y) < epsilon
-                        || Abs(eX) < epsilon
-                        && Abs(eY) < epsilon && Abs(sX - end.X) < epsilon
-                        && Abs(sY - end.Y) < epsilon)
-                    {
-                        return Inclusion.Inside;
-                    }
-
-                    rotSX = (sX * theCos) + (sY * theSin);
-                    rotSY = (sY * theCos) - (sX * theSin);
-                    rotEX = (eX * theCos) + (eY * theSin);
-                    rotEY = (eY * theCos) - (eX * theSin);
-
-                    if (rotSY < 0.0 && rotEY > 0.0
-                    || rotEY < 0.0 && rotSY > 0.0)
-                    {
-                        crossX = rotSX + ((rotEX - rotSX) * (0.0 - rotSY) / (rotEY - rotSY));
-                        if (crossX >= 0.0 && crossX <= dist)
+                        j = i + 1;
+                        if (j == poly.Count())
                         {
-                            return Inclusion.Outside;
+                            j = 0;
                         }
-                    }
 
-                    if (Abs(rotSY) < epsilon
-                        && Abs(rotEY) < epsilon
-                        && (rotSX >= 0.0 || rotEX >= 0.0)
-                        && (rotSX <= dist || rotEX <= dist)
-                        && (rotSX < 0.0 || rotEX < 0.0
-                        || rotSX > dist || rotEX > dist))
-                    {
-                        return Inclusion.Outside;
+                        sX = (poly)[i].X - start.X;
+                        sY = (poly)[i].Y - start.Y;
+                        eX = (poly)[j].X - start.X;
+                        eY = (poly)[j].Y - start.Y;
+
+                        if (Abs(sX) < epsilon && Abs(sY) < epsilon
+                            && Abs(eX - end.X) < epsilon && Abs(eY - end.Y) < epsilon
+                            || Abs(eX) < epsilon
+                            && Abs(eY) < epsilon && Abs(sX - end.X) < epsilon
+                            && Abs(sY - end.Y) < epsilon)
+                        {
+                            return Inclusions.Inside;
+                        }
+
+                        rotSX = (sX * theCos) + (sY * theSin);
+                        rotSY = (sY * theCos) - (sX * theSin);
+                        rotEX = (eX * theCos) + (eY * theSin);
+                        rotEY = (eY * theCos) - (eX * theSin);
+
+                        if (rotSY < 0.0 && rotEY > 0.0
+                        || rotEY < 0.0 && rotSY > 0.0)
+                        {
+                            crossX = rotSX + ((rotEX - rotSX) * (0.0 - rotSY) / (rotEY - rotSY));
+                            if (crossX >= 0.0 && crossX <= dist)
+                            {
+                                return Inclusions.Outside;
+                            }
+                        }
+
+                        if (Abs(rotSY) < epsilon
+                            && Abs(rotEY) < epsilon
+                            && (rotSX >= 0.0 || rotEX >= 0.0)
+                            && (rotSX <= dist || rotEX <= dist)
+                            && (rotSX < 0.0 || rotEX < 0.0
+                            || rotSX > dist || rotEX > dist))
+                        {
+                            return Inclusions.Outside;
+                        }
                     }
                 }
             }
 
-            return PolygonContainsPointTests.PolygonContainsPoint(polygons, start.X + (end.X / 2.0), start.Y + (end.Y / 2.0)) ? Inclusion.Inside : Inclusion.Outside;
+            return PolygonContainsPointTests.PolygonContainsPoint(polygons, start.X + (end.X / 2.0), start.Y + (end.Y / 2.0)) ? Inclusions.Inside : Inclusions.Outside;
         }
     }
 }

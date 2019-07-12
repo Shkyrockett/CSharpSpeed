@@ -18,12 +18,14 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Ray2D
-        : IShapeSegment, ICachableProperties
+        : IShapeSegment, ICachableProperties, IEquatable<Ray2D>
     {
+        #region Fields
         private double x;
         private double y;
         private double i;
         private double j;
+        #endregion
 
         #region Constructors
         /// <summary>
@@ -111,6 +113,68 @@ namespace InstrumentedLibrary
         #endregion
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator ==(Ray2D left, Ray2D right)
+        {
+            return left.Equals(right);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator !=(Ray2D left, Ray2D right)
+        {
+            return !(left == right);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj) => obj is Ray2D && Equals((Ray2D)obj);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Ray2D other) => other.x == x && other.y == y && other.i == i && other.j == j;
+
+        /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(Ray2D left, Ray2D right) => left.Equals(right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override int GetHashCode() => HashCode.Combine(x, y, i, j);
+
+        /// <summary>
         /// Creates a <see cref="string"/> representation of this <see cref="IShape"/> interface based on the current culture.
         /// </summary>
         /// <returns>A <see cref="string"/> representation of this instance of the <see cref="IShape"/> object.</returns>
@@ -128,11 +192,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider formatProvider)
         {
-            //if (this is null)
-            //{
-            //    return $"{nameof(Ray2D)}";
-            //}
-
+            if (this == null) return $"{nameof(Ray2D)}";
             var sep = ((formatProvider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
             return $"{nameof(Ray2D)}({nameof(X)}: {X.ToString(format, formatProvider)}{sep} {nameof(Y)}: {Y.ToString(format, formatProvider)}{sep} {nameof(I)}: {I.ToString(format, formatProvider)}{sep} {nameof(J)}: {J.ToString(format, formatProvider)})";
         }

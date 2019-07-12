@@ -1,8 +1,11 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using static InstrumentedLibrary.EasingConstants;
+using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
 {
@@ -11,6 +14,19 @@ namespace InstrumentedLibrary
     /// </summary>
     public static class BounceOutValueEasingTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double BounceOut(double t, double b, double c, double d)
+            => BounceOut1( t,  b,  c,  d);
+
         /// <summary>
         /// Easing equation function for a bounce (exponentially decaying parabolic bounce) easing out:
         /// decelerating from zero velocity.
@@ -25,23 +41,23 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double BounceOut(double t, double b, double c, double d)
+        public static double BounceOut1(double t, double b, double c, double d)
         {
-            if ((t /= d) < (1d / 2.75d))
+            if ((t /= d) < (BounceKey1))
             {
-                return (c * (7.5625d * t * t)) + b;
+                return (c * (BounceMultiplyer * t * t)) + b;
             }
-            else if (t < (2d / 2.75d))
+            else if (t < (BounceKey2))
             {
-                return (c * ((7.5625d * (t -= 1.5d / 2.75d) * t) + 0.75d)) + b;
+                return (c * ((BounceMultiplyer * (t -= BounceKey3) * t) + ThreeQuarters)) + b;
             }
-            else if (t < (2.5d / 2.75d))
+            else if (t < (BounceKey4))
             {
-                return (c * ((7.5625d * (t -= 2.25d / 2.75d) * t) + 0.9375d)) + b;
+                return (c * ((BounceMultiplyer * (t -= BounceKey5) * t) + FifteenSixteenth)) + b;
             }
             else
             {
-                return (c * ((7.5625d * (t -= 2.625d / 2.75d) * t) + 0.984375d)) + b;
+                return (c * ((BounceMultiplyer * (t -= BounceKey6) * t) + SixtythreeSixtyfourth)) + b;
             }
         }
     }

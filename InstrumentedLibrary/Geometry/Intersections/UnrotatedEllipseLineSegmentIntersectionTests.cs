@@ -1,4 +1,5 @@
 ﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -20,7 +21,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(UnrotatedEllipseLineSegmentIntersectionTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -84,6 +85,7 @@ namespace InstrumentedLibrary
                 double x1, double y1,
                 double epsilon = Epsilon)
         {
+            _ = epsilon;
             // If the ellipse or line segment are empty, return no intersections.
             if ((cx == 0d) || (cy == 0d) ||
                 ((x0 == x1) && (y0 == y1)))
@@ -143,7 +145,7 @@ namespace InstrumentedLibrary
         /// <param name="x2">The x2.</param>
         /// <param name="y2">The y2.</param>
         /// <param name="epsilon"></param>
-        /// <returns>The <see cref="T:ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <acknowledgment>
         /// http://forums.codeguru.com/showthread.php?157823-How-to-get-ellipse-and-line-Intersection-points
         /// </acknowledgment>
@@ -159,6 +161,7 @@ namespace InstrumentedLibrary
             double x2, double y2,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             double a;
             double b;
             double c;
@@ -250,7 +253,7 @@ namespace InstrumentedLibrary
             double x1, double y1,
             double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // If the ellipse or line segment are empty, return no intersections.
             if ((rx == 0d) || (ry == 0d) ||
@@ -286,7 +289,7 @@ namespace InstrumentedLibrary
                 if ((t >= 0d) && (t <= 1d))
                 {
                     result.AppendPoint(new Point2D(u1 + (u2 - u1) * t + cx, v1 + (v2 - v1) * t + cy));
-                    result.State = IntersectionState.Intersection;
+                    result.State = IntersectionStates.Intersection;
                 }
             }
             else if (discriminant > 0)
@@ -299,13 +302,13 @@ namespace InstrumentedLibrary
                 if ((t1 >= 0d) && (t1 <= 1d))
                 {
                     result.AppendPoint(new Point2D(u1 + (u2 - u1) * t1 + cx, v1 + (v2 - v1) * t1 + cy));
-                    result.State = IntersectionState.Intersection;
+                    result.State = IntersectionStates.Intersection;
                 }
 
                 if ((t2 >= 0d) && (t2 <= 1d))
                 {
                     result.AppendPoint(new Point2D(u1 + (u2 - u1) * t2 + cx, v1 + (v2 - v1) * t2 + cy));
-                    result.State = IntersectionState.Intersection;
+                    result.State = IntersectionStates.Intersection;
                 }
             }
 
@@ -340,6 +343,7 @@ namespace InstrumentedLibrary
             double a2X, double a2Y,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             var origin = new Vector2D(a1X, a1Y);
             var dir = new Vector2D(a1X, a1Y, a2X, a2Y);
             var diff = origin - new Vector2D(centerX, centerY);
@@ -352,7 +356,7 @@ namespace InstrumentedLibrary
             Intersection result;
             if (d < 0)
             {
-                result = new Intersection(IntersectionState.Outside);
+                result = new Intersection(IntersectionStates.Outside);
             }
             else if (d > 0)
             {
@@ -361,11 +365,11 @@ namespace InstrumentedLibrary
                 var t_b = (-b + root) / a;
                 if ((t_a < 0 || 1 < t_a) && (t_b < 0 || 1 < t_b))
                 {
-                    result = (t_a < 0 && t_b < 0) || (t_a > 1 && t_b > 1) ? new Intersection(IntersectionState.Outside) : new Intersection(IntersectionState.Inside);
+                    result = (t_a < 0 && t_b < 0) || (t_a > 1 && t_b > 1) ? new Intersection(IntersectionStates.Outside) : new Intersection(IntersectionStates.Inside);
                 }
                 else
                 {
-                    result = new Intersection(IntersectionState.Intersection);
+                    result = new Intersection(IntersectionStates.Intersection);
                     if (0 <= t_a && t_a <= 1)
                     {
                         result.AppendPoint(InterpolateLinear2DTests.LinearInterpolate2D(t_a, a1X, a1Y, a2X, a2Y));
@@ -381,12 +385,12 @@ namespace InstrumentedLibrary
             {
                 var t = -b / a; if (0 <= t && t <= 1)
                 {
-                    result = new Intersection(IntersectionState.Intersection);
+                    result = new Intersection(IntersectionStates.Intersection);
                     result.AppendPoint(InterpolateLinear2DTests.LinearInterpolate2D(t, a1X, a1Y, a2X, a2Y));
                 }
                 else
                 {
-                    result = new Intersection(IntersectionState.Outside);
+                    result = new Intersection(IntersectionStates.Outside);
                 }
             }
 
@@ -414,10 +418,11 @@ namespace InstrumentedLibrary
             double a2X, double a2Y,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             var (Center, MajorRadius, MinorRadius) = ((X: centerX, Y: centerY), rx, ry);
             var (A, B) = ((X: a1X, Y: a1Y), (X: a2X, Y: a2Y));
 
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             var slopeA = Slope2Points2DTests.Slope(A.X, A.Y, B.X, B.Y);
             var slopeB = A.Y - (slopeA * A.X);
@@ -433,7 +438,7 @@ namespace InstrumentedLibrary
 
             result.AppendPoint((xA, yA));
             result.AppendPoint((xB, yB));
-            result.State = IntersectionState.Intersection;
+            result.State = IntersectionStates.Intersection;
             return result;
         }
     }

@@ -21,7 +21,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(CircleCircleIntersectionTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -31,7 +31,7 @@ namespace InstrumentedLibrary
                 { new object[] { 1d, 1d, 1d, 3d, 1d, 1d, Epsilon }, new TestCaseResults(description: "Two circles of the same size, edge intersection 2.", trials: trials, expectedReturnValue: new (double X, double Y)[] { (2d, 1d), (2d, 1d) }, epsilon: double.Epsilon) },
                 { new object[] { 1d, 1d, 1d, 1.5d, 1d, 1d, Epsilon }, new TestCaseResults(description: "Two circles of the same size, mostly overlapping.", trials: trials, expectedReturnValue: new (double X, double Y)[] { (1.25d, 0.031754163448145745d), (1.25d, 1.9682458365518543d) }, epsilon: double.Epsilon) },
                 { new object[] { 1d, 1d, 1d, 2d, 1d, 1d, Epsilon }, new TestCaseResults(description: "Two circles of the same size, centers on edges.", trials: trials, expectedReturnValue: new (double X, double Y)[] { (1.5d, 0.1339745962155614d), (1.5d, 1.8660254037844386d) }, epsilon: double.Epsilon) },
-                { new object[] { 1d, 1d, 1d, 4d, 1d, 1d, Epsilon }, new TestCaseResults(description: "Two circles of the same size, no intersection.", trials: trials, expectedReturnValue: new (double X, double Y)[] { }, epsilon: double.Epsilon) },
+                { new object[] { 1d, 1d, 1d, 4d, 1d, 1d, Epsilon }, new TestCaseResults(description: "Two circles of the same size, no intersection.", trials: trials, expectedReturnValue: Array.Empty<(double X, double Y)>(), epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -57,7 +57,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double X, double Y)[] FindCircleCircleIntersections(double cx0, double cy0, double radius0, double cx1, double cy1, double radius1, double epsilon = Epsilon)
-            => FindCircleCircleIntersections_(cx0, cy0, radius0, cx1, cy1, radius1, epsilon);
+            => FindCircleCircleIntersections1(cx0, cy0, radius0, cx1, cy1, radius1, epsilon);
 
         /// <summary>
         /// 
@@ -84,7 +84,7 @@ namespace InstrumentedLibrary
                 // result = new Intersection(IntersectionState.Outside);
                 case double i when i < Abs(r1 - r2):
                     // result = new Intersection(IntersectionState.Inside);
-                    return new (double x, double y)[] { };
+                    return Array.Empty<(double x, double y)>();
                 default:
                     // result = new Intersection(IntersectionState.Intersection);
                     var a = ((r1 * r1) - (r2 * r2) + (dist * dist)) / (2d * dist);
@@ -117,7 +117,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y)[] FindCircleCircleIntersections_(
+        public static (double X, double Y)[] FindCircleCircleIntersections1(
             double cx0, double cy0, double radius0,
             double cx1, double cy1, double radius1,
             double epsilon = Epsilon)
@@ -134,12 +134,12 @@ namespace InstrumentedLibrary
             if (dist > radius0 + radius1)
             {
                 // No solutions, the circles are too far apart.
-                return new (double X, double Y)[] { };
+                return Array.Empty<(double X, double Y)>();
             }
             else if (dist < Abs(radius0 - radius1))
             {
                 // No solutions, one circle contains the other.
-                return new (double X, double Y)[] { };
+                return Array.Empty<(double X, double Y)>();
             }
             else if ((Abs(dist) < epsilon) && (Abs(radius0 - radius1) < epsilon))
             {

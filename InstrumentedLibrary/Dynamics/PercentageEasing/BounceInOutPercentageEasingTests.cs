@@ -1,8 +1,11 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using static InstrumentedLibrary.EasingConstants;
+using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
 {
@@ -11,55 +14,15 @@ namespace InstrumentedLibrary
     /// </summary>
     public static class BounceInOutPercentageEasingTests
     {
-        #region Constants
         /// <summary>
-        /// The bounce key1 (const). Value: 1d / 2.75d.
+        /// 
         /// </summary>
-        /// <acknowledgment>
-        /// https://bitbucket.org/jacobalbano/glide
-        /// </acknowledgment>
-        private const double bounceKey1 = 1d / 2.75d;
-
-        /// <summary>
-        /// The bounce key2 (const). Value: 2d / 2.75d.
-        /// </summary>
-        /// <acknowledgment>
-        /// https://bitbucket.org/jacobalbano/glide
-        /// </acknowledgment>
-        private const double bounceKey2 = 2d / 2.75d;
-
-        /// <summary>
-        /// The bounce key3 (const). Value: 1.5d / 2.75d.
-        /// </summary>
-        /// <acknowledgment>
-        /// https://bitbucket.org/jacobalbano/glide
-        /// </acknowledgment>
-        private const double bounceKey3 = 1.5d / 2.75d;
-
-        /// <summary>
-        /// The bounce key4 (const). Value: 2.5d / 2.75d.
-        /// </summary>
-        /// <acknowledgment>
-        /// https://bitbucket.org/jacobalbano/glide
-        /// </acknowledgment>
-        private const double bounceKey4 = 2.5d / 2.75d;
-
-        /// <summary>
-        /// The bounce key5 (const). Value: 2.25d / 2.75d.
-        /// </summary>
-        /// <acknowledgment>
-        /// https://bitbucket.org/jacobalbano/glide
-        /// </acknowledgment>
-        private const double bounceKey5 = 2.25d / 2.75d;
-
-        /// <summary>
-        /// The bounce key6 (const). Value: 2.625d / 2.75d.
-        /// </summary>
-        /// <acknowledgment>
-        /// https://bitbucket.org/jacobalbano/glide
-        /// </acknowledgment>
-        private const double bounceKey6 = 2.625d / 2.75d;
-        #endregion Constants
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double BounceInOut(double t)
+            => BounceInOut1( t);
 
         /// <summary>
         /// Bounce in and out.
@@ -71,46 +34,46 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double BounceInOut(double t)
+        public static double BounceInOut1(double t)
         {
-            if (t < 0.5d)
+            if (t < OneHalf)
             {
                 t = 1d - (t * 2d);
-                if (t < bounceKey1)
+                if (t < BounceKey1)
                 {
-                    return (1d - (7.5625d * t * t)) * 0.5d;
+                    return (1d - BounceMultiplyer * t * t) * OneHalf;
                 }
 
-                if (t < bounceKey2)
+                if (t < BounceKey2)
                 {
-                    return (1d - ((7.5625d * (t - bounceKey3) * (t - bounceKey3)) + 0.75)) * 0.5d;
+                    return (1d - (BounceMultiplyer * (t - BounceKey3) * (t - BounceKey3) + ThreeQuarters)) * OneHalf;
                 }
 
-                if (t < bounceKey4)
+                if (t < BounceKey4)
                 {
-                    return (1d - ((7.5625d * (t - bounceKey5) * (t - bounceKey5)) + 0.9375)) * 0.5d;
+                    return (1d - (BounceMultiplyer * (t - BounceKey5) * (t - BounceKey5) + FifteenSixteenth)) * OneHalf;
                 }
 
-                return (1d - ((7.5625d * (t - bounceKey6) * (t - bounceKey6)) + 0.984375d)) * 0.5d;
+                return (1d - (BounceMultiplyer * (t - BounceKey6) * (t - BounceKey6) + SixtythreeSixtyfourth)) * OneHalf;
             }
 
             t = (t * 2d) - 1d;
-            if (t < bounceKey1)
+            if (t < BounceKey1)
             {
-                return (7.5625d * t * t * 0.5d) + 0.5d;
+                return BounceMultiplyer * t * t * OneHalf + OneHalf;
             }
 
-            if (t < bounceKey2)
+            if (t < BounceKey2)
             {
-                return (((7.5625d * (t - bounceKey3) * (t - bounceKey3)) + 0.75d) * 0.5d) + 0.5d;
+                return ((BounceMultiplyer * (t - BounceKey3) * (t - BounceKey3) + ThreeQuarters) * OneHalf) + OneHalf;
             }
 
-            if (t < bounceKey4)
+            if (t < BounceKey4)
             {
-                return (((7.5625d * (t - bounceKey5) * (t - bounceKey5)) + 0.9375d) * 0.5d) + 0.5d;
+                return ((BounceMultiplyer * (t - BounceKey5) * (t - BounceKey5) + FifteenSixteenth) * OneHalf) + OneHalf;
             }
 
-            return (((7.5625d * (t - bounceKey6) * (t - bounceKey6)) + 0.984375d) * 0.5d) + 0.5d;
+            return ((BounceMultiplyer * (t - BounceKey6) * (t - BounceKey6) + SixtythreeSixtyfourth) * OneHalf) + OneHalf;
         }
     }
 }

@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using CSharpSpeed;
 using static System.Math;
+using static InstrumentedLibrary.EasingConstants;
+using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
 {
@@ -12,6 +15,19 @@ namespace InstrumentedLibrary
     /// </summary>
     public static class ExponentialInOutValueEasingTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double ExpoInOut(double t, double b, double c, double d)
+            => ExpoInOut1( t,  b,  c,  d);
+
         /// <summary>
         /// Easing equation function for an exponential (2^t) easing in/out:
         /// acceleration until halfway, then deceleration.
@@ -26,7 +42,7 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ExpoInOut(double t, double b, double c, double d)
+        public static double ExpoInOut1(double t, double b, double c, double d)
         {
             if (t == 0)
             {
@@ -38,12 +54,12 @@ namespace InstrumentedLibrary
                 return b + c;
             }
 
-            if ((t /= d / 2d) < 1d)
+            if ((t /= d * OneHalf) < 1d)
             {
-                return (c / 2d * Pow(2d, 10d * (t - 1d))) + b;
+                return (c * OneHalf * Pow(2d, 10d * (t - 1d))) + b;
             }
 
-            return (c / 2d * (-Pow(2d, -10d * --t) + 2d)) + b;
+            return (c * OneHalf * (-Pow(2d, -10d * --t) + 2d)) + b;
         }
 
         /// <summary>
@@ -60,9 +76,9 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ExpoInOut_0(double t, double b, double c, double d)
+        public static double ExpoInOut0(double t, double b, double c, double d)
         {
-            return (t == 0d) ? b : (t == d) ? b + c : ((t /= d / 2d) < 1d) ? (c / 2d * Pow(2d, 10d * (t - 1d))) + b : (c / 2d * (-Pow(2d, -10d * --t) + 2d)) + b;
+            return (t == 0d) ? b : (t == d) ? b + c : ((t /= d * OneHalf) < 1d) ? (c * OneHalf * Pow(2d, 10d * (t - 1d))) + b : (c * OneHalf * (-Pow(2d, -10d * --t) + 2d)) + b;
         }
     }
 }

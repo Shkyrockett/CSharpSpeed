@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -13,6 +14,16 @@ namespace InstrumentedLibrary
     public static class CircularOutPercentageEasingTests
     {
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double CircOut(double t)
+            => CircOut1( t);
+
+        /// <summary>
         /// Circle out.
         /// </summary>
         /// <param name="t">Current time elapsed in ticks.</param>
@@ -22,7 +33,7 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CircOut(double t)
+        public static double CircOut1(double t)
         {
             return Sqrt(1d - ((t - 1d) * (t - 1d)));
         }

@@ -1,4 +1,5 @@
 ﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -18,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(CubicBezierCoefficientsTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -83,7 +84,7 @@ namespace InstrumentedLibrary
         /// <param name="b">The b.</param>
         /// <param name="c">The c.</param>
         /// <param name="d">The d.</param>
-        /// <returns>The <see cref="T:ValueTuple{T1, T2, T3, T4}"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
         /// <acknowledgment>
         /// https://www.particleincell.com/2013/cubic-line-intersection/
         /// </acknowledgment>

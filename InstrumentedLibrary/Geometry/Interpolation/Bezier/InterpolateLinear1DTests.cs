@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the linear interpolation point for a value between two 2D points.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(InterpolateLinear1DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -48,7 +48,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double LinearInterpolate1D(double t, double v1, double v2)
-            => LinearInterpolate1D_0(t, v1, v2);
+            => LinearInterpolate1D0(t, v1, v2);
 
         /// <summary>
         /// Precise method which guarantees v = v1 when t = 1.
@@ -66,7 +66,7 @@ namespace InstrumentedLibrary
         [Acknowledgment("https://en.wikipedia.org/wiki/Linear_interpolation")]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double LinearInterpolate1D_0(
+        public static double LinearInterpolate1D0(
             double t, double v1, double v2)
         {
             return ((1d - t) * v1) + (t * v2);
@@ -89,7 +89,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double LinearInterpolate1D_1(
+        public static double LinearInterpolate1D1(
             double t, double v1, double v2)
         {
             return v1 + (t * (v2 - v1));
@@ -111,7 +111,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double LinearInterpolate1D_2(
+        public static double LinearInterpolate1D2(
             double t, double v1, double v2)
         {
             return (Abs(v1 - v2) < DoubleEpsilon) ? 0 : v1 - (1d / (v1 - v2) * t);

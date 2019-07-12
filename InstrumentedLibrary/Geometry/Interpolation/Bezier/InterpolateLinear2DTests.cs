@@ -21,7 +21,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the linear interpolation point for a value between two 2D points.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(InterpolateLinear2DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -53,7 +53,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double X, double Y) LinearInterpolate2D(double t, double x0, double y0, double x1, double y1)
-            => Lerp_(t, x0, y0, x1, y1);
+            => Lerp(t, x0, y0, x1, y1);
 
         /// <summary>
         /// The linear interpolation method.
@@ -69,7 +69,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Lerp_(double t, double x0, double y0, double x1, double y1)
+        public static (double X, double Y) Lerp(double t, double x0, double y0, double x1, double y1)
         {
             return (x0 + (x1 - x0) * t, y0 + (y1 - y0) * t);
         }
@@ -93,7 +93,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) LinearInterpolate2D_0(double t, double x1, double y1, double x2, double y2)
+        public static (double X, double Y) LinearInterpolate2D0(double t, double x1, double y1, double x2, double y2)
         {
             return (
                 ((1d - t) * x1) + (t * x2),
@@ -121,7 +121,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) LinearInterpolate2D_1(double t, double x1, double y1, double x2, double y2)
+        public static (double X, double Y) LinearInterpolate2D1(double t, double x1, double y1, double x2, double y2)
         {
             return (
                 x1 + (t * (x2 - x1)),
@@ -147,7 +147,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) LinearInterpolate2D_2(double t, double x1, double y1, double x2, double y2)
+        public static (double X, double Y) LinearInterpolate2D2(double t, double x1, double y1, double x2, double y2)
         {
             return (
                 InterpolateLinear1DTests.LinearInterpolate1D(t, x1, x2),
@@ -169,7 +169,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) LinearInterpolate2D_3(double t, double x1, double y1, double x2, double y2)
+        public static (double X, double Y) LinearInterpolate2D3(double t, double x1, double y1, double x2, double y2)
         {
             return (
                 (Abs(x1 - x2) < DoubleEpsilon) ? 0d : x1 - (1d / (x1 - x2) * t),

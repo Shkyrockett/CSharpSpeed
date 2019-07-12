@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(RotatedRectangleBoundsTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -71,6 +71,8 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D RotatedRectangleBounds0(double x, double y, double width, double height, double fulcrumX, double fulcrumY, double angle)
         {
+            _ = x;
+            _ = y;
             var cosAngle = Abs(Cos(angle));
             var sinAngle = Abs(Sin(angle));
 

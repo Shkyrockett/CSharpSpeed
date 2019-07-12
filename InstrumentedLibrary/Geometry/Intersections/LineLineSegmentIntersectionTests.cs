@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the 3D Hermite interpolation of points.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(LineLineSegmentIntersectionTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -88,18 +88,18 @@ namespace InstrumentedLibrary
             var denom = (dY - cY) * (bX - aX) - (dX - cX) * (bY - aY);
             if (Abs(denom) < epsilon)
             {
-                return new Intersection(IntersectionState.NoIntersection);
+                return new Intersection(IntersectionStates.NoIntersection);
             }
 
             //calculate segment parameter and ensure its within bounds
             var t = ((bX - aX) * (aY - cY) - (bY - aY) * (aX - cX)) / denom;
             if (t < 0d || t > 1d)
             {
-                return new Intersection(IntersectionState.NoIntersection);
+                return new Intersection(IntersectionStates.NoIntersection);
             }
 
             //store actual intersection
-            var result = new Intersection(IntersectionState.Intersection);
+            var result = new Intersection(IntersectionStates.Intersection);
             result.AppendPoint(new Point2D(cX + (dX - cX) * t, cY + (dY - cY) * t));
             return result;
 
@@ -133,6 +133,7 @@ namespace InstrumentedLibrary
             double b2X, double b2Y,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             Intersection result;
             var ua_t = (b2X - b1X) * (a1Y - b1Y) - (b2Y - b1Y) * (a1X - b1X);
             var ub_t = (a2X - a1X) * (a1Y - b1Y) - (a2Y - a1Y) * (a1X - b1X);
@@ -147,25 +148,25 @@ namespace InstrumentedLibrary
                     0 <= ub && ub <= 1
                     )
                 {
-                    result = new Intersection(IntersectionState.Intersection);
+                    result = new Intersection(IntersectionStates.Intersection);
                     result.AppendPoint(new Point2D(a1X + ua * (a2X - a1X), a1Y + ua * (a2Y - a1Y)));
                     //result.AppendPoint(new Point2D(b1X + ub * (b2X - b1X), b1Y + ub * (b2Y - b1Y)));
                 }
                 else
                 {
-                    result = new Intersection(IntersectionState.NoIntersection);
+                    result = new Intersection(IntersectionStates.NoIntersection);
                 }
             }
             else
             {
                 if (ua_t == 0 || ub_t == 0)
                 {
-                    result = new Intersection(IntersectionState.Coincident | IntersectionState.Parallel | IntersectionState.Intersection);
+                    result = new Intersection(IntersectionStates.Coincident | IntersectionStates.Parallel | IntersectionStates.Intersection);
                     result.AppendPoints(new List<(double X, double Y)> { (b1X, b1Y), (b2X, b2Y) });
                 }
                 else
                 {
-                    result = new Intersection(IntersectionState.Parallel | IntersectionState.NoIntersection);
+                    result = new Intersection(IntersectionStates.Parallel | IntersectionStates.NoIntersection);
                 }
             }
             return result;
@@ -199,7 +200,8 @@ namespace InstrumentedLibrary
             double x3, double y3,
             double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
+            _ = epsilon;
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // Translate lines to origin.
             var u1 = x1 - x0;
@@ -223,7 +225,7 @@ namespace InstrumentedLibrary
             // Check whether the point is on the segment.
             if (t >= 0d && t <= 1d)
             {
-                result = new Intersection(IntersectionState.Intersection);
+                result = new Intersection(IntersectionStates.Intersection);
                 result.AppendPoint(new Point2D(x0 + t * u1, y0 + t * v1));
             }
 

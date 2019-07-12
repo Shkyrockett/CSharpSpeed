@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using CSharpSpeed;
 using static System.Math;
+using static InstrumentedLibrary.EasingConstants;
 using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
@@ -14,6 +16,16 @@ namespace InstrumentedLibrary
     public static class ElasticInOutPercentageEasingTests
     {
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double ElasticInOut(double t)
+            => ElasticInOut1( t);
+
+        /// <summary>
         /// Elastic in and out.
         /// </summary>
         /// <param name="t">Current time elapsed in ticks.</param>
@@ -23,9 +35,9 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ElasticInOut(double t)
+        public static double ElasticInOut1(double t)
         {
-            return (t < 0.5d) ? (0.5d * Sin(13d * HalfPi * (2d * t)) * Pow(2d, 10d * ((2d * t) - 1d))) : (0.5d * ((Sin(-13d * HalfPi * ((2d * t) - 1 + 1d)) * Pow(2d, -10d * ((2d * t) - 1d))) + 2d));
+            return (t < OneHalf) ? (OneHalf * Sin(13d * HalfPi * (2d * t)) * Pow(2d, 10d * ((2d * t) - 1d))) : (OneHalf * ((Sin(-13d * HalfPi * ((2d * t) - 1 + 1d)) * Pow(2d, -10d * ((2d * t) - 1d))) + 2d));
         }
     }
 }

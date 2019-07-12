@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
     [DebuggerDisplay("{ToString()}")]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public struct AccumulatorPoint2D
-        : IFormattable
+        : IFormattable, IEquatable<AccumulatorPoint2D>
     {
         #region Implementations
         /// <summary>
@@ -328,6 +328,24 @@ namespace InstrumentedLibrary
             var sep = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
             return $"{nameof(AccumulatorPoint2D)}({nameof(X)}: {X.ToString(format, provider)}{sep} {nameof(Y)}: {Y.ToString(format, provider)}{sep} {nameof(Theta)}: {Theta.ToString(format, provider)}{sep} {nameof(TotalDistance)}: {TotalDistance.ToString(format, provider)}{sep} {nameof(PreviousIndex)}: {PreviousIndex.ToString(format, provider)})";
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public AccumulatorPoint2D ToAccumulatorPoint2D() => new AccumulatorPoint2D(X, Y);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public Point2D ToPoint2D() => new Point2D(X, Y);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public (double X, double Y) To() => (X, Y);
         #endregion Methods
     }
 }

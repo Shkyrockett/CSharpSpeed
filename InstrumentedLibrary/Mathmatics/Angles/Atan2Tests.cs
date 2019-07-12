@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(Atan2Tests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -61,7 +61,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Atan2_0(double y, double x)
+        public static double Atan20(double y, double x)
         {
             return Atan2(y, x);
         }
@@ -69,32 +69,32 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The ATAN2 BITS (const). Value: 7.
         /// </summary>
-        private const int ATAN2_BITS = 7;
+        private const int aTAN2_BITS = 7;
 
         /// <summary>
         /// The ATAN2 BITS2 (const). Value: ATAN2_BITS &lt;&lt; 1.
         /// </summary>
-        private const int ATAN2_BITS2 = ATAN2_BITS << 1;
+        private const int aTAN2_BITS2 = aTAN2_BITS << 1;
 
         /// <summary>
         /// The ATAN2 MASK (const). Value: ~(-1 &lt;&lt; ATAN2_BITS2).
         /// </summary>
-        private const int ATAN2_MASK = ~(-1 << ATAN2_BITS2);
+        private const int aTAN2_MASK = ~(-1 << aTAN2_BITS2);
 
         /// <summary>
         /// The ATAN2 COUNT (const). Value: ATAN2_MASK + 1.
         /// </summary>
-        private const int ATAN2_COUNT = ATAN2_MASK + 1;
+        private const int aTAN2_COUNT = aTAN2_MASK + 1;
 
         /// <summary>
         /// The ATAN2 DIM (readonly). Value: (int)Sqrt(ATAN2_COUNT).
         /// </summary>
-        private static readonly int ATAN2_DIM = (int)Sqrt(ATAN2_COUNT);
+        private static readonly int aTAN2_DIM = (int)Sqrt(aTAN2_COUNT);
 
         /// <summary>
         /// The INV ATAN2 DIM MINUS 1 (readonly). Value: 1.0f / (ATAN2_DIM - 1).
         /// </summary>
-        private static readonly double INV_ATAN2_DIM_MINUS_1 = 1.0f / (ATAN2_DIM - 1);
+        private static readonly double iNV_ATAN2_DIM_MINUS_1 = 1.0f / (aTAN2_DIM - 1);
 
         /// <summary>
         /// The atan2 (readonly). Value: Atan2_1Setup().
@@ -104,18 +104,18 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The atan2 0Setup.
         /// </summary>
-        /// <returns>The <see cref="T:double[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         private static double[] Atan2_1Setup()
         {
-            var atan2 = new double[ATAN2_COUNT];
-            for (var i = 0; i < ATAN2_DIM; i++)
+            var atan2 = new double[aTAN2_COUNT];
+            for (var i = 0; i < aTAN2_DIM; i++)
             {
-                for (var j = 0; j < ATAN2_DIM; j++)
+                for (var j = 0; j < aTAN2_DIM; j++)
                 {
-                    var x0 = (double)i / ATAN2_DIM;
-                    var y0 = (double)j / ATAN2_DIM;
+                    var x0 = (double)i / aTAN2_DIM;
+                    var y0 = (double)j / aTAN2_DIM;
 
-                    atan2[(j * ATAN2_DIM) + i] = Atan2(y0, x0);
+                    atan2[(j * aTAN2_DIM) + i] = Atan2(y0, x0);
                 }
             }
             return atan2;
@@ -133,7 +133,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Atan2_1(double y, double x)
+        public static double Atan21(double y, double x)
         {
             double add, mul;
 
@@ -169,12 +169,12 @@ namespace InstrumentedLibrary
                 add = 0d;
             }
 
-            var invDiv = 1d / (((x < y) ? y : x) * INV_ATAN2_DIM_MINUS_1);
+            var invDiv = 1d / (((x < y) ? y : x) * iNV_ATAN2_DIM_MINUS_1);
 
             var xi = (int)(x * invDiv);
             var yi = (int)(y * invDiv);
 
-            return (atan2[(yi * ATAN2_DIM) + xi] + add) * mul;
+            return (atan2[(yi * aTAN2_DIM) + xi] + add) * mul;
         }
     }
 }

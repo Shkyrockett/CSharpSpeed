@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(PointNearUnrotatedEllipseTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -47,12 +47,12 @@ namespace InstrumentedLibrary
         /// <param name="y2"></param>
         /// <param name="px"></param>
         /// <param name="py"></param>
-        /// <param name="close_distance"></param>
+        /// <param name="closeDistance"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static bool PointNearEllipse(double x1, double y1, double x2, double y2, double px, double py, double close_distance)
-            => PointNearEllipse0(x1, y1, x2, y2, px, py, close_distance);
+        public static bool PointNearEllipse(double x1, double y1, double x2, double y2, double px, double py, double closeDistance)
+            => PointNearEllipse0(x1, y1, x2, y2, px, py, closeDistance);
 
         /// <summary>
         /// Return True if the point is inside the ellipse
@@ -65,17 +65,17 @@ namespace InstrumentedLibrary
         /// <param name="y2"></param>
         /// <param name="px"></param>
         /// <param name="py"></param>
-        /// <param name="close_distance"></param>
+        /// <param name="closeDistance"></param>
         /// <returns></returns>
         [DisplayName("Point Near Unrotated Ellipse Tests")]
         [Description("Determines whether a point is near an Unrotated Ellipse.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointNearEllipse0(double x1, double y1, double x2, double y2, double px, double py, double close_distance)
+        public static bool PointNearEllipse0(double x1, double y1, double x2, double y2, double px, double py, double closeDistance)
         {
-            var a = (Abs(x2 - x1) / 2d) + close_distance;
-            var b = (Abs(y2 - y1) / 2d) + close_distance;
+            var a = (Abs(x2 - x1) / 2d) + closeDistance;
+            var b = (Abs(y2 - y1) / 2d) + closeDistance;
             var x = px - (x2 + x1) / 2d;
             var y = py - (y2 + y1) / 2d;
             return (x * x / (a * a)) + (y * y / (b * b)) <= 1d;

@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the 2D Cosine interpolation point.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(CosineInterpolate2DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -50,7 +50,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double X, double Y) CosineInterpolate2D(double t, double x1, double y1, double x2, double y2)
-            => CosineInterpolate2D_(t, x1, y1, x2, y2);
+            => CosineInterpolate2D1(t, x1, y1, x2, y2);
 
         /// <summary>
         /// The cosine interpolate2d.
@@ -70,7 +70,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) CosineInterpolate2D_(double t, double x1, double y1, double x2, double y2)
+        public static (double X, double Y) CosineInterpolate2D1(double t, double x1, double y1, double x2, double y2)
         {
             var mu2 = (1d - Cos(t * PI)) * 0.5d;
             return (

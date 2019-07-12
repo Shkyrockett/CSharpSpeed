@@ -17,13 +17,19 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Circle2D
-        : IClosedShape, ICachableProperties
+        : IClosedShape, ICachableProperties, IEquatable<Circle2D>
     {
         #region Implementations
         /// <summary>
         /// The empty.
         /// </summary>
-        public static Circle2D Empty = new Circle2D(0, 0, 0);
+        public static readonly Circle2D Empty = new Circle2D(0, 0, 0);
+        #endregion
+
+        #region Fields
+        private double x;
+        private double y;
+        private double radius;
         #endregion
 
         #region Constructors
@@ -90,19 +96,19 @@ namespace InstrumentedLibrary
         /// Gets or sets the center <see cref="X"/> coordinate.
         /// </summary>
         [DataMember(Name = nameof(X)), XmlAttribute(nameof(X)), SoapAttribute(nameof(X))]
-        public double X { get; set; }
+        public double X { get { return x; } set { x = value; (this as ICachableProperties).ClearCache(); } }
 
         /// <summary>
         /// Gets or sets the center <see cref="Y"/> coordinate.
         /// </summary>
         [DataMember(Name = nameof(Y)), XmlAttribute(nameof(Y)), SoapAttribute(nameof(Y))]
-        public double Y { get; set; }
+        public double Y { get { return y; } set { y = value; (this as ICachableProperties).ClearCache(); } }
 
         /// <summary>
         /// Gets or sets the radius.
         /// </summary>
         [DataMember(Name = nameof(Radius)), XmlAttribute(nameof(Radius)), SoapAttribute(nameof(Radius))]
-        public double Radius { get; set; }
+        public double Radius { get { return radius; } set { radius = value; (this as ICachableProperties).ClearCache(); } }
 
         /// <summary>
         /// Property cache for commonly used properties that may take time to calculate.
@@ -114,13 +120,48 @@ namespace InstrumentedLibrary
         #endregion
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator ==(Circle2D left, Circle2D right)
+        {
+            return left.Equals(right);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator !=(Circle2D left, Circle2D right)
+        {
+            return !(left == right);
+        }
+
+        /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="obj">The obj.</param>
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj) => obj is Circle2D && Equals(this, (Circle2D)obj);
+        public override bool Equals(object obj) => obj is Circle2D && Equals((Circle2D)obj);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Circle2D other) => other.X == X && other.Y == Y && other.Radius == Radius;
 
         /// <summary>
         /// The equals.
@@ -130,7 +171,7 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Circle2D left, Circle2D right) => left.X == right.X && left.Y == right.Y && left.Radius == right.Radius;
+        public static bool Equals(Circle2D left, Circle2D right) => left.Equals(right);
 
         /// <summary>
         /// Get the hash code.
@@ -156,11 +197,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider formatProvider)
         {
-            //if (this is null)
-            //{
-            //    return nameof(Circle2D);
-            //}
-
+            if (this == null) return nameof(Circle2D);
             var sep = ((formatProvider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
             return $"{nameof(Circle2D)}({nameof(X)}: {X.ToString(format, formatProvider)}{sep} {nameof(Y)}: {Y.ToString(format, formatProvider)}{sep} {nameof(Radius)}: {Radius.ToString(format, formatProvider)})";
         }

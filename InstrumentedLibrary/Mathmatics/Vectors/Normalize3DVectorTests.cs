@@ -1,4 +1,5 @@
 ﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -19,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The normalize3d test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(Normalize3DVectorTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -55,7 +56,7 @@ namespace InstrumentedLibrary
         /// <param name="i">The i.</param>
         /// <param name="j">The j.</param>
         /// <param name="k">The k.</param>
-        /// <returns>The <see cref="T:(double X, double Y, double Z)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         [DisplayName("Normalize 3D Vector")]
         [Description("Normalize a 3D Vector.")]
         [SourceCodeLocationProvider]

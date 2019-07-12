@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the linear interpolation point for a value between two 2D points.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(LineSegmentCenterTests))]
         public static List<SpeedTester> TestHarness()
         {

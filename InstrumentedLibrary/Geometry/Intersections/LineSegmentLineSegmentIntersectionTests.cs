@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the 3D Hermite interpolation of points.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(LineSegmentLineSegmentIntersectionTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -81,6 +81,7 @@ namespace InstrumentedLibrary
             double x4, double y4,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             // Calculate the delta length vectors for the line segments.
             var deltaBAI = x2 - x1;
             var deltaBAJ = y2 - y1;
@@ -135,6 +136,7 @@ namespace InstrumentedLibrary
             double x4, double y4,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             // Calculate the delta length vectors for the line segments.
             var deltaAI = x1 - x2;
             var deltaAJ = y2 - y1;
@@ -191,6 +193,7 @@ namespace InstrumentedLibrary
             double x4, double y4,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             // Calculate the delta length vectors for the line segments.
             var deltaAI = x2 - x1;
             var deltaAJ = y2 - y1;
@@ -246,6 +249,7 @@ namespace InstrumentedLibrary
             double x4, double y4,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             // Calculate the delta length vectors for the line segments.
             var deltaAI = x2 - x1;
             var deltaAJ = y2 - y1;
@@ -311,6 +315,7 @@ namespace InstrumentedLibrary
             double x3, double y3,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             // Compute the slopes of each line. Note the kludge for infinity, however, this will be close enough.
             var m1 = (Abs(x1 - x0) < DoubleEpsilon) ? SlopeMax : (y1 - y0) / (x1 - x0);
             var m2 = (Abs(x3 - x2) < DoubleEpsilon) ? SlopeMax : (y3 - y2) / (x3 - x2);
@@ -354,6 +359,7 @@ namespace InstrumentedLibrary
             double x3, double y3,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             var direction1I = x1 - x0;
             var direction1J = y1 - y0;
             var direction2I = x3 - x2;
@@ -418,6 +424,7 @@ namespace InstrumentedLibrary
             double A2, double B2,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             var dx = X2 - X1;
             var dy = Y2 - Y1;
             var da = A2 - A1;
@@ -470,6 +477,7 @@ namespace InstrumentedLibrary
             double Dx, double Dy,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             double distAB, theCos, theSin, newX, ABpos;
 
             //  Fail if either line is undefined.
@@ -543,6 +551,7 @@ namespace InstrumentedLibrary
             double Dx, double Dy,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             double distAB, theCos, theSin, newX, ABpos;
 
             //  Fail if either line segment is zero-length.
@@ -606,7 +615,7 @@ namespace InstrumentedLibrary
         /// <param name="Dx">The Dx.</param>
         /// <param name="Dy">The Dy.</param>
         /// <param name="epsilon"></param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{Point2D}"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/thelonious/kld-intersections
         /// </acknowledgment>
@@ -623,6 +632,7 @@ namespace InstrumentedLibrary
             double Dx, double Dy,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             List<Point2D> result;
 
             var ua_t = ((Dx - Cx) * (Ay - Cy)) - ((Dy - Cy) * (Ax - Cx));

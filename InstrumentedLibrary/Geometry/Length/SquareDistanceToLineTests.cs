@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(SquareDistanceToLineTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -41,25 +41,25 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
-        /// <param name="x2_"></param>
-        /// <param name="y2_"></param>
-        /// <param name="x3_"></param>
-        /// <param name="y3_"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static double SquareDistanceToLine(double x1, double y1, double x2_, double y2_, double x3_, double y3_)
-            => SquareDistanceToLine0(x1, y1, x2_, y2_, x3_, y3_);
+        public static double SquareDistanceToLine(double x1, double y1, double x2, double y2, double x3, double y3)
+            => SquareDistanceToLine0(x1, y1, x2, y2, x3, y3);
 
         /// <summary>
         /// Find the square of the distance of a point from a line.
         /// </summary>
         /// <param name="x1">The x component of the Point.</param>
         /// <param name="y1">The y component of the Point.</param>
-        /// <param name="x2_">The x component of the first point on the line.</param>
-        /// <param name="y2_">The y component of the first point on the line.</param>
-        /// <param name="x3_">The x component of the second point on the line.</param>
-        /// <param name="y3_">The y component of the second point on the line.</param>
+        /// <param name="x2">The x component of the first point on the line.</param>
+        /// <param name="y2">The y component of the first point on the line.</param>
+        /// <param name="x3">The x component of the second point on the line.</param>
+        /// <param name="y3">The y component of the second point on the line.</param>
         /// <returns></returns>
         [DisplayName("Square Distance to line segment from point")]
         [Description("Calculates the square distance from a point to the nearest point on a line segment.")]
@@ -68,12 +68,12 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SquareDistanceToLine0(
             double x1, double y1,
-            double x2_, double y2_,
-            double x3_, double y3_)
+            double x2, double y2,
+            double x3, double y3)
         {
-            var A = y2_ - y3_;
-            var B = x3_ - x2_;
-            var C = A * x1 + B * y1 - (A * x2_ + B * y2_);
+            var A = y2 - y3;
+            var B = x3 - x2;
+            var C = A * x1 + B * y1 - (A * x2 + B * y2);
             return C * C / (A * A + B * B);
         }
     }

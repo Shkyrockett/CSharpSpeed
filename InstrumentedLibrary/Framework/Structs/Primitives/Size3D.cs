@@ -17,7 +17,7 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Size3D
-        : IFormattable
+        : IFormattable, IEquatable<Size3D>
     {
         #region Implementations
         /// <summary>
@@ -407,6 +407,90 @@ namespace InstrumentedLibrary
             if (this == null) return nameof(Size3D);
             var sep = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
             return $"{nameof(Size3D)}({nameof(Width)}: {Width.ToString(format, provider)}{sep} {nameof(Height)}: {Height.ToString(format, provider)}{sep} {nameof(Depth)}: {Depth.ToString(format, provider)})";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static Size3D Plus(Size3D item)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Size3D Add(Size3D left, Size3D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static Size3D Negate(Size3D item)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Size3D Subtract(Size3D left, Size3D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Size3D Multiply(Size3D left, Size3D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Size3D Divide(Size3D left, Size3D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Size3D ToSize3D(Size3D left, Size3D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public (double Width, double Height, double Depth) To()
+        {
+            throw new NotImplementedException();
         }
         #endregion Methods
     }

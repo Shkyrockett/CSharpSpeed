@@ -74,10 +74,10 @@ namespace InstrumentedLibrary
         public static bool PointInPolygonContourJerryKnauss(
             List<(double X, double Y)> polygon, double X, double Y)
         {
-            (double X, double Y) point = (X, Y);
+            var point = (X, Y);
             var result = false;
 
-            for (var i = 0; i < polygon.Count - 1; i++)
+            for (var i = 0; i < polygon?.Count - 1; i++)
             {
                 if ((((polygon[i + 1].Y < point.Y) && (point.Y < polygon[i].Y))
                     || ((polygon[i].Y < point.Y) && (point.Y < polygon[i + 1].Y)))
@@ -111,26 +111,31 @@ namespace InstrumentedLibrary
         public static bool PointInPolygonContourJerryKnauss2(
             List<(double X, double Y)> polygon, double X, double Y)
         {
-            (double X, double Y) point = (X, Y);
-            var j = polygon.Count - 1;
+            var point = (X, Y);
             var result = false;
 
-            for (var i = 0; i < polygon.Count; i++)
+            if (!(polygon is null))
             {
-                if (((
-                    (polygon[j].Y < point.Y)
-                    && (point.Y < polygon[i].Y))
-                    || ((polygon[i].Y < point.Y)
-                    && (point.Y < polygon[j].Y)))
-                    && (point.X < ((polygon[i].X - polygon[j].X)
-                    * (point.Y - polygon[j].Y)
-                    / (polygon[i].Y - polygon[j].Y)) + polygon[j].X))
-                {
-                    result = !result;
-                }
+                var j = polygon.Count - 1;
 
-                j = i;
+                for (var i = 0; i < polygon.Count; i++)
+                {
+                    if (((
+                        (polygon[j].Y < point.Y)
+                        && (point.Y < polygon[i].Y))
+                        || ((polygon[i].Y < point.Y)
+                        && (point.Y < polygon[j].Y)))
+                        && (point.X < ((polygon[i].X - polygon[j].X)
+                        * (point.Y - polygon[j].Y)
+                        / (polygon[i].Y - polygon[j].Y)) + polygon[j].X))
+                    {
+                        result = !result;
+                    }
+
+                    j = i;
+                }
             }
+
             return result;
         }
 
@@ -155,26 +160,30 @@ namespace InstrumentedLibrary
         public static bool PointInPolygonContourDarelRexFinley(
             List<(double X, double Y)> polygon, double X, double Y)
         {
-            (double X, double Y) point = (X, Y);
-            var j = polygon.Count - 1;
+            var point = (X, Y);
             var oddNodes = false;
 
-            for (var i = 0; i < polygon.Count; i++)
+            if (!(polygon is null))
             {
-                if (
-                    polygon[i].Y < point.Y
-                    && polygon[j].Y >= point.Y
-                    || polygon[j].Y < point.Y
-                    && polygon[i].Y >= point.Y)
+                var j = polygon.Count - 1;
+
+                for (var i = 0; i < polygon.Count; i++)
                 {
-                    if (polygon[i].X + ((point.Y - polygon[i].Y)
-                        / (polygon[j].Y - polygon[i].Y)
-                        * (polygon[j].X - polygon[i].X)) < point.X)
+                    if (
+                        polygon[i].Y < point.Y
+                        && polygon[j].Y >= point.Y
+                        || polygon[j].Y < point.Y
+                        && polygon[i].Y >= point.Y)
                     {
-                        oddNodes = !oddNodes;
+                        if (polygon[i].X + ((point.Y - polygon[i].Y)
+                            / (polygon[j].Y - polygon[i].Y)
+                            * (polygon[j].X - polygon[i].X)) < point.X)
+                        {
+                            oddNodes = !oddNodes;
+                        }
                     }
+                    j = i;
                 }
-                j = i;
             }
 
             return oddNodes;
@@ -201,26 +210,30 @@ namespace InstrumentedLibrary
         public static bool PointInPolygonContourNathanMercer(
             List<(double X, double Y)> polygon, double X, double Y)
         {
-            (double X, double Y) point = (X, Y);
-            var j = polygon.Count - 1;
+            var point = (X, Y);
             var oddNodes = false;
 
-            for (var i = 0; i < polygon.Count; i++)
+            if (!(polygon is null))
             {
-                //  Note that division by zero is avoided because the division is protected
-                //  by the "if" clause which surrounds it.
-                if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y
-                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y
-                && (polygon[i].X <= point.X || polygon[j].X <= point.X))
-                {
-                    if (polygon[i].X + ((point.Y - polygon[i].Y)
-                        / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X)) < point.X)
-                    {
-                        oddNodes = !oddNodes;
-                    }
-                }
+                var j = polygon.Count - 1;
 
-                j = i;
+                for (var i = 0; i < polygon.Count; i++)
+                {
+                    //  Note that division by zero is avoided because the division is protected
+                    //  by the "if" clause which surrounds it.
+                    if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y
+                    || polygon[j].Y < point.Y && polygon[i].Y >= point.Y
+                    && (polygon[i].X <= point.X || polygon[j].X <= point.X))
+                    {
+                        if (polygon[i].X + ((point.Y - polygon[i].Y)
+                            / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X)) < point.X)
+                        {
+                            oddNodes = !oddNodes;
+                        }
+                    }
+
+                    j = i;
+                }
             }
 
             return oddNodes;
@@ -247,25 +260,29 @@ namespace InstrumentedLibrary
         public static bool PointInPolygonContourLaschaLagidse(
             List<(double X, double Y)> polygon, double X, double Y)
         {
-            (double X, double Y) point = (X, Y);
+            var point = (X, Y);
             int i;
-            var j = polygon.Count - 1;
             var oddNodes = false;
 
-            for (i = 0; i < polygon.Count; i++)
+            if (!(polygon is null))
             {
-                //  Note that division by zero is avoided because the division is protected
-                //  by the "if" clause which surrounds it.
-                if ((polygon[i].Y < point.Y && polygon[j].Y >= point.Y
-                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
-                && (polygon[i].X <= point.X || polygon[j].X <= point.X))
-                {
-                    oddNodes ^= polygon[i].X + ((point.Y - polygon[i].Y)
-                        / (polygon[j].Y - polygon[i].Y)
-                        * (polygon[j].X - polygon[i].X)) < point.X;
-                }
+                var j = polygon.Count - 1;
 
-                j = i;
+                for (i = 0; i < polygon.Count; i++)
+                {
+                    //  Note that division by zero is avoided because the division is protected
+                    //  by the "if" clause which surrounds it.
+                    if ((polygon[i].Y < point.Y && polygon[j].Y >= point.Y
+                    || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
+                    && (polygon[i].X <= point.X || polygon[j].X <= point.X))
+                    {
+                        oddNodes ^= polygon[i].X + ((point.Y - polygon[i].Y)
+                            / (polygon[j].Y - polygon[i].Y)
+                            * (polygon[j].X - polygon[i].X)) < point.X;
+                    }
+
+                    j = i;
+                }
             }
 
             return oddNodes;
@@ -294,20 +311,24 @@ namespace InstrumentedLibrary
             List<(double X, double Y)> polygon, double X, double Y,
             List<double> constant, List<double> multiple)
         {
-            (double X, double Y) point = (X, Y);
-            int i, j = polygon.Count - 1;
+            var point = (X, Y);
             var oddNodes = false;
 
-            for (i = 0; i < polygon.Count; i++)
+            if (!(polygon is null) && !(constant is null) && !(multiple is null))
             {
-                //  Note that division by zero is avoided because the division is protected
-                //  by the "if" clause which surrounds it.
-                if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y
-                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
+                int i, j = polygon.Count - 1;
+
+                for (i = 0; i < polygon.Count; i++)
                 {
-                    oddNodes ^= (point.Y * multiple[i]) + constant[i] < point.X;
+                    //  Note that division by zero is avoided because the division is protected
+                    //  by the "if" clause which surrounds it.
+                    if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y
+                    || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
+                    {
+                        oddNodes ^= (point.Y * multiple[i]) + constant[i] < point.X;
+                    }
+                    j = i;
                 }
-                j = i;
             }
 
             return oddNodes;
@@ -375,22 +396,27 @@ namespace InstrumentedLibrary
         public static bool PointInPolygonContourMeowNET(
             List<(double X, double Y)> polygon, double X, double Y)
         {
-            (double X, double Y) point = (X, Y);
+            var point = (X, Y);
             var result = false;
-            var j = polygon.Count - 1;
-            for (var i = 0; i < polygon.Count; i++)
+
+            if (!(polygon is null))
             {
-                if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
+                var j = polygon.Count - 1;
+                for (var i = 0; i < polygon.Count; i++)
                 {
-                    if (polygon[i].X + ((point.Y - polygon[i].Y)
-                        / (polygon[j].Y - polygon[i].Y)
-                        * (polygon[j].X - polygon[i].X)) < point.X)
+                    if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
                     {
-                        result = !result;
+                        if (polygon[i].X + ((point.Y - polygon[i].Y)
+                            / (polygon[j].Y - polygon[i].Y)
+                            * (polygon[j].X - polygon[i].X)) < point.X)
+                        {
+                            result = !result;
+                        }
                     }
+                    j = i;
                 }
-                j = i;
             }
+
             return result;
         }
 
@@ -428,24 +454,28 @@ namespace InstrumentedLibrary
         public static bool PointInPolygonContourAlienRyderFlex(
             List<(double X, double Y)> polygon, double X, double Y)
         {
-            (double X, double Y) point = (X, Y);
+            var point = (X, Y);
             int i;
-            var j = polygon.Count - 1;
             var oddNodes = false;
 
-            for (i = 0; i < polygon.Count; i++)
+            if (!(polygon is null))
             {
-                if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y
-                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
+                var j = polygon.Count - 1;
+
+                for (i = 0; i < polygon.Count; i++)
                 {
-                    if (polygon[i].X + ((point.Y - polygon[i].Y)
-                        / (polygon[j].Y - polygon[i].Y)
-                        * (polygon[j].X - polygon[i].X)) < point.X)
+                    if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y
+                    || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
                     {
-                        oddNodes = !oddNodes;
+                        if (polygon[i].X + ((point.Y - polygon[i].Y)
+                            / (polygon[j].Y - polygon[i].Y)
+                            * (polygon[j].X - polygon[i].X)) < point.X)
+                        {
+                            oddNodes = !oddNodes;
+                        }
                     }
+                    j = i;
                 }
-                j = i;
             }
 
             return oddNodes;
@@ -485,22 +515,26 @@ namespace InstrumentedLibrary
         public static bool PointInPolygonContourLaschaLagidse2(
             List<(double X, double Y)> polygon, double X, double Y)
         {
-            (double X, double Y) point = (X, Y);
+            var point = (X, Y);
             int i;
-            var j = polygon.Count - 1;
             var oddNodes = false;
 
-            for (i = 0; i < polygon.Count; i++)
+            if (!(polygon is null))
             {
-                if ((polygon[i].Y < point.Y && polygon[j].Y >= point.Y
-                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
-                && (polygon[i].X <= point.X || polygon[j].X <= point.X))
+                var j = polygon.Count - 1;
+
+                for (i = 0; i < polygon.Count; i++)
                 {
-                    oddNodes ^= polygon[i].X + ((point.Y - polygon[i].Y)
-                        / (polygon[j].Y - polygon[i].Y)
-                        * (polygon[j].X - polygon[i].X)) < point.X;
+                    if ((polygon[i].Y < point.Y && polygon[j].Y >= point.Y
+                    || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
+                    && (polygon[i].X <= point.X || polygon[j].X <= point.X))
+                    {
+                        oddNodes ^= polygon[i].X + ((point.Y - polygon[i].Y)
+                            / (polygon[j].Y - polygon[i].Y)
+                            * (polygon[j].X - polygon[i].X)) < point.X;
+                    }
+                    j = i;
                 }
-                j = i;
             }
 
             return oddNodes;
@@ -526,19 +560,24 @@ namespace InstrumentedLibrary
         public static bool PointInPolygonContourGilKr(
             List<(double X, double Y)> polygon, double X, double Y)
         {
-            (double X, double Y) point = (X, Y);
-            var nvert = polygon.Count;
+            var point = (X, Y);
             var c = false;
-            for (int i = 0, j = nvert - 1; i < nvert; j = i++)
+
+            if (!(polygon is null))
             {
-                if (((polygon[i].Y > point.Y) != (polygon[j].Y > point.Y))
-                 && (point.X < ((polygon[j].X - polygon[i].X)
-                 * (point.Y - polygon[i].Y)
-                 / (polygon[j].Y - polygon[i].Y)) + polygon[i].X))
+                var nvert = polygon.Count;
+                for (int i = 0, j = nvert - 1; i < nvert; j = i++)
                 {
-                    c = !c;
+                    if (((polygon[i].Y > point.Y) != (polygon[j].Y > point.Y))
+                     && (point.X < ((polygon[j].X - polygon[i].X)
+                     * (point.Y - polygon[i].Y)
+                     / (polygon[j].Y - polygon[i].Y)) + polygon[i].X))
+                    {
+                        c = !c;
+                    }
                 }
             }
+
             return c;
         }
 
@@ -562,34 +601,38 @@ namespace InstrumentedLibrary
         public static bool PointInPolygonContourMKatzWRandolphFranklin(
             List<(double X, double Y)> polygon, double X, double Y)
         {
-            (double X, double Y) point = (X, Y);
-            var minX = polygon[0].X;
-            var maxX = polygon[0].X;
-            var minY = polygon[0].Y;
-            var maxY = polygon[0].Y;
-            for (var i = 1; i < polygon.Count; i++)
-            {
-                var q = polygon[i];
-                minX = Min(q.X, minX);
-                maxX = Max(q.X, maxX);
-                minY = Min(q.Y, minY);
-                maxY = Max(q.Y, maxY);
-            }
-
-            if (point.X < minX || point.X > maxX || point.Y < minY || point.Y > maxY)
-            {
-                return false;
-            }
-
-            // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
+            var point = (X, Y);
             var inside = false;
-            for (int i = 0, j = polygon.Count - 1; i < polygon.Count; j = i++)
+
+            if (!(polygon is null))
             {
-                if ((polygon[i].Y > point.Y) != (polygon[j].Y > point.Y)
-                     && point.X < ((polygon[j].X - polygon[i].X) * (point.Y - polygon[i].Y)
-                     / (polygon[j].Y - polygon[i].Y)) + polygon[i].X)
+                var minX = polygon[0].X;
+                var maxX = polygon[0].X;
+                var minY = polygon[0].Y;
+                var maxY = polygon[0].Y;
+                for (var i = 1; i < polygon.Count; i++)
                 {
-                    inside = !inside;
+                    var q = polygon[i];
+                    minX = Min(q.X, minX);
+                    maxX = Max(q.X, maxX);
+                    minY = Min(q.Y, minY);
+                    maxY = Max(q.Y, maxY);
+                }
+
+                if (point.X < minX || point.X > maxX || point.Y < minY || point.Y > maxY)
+                {
+                    return false;
+                }
+
+                // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
+                for (int i = 0, j = polygon.Count - 1; i < polygon.Count; j = i++)
+                {
+                    if ((polygon[i].Y > point.Y) != (polygon[j].Y > point.Y)
+                         && point.X < ((polygon[j].X - polygon[i].X) * (point.Y - polygon[i].Y)
+                         / (polygon[j].Y - polygon[i].Y)) + polygon[i].X)
+                    {
+                        inside = !inside;
+                    }
                 }
             }
 
@@ -617,34 +660,38 @@ namespace InstrumentedLibrary
         public static bool PointInPolygonContourPaulBourke(
             List<(double X, double Y)> polygon, double X, double Y)
         {
-            (double X, double Y) point = (X, Y);
+            var point = (X, Y);
             Point2D p1, p2;
             var counter = 0;
             int i;
-            var N = polygon.Count;
-            double xinters;
-            p1 = polygon[0];
-            for (i = 1; i <= N; i++)
+
+            if (!(polygon is null))
             {
-                p2 = polygon[i % N];
-                if (point.Y > Min(p1.Y, p2.Y))
+                var N = polygon.Count;
+                double xinters;
+                p1 = polygon[0];
+                for (i = 1; i <= N; i++)
                 {
-                    if (point.Y <= Max(p1.Y, p2.Y))
+                    p2 = polygon[i % N];
+                    if (point.Y > Min(p1.Y, p2.Y))
                     {
-                        if (point.X <= Max(p1.X, p2.X))
+                        if (point.Y <= Max(p1.Y, p2.Y))
                         {
-                            if (Abs(p1.Y - p2.Y) > DoubleEpsilon)
+                            if (point.X <= Max(p1.X, p2.X))
                             {
-                                xinters = ((point.Y - p1.Y) * (p2.X - p1.X) / (p2.Y - p1.Y)) + p1.X;
-                                if (Abs(p1.X - p2.X) < DoubleEpsilon || point.X <= xinters)
+                                if (Abs(p1.Y - p2.Y) > DoubleEpsilon)
                                 {
-                                    counter++;
+                                    xinters = ((point.Y - p1.Y) * (p2.X - p1.X) / (p2.Y - p1.Y)) + p1.X;
+                                    if (Abs(p1.X - p2.X) < DoubleEpsilon || point.X <= xinters)
+                                    {
+                                        counter++;
+                                    }
                                 }
                             }
                         }
                     }
+                    p1 = p2;
                 }
-                p1 = p2;
             }
 
             return counter % 2 != 0;
@@ -669,16 +716,19 @@ namespace InstrumentedLibrary
         public static bool PointInPolygonContourWRandolphFranklin(
             List<(double X, double Y)> polygon, double X, double Y)
         {
-            (double X, double Y) point = (X, Y);
+            var point = (X, Y);
             var inside = false;
-            var nvert = polygon.Count;
-            for (int i = 0, j = nvert - 1; i < nvert; j = i++)
+            if (!(polygon is null))
             {
-                if (((polygon[i].Y > point.Y) != (polygon[j].Y > point.Y))
-                 && (point.X < ((polygon[j].X - polygon[i].X) * (point.Y - polygon[i].Y)
-                 / (polygon[j].Y - polygon[i].Y)) + polygon[i].X))
+                var nvert = polygon.Count;
+                for (int i = 0, j = nvert - 1; i < nvert; j = i++)
                 {
-                    inside = !inside;
+                    if (((polygon[i].Y > point.Y) != (polygon[j].Y > point.Y))
+                     && (point.X < ((polygon[j].X - polygon[i].X) * (point.Y - polygon[i].Y)
+                     / (polygon[j].Y - polygon[i].Y)) + polygon[i].X))
+                    {
+                        inside = !inside;
+                    }
                 }
             }
             return inside;
@@ -703,7 +753,7 @@ namespace InstrumentedLibrary
         public static bool PointInPolygonContourSaeedAmiri(
             List<(double X, double Y)> polygon, double X, double Y)
         {
-            (double X, double Y) point = (X, Y);
+            var point = (X, Y);
             var coef = polygon.Skip(1).Select((p, i) =>
                   ((p.X - polygon[i].X) * (point.Y - polygon[i].Y))
                 - ((p.Y - polygon[i].Y) * (point.X - polygon[i].X))
@@ -744,19 +794,22 @@ namespace InstrumentedLibrary
         public static bool PointInPolygonContourPhilippeReverdy(
             List<(double X, double Y)> polygon, double X, double Y)
         {
-            (double X, double Y) point = (X, Y);
+            var point = (X, Y);
             int i;
             double angle = 0;
             var p1 = new Point2D();
             var p2 = new Point2D();
-            var n = polygon.Count;
-            for (i = 0; i < n; i++)
+            if (!(polygon is null))
             {
-                p1.X = polygon[i].X - point.X;
-                p1.Y = polygon[i].Y - point.Y;
-                p2.X = polygon[(i + 1) % n].X - point.X;
-                p2.Y = polygon[(i + 1) % n].Y - point.Y;
-                angle += Angle2DTests.Angle2DPhilippeReverdy(p1.X, p1.Y, p2.X, p2.Y);
+                var n = polygon.Count;
+                for (i = 0; i < n; i++)
+                {
+                    p1.X = polygon[i].X - point.X;
+                    p1.Y = polygon[i].Y - point.Y;
+                    p2.X = polygon[(i + 1) % n].X - point.X;
+                    p2.Y = polygon[(i + 1) % n].Y - point.Y;
+                    angle += Angle2DTests.Angle2DPhilippeReverdy(p1.X, p1.Y, p2.X, p2.Y);
+                }
             }
 
             return !(Abs(angle) < PI);
@@ -781,29 +834,33 @@ namespace InstrumentedLibrary
         public static bool PointInPolygonContourRodStephens(
             List<(double X, double Y)> polygon, double X, double Y)
         {
-            (double X, double Y) point = (X, Y);
+            var point = (X, Y);
             // Get the angle between the point and the
             // first and last vertices.
-            var max_point = polygon.Count - 1;
-            var total_angle = Angle3Vector2DTests.AngleVector(
-                polygon[max_point].X, polygon[max_point].Y,
-                point.X, point.Y,
-                polygon[0].X, polygon[0].Y);
-
-            // Add the angles from the point
-            // to each other pair of vertices.
-            for (var i = 0; i < max_point; i++)
+            if (!(polygon is null))
             {
-                total_angle += Angle3Vector2DTests.AngleVector(
-                    polygon[i].X, polygon[i].Y,
+                var max_point = polygon.Count - 1;
+                var total_angle = Angle3Vector2DTests.AngleVector(
+                    polygon[max_point].X, polygon[max_point].Y,
                     point.X, point.Y,
-                    polygon[i + 1].X, polygon[i + 1].Y);
-            }
+                    polygon[0].X, polygon[0].Y);
 
-            // The total angle should be 2 * PI or -2 * PI if
-            // the point is in the polygon and close to zero
-            // if the point is outside the polygon.
-            return Abs(total_angle) > 0.000001;
+                // Add the angles from the point
+                // to each other pair of vertices.
+                for (var i = 0; i < max_point; i++)
+                {
+                    total_angle += Angle3Vector2DTests.AngleVector(
+                        polygon[i].X, polygon[i].Y,
+                        point.X, point.Y,
+                        polygon[i + 1].X, polygon[i + 1].Y);
+                }
+
+                // The total angle should be 2 * PI or -2 * PI if
+                // the point is in the polygon and close to zero
+                // if the point is outside the polygon.
+                return Abs(total_angle) > 0.000001;
+            }
+            return default;
         }
 
         /// <summary>
@@ -825,41 +882,44 @@ namespace InstrumentedLibrary
         public static bool PointInPolygonContourKeith(
             List<(double X, double Y)> polygon, double X, double Y)
         {
-            (double X, double Y) point = (X, Y);
+            var point = (X, Y);
             Point2D p1, p2;
 
             var inside = false;
 
-            if (polygon.Count < 3)
+            if (!(polygon is null))
             {
-                return inside;
-            }
-
-            var oldPoint = polygon[polygon.Count - 1];
-
-            for (var i = 0; i < polygon.Count; i++)
-            {
-                var newPoint = polygon[i];
-
-                if (newPoint.X > oldPoint.X)
+                if (polygon.Count < 3)
                 {
-                    p1 = oldPoint;
-                    p2 = newPoint;
-                }
-                else
-                {
-                    p1 = newPoint;
-                    p2 = oldPoint;
+                    return inside;
                 }
 
-                if ((newPoint.X < point.X) == (point.X <= oldPoint.X)
-                    && (point.Y - (long)p1.Y) * (p2.X - p1.X)
-                    < (p2.Y - (long)p1.Y) * (point.X - p1.X))
-                {
-                    inside = !inside;
-                }
+                var oldPoint = polygon[polygon.Count - 1];
 
-                oldPoint = newPoint;
+                for (var i = 0; i < polygon.Count; i++)
+                {
+                    var newPoint = polygon[i];
+
+                    if (newPoint.X > oldPoint.X)
+                    {
+                        p1 = oldPoint;
+                        p2 = newPoint;
+                    }
+                    else
+                    {
+                        p1 = newPoint;
+                        p2 = oldPoint;
+                    }
+
+                    if ((newPoint.X < point.X) == (point.X <= oldPoint.X)
+                        && (point.Y - (long)p1.Y) * (p2.X - p1.X)
+                        < (p2.Y - (long)p1.Y) * (point.X - p1.X))
+                    {
+                        inside = !inside;
+                    }
+
+                    oldPoint = newPoint;
+                }
             }
 
             return inside;
@@ -881,47 +941,51 @@ namespace InstrumentedLibrary
         public static bool PointInPolygonContourBobStein(
             List<(double X, double Y)> polygon, double X, double Y)
         {
-            (double X, double Y) point = (X, Y);
+            var point = (X, Y);
             double xnew, ynew;
             double xold, yold;
             double x1, y1;
             double x2, y2;
             int i;
             var inside = false;
-            var npoints = polygon.Count;
-            if (npoints < 3)
-            {
-                return false;
-            }
 
-            xold = polygon[npoints - 1].X;
-            yold = polygon[npoints - 1].Y;
-            for (i = 0; i < npoints; i++)
+            if (!(polygon is null))
             {
-                xnew = polygon[i].X;
-                ynew = polygon[i].Y;
-                if (xnew > xold)
+                var npoints = polygon.Count;
+                if (npoints < 3)
                 {
-                    x1 = xold;
-                    x2 = xnew;
-                    y1 = yold;
-                    y2 = ynew;
+                    return false;
                 }
-                else
+
+                xold = polygon[npoints - 1].X;
+                yold = polygon[npoints - 1].Y;
+                for (i = 0; i < npoints; i++)
                 {
-                    x1 = xnew;
-                    x2 = xold;
-                    y1 = ynew;
-                    y2 = yold;
+                    xnew = polygon[i].X;
+                    ynew = polygon[i].Y;
+                    if (xnew > xold)
+                    {
+                        x1 = xold;
+                        x2 = xnew;
+                        y1 = yold;
+                        y2 = ynew;
+                    }
+                    else
+                    {
+                        x1 = xnew;
+                        x2 = xold;
+                        y1 = ynew;
+                        y2 = yold;
+                    }
+                    if ((xnew < point.X) == (point.X <= xold)          /* edge "open" at one end */
+                     && ((long)point.Y - (long)y1) * (long)(x2 - x1)
+                      < ((long)point.Y - (long)y1) * (long)(point.X - x1))
+                    {
+                        inside = !inside;
+                    }
+                    xold = xnew;
+                    yold = ynew;
                 }
-                if ((xnew < point.X) == (point.X <= xold)          /* edge "open" at one end */
-                 && ((long)point.Y - (long)y1) * (long)(x2 - x1)
-                  < ((long)point.Y - (long)y1) * (long)(point.X - x1))
-                {
-                    inside = !inside;
-                }
-                xold = xnew;
-                yold = ynew;
             }
             return inside;
         }
@@ -932,7 +996,7 @@ namespace InstrumentedLibrary
         /// <param name="polygon">The polygon.</param>
         /// <param name="X"></param>
         /// <param name="Y"></param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
+        /// <returns>The <see cref="Inclusions"/>.</returns>
         /// <acknowledgment>
         /// http://angusj.com/delphi/clipper.php
         /// </acknowledgment>
@@ -942,46 +1006,62 @@ namespace InstrumentedLibrary
         //[SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInPolygonContourHormannAgathosExpanded(List<(double X, double Y)> polygon, double X, double Y)
+        public static Inclusions PointInPolygonContourHormannAgathosExpanded(List<(double X, double Y)> polygon, double X, double Y)
         {
-            (double X, double Y) point = (X, Y);
+            var point = (X, Y);
             // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
             // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
             // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
-            var result = Inclusion.Outside;
+            var result = Inclusions.Outside;
 
-            // If the polygon has 2 or fewer points, it is a line or point and has no interior.
-            if (polygon.Count < 3)
+            if (!(polygon is null))
             {
-                return Inclusion.Outside;
-            }
-
-            var curPoint = polygon[0];
-            for (var i = 1; i <= polygon.Count; ++i)
-            {
-                var nextPoint = i == polygon.Count ? polygon[0] : polygon[i];
-                if (Abs(nextPoint.Y - point.Y) < DoubleEpsilon)
+                // If the polygon has 2 or fewer points, it is a line or point and has no interior.
+                if (polygon.Count < 3)
                 {
-                    if ((Abs(nextPoint.X - point.X) < DoubleEpsilon) || (Abs(curPoint.Y - point.Y) < DoubleEpsilon && ((nextPoint.X > point.X) == (curPoint.X < point.X))))
-                    {
-                        return Inclusion.Boundary;
-                    }
+                    return Inclusions.Outside;
                 }
 
-                if ((curPoint.Y < point.Y) != (nextPoint.Y < point.Y))
+                var curPoint = polygon[0];
+                for (var i = 1; i <= polygon.Count; ++i)
                 {
-                    if (curPoint.X >= point.X)
+                    var nextPoint = i == polygon.Count ? polygon[0] : polygon[i];
+                    if (Abs(nextPoint.Y - point.Y) < DoubleEpsilon)
                     {
-                        if (nextPoint.X > point.X)
+                        if ((Abs(nextPoint.X - point.X) < DoubleEpsilon) || (Abs(curPoint.Y - point.Y) < DoubleEpsilon && ((nextPoint.X > point.X) == (curPoint.X < point.X))))
                         {
-                            result = 1 - result;
+                            return Inclusions.Boundary;
                         }
-                        else
+                    }
+
+                    if ((curPoint.Y < point.Y) != (nextPoint.Y < point.Y))
+                    {
+                        if (curPoint.X >= point.X)
+                        {
+                            if (nextPoint.X > point.X)
+                            {
+                                result = 1 - result;
+                            }
+                            else
+                            {
+                                var determinant = ((curPoint.X - point.X) * (nextPoint.Y - point.Y)) - ((nextPoint.X - point.X) * (curPoint.Y - point.Y));
+                                if (Abs(determinant) < DoubleEpsilon)
+                                {
+                                    return Inclusions.Boundary;
+                                }
+
+                                if ((determinant > 0d) == (nextPoint.Y > curPoint.Y))
+                                {
+                                    result = 1 - result;
+                                }
+                            }
+                        }
+                        else if (nextPoint.X > point.X)
                         {
                             var determinant = ((curPoint.X - point.X) * (nextPoint.Y - point.Y)) - ((nextPoint.X - point.X) * (curPoint.Y - point.Y));
                             if (Abs(determinant) < DoubleEpsilon)
                             {
-                                return Inclusion.Boundary;
+                                return Inclusions.Boundary;
                             }
 
                             if ((determinant > 0d) == (nextPoint.Y > curPoint.Y))
@@ -990,22 +1070,9 @@ namespace InstrumentedLibrary
                             }
                         }
                     }
-                    else if (nextPoint.X > point.X)
-                    {
-                        var determinant = ((curPoint.X - point.X) * (nextPoint.Y - point.Y)) - ((nextPoint.X - point.X) * (curPoint.Y - point.Y));
-                        if (Abs(determinant) < DoubleEpsilon)
-                        {
-                            return Inclusion.Boundary;
-                        }
 
-                        if ((determinant > 0d) == (nextPoint.Y > curPoint.Y))
-                        {
-                            result = 1 - result;
-                        }
-                    }
+                    curPoint = nextPoint;
                 }
-
-                curPoint = nextPoint;
             }
 
             return result;
@@ -1017,7 +1084,7 @@ namespace InstrumentedLibrary
         /// <param name="polygon">The polygon.</param>
         /// <param name="X"></param>
         /// <param name="Y"></param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
+        /// <returns>The <see cref="Inclusions"/>.</returns>
         /// <acknowledgment>http://angusj.com/delphi/clipper.php</acknowledgment>
         //[DisplayName("Point in Polygon")]
         //[Description("Hormann Agathos Expanded Point in Polygon method 2.")]
@@ -1025,50 +1092,66 @@ namespace InstrumentedLibrary
         //[SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInPolygonContourHormannAgathosExpanded2(List<(double X, double Y)> polygon, double X, double Y)
+        public static Inclusions PointInPolygonContourHormannAgathosExpanded2(List<(double X, double Y)> polygon, double X, double Y)
         {
-            (double X, double Y) point = (X, Y);
+            var point = (X, Y);
             // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
             // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
             // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
-            var result = Inclusion.Outside;
+            var result = Inclusions.Outside;
 
-            // If the polygon has 2 or fewer points, it is a line or point and has no interior.
-            if (polygon.Count < 3)
+            if (!(polygon is null))
             {
-                return Inclusion.Outside;
-            }
-
-            var curPoint = polygon[0];
-            for (var i = 1; i <= polygon.Count; ++i)
-            {
-                var nextPoint = i == polygon.Count ? polygon[0] : polygon[i];
-                // Horizontal line special case.
-                // Is end point horizontal to test point?
-                if ((Abs(nextPoint.Y - point.Y) < DoubleEpsilon)
-                    // And is end point vertical to test point?
-                    && ((Abs(nextPoint.X - point.X) < DoubleEpsilon)
-                    // Or is start point horizontal to test point?
-                    // And is test point between end and start
-                    || (Abs(curPoint.Y - point.Y) < DoubleEpsilon && ((nextPoint.X > point.X) == (curPoint.X < point.X)))))
+                // If the polygon has 2 or fewer points, it is a line or point and has no interior.
+                if (polygon.Count < 3)
                 {
-                    return Inclusion.Boundary;
+                    return Inclusions.Outside;
                 }
 
-                if ((curPoint.Y < point.Y) != (nextPoint.Y < point.Y))
+                var curPoint = polygon[0];
+                for (var i = 1; i <= polygon.Count; ++i)
                 {
-                    if (curPoint.X >= point.X)
+                    var nextPoint = i == polygon.Count ? polygon[0] : polygon[i];
+                    // Horizontal line special case.
+                    // Is end point horizontal to test point?
+                    if ((Abs(nextPoint.Y - point.Y) < DoubleEpsilon)
+                        // And is end point vertical to test point?
+                        && ((Abs(nextPoint.X - point.X) < DoubleEpsilon)
+                        // Or is start point horizontal to test point?
+                        // And is test point between end and start
+                        || (Abs(curPoint.Y - point.Y) < DoubleEpsilon && ((nextPoint.X > point.X) == (curPoint.X < point.X)))))
                     {
-                        if (nextPoint.X > point.X)
+                        return Inclusions.Boundary;
+                    }
+
+                    if ((curPoint.Y < point.Y) != (nextPoint.Y < point.Y))
+                    {
+                        if (curPoint.X >= point.X)
                         {
-                            result = 1 - result;
+                            if (nextPoint.X > point.X)
+                            {
+                                result = 1 - result;
+                            }
+                            else
+                            {
+                                var determinant = ((curPoint.X - point.X) * (nextPoint.Y - point.Y)) - ((nextPoint.X - point.X) * (curPoint.Y - point.Y));
+                                if (Abs(determinant) < DoubleEpsilon)
+                                {
+                                    return Inclusions.Boundary;
+                                }
+
+                                if ((determinant > 0d) == (nextPoint.Y > curPoint.Y))
+                                {
+                                    result = 1 - result;
+                                }
+                            }
                         }
-                        else
+                        else if (nextPoint.X > point.X)
                         {
                             var determinant = ((curPoint.X - point.X) * (nextPoint.Y - point.Y)) - ((nextPoint.X - point.X) * (curPoint.Y - point.Y));
                             if (Abs(determinant) < DoubleEpsilon)
                             {
-                                return Inclusion.Boundary;
+                                return Inclusions.Boundary;
                             }
 
                             if ((determinant > 0d) == (nextPoint.Y > curPoint.Y))
@@ -1077,22 +1160,9 @@ namespace InstrumentedLibrary
                             }
                         }
                     }
-                    else if (nextPoint.X > point.X)
-                    {
-                        var determinant = ((curPoint.X - point.X) * (nextPoint.Y - point.Y)) - ((nextPoint.X - point.X) * (curPoint.Y - point.Y));
-                        if (Abs(determinant) < DoubleEpsilon)
-                        {
-                            return Inclusion.Boundary;
-                        }
 
-                        if ((determinant > 0d) == (nextPoint.Y > curPoint.Y))
-                        {
-                            result = 1 - result;
-                        }
-                    }
+                    curPoint = nextPoint;
                 }
-
-                curPoint = nextPoint;
             }
 
             return result;
@@ -1104,7 +1174,7 @@ namespace InstrumentedLibrary
         /// <param name="polygon">The polygon.</param>
         /// <param name="X"></param>
         /// <param name="Y"></param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
+        /// <returns>The <see cref="Inclusions"/>.</returns>
         /// <acknowledgment>http://angusj.com/delphi/clipper.php</acknowledgment>
         //[DisplayName("Point in Polygon")]
         //[Description("Hormann Agathos Simplified Point in Polygon method.")]
@@ -1112,56 +1182,59 @@ namespace InstrumentedLibrary
         //[SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInPolygonContourHormannAgathosSimplified(List<(double X, double Y)> polygon, double X, double Y)
+        public static Inclusions PointInPolygonContourHormannAgathosSimplified(List<(double X, double Y)> polygon, double X, double Y)
         {
-            (double X, double Y) point = (X, Y);
+            var point = (X, Y);
             // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
             // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
             // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
-            var result = Inclusion.Outside;
+            var result = Inclusions.Outside;
 
-            // If the polygon has 2 or fewer points, it is a line or point and has no interior.
-            if (polygon.Count < 3)
+            if (!(polygon is null))
             {
-                return Inclusion.Outside;
-            }
-
-            var curPoint = polygon[0];
-            var nextPoint = polygon[1];
-            for (var i = 1; i <= polygon.Count; ++i)
-            {
-                nextPoint = i == polygon.Count ? polygon[0] : polygon[i];
-                if (Abs(nextPoint.Y - point.Y) < DoubleEpsilon)
+                // If the polygon has 2 or fewer points, it is a line or point and has no interior.
+                if (polygon.Count < 3)
                 {
-                    if ((Abs(nextPoint.X - point.X) < DoubleEpsilon)
-                        || (Abs(curPoint.Y - point.Y) < DoubleEpsilon
-                        && ((nextPoint.X > point.X) == (curPoint.X < point.X))))
-                    {
-                        return Inclusion.Boundary;
-                    }
+                    return Inclusions.Outside;
                 }
 
-                if ((curPoint.Y < point.Y) != (nextPoint.Y < point.Y))
+                var curPoint = polygon[0];
+                var nextPoint = polygon[1];
+                for (var i = 1; i <= polygon.Count; ++i)
                 {
-                    if (curPoint.X >= point.X && nextPoint.X > point.X)
+                    nextPoint = i == polygon.Count ? polygon[0] : polygon[i];
+                    if (Abs(nextPoint.Y - point.Y) < DoubleEpsilon)
                     {
-                        result = 1 - result;
-                    }
-                    else if (curPoint.X >= point.X && nextPoint.X <= point.X || curPoint.X < point.X && nextPoint.X > point.X)
-                    {
-                        var determinant = ((curPoint.X - point.X) * (nextPoint.Y - point.Y)) - ((nextPoint.X - point.X) * (curPoint.Y - point.Y));
-                        if (Abs(determinant) < Epsilon)
+                        if ((Abs(nextPoint.X - point.X) < DoubleEpsilon)
+                            || (Abs(curPoint.Y - point.Y) < DoubleEpsilon
+                            && ((nextPoint.X > point.X) == (curPoint.X < point.X))))
                         {
-                            return Inclusion.Boundary;
+                            return Inclusions.Boundary;
                         }
-                        else if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
+                    }
+
+                    if ((curPoint.Y < point.Y) != (nextPoint.Y < point.Y))
+                    {
+                        if (curPoint.X >= point.X && nextPoint.X > point.X)
                         {
                             result = 1 - result;
                         }
+                        else if (curPoint.X >= point.X && nextPoint.X <= point.X || curPoint.X < point.X && nextPoint.X > point.X)
+                        {
+                            var determinant = ((curPoint.X - point.X) * (nextPoint.Y - point.Y)) - ((nextPoint.X - point.X) * (curPoint.Y - point.Y));
+                            if (Abs(determinant) < Epsilon)
+                            {
+                                return Inclusions.Boundary;
+                            }
+                            else if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
+                            {
+                                result = 1 - result;
+                            }
+                        }
                     }
-                }
 
-                curPoint = nextPoint;
+                    curPoint = nextPoint;
+                }
             }
 
             return result;
@@ -1173,7 +1246,7 @@ namespace InstrumentedLibrary
         /// <param name="polygon">The polygon.</param>
         /// <param name="X"></param>
         /// <param name="Y"></param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
+        /// <returns>The <see cref="Inclusions"/>.</returns>
         /// <acknowledgment>http://angusj.com/delphi/clipper.php</acknowledgment>
         //[DisplayName("Point in Polygon")]
         //[Description("Hormann Agathos Expanded Point in Polygon method 3.")]
@@ -1181,78 +1254,80 @@ namespace InstrumentedLibrary
         //[SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInPolygonContourHormannAgathosExpanded3(List<(double X, double Y)> polygon, double X, double Y)
+        public static Inclusions PointInPolygonContourHormannAgathosExpanded3(List<(double X, double Y)> polygon, double X, double Y)
         {
-            (double X, double Y) point = (X, Y);
+            var point = (X, Y);
             // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
             // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
             // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
-            var result = Inclusion.Outside;
+            var result = Inclusions.Outside;
 
-            // If the polygon has 2 or fewer points, it is a line or point and has no interior.
-            if (polygon.Count < 3)
+            if (!(polygon is null))
             {
-                return Inclusion.Outside;
-            }
-
-            var curPoint = polygon[0];
-            for (var i = 1; i <= polygon.Count; ++i)
-            {
-                var nextPoint = i == polygon.Count ? polygon[0] : polygon[i];
-                if (Abs(nextPoint.Y - point.Y) < DoubleEpsilon)
+                // If the polygon has 2 or fewer points, it is a line or point and has no interior.
+                if (polygon.Count < 3)
                 {
-                    if ((Abs(nextPoint.X - point.X) < DoubleEpsilon)
-                        || (Abs(curPoint.Y - point.Y) < DoubleEpsilon
-                        && ((nextPoint.X > point.X) == (curPoint.X < point.X))))
-                    {
-                        return Inclusion.Boundary;
-                    }
+                    return Inclusions.Outside;
                 }
 
-                if ((curPoint.Y < point.Y) != (nextPoint.Y < point.Y))
+                var curPoint = polygon[0];
+                for (var i = 1; i <= polygon.Count; ++i)
                 {
-                    if (curPoint.X >= point.X)
+                    var nextPoint = i == polygon.Count ? polygon[0] : polygon[i];
+                    if (Abs(nextPoint.Y - point.Y) < DoubleEpsilon)
                     {
-                        if (nextPoint.X > point.X)
+                        if ((Abs(nextPoint.X - point.X) < DoubleEpsilon)
+                            || (Abs(curPoint.Y - point.Y) < DoubleEpsilon
+                            && ((nextPoint.X > point.X) == (curPoint.X < point.X))))
                         {
-                            result = 1 - result;
+                            return Inclusions.Boundary;
                         }
-                        else
+                    }
+
+                    if ((curPoint.Y < point.Y) != (nextPoint.Y < point.Y))
+                    {
+                        if (curPoint.X >= point.X)
+                        {
+                            if (nextPoint.X > point.X)
+                            {
+                                result = 1 - result;
+                            }
+                            else
+                            {
+                                result = process(nextPoint.X, nextPoint.Y);
+                                if (result == Inclusions.Boundary)
+                                {
+                                    return result;
+                                }
+                            }
+                        }
+                        else if (nextPoint.X > point.X)
                         {
                             result = process(nextPoint.X, nextPoint.Y);
-                            if (result == Inclusion.Boundary)
+                            if (result == Inclusions.Boundary)
                             {
                                 return result;
                             }
                         }
                     }
-                    else if (nextPoint.X > point.X)
+                    curPoint = nextPoint;
+                }
+
+                Inclusions process(double nextPointX, double nextPointY)
+                {
+                    var determinant = ((curPoint.X - point.X) * (nextPointY - point.Y)) - ((nextPointX - point.X) * (curPoint.Y - point.Y));
+                    if (Abs(determinant) < DoubleEpsilon)
                     {
-                        result = process(nextPoint.X, nextPoint.Y);
-                        if (result == Inclusion.Boundary)
-                        {
-                            return result;
-                        }
+                        return Inclusions.Boundary;
                     }
+
+                    if ((determinant > 0d) == (nextPointY > curPoint.Y))
+                    {
+                        return 1 - result;
+                    }
+
+                    return result;
                 }
-
-                curPoint = nextPoint;
-            }
-
-            Inclusion process(double nextPointX, double nextPointY)
-            {
-                var determinant = ((curPoint.X - point.X) * (nextPointY - point.Y)) - ((nextPointX - point.X) * (curPoint.Y - point.Y));
-                if (Abs(determinant) < DoubleEpsilon)
-                {
-                    return Inclusion.Boundary;
-                }
-
-                if ((determinant > 0d) == (nextPointY > curPoint.Y))
-                {
-                    return 1 - result;
-                }
-
-                return result;
             }
 
             return result;
@@ -1279,7 +1354,7 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonContourHormannAgathosNewFor(List<(double X, double Y)> polygon, double X, double Y)
-            => PointInPolygonContourHormannAgathosNewFor(polygon, X, Y, Epsilon) != Inclusion.Outside;
+            => PointInPolygonContourHormannAgathosNewFor(polygon, X, Y, Epsilon) != Inclusions.Outside;
 
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="PolygonContour2D"/>.
@@ -1298,88 +1373,91 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInPolygonContourHormannAgathosNewFor(
+        public static Inclusions PointInPolygonContourHormannAgathosNewFor(
             List<(double X, double Y)> points,
             double X, double Y,
             double epsilon = Epsilon)
         {
-            (double X, double Y) p = (X, Y);
+            var p = (X, Y);
             // Default value is no inclusion.
-            var result = Inclusion.Outside;
+            var result = Inclusions.Outside;
 
-            // Special cases for points and line segments.
-            if (points.Count < 3)
+            if (!(points is null))
             {
-                if (points.Count == 1)
+                // Special cases for points and line segments.
+                if (points.Count < 3)
                 {
-                    // If the polygon has 1 point, it is a point and has no interior, but a point can intersect a point.
-                    return (p.X == points[0].X && p.Y == points[0].Y) ? Inclusion.Boundary : Inclusion.Outside;
-                }
-                else if (points.Count == 2)
-                {
-                    // If the polygon has 2 points, it is a line and has no interior, but a point can intersect a line.
-                    return ((p.X == points[0].X) && (p.Y == points[0].Y))
-                        || ((p.X == points[1].X) && (p.Y == points[1].Y))
-                        || (((p.X > points[0].X) == (p.X < points[1].X))
-                        && ((p.Y > points[0].Y) == (p.Y < points[1].Y))
-                        && ((p.X - points[0].X) * (points[1].Y - points[0].Y) == (p.Y - points[0].Y) * (points[1].X - points[0].X))) ? Inclusion.Boundary : Inclusion.Outside;
-                }
-                else
-                {
-                    // Empty geometry.
-                    return Inclusion.Outside;
-                }
-            }
-
-            // Loop through each line segment.
-            Point2D curPoint;
-            Point2D nextPoint;
-            for (int i = points.Count - 1, j = 0; j < points.Count; i = j++)
-            {
-                curPoint = points[i];
-                nextPoint = points[j];
-                // Special case for horizontal lines. Check whether the point is on one of the ends, or whether the point is on the segment, if the line is horizontal.
-                if (nextPoint.Y == p.Y && (nextPoint.X == p.X || ((curPoint.Y == p.Y) && ((nextPoint.X > p.X) == (curPoint.X < p.X)))))
-                //if ((Abs(nextPoint.Y - pY) < epsilon) && ((Abs(nextPoint.X - pX) < epsilon) || (Abs(curPoint.Y - pY) < epsilon && ((nextPoint.X > pX) == (curPoint.X < pX)))))
-                {
-                    return Inclusion.Boundary;
-                }
-
-                // If Point between start and end points horizontally.
-                //if ((curPoint.Y < pY) == (nextPoint.Y >= pY))
-                if ((curPoint.Y < p.Y) != (nextPoint.Y < p.Y))
-                {
-                    // If point between start and end points vertically.
-                    if (curPoint.X >= p.X)
+                    if (points.Count == 1)
                     {
-                        if (nextPoint.X > p.X)
+                        // If the polygon has 1 point, it is a point and has no interior, but a point can intersect a point.
+                        return (p.X == points[0].X && p.Y == points[0].Y) ? Inclusions.Boundary : Inclusions.Outside;
+                    }
+                    else if (points.Count == 2)
+                    {
+                        // If the polygon has 2 points, it is a line and has no interior, but a point can intersect a line.
+                        return ((p.X == points[0].X) && (p.Y == points[0].Y))
+                            || ((p.X == points[1].X) && (p.Y == points[1].Y))
+                            || (((p.X > points[0].X) == (p.X < points[1].X))
+                            && ((p.Y > points[0].Y) == (p.Y < points[1].Y))
+                            && ((p.X - points[0].X) * (points[1].Y - points[0].Y) == (p.Y - points[0].Y) * (points[1].X - points[0].X))) ? Inclusions.Boundary : Inclusions.Outside;
+                    }
+                    else
+                    {
+                        // Empty geometry.
+                        return Inclusions.Outside;
+                    }
+                }
+
+                // Loop through each line segment.
+                Point2D curPoint;
+                Point2D nextPoint;
+                for (int i = points.Count - 1, j = 0; j < points.Count; i = j++)
+                {
+                    curPoint = points[i];
+                    nextPoint = points[j];
+                    // Special case for horizontal lines. Check whether the point is on one of the ends, or whether the point is on the segment, if the line is horizontal.
+                    if (nextPoint.Y == p.Y && (nextPoint.X == p.X || ((curPoint.Y == p.Y) && ((nextPoint.X > p.X) == (curPoint.X < p.X)))))
+                    //if ((Abs(nextPoint.Y - pY) < epsilon) && ((Abs(nextPoint.X - pX) < epsilon) || (Abs(curPoint.Y - pY) < epsilon && ((nextPoint.X > pX) == (curPoint.X < pX)))))
+                    {
+                        return Inclusions.Boundary;
+                    }
+
+                    // If Point between start and end points horizontally.
+                    //if ((curPoint.Y < pY) == (nextPoint.Y >= pY))
+                    if ((curPoint.Y < p.Y) != (nextPoint.Y < p.Y))
+                    {
+                        // If point between start and end points vertically.
+                        if (curPoint.X >= p.X)
                         {
-                            result = 1 - result;
+                            if (nextPoint.X > p.X)
+                            {
+                                result = 1 - result;
+                            }
+                            else
+                            {
+                                var determinant = ((curPoint.X - p.X) * (nextPoint.Y - p.Y)) - ((nextPoint.X - p.X) * (curPoint.Y - p.Y));
+                                if (Abs(determinant) < epsilon)
+                                {
+                                    return Inclusions.Boundary;
+                                }
+                                else if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
+                                {
+                                    result = 1 - result;
+                                }
+                            }
                         }
-                        else
+                        else if (nextPoint.X > p.X)
                         {
                             var determinant = ((curPoint.X - p.X) * (nextPoint.Y - p.Y)) - ((nextPoint.X - p.X) * (curPoint.Y - p.Y));
                             if (Abs(determinant) < epsilon)
                             {
-                                return Inclusion.Boundary;
+                                return Inclusions.Boundary;
                             }
-                            else if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
+
+                            if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
                             {
                                 result = 1 - result;
                             }
-                        }
-                    }
-                    else if (nextPoint.X > p.X)
-                    {
-                        var determinant = ((curPoint.X - p.X) * (nextPoint.Y - p.Y)) - ((nextPoint.X - p.X) * (curPoint.Y - p.Y));
-                        if (Abs(determinant) < epsilon)
-                        {
-                            return Inclusion.Boundary;
-                        }
-
-                        if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
-                        {
-                            result = 1 - result;
                         }
                     }
                 }
@@ -1414,18 +1492,22 @@ namespace InstrumentedLibrary
             double y)
         {
             var isIn = false;
-            for (int i = 0, j = poly.Count - 1; i < poly.Count; j = i++)
+            if (!(poly is null))
             {
-                var xi = poly[i].X;
-                var yi = poly[i].Y;
-                var xj = poly[j].X;
-                var yj = poly[j].Y;
-                var intersect = ((yi > y) != (yj > y)) && (x < ((xj - xi) * (y - yi) / (yj - yi)) + xi);
-                if (intersect)
+                for (int i = 0, j = poly.Count - 1; i < poly.Count; j = i++)
                 {
-                    isIn = !isIn;
+                    var xi = poly[i].X;
+                    var yi = poly[i].Y;
+                    var xj = poly[j].X;
+                    var yj = poly[j].Y;
+                    var intersect = ((yi > y) != (yj > y)) && (x < ((xj - xi) * (y - yi) / (yj - yi)) + xi);
+                    if (intersect)
+                    {
+                        isIn = !isIn;
+                    }
                 }
             }
+
             return isIn;
         }
     }

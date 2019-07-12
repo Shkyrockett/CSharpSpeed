@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(InterpolateCubicBSplineTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -46,7 +46,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double X, double Y) InterpolateBSpline(double index, IList<(double X, double Y)> points)
-            => InterpolateBSpline_(index, points);
+            => InterpolateBSpline1(index, points);
 
         /// <summary>
         /// Function to Interpolate a Cubic Bezier Spline
@@ -59,9 +59,9 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) InterpolateBSpline_(double index, IList<(double X, double Y)> points)
+        public static (double X, double Y) InterpolateBSpline1(double index, IList<(double X, double Y)> points)
         {
-            if (points.Count >= 4)
+            if (!(points is null) && points.Count >= 4)
             {
                 var VPoints = new List<(double X, double Y)>(4);
 
@@ -110,45 +110,45 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Interpolate(double index, IList<(double X, double Y)> points)
         {
-            var n = points.Count - 1;
-            int kn;
-            int nn;
-            int nkn;
-
-            double blend;
-            double muk = 1;
-            var munk = Pow(1 - index, n);
-
             var b = (X: 0d, Y: 0d);
 
-            for (var k = 0; k <= n; k++)
+            if (!(points is null))
             {
-                nn = n;
-                kn = k;
-                nkn = n - k;
-                blend = muk * munk;
-                muk *= index;
-                munk /= 1 - index;
-                while (nn >= 1)
-                {
-                    blend *= nn;
-                    nn--;
-                    if (kn > 1)
-                    {
-                        blend /= kn;
-                        kn--;
-                    }
-                    if (nkn > 1)
-                    {
-                        blend /= nkn;
-                        nkn--;
-                    }
-                }
+                var n = points.Count - 1;
+                double blend;
+                double muk = 1;
+                var munk = Pow(1 - index, n);
 
-                b = (
-                b.X + points[k].X * blend,
-                b.Y + points[k].Y * blend
-                    );
+
+                for (var k = 0; k <= n; k++)
+                {
+                    int nn = n;
+                    int kn = k;
+                    int nkn = n - k;
+                    blend = muk * munk;
+                    muk *= index;
+                    munk /= 1 - index;
+                    while (nn >= 1)
+                    {
+                        blend *= nn;
+                        nn--;
+                        if (kn > 1)
+                        {
+                            blend /= kn;
+                            kn--;
+                        }
+                        if (nkn > 1)
+                        {
+                            blend /= nkn;
+                            nkn--;
+                        }
+                    }
+
+                    b = (
+                    b.X + points[k].X * blend,
+                    b.Y + points[k].Y * blend
+                        );
+                }
             }
 
             return b;
@@ -169,22 +169,25 @@ namespace InstrumentedLibrary
         {
             var VPoints = new (double X, double Y)[4];
 
-            VPoints[0] = (
-                Points[3].X - Points[2].X - (Points[0].X - Points[1].X),
-                Points[3].Y - Points[2].Y - (Points[0].Y - Points[1].Y)
-                );
+            if (!(Points is null))
+            {
+                VPoints[0] = (
+                    Points[3].X - Points[2].X - (Points[0].X - Points[1].X),
+                    Points[3].Y - Points[2].Y - (Points[0].Y - Points[1].Y)
+                    );
 
-            VPoints[1] = (
-                Points[0].X - Points[1].X - VPoints[0].X,
-                Points[0].Y - Points[1].Y - VPoints[0].Y
-                );
+                VPoints[1] = (
+                    Points[0].X - Points[1].X - VPoints[0].X,
+                    Points[0].Y - Points[1].Y - VPoints[0].Y
+                    );
 
-            VPoints[2] = (
-                Points[2].X - Points[0].X,
-                Points[2].Y - Points[0].Y
-                );
+                VPoints[2] = (
+                    Points[2].X - Points[0].X,
+                    Points[2].Y - Points[0].Y
+                    );
 
-            VPoints[3] = Points[1];
+                VPoints[3] = Points[1];
+            }
 
             return (
                 VPoints[0].X * Index * Index * Index + VPoints[1].X * Index * Index * Index + VPoints[2].X * Index + VPoints[3].X,

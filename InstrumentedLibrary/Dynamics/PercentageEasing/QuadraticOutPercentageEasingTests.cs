@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -12,6 +13,16 @@ namespace InstrumentedLibrary
     public static class QuadraticOutPercentageEasingTests
     {
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double QuadOut(double t)
+            => QuadOut1( t);
+
+        /// <summary>
         /// Easing equation function for a quadratic (t^2) easing out:
         /// decelerating from zero velocity.
         /// </summary>
@@ -22,7 +33,7 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double QuadOut(double t)
+        public static double QuadOut1(double t)
         {
             return -t * (t - 2d);
         }

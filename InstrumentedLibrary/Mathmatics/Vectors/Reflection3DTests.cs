@@ -50,7 +50,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double X, double Y, double Z) Reflection(double i1, double j1, double k1, double i2, double j2, double k2)
-            => Reflection_(i1, j1, k1, i2, j2, k2);
+            => Reflection1(i1, j1, k1, i2, j2, k2);
 
         /// <summary>
         /// The reflection.
@@ -70,7 +70,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) Reflection_(
+        public static (double X, double Y, double Z) Reflection1(
             double i1, double j1, double k1,
             double i2, double j2, double k2)
         {

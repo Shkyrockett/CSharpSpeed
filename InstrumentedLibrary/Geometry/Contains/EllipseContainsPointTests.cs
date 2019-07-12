@@ -20,13 +20,13 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(EllipseContainsPointTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 2d, 2d, 0d, 0.5d, 0.5d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: Inclusion.Inside, epsilon: double.Epsilon) },
+                { new object[] { 0d, 0d, 2d, 2d, 0d, 0.5d, 0.5d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: Inclusions.Inside, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -52,7 +52,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static Inclusion EllipseContainsPoint(double x, double y, double rX, double rY, double angle, double pX, double pY, double epsilon = Epsilon)
+        public static Inclusions EllipseContainsPoint(double x, double y, double rX, double rY, double angle, double pX, double pY, double epsilon = Epsilon)
             => PointInEllipse0(x, y, rX, rY, angle, pX, pY, epsilon);
 
         /// <summary>
@@ -76,11 +76,11 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInEllipse0(double x, double y, double rX, double rY, double angle, double pX, double pY, double epsilon = Epsilon)
+        public static Inclusions PointInEllipse0(double x, double y, double rX, double rY, double angle, double pX, double pY, double epsilon = Epsilon)
         {
             if (rX <= 0d || rY <= 0d)
             {
-                return Inclusion.Outside;
+                return Inclusions.Outside;
             }
 
             var cosT = Cos(-angle);
@@ -97,7 +97,7 @@ namespace InstrumentedLibrary
 
             var normalizedRadius = (a / d1Squared) + (b / d2Squared);
 
-            return (normalizedRadius <= 1d) ? ((Abs(normalizedRadius - 1d) < epsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+            return (normalizedRadius <= 1d) ? ((Abs(normalizedRadius - 1d) < epsilon) ? Inclusions.Boundary : Inclusions.Inside) : Inclusions.Outside;
         }
     }
 }

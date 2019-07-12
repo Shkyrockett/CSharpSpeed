@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the 1D cubic interpolation of a point.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(InterpolateCubic1DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -49,7 +49,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double CubicInterpolate1D(double t, double v0, double v1, double v2, double v3)
-            => CubicInterpolate1D_(t, v0, v1, v2, v3);
+            => CubicInterpolate1D1(t, v0, v1, v2, v3);
 
         /// <summary>
         /// The cubic interpolate1d.
@@ -69,7 +69,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CubicInterpolate1D_(double t, double v0, double v1, double v2, double v3)
+        public static double CubicInterpolate1D1(double t, double v0, double v1, double v2, double v3)
         {
             var mu2 = t * t;
             var a0 = v3 - v2 - v0 + v1;

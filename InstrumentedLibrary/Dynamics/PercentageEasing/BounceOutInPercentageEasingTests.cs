@@ -1,8 +1,11 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using static InstrumentedLibrary.EasingConstants;
+using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
 {
@@ -11,6 +14,16 @@ namespace InstrumentedLibrary
     /// </summary>
     public static class BounceOutInPercentageEasingTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double BounceOutIn(double t)
+            => BounceOutIn1( t);
+
         /// <summary>
         /// Easing equation function for a bounce (exponentially decaying parabolic bounce) easing out/in:
         /// deceleration until halfway, then acceleration.
@@ -22,9 +35,9 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double BounceOutIn(double t)
+        public static double BounceOutIn1(double t)
         {
-            return (t < 0.5d) ? BounceOutPercentageEasingTests.BounceOut(t * 2d) : BounceInPercentageEasingTests.BounceIn((t * 2d) - 1d);
+            return (t < OneHalf) ? BounceOutPercentageEasingTests.BounceOut(t * 2d) : BounceInPercentageEasingTests.BounceIn((t * 2d) - 1d);
         }
     }
 }

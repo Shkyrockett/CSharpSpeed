@@ -1,4 +1,5 @@
 ﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -19,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(ToDegreesTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -59,7 +60,7 @@ namespace InstrumentedLibrary
         /// <param name="angle">The angle.</param>
         /// <param name="ox">The x component of the point to rotate about.</param>
         /// <param name="oy">The x component of the point to rotate about.</param>
-        /// <returns>The <see cref="T:(double x, double y)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         [DisplayName("Rotate point About another point Test")]
         [Description("Rotate point About another point.")]
         [SourceCodeLocationProvider]
@@ -77,7 +78,7 @@ namespace InstrumentedLibrary
         /// <param name="cos">The cosine component of the angle.</param>
         /// <param name="ox">The x component of the point to rotate about.</param>
         /// <param name="oy">The x component of the point to rotate about.</param>
-        /// <returns>The <see cref="T:(double x, double y)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double x, double y) RotatePoint(double x, double y, double cos, double sin, double ox, double oy)

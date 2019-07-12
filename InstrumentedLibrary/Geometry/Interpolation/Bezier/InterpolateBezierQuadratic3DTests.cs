@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the 3D cubic interpolation of a point.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(InterpolateBezierQuadratic3DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -53,7 +53,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double X, double Y, double Z) QuadraticBezierInterpolate3D(double t, double x0, double y0, double z0, double x1, double y1, double z1, double x2, double y2, double z2)
-            => QuadraticBezierInterpolate3D_0(t, x0, y0, z0, x1, y1, z1, x2, y2, z2);
+            => QuadraticBezierInterpolate3D0(t, x0, y0, z0, x1, y1, z1, x2, y2, z2);
 
         /// <summary>
         /// Three control point Bezier interpolation mu ranges from 0 to 1, start to end of the curve.
@@ -74,7 +74,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) QuadraticBezierInterpolate3D_0(double t, double x0, double y0, double z0, double x1, double y1, double z1, double x2, double y2, double z2)
+        public static (double X, double Y, double Z) QuadraticBezierInterpolate3D0(double t, double x0, double y0, double z0, double x1, double y1, double z1, double x2, double y2, double z2)
         {
             var mu1 = 1d - t;
             var mu12 = mu1 * mu1;
@@ -109,7 +109,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) QuadraticBezierInterpolate3D_1(double t, double x0, double y0, double z0, double x1, double y1, double z1, double x2, double y2, double z2)
+        public static (double X, double Y, double Z) QuadraticBezierInterpolate3D1(double t, double x0, double y0, double z0, double x1, double y1, double z1, double x2, double y2, double z2)
         {
             // point between a and b
             var ab = InterpolateLinear3DTests.LinearInterpolate3D(t, x0, y0, z0, x1, y1, z1);

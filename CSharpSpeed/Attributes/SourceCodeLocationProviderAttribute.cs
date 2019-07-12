@@ -7,24 +7,10 @@ namespace CSharpSpeed
     /// The provide source location class.
     /// https://stackoverflow.com/a/26431841
     /// </summary>
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
     public class SourceCodeLocationProviderAttribute
         : Attribute
     {
-        /// <summary>
-        /// The file (readonly).
-        /// </summary>
-        public readonly string File;
-
-        /// <summary>
-        /// The member (readonly).
-        /// </summary>
-        public readonly string Member;
-
-        /// <summary>
-        /// The line (readonly).
-        /// </summary>
-        public readonly int Line;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="SourceCodeLocationProviderAttribute"/> class.
         /// </summary>
@@ -37,6 +23,21 @@ namespace CSharpSpeed
             Member = member;
             Line = line;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Line { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Member { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string File { get; }
 
         /// <summary>
         /// The to string.

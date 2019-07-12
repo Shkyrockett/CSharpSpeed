@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(ValidateHSVATests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -48,7 +48,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static bool ValidateHSVA(double h, double s, double v, double a)
-            => ValidateHSVA_(h, s, v, a);
+            => ValidateHSVA1(h, s, v, a);
 
         /// <summary>
         /// Check whether a hue saturation value color is valid.
@@ -64,7 +64,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool ValidateHSVA_(double h, double s, double v, double a)
+        public static bool ValidateHSVA1(double h, double s, double v, double a)
         {
             return ValueBetweenDoubleTests.Between(a, PercentMin, PercentMax)
                        && ValueBetweenDoubleTests.Between(h, HueMin, HueMax)

@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the Intersection of two Quadratic Bézier curves.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(QuadraticBezierQuadraticBezierIntersectionTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -93,7 +93,7 @@ namespace InstrumentedLibrary
             double epsilon = Epsilon)
         {
             // Initialize the intersection.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // ToDo: Break early if the AABB of the ends and handles do not intersect.
             // ToDo: Break early if the AABB of the curve does not intersect.
@@ -180,9 +180,9 @@ namespace InstrumentedLibrary
                 }
             }
 
-            if (result.Points.Count > 0)
+            if (result.Items.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -221,7 +221,7 @@ namespace InstrumentedLibrary
             double epsilon = Epsilon)
         {
             // Initialize the intersection.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             var xCoeffA = QuadraticBezierCoefficientsTests.QuadraticBezierCoefficients(a1X, a2X, a3X);
             var yCoeffA = QuadraticBezierCoefficientsTests.QuadraticBezierCoefficients(a1Y, a2Y, a3Y);
@@ -286,9 +286,9 @@ namespace InstrumentedLibrary
                 }
             }
 
-            if (result.Points.Count > 0)
+            if (result.Items.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -325,7 +325,7 @@ namespace InstrumentedLibrary
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y,
             double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // ToDo: Break early if the AABB bounding box of the curve does not intersect.
             // ToDo: Figure out if the following can be broken out of the vector structs.
@@ -426,9 +426,9 @@ namespace InstrumentedLibrary
                 }
             }
 
-            if (result.Points.Count > 0)
+            if (result.Items.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -494,7 +494,7 @@ namespace InstrumentedLibrary
                 (a * d) - (g * g),
                 epsilon);
 
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             for (var i = 0; i < roots.Count; i++)
             {
@@ -522,7 +522,7 @@ namespace InstrumentedLibrary
                                 {
                                     if (Abs(xRoot - yRoots[k]) < epsilon)
                                     {
-                                        result.Points.Add(((Point2D)c22 * s * s) + ((c21 * s) + c20));
+                                        result.Items.Add(((Point2D)c22 * s * s) + ((c21 * s) + c20));
                                         goto checkRoots;
                                     }
                                 }
@@ -533,9 +533,9 @@ namespace InstrumentedLibrary
                 }
             }
 
-            if (result.Points.Count > 0)
+            if (result.Items.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -572,7 +572,7 @@ namespace InstrumentedLibrary
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y,
             double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // ToDo: Break early if the AABB bounding box of the curve does not intersect.
 
@@ -626,7 +626,7 @@ namespace InstrumentedLibrary
                                     var t = xRoot - yRoot;
                                     if ((t >= 0 ? t : -t) < epsilon)
                                     {
-                                        result.Points.Add(point);
+                                        result.Items.Add(point);
                                         goto checkRoots; // Break through two levels of foreach loops. Using goto for performance.
                                     }
                                 }
@@ -637,9 +637,9 @@ namespace InstrumentedLibrary
                 }
             }
 
-            if (result.Points.Count > 0)
+            if (result.Items.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;

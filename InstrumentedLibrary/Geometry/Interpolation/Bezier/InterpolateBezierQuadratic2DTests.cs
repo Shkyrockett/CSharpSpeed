@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the 2D cubic interpolation of a point.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(InterpolateBezierQuadratic2DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -50,7 +50,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double X, double Y) QuadraticBezierInterpolate2D(double t, double x0, double y0, double x1, double y1, double x2, double y2)
-            => QuadraticBezierInterpolate2D_0(t, x0, y0, x1, y1, x2, y2);
+            => QuadraticBezierInterpolate2D0(t, x0, y0, x1, y1, x2, y2);
 
         /// <summary>
         /// Three control point Bézier interpolation mu ranges from 0 to 1, start to end of the curve.
@@ -68,7 +68,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) QuadraticBezierInterpolate2D_0(double t, double x0, double y0, double x1, double y1, double x2, double y2)
+        public static (double X, double Y) QuadraticBezierInterpolate2D0(double t, double x0, double y0, double x1, double y1, double x2, double y2)
         {
             var mu1 = 1d - t;
             var mu12 = mu1 * mu1;
@@ -100,7 +100,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) QuadraticBezierInterpolate2D_1(double t, double x0, double y0, double x1, double y1, double x2, double y2)
+        public static (double X, double Y) QuadraticBezierInterpolate2D1(double t, double x0, double y0, double x1, double y1, double x2, double y2)
         {
             // point between a and b
             var ab = InterpolateLinear2DTests.LinearInterpolate2D(t, x0, y0, x1, y1);

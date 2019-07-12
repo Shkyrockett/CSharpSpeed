@@ -18,13 +18,16 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct CircularArc2D
-        : IShapeSegment, ICachableProperties
+        : IShapeSegment, ICachableProperties, IEquatable<CircularArc2D>
     {
         #region Implementations
         /// <summary>
         /// The empty.
         /// </summary>
-        public static CircularArc2D Empty = new CircularArc2D(0d, 0d, 0d, 0d, Maths.Tau);
+        public static readonly CircularArc2D Empty = new CircularArc2D(0d, 0d, 0d, 0d, Maths.Tau);
+        #endregion
+
+        #region Fields
         private double x;
         private double y;
         private double radius;
@@ -137,6 +140,62 @@ namespace InstrumentedLibrary
         #endregion
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator ==(CircularArc2D left, CircularArc2D right) => left.Equals(right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator !=(CircularArc2D left, CircularArc2D right) => !(left == right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj) => obj is CircularArc2D && Equals((CircularArc2D)obj);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(CircularArc2D other) => other.X == x && other.Y == y && other.Radius == radius && other.StartAngle == startAngle && other.SweepAngle == sweepAngle;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(CircularArc2D left, CircularArc2D right) => left.Equals(right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override int GetHashCode() => HashCode.Combine(x, y, radius, startAngle, sweepAngle);
+
+        /// <summary>
         /// Creates a <see cref="string"/> representation of this <see cref="IShape"/> interface based on the current culture.
         /// </summary>
         /// <returns>A <see cref="string"/> representation of this instance of the <see cref="IShape"/> object.</returns>
@@ -154,11 +213,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider formatProvider)
         {
-            //if (this is null)
-            //{
-            //    return nameof(CircularArc2D);
-            //}
-
+            if (this == null) return nameof(CircularArc2D);
             var sep = ((formatProvider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
             return $"{nameof(CircularArc2D)}({nameof(X)}: {X.ToString(format, formatProvider)}{sep} {nameof(Y)}: {Y.ToString(format, formatProvider)}{sep} {nameof(Radius)}: {Radius.ToString(format, formatProvider)}{sep} {nameof(StartAngle)}: {StartAngle.ToString(format, formatProvider)}{sep} {nameof(SweepAngle)}: {SweepAngle.ToString(format, formatProvider)})";
         }

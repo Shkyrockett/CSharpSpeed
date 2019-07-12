@@ -17,12 +17,14 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct CubicBezier2D
-        : IShapeSegment, ICachableProperties
+        : IShapeSegment, ICachableProperties, IEquatable<CubicBezier2D>
     {
+        #region Fields
         private Point2D a;
         private Point2D b;
         private Point2D c;
         private Point2D d;
+        #endregion
 
         #region Constructors
         /// <summary>
@@ -211,6 +213,26 @@ namespace InstrumentedLibrary
 
         #region Operators
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator ==(CubicBezier2D left, CubicBezier2D right) => left.Equals(right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator !=(CubicBezier2D left, CubicBezier2D right) => !(left == right);
+
+        /// <summary>
         /// Implicit conversion from tuple.
         /// </summary>
         /// <param name="tuple"></param>
@@ -277,6 +299,61 @@ namespace InstrumentedLibrary
         public (Point2D, double) FindNearestPoint(Point2D pt) => NearestPointOnCubicBezierTests.FindNearestPoint(A.X, A.Y, B.X, B.Y, C.X, C.Y, D.X, D.Y, pt.X, pt.Y);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public CubicBezier2D ToCubicBezier2D()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) To() => (a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj) => obj is CubicBezier2D && Equals((CubicBezier2D)obj);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(CubicBezier2D other) => other.a == a && other.b == b && other.c == c && other.d == d;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(CubicBezier2D left, CubicBezier2D right) => left.Equals(right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override int GetHashCode() => HashCode.Combine(a, b, c, d);
+
+        /// <summary>
         /// Creates a <see cref="string"/> representation of this <see cref="IShape"/> interface based on the current culture.
         /// </summary>
         /// <returns>A <see cref="string"/> representation of this instance of the <see cref="IShape"/> object.</returns>
@@ -290,15 +367,11 @@ namespace InstrumentedLibrary
         /// <param name="format"></param>
         /// <param name="formatProvider"></param>
         /// <returns></returns>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider formatProvider)
         {
-            //if (this is null)
-            //{
-            //    return nameof(CubicBezier2D);
-            //}
-
+            if (this == null) return nameof(CubicBezier2D);
             var sep = ((formatProvider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
             return $"{nameof(CubicBezier2D)}({nameof(A)}: {A.ToString(format, formatProvider)}{sep} {nameof(B)}: {B.ToString(format, formatProvider)}{sep} {nameof(C)}: {C.ToString(format, formatProvider)}{sep} {nameof(D)}: {D.ToString(format, formatProvider)})";
         }

@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the 3D Hermite interpolation of points.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(TriangleTriangleIntersectionTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -112,10 +112,10 @@ namespace InstrumentedLibrary
 
             // ToDo: Return IntersectionState.Inside if all of the points of one triangle are inside the other triangle.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
-            if (result.Points.Count > 0)
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
+            if (result.Items.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;

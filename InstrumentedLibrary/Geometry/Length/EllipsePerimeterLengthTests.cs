@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(EllipsePerimeterLengthTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -73,7 +73,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double _ExactEllipsePerimeter(double a, double b)
+        public static double ExactEllipsePerimeter1(double a, double b)
         {
             // If a or b are 0 then the ellipse is a set of two line segments.
             if (a == 0 || b == 0)
@@ -156,7 +156,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double EllipsePerimeter2_3JacobsenWaadeland(double a, double b)
+        public static double EllipsePerimeter23JacobsenWaadeland(double a, double b)
         {
             const double d1 = (PI / 4d * (61d / 48d)) - 1d;
             const double d2 = (PI / 4d * (187d / 147d)) - 1d;
@@ -180,7 +180,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double EllipsePerimeter3_3_3_2(double a, double b)
+        public static double EllipsePerimeter3332(double a, double b)
         {
             const double d1 = (PI / 4d * (61d / 48d)) - 1d;
             const double d2 = (PI / 4d * (187d / 147d)) - 1d;
@@ -717,7 +717,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double EllipsePerimeterPadé3_2(double a, double b)
+        public static double EllipsePerimeterPadé32(double a, double b)
         {
             var h = (a - b) * (a - b) / ((a + b) * (a + b));
             return PI * (a + b) * ((3072d - (1280d * h) - (252d * h * h) + (33d * h * h * h)) / (3072d - (2048d * h) + (212d * h * h)));
@@ -738,7 +738,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double EllipsePerimeterPadé3_3(double a, double b)
+        public static double EllipsePerimeterPadé33(double a, double b)
         {
             var h = (a - b) * (a - b) / ((a + b) * (a + b));
             return PI * (a + b)

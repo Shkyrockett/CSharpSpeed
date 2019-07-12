@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(SineInterpolate2DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -70,7 +70,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Sine_(double t, double x1, double y1, double x2, double y2)
+        public static (double X, double Y) Sine1(double t, double x1, double y1, double x2, double y2)
         {
             var mu2 = (1d - Sin(t * PI)) / 2d;
             return (x1 * (1d - mu2) + x2 * mu2, y1 * (1d - mu2) + y2 * mu2);

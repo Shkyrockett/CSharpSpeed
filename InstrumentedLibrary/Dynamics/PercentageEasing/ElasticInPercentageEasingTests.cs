@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using CSharpSpeed;
 using static System.Math;
 using static InstrumentedLibrary.Maths;
 
@@ -14,6 +15,16 @@ namespace InstrumentedLibrary
     public static class ElasticInPercentageEasingTests
     {
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double ElasticIn(double t)
+            => ElasticIn1( t);
+
+        /// <summary>
         /// Elastic in.
         /// </summary>
         /// <param name="t">Current time elapsed in ticks.</param>
@@ -23,7 +34,7 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ElasticIn(double t)
+        public static double ElasticIn1(double t)
         {
             return Sin(13d * HalfPi * t) * Pow(2d, 10d * (t - 1d));
         }

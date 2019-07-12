@@ -21,7 +21,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
-        public static List<object[]> TestObjects = new List<object[]> {
+        public static readonly List<object[]> TestObjects = new List<object[]> {
             new object[] { 0, 0, 2, 1, 1 },
             new object[] { 0, 0, 2, 3, 3 }
         };
@@ -35,8 +35,8 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { TestObjects[0], new TestCaseResults(description: "Point Inside", trials: trials, expectedReturnValue: Inclusion.Inside, epsilon: 0d) },
-                { TestObjects[1], new TestCaseResults(description: "Point Outside", trials: trials, expectedReturnValue: Inclusion.Outside, epsilon: 0d) },
+                { TestObjects[0], new TestCaseResults(description: "Point Inside", trials: trials, expectedReturnValue: Inclusions.Inside, epsilon: 0d) },
+                { TestObjects[1], new TestCaseResults(description: "Point Outside", trials: trials, expectedReturnValue: Inclusions.Outside, epsilon: 0d) },
             };
 
             var results = new List<SpeedTester>();
@@ -54,9 +54,9 @@ namespace InstrumentedLibrary
         /// <param name="testObject"></param>
         public static void Render(object[] testObject)
         {
+            _ = testObject;
             //Renderer.DrawCircle((double)testObject[0], (double)testObject[1], (double)testObject[2], (double)testObject[3], (double)testObject[4]);
             //Renderer.DrawArray();
-
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static Inclusion CircleContainsPoint(double centerX, double centerY, double radius, double x, double y)
+        public static Inclusions CircleContainsPoint(double centerX, double centerY, double radius, double x, double y)
             => PointInCircle0(centerX, centerY, radius, x, y);
 
         /// <summary>
@@ -81,19 +81,19 @@ namespace InstrumentedLibrary
         /// <param name="radius">The radius.</param>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
+        /// <returns>The <see cref="Inclusions"/>.</returns>
         [DisplayName("Point in Circle Method 1")]
         [Description("Determine whether a point is contained within a circle by calling a distance method.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInCircle0(
+        public static Inclusions PointInCircle0(
                 double centerX, double centerY,
                 double radius,
                 double x, double y)
         {
             var distance = Distance2DTests.Distance2D(centerX, centerY, x, y);
-            return (radius >= distance) ? ((Abs(radius - distance) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+            return (radius >= distance) ? ((Abs(radius - distance) < DoubleEpsilon) ? Inclusions.Boundary : Inclusions.Inside) : Inclusions.Outside;
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace InstrumentedLibrary
         /// <param name="radius">The radius.</param>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
+        /// <returns>The <see cref="Inclusions"/>.</returns>
         /// <acknowledgment>
         /// https://stackoverflow.com/a/481151
         /// </acknowledgment>
@@ -114,13 +114,13 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInCircleInline(
+        public static Inclusions PointInCircleInline(
             double centerX, double centerY,
             double radius,
             double x, double y)
         {
             var distance = Sqrt(((x - centerX) * (x - centerX)) + ((y - centerY) * (y - centerY)));
-            return (radius >= distance) ? ((Abs(radius - distance) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+            return (radius >= distance) ? ((Abs(radius - distance) < DoubleEpsilon) ? Inclusions.Boundary : Inclusions.Inside) : Inclusions.Outside;
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace InstrumentedLibrary
         /// <param name="radius">The radius.</param>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
+        /// <returns>The <see cref="Inclusions"/>.</returns>
         /// <acknowledgment>
         /// https://stackoverflow.com/a/7227057
         /// </acknowledgment>
@@ -141,7 +141,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInCirclePhilcolbourn(
+        public static Inclusions PointInCirclePhilcolbourn(
             double centerX,
             double centerY,
             double radius,
@@ -151,18 +151,18 @@ namespace InstrumentedLibrary
             var dx = Abs(x - centerX);
             if (dx > radius)
             {
-                return Inclusion.Outside;
+                return Inclusions.Outside;
             }
 
             var dy = Abs(y - centerY);
             if (dy > radius)
             {
-                return Inclusion.Outside;
+                return Inclusions.Outside;
             }
             //if (dx + dy <= radius) return InsideOutside.Inside;
             var distanceSquared = (dx * dx) + (dy * dy);
             var radiusSquared = radius * radius;
-            return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+            return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? Inclusions.Boundary : Inclusions.Inside) : Inclusions.Outside;
         }
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace InstrumentedLibrary
         /// <param name="radius">The radius.</param>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
+        /// <returns>The <see cref="Inclusions"/>.</returns>
         /// <acknowledgment>
         /// https://stackoverflow.com/a/7227057
         /// </acknowledgment>
@@ -183,7 +183,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInCircleNPhilcolbourn(
+        public static Inclusions PointInCircleNPhilcolbourn(
             double centerX,
             double centerY,
             double radius,
@@ -194,7 +194,7 @@ namespace InstrumentedLibrary
             var dy = Abs(y - centerY);
             var distanceSquared = (dx * dx) + (dy * dy);
             var radiusSquared = radius * radius;
-            return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+            return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? Inclusions.Boundary : Inclusions.Inside) : Inclusions.Outside;
         }
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace InstrumentedLibrary
         /// <param name="radius">The radius.</param>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
+        /// <returns>The <see cref="Inclusions"/>.</returns>
         /// <acknowledgment>
         /// https://stackoverflow.com/a/6311501
         /// </acknowledgment>
@@ -218,7 +218,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInCircleWilliamMorrison(
+        public static Inclusions PointInCircleWilliamMorrison(
             double centerX,
             double centerY,
             double radius,
@@ -234,9 +234,9 @@ namespace InstrumentedLibrary
                 dy *= dy;
                 var distanceSquared = dx + dy;
                 var radiusSquared = radius * radius;
-                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? Inclusions.Boundary : Inclusions.Inside) : Inclusions.Outside;
             }
-            return Inclusion.Outside;
+            return Inclusions.Outside;
         }
 
         /// <summary>
@@ -247,7 +247,7 @@ namespace InstrumentedLibrary
         /// <param name="radius">The radius.</param>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
+        /// <returns>The <see cref="Inclusions"/>.</returns>
         /// <acknowledgment>
         /// https://stackoverflow.com/a/6311501
         /// </acknowledgment>
@@ -257,7 +257,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInCircleX(
+        public static Inclusions PointInCircleX(
             double centerX,
             double centerY,
             double radius,
@@ -271,16 +271,16 @@ namespace InstrumentedLibrary
                 var dy = (centerY > y) ? (y - centerY) : (centerY - y);
                 if (dx > radius || dy > radius)
                 {
-                    return Inclusion.Outside;
+                    return Inclusions.Outside;
                 }
 
                 dx *= dx;
                 dy *= dy;
                 var distanceSquared = dx + dy;
                 var radiusSquared = radius * radius;
-                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? Inclusions.Boundary : Inclusions.Inside) : Inclusions.Outside;
             }
-            return Inclusion.Outside;
+            return Inclusions.Outside;
         }
     }
 }

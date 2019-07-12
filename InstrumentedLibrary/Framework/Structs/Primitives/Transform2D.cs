@@ -15,13 +15,13 @@ namespace InstrumentedLibrary
     [ComVisible(true)]
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
-    public struct Transform2D
+    public struct Transform2D : IEquatable<Transform2D>
     {
         #region Implementations
         /// <summary>
         /// The identity.
         /// </summary>
-        public static Transform2D Identity = new Transform2D(0d, 0d, 0d, 0d, 1d, 1d);
+        public static readonly Transform2D Identity = new Transform2D(0d, 0d, 0d, 0d, 1d, 1d);
         #endregion Implementations
 
         #region Constructors

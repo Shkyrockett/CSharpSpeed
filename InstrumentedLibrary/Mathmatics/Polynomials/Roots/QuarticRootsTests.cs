@@ -1,4 +1,5 @@
 ﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -21,7 +22,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(QuarticRootsTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -64,7 +65,7 @@ namespace InstrumentedLibrary
         /// <param name="d">The d.</param>
         /// <param name="e">The e.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:IList{double}"/>.</returns>
+        /// <returns>The <see cref="IList{T}"/>.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
         /// </acknowledgment>
@@ -274,7 +275,7 @@ namespace InstrumentedLibrary
         /// <param name="d">The d.</param>
         /// <param name="e">The e.</param>
         /// <param name="epsilon">The epsilon.</param>
-        /// <returns>The <see cref="T:double[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <acknowledgment>
         /// https://gist.github.com/drawable/92792f59b6ff8869d8b1
         /// </acknowledgment>

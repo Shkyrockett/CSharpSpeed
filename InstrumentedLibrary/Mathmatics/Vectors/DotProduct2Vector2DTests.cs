@@ -47,7 +47,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double DotProduct2D(double x1, double y1, double x2, double y2)
-            => DotProduct2D_0(x1, y1, x2, y2);
+            => DotProduct2D0(x1, y1, x2, y2);
 
         /// <summary>
         /// Calculates the dot Aka. scalar or inner product of a vector.
@@ -63,7 +63,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double DotProduct2D_0(
+        public static double DotProduct2D0(
             double x1, double y1,
             double x2, double y2)
         {

@@ -80,7 +80,7 @@ namespace CSharpSpeed
         /// <summary>
         /// Gets or sets the test case.
         /// </summary>
-        public Dictionary<object[], TestCaseResults> TestCases { get; set; }
+        public Dictionary<object[], TestCaseResults> TestCases { get; }
 
         /// <summary>
         /// Runs trials of the method delegate a specified number of times.
@@ -139,17 +139,17 @@ namespace CSharpSpeed
         {
             if (method == null)
             {
-                throw new ArgumentNullException("method");
+                throw new ArgumentNullException(nameof(method));
             }
 
             if (!method.IsStatic)
             {
-                throw new ArgumentException("The provided method must be static.", "method");
+                throw new ArgumentException("The provided method must be static.", nameof(method));
             }
 
             if (method.IsGenericMethod)
             {
-                throw new ArgumentException("The provided method must not be generic.", "method");
+                throw new ArgumentException("The provided method must not be generic.", nameof(method));
             }
 
             return method.CreateDelegate(Expression.GetDelegateType(

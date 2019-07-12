@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(ValidateYIQATests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -48,7 +48,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static bool ValidateYIQA(double y, double i, double q, double a)
-            => ValidateYIQA_(y, i, q, a);
+            => ValidateYIQA1(y, i, q, a);
 
         /// <summary>
         /// Check whether a yiq color is valid.
@@ -64,7 +64,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool ValidateYIQA_(double y, double i, double q, double a)
+        public static bool ValidateYIQA1(double y, double i, double q, double a)
         {
             return ValueBetweenDoubleTests.Between(a, PercentMin, PercentMax)
                        && ValueBetweenDoubleTests.Between(y, PercentMin, PercentMax)

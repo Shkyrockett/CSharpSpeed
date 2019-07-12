@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(ValidateRGBAFloatTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -48,7 +48,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static bool ValidateRGBAF(double r, double g, double b, double a)
-            => ValidateRGBAF_(r, g, b, a);
+            => ValidateRGBAF1(r, g, b, a);
 
         /// <summary>
         /// Check whether a red green blue double floating point color is valid.
@@ -64,7 +64,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool ValidateRGBAF_(double r, double g, double b, double a)
+        public static bool ValidateRGBAF1(double r, double g, double b, double a)
         {
             return ValueBetweenDoubleTests.Between(a, PercentMin, PercentMax)
                        && ValueBetweenDoubleTests.Between(r, PercentMin, PercentMax)

@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(CYMKAColorToRGBAColorTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -49,7 +49,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (byte red, byte green, byte blue, byte alpha) CYMKAColorToRGBAColor(byte cyan, byte yellow, byte magenta, byte black, byte alpha)
-            => CYMKAColorToRGBAColor_(cyan, yellow, magenta, black, alpha);
+            => CYMKAColorToRGBAColor1(cyan, yellow, magenta, black, alpha);
 
         /// <summary>
         /// Convert an alpha cyan yellow magenta black color format to alpha red green blue byte color format.
@@ -74,7 +74,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (byte red, byte green, byte blue, byte alpha) CYMKAColorToRGBAColor_(byte cyan, byte yellow, byte magenta, byte black, byte alpha)
+        public static (byte red, byte green, byte blue, byte alpha) CYMKAColorToRGBAColor1(byte cyan, byte yellow, byte magenta, byte black, byte alpha)
         {
             var d = 1d / 100d;//255d;
 

@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(EllipseLineSegmentIntersectionTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -55,7 +55,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static Intersection EllipseLineSegmentIntersection(double cx, double cy, double rx, double ry, double angle, double x0, double y0, double x1, double y1, double epsilon = Epsilon)
-            => EllipseLineSegmentIntersection_(cx, cy, rx, ry, angle, x0, y0, x1, y1, epsilon);
+            => EllipseLineSegmentIntersection1(cx, cy, rx, ry, angle, x0, y0, x1, y1, epsilon);
 
         /// <summary>
         /// Find the points of the intersection of an unrotated ellipse and a line segment.
@@ -80,7 +80,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection EllipseLineSegmentIntersection_(
+        public static Intersection EllipseLineSegmentIntersection1(
             double cx, double cy,
             double rx, double ry,
             double angle,
@@ -88,7 +88,7 @@ namespace InstrumentedLibrary
             double x1, double y1,
             double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // If the ellipse or line segment are empty, return no intersections.
             if ((rx == 0d) || (ry == 0d) ||
@@ -134,7 +134,7 @@ namespace InstrumentedLibrary
                 if ((t >= 0d) && (t <= 1d))
                 {
                     result.AppendPoint(new Point2D(u1 + (u2 - u1) * t + cx, v1 + (v2 - v1) * t + cy));
-                    result.State = IntersectionState.Intersection;
+                    result.State = IntersectionStates.Intersection;
                 }
 
             }
@@ -148,13 +148,13 @@ namespace InstrumentedLibrary
                 if ((t1 >= 0d) && (t1 <= 1d))
                 {
                     result.AppendPoint(new Point2D(u1 + (u2 - u1) * t1 + cx, v1 + (v2 - v1) * t1 + cy));
-                    result.State = IntersectionState.Intersection;
+                    result.State = IntersectionStates.Intersection;
                 }
 
                 if ((t2 >= 0d) && (t2 <= 1d))
                 {
                     result.AppendPoint(new Point2D(u1 + (u2 - u1) * t2 + cx, v1 + (v2 - v1) * t2 + cy));
-                    result.State = IntersectionState.Intersection;
+                    result.State = IntersectionStates.Intersection;
                 }
 
                 // ToDo: Figure out why the results are weird between 30 degrees and 5 degrees.

@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using CSharpSpeed;
 using static System.Math;
+using static InstrumentedLibrary.EasingConstants;
+using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
 {
@@ -12,6 +15,16 @@ namespace InstrumentedLibrary
     /// </summary>
     public static class CircularInOutPercentageEasingTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double CircInOut(double t)
+            => CircInOut1( t);
+
         /// <summary>
         /// Circle in and out.
         /// </summary>
@@ -22,9 +35,9 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CircInOut(double t)
+        public static double CircInOut1(double t)
         {
-            return t <= 0.5d ? (Sqrt(1d - (t * t * 4d)) - 1d) * -0.5d : (Sqrt(1d - (((t * 2d) - 2d) * ((t * 2d) - 2d))) + 1d) * 0.5d;
+            return t <= OneHalf ? (Sqrt(1d - (t * t * 4d)) - 1d) * -OneHalf : (Sqrt(1d - (((t * 2d) - 2d) * ((t * 2d) - 2d))) + 1d) * OneHalf;
         }
     }
 }

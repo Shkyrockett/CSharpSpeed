@@ -17,7 +17,7 @@ namespace InstrumentedLibrary
         /// <param name="value">The value.</param>
         /// <param name="Lut">The Lut.</param>
         /// <param name="epsilon"></param>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/27053888/how-to-get-time-value-from-bezier-curve-given-length/27071218#27071218
         /// </acknowledgment>
@@ -45,7 +45,7 @@ namespace InstrumentedLibrary
         /// <param name="b">The b.</param>
         /// <param name="c">The c.</param>
         /// <param name="d">The d.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{Point2D}"/>.</returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/27053888/how-to-get-time-value-from-bezier-curve-given-length/27071218#27071218
         /// </acknowledgment>
@@ -347,6 +347,7 @@ namespace InstrumentedLibrary
             Rectangle2D world_rect, Rectangle2D device_rect,
             bool invert_x, bool invert_y)
         {
+            _ = world_rect;
             var device_points = new List<Point2D>
             {
                 new Point2D(device_rect.Left, device_rect.Top),      // Upper left.
@@ -512,7 +513,7 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="bezier">The bezier.</param>
         /// <param name="count">The count.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{Point2D}"/>.</returns>
         public static List<Point2D> InterpolatePoints(CubicBezier2D bezier, int count)
         {
             var ipoints = new Point2D[count + 1];
@@ -530,7 +531,7 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="bezier">The bezier.</param>
         /// <param name="count">The count.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{Point2D}"/>.</returns>
         public static List<Point2D> InterpolateCubicBeizerPoints(CubicBezier2D bezier, int count)
             => InterpolateCubicBeizerPoints(bezier.A, bezier.B, bezier.C, bezier.D, count);
 
@@ -542,7 +543,7 @@ namespace InstrumentedLibrary
         /// <param name="c">the second control point, or C</param>
         /// <param name="d">the end point, or D</param>
         /// <param name="Precision">The Precision.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{Point2D}"/>.</returns>
         public static List<Point2D> InterpolateCubicBeizerPoints(Point2D a, Point2D b, Point2D c, Point2D d, double Precision)
         {
             var BPoints = new Point2D[(int)((1 / Precision) + 2)];
@@ -563,7 +564,7 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="bezier">The bezier.</param>
         /// <param name="count">The count.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{Point2D}"/>.</returns>
         public static List<Point2D> ComputeBezierInterpolations(CubicBezier2D bezier, int count) => ComputeBezierInterpolations(bezier.A, bezier.B, bezier.C, bezier.D, count);
 
         /// <summary>
@@ -594,7 +595,7 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="bezier">The bezier.</param>
         /// <param name="count">The count.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{Point2D}"/>.</returns>
         public static List<Point2D> InterpolateCubicBeizerPoints0(CubicBezier2D bezier, int count) => InterpolateCubicBeizerPoints0(bezier.A, bezier.B, bezier.C, bezier.D, count);
 
         /// <summary>
@@ -628,7 +629,7 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="bezier">The bezier.</param>
         /// <param name="count">The count.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{Point2D}"/>.</returns>
         public static List<Point2D> InterpolateQuadraticBezierPoints(QuadraticBezier2D bezier, int count)
         {
             var ipoints = new Point2D[count + 1];
@@ -649,7 +650,7 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="num_points">The num_points.</param>
         /// <param name="bounds">The bounds.</param>
-        /// <returns>The <see cref="T:PointF[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         public static Point2D[] NonIntersectingStarPoints(int num_points, Rectangle2D bounds)
         {
             // Make room for the points.
@@ -693,7 +694,7 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         public static void OrientPolygonClockwise(PolygonContour2D polygon)
         {
-            if (polygon.Orientation == RotationDirections.CounterClockwise)
+            if (polygon.Orientation == RotationDirection.CounterClockwise)
             {
                 polygon.Points.Reverse();
             }
@@ -975,28 +976,29 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Bow Curve (2D)
         /// </summary>
-        /// <param name="Precision"></param>
-        /// <param name="Offset"></param>
-        /// <param name="Multiplyer"></param>
+        /// <param name="precision"></param>
+        /// <param name="offset"></param>
+        /// <param name="pultiplyer"></param>
         /// <acknowledgment>
         ///  Also known as the "cocked hat", it was first documented by Sylvester around
         ///  1864 and Cayley in 1867.
         /// </acknowledgment>
-        public static void DrawBowCurve2D(/*Graphics g, Pen DPen,*/ double Precision, Size2D Offset, Size2D Multiplyer)
+        public static void DrawBowCurve2D(/*Graphics g, Pen DPen,*/ double precision, Size2D offset, Size2D pultiplyer)
         {
+            _ = offset;
             var NewPoint = new Point2D(
-                (1d - (Tan(PI * -1d) * 2d)) * Cos(PI * -1d) * Multiplyer.Width,
-                (1d - (Tan(PI * -1d) * 2d)) * (2d * Sin(PI * -1d)) * Multiplyer.Height
+                (1d - (Tan(PI * -1d) * 2d)) * Cos(PI * -1d) * pultiplyer.Width,
+                (1d - (Tan(PI * -1d) * 2d)) * (2d * Sin(PI * -1d)) * pultiplyer.Height
                 );
 
             var LastPoint = NewPoint;
 
-            for (var Index = PI * -1d; Index <= PI; Index += Precision)
+            for (var Index = PI * -1d; Index <= PI; Index += precision)
             {
                 LastPoint = NewPoint;
                 NewPoint = new Point2D(
-                    (1d - (Tan(Index) * 2d)) * Cos(Index) * Multiplyer.Width,
-                    (1d - (Tan(Index) * 2d)) * (2d * Sin(Index)) * Multiplyer.Height
+                    (1d - (Tan(Index) * 2d)) * Cos(Index) * pultiplyer.Width,
+                    (1d - (Tan(Index) * 2d)) * (2d * Sin(Index)) * pultiplyer.Height
                     );
 
                 //g.DrawLine(DPen, NewPoint.ToPointF(), LastPoint.ToPointF());
@@ -1006,29 +1008,30 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Butterfly Curve
         /// </summary>
-        /// <param name="Precision"></param>
-        /// <param name="Offset"></param>
-        /// <param name="Multiplyer"></param>
-        public static void DrawButterflyCurve2D(/*Graphics g, Pen DPen,*/ double Precision, Size2D Offset, Size2D Multiplyer)
+        /// <param name="precision"></param>
+        /// <param name="offset"></param>
+        /// <param name="scaler"></param>
+        public static void DrawButterflyCurve2D(/*Graphics g, Pen DPen,*/ double precision, Size2D offset, Size2D scaler)
         {
+            _ = offset;
             const double N = 10000d;
             var U = 0d;
 
             var NewPoint = new Point2D(
-                Cos(U) * ((Exp(Cos(U)) - ((2d * Cos(4d * U)) - Pow(Sin(U / 12d), 5d))) * Multiplyer.Width),
-                Sin(U) * (Exp(Cos(U)) - ((2d * Cos(4d * U)) - Pow(Sin(U / 12d), 5d))) * Multiplyer.Height
+                Cos(U) * ((Exp(Cos(U)) - ((2d * Cos(4d * U)) - Pow(Sin(U / 12d), 5d))) * scaler.Width),
+                Sin(U) * (Exp(Cos(U)) - ((2d * Cos(4d * U)) - Pow(Sin(U / 12d), 5d))) * scaler.Height
                 );
 
             var LastPoint = NewPoint;
 
-            for (double Index = 1; Index <= N; Index += Precision)
+            for (double Index = 1; Index <= N; Index += precision)
             {
                 LastPoint = NewPoint;
                 U = Index * (24d * (PI / N));
 
                 NewPoint = new Point2D(
-                    Cos(U) * ((Exp(Cos(U)) - ((2d * Cos(4d * U)) - Pow(Sin(U / 12d), 5d))) * Multiplyer.Width),
-                    Sin(U) * (Exp(Cos(U)) - ((2d * Cos(4d * U)) - Pow(Sin(U / 12d), 5d))) * Multiplyer.Height
+                    Cos(U) * ((Exp(Cos(U)) - ((2d * Cos(4d * U)) - Pow(Sin(U / 12d), 5d))) * scaler.Width),
+                    Sin(U) * (Exp(Cos(U)) - ((2d * Cos(4d * U)) - Pow(Sin(U / 12d), 5d))) * scaler.Height
                     );
 
                 //g.DrawLine(DPen, NewPoint.ToPointF(), LastPoint.ToPointF());

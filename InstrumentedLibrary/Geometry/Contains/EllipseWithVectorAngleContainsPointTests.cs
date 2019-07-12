@@ -20,13 +20,13 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(EllipseWithVectorAngleContainsPointTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 2d, 2d, Cos(0d), Sin(0d), 0.5d, 0.5d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: Inclusion.Inside, epsilon: double.Epsilon) },
+                { new object[] { 0d, 0d, 2d, 2d, Cos(0d), Sin(0d), 0.5d, 0.5d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: Inclusions.Inside, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -53,7 +53,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static Inclusion EllipseContainsPoint(double cX, double cY, double rx, double ry, double cosT, double sinT, double pX, double pY, double epsilon = Epsilon)
+        public static Inclusions EllipseContainsPoint(double cX, double cY, double rx, double ry, double cosT, double sinT, double pX, double pY, double epsilon = Epsilon)
             => EllipseContainsPoint2(cX, cY, rx, ry, cosT, sinT, pX, pY, epsilon);
 
         /// <summary>
@@ -78,14 +78,14 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipseContainsPoint1(
+        public static Inclusions EllipseContainsPoint1(
             double cX, double cY, double rx, double ry, double cosT, double sinT,
             double pX, double pY,
             double epsilon = Epsilon)
         {
             if (rx <= 0d || ry <= 0d)
             {
-                return Inclusion.Outside;
+                return Inclusions.Outside;
             }
 
             // Translate point to origin.
@@ -100,7 +100,7 @@ namespace InstrumentedLibrary
 
             return (normalizedRadius <= 1d)
                 ? ((Abs(normalizedRadius - 1d) < epsilon)
-                ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+                ? Inclusions.Boundary : Inclusions.Inside) : Inclusions.Outside;
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace InstrumentedLibrary
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
+        /// <returns>The <see cref="Inclusions"/>.</returns>
         /// <acknowledgment>
         /// From: https://www.khanacademy.org/math/trigonometry/conics_precalc/ellipses-precalc/v/conic-sections--intro-to-ellipses
         /// See also: https://www.khanacademy.org/computer-programming/ellipse-collision-detector/5514890244521984
@@ -127,14 +127,14 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipseContainsPoint2(
+        public static Inclusions EllipseContainsPoint2(
             double cx, double cy, double rx, double ry, double cosT, double sinT,
             double x, double y,
             double epsilon = Epsilon)
         {
             if (rx <= 0d || ry <= 0d)
             {
-                return Inclusion.Outside;
+                return Inclusions.Outside;
             }
 
             // Translate point to origin.
@@ -152,7 +152,7 @@ namespace InstrumentedLibrary
             var normalizedRadius = (termX * termX) + (termY * termY);
             return (normalizedRadius <= 1d)
                 ? ((Abs(normalizedRadius - 1d) < epsilon)
-                ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+                ? Inclusions.Boundary : Inclusions.Inside) : Inclusions.Outside;
         }
     }
 }

@@ -1,8 +1,11 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using static InstrumentedLibrary.EasingConstants;
+using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
 {
@@ -11,6 +14,16 @@ namespace InstrumentedLibrary
     /// </summary>
     public static class SineOutInPercentageEasingTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double SineOutIn(double t)
+            => SineOutIn1( t);
+
         /// <summary>
         /// Easing equation function for a sinusoidal (sin(t)) easing in/out:
         /// deceleration until halfway, then acceleration.
@@ -22,9 +35,9 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SineOutIn(double t)
+        public static double SineOutIn1(double t)
         {
-            return (t < 0.5d) ? SineOutPercentageEasingTests.SineOut(t * 2d) : SineInPercentageEasingTests.SineIn((t * 2d) - 1d);
+            return (t < OneHalf) ? SineOutPercentageEasingTests.SineOut(t * 2d) : SineInPercentageEasingTests.SineIn((t * 2d) - 1d);
         }
     }
 }

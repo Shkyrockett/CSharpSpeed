@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using CSharpSpeed;
 using static System.Math;
+using static InstrumentedLibrary.EasingConstants;
 using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
@@ -13,6 +15,19 @@ namespace InstrumentedLibrary
     /// </summary>
     public static class ElasticInOutValueEasingTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double ElasticInOut(double t, double b, double c, double d)
+            =>ElasticInOut1( t,  b,  c,  d);
+
         /// <summary>
         /// Easing equation function for an elastic (exponentially decaying sine wave) easing in/out:
         /// acceleration until halfway, then deceleration.
@@ -27,22 +42,22 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ElasticInOut(double t, double b, double c, double d)
+        public static double ElasticInOut1(double t, double b, double c, double d)
         {
-            if ((t /= d / 2d) == 2d)
+            if ((t /= d * OneHalf) == 2d)
             {
                 return b + c;
             }
 
             var p = d * (0.3d * 1.5d);
-            var s = p / 4d;
+            var s = p * OneQuarter;
 
             if (t < 1d)
             {
-                return (-0.5d * (c * Pow(2d, 10d * (t -= 1d)) * Sin(((t * d) - s) * (2d * PI) / p))) + b;
+                return (-OneHalf * (c * Pow(2d, 10d * (t -= 1d)) * Sin(((t * d) - s) * (2d * PI) / p))) + b;
             }
 
-            return (c * Pow(2d, -10d * (t -= 1)) * Sin(((t * d) - s) * (2d * PI) / p) * 0.5d) + c + b;
+            return (c * Pow(2d, -10d * (t -= 1)) * Sin(((t * d) - s) * (2d * PI) / p) * OneHalf) + c + b;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the 1D Hermite interpolation of points.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(Log2Tests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -46,7 +46,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static int Log2(int value)
-            => Log2_0(value);
+            => Log20(value);
 
         /// <summary>
         /// The system log2.
@@ -77,7 +77,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int Log2_0(int value)
+        public static int Log20(int value)
         {
             byte bits = 0;
             while (value != 0)
@@ -115,7 +115,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int Log2_1(int value)
+        public static int Log21(int value)
         {
             if (value <= 0)
             {

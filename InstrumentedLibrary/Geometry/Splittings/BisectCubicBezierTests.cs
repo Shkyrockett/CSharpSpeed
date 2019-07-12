@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The polygon centroid test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(BisectCubicBezierTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -54,7 +54,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (CubicBezier2D A, CubicBezier2D B) BisectCubicBezier(double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY, double t)
-            => BisectCubicBezier_(aX, aY, bX, bY, cX, cY, dX, dY, t);
+            => BisectCubicBezier1(aX, aY, bX, bY, cX, cY, dX, dY, t);
 
         /// <summary>
         /// 
@@ -77,7 +77,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (CubicBezier2D A, CubicBezier2D B) BisectCubicBezier_(double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY, double t)
+        public static (CubicBezier2D A, CubicBezier2D B) BisectCubicBezier1(double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY, double t)
         {
             var (eX, eY) = InterpolateLinear2DTests.LinearInterpolate2D(t, aX, aY, bX, bY);
             var (fX, fY) = InterpolateLinear2DTests.LinearInterpolate2D(t, bX, bY, cX, cY);

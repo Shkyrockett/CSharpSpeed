@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(SplitARGBTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -56,7 +56,7 @@ namespace InstrumentedLibrary
         /// The split ARGB. 
         /// </summary>
         /// <param name="color">The color.</param>
-        /// <returns>The <see cref="T:(byte Red, byte Green, byte Blue, byte Alpha)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
         /// <acknowledgment>
         /// https://stackoverflow.com/a/1328254
         /// </acknowledgment>
@@ -80,7 +80,7 @@ namespace InstrumentedLibrary
         /// The split ARGB bit converter.
         /// </summary>
         /// <param name="color">The color.</param>
-        /// <returns>The <see cref="T:(byte Alpha, byte Red, byte Green, byte Blue)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
         [DisplayName("Split Int Color to ARGB")]
         [Description("Split an integer based ARGB color into the individual components.")]
         [Acknowledgment("https://stackoverflow.com/a/1318948")]
@@ -97,7 +97,7 @@ namespace InstrumentedLibrary
         /// The split ARGB get bytes.
         /// </summary>
         /// <param name="color">The value.</param>
-        /// <returns>The <see cref="T:(byte Alpha, byte Red, byte Green, byte Blue)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
         [DisplayName("Split Int Color to ARGB")]
         [Description("Split an integer based ARGB color into the individual components.")]
         [SourceCodeLocationProvider]

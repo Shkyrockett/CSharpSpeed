@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the 2D cubic interpolation of a point.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(InterpolateCubic2DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -54,7 +54,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double X, double Y) CubicInterpolate2D(double t, double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
-            => CubicInterpolate2D_(t, x0, y0, x1, y1, x2, y2, x3, y3);
+            => CubicInterpolate2D1(t, x0, y0, x1, y1, x2, y2, x3, y3);
 
         /// <summary>
         /// The cubic interpolate2d.
@@ -78,7 +78,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) CubicInterpolate2D_(double t, double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
+        public static (double X, double Y) CubicInterpolate2D1(double t, double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
         {
             var mu2 = t * t;
 
@@ -112,7 +112,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) CubicBezierInterpolate2D_4(double t, double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)
+        public static (double X, double Y) CubicBezierInterpolate2D4(double t, double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)
         {
             //(double X, double Y) P = (v3 - v2) - (v0 - v1);
             //(double X, double Y) Q = (v0 - v1) - P;

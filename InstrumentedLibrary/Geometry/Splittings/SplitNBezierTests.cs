@@ -21,7 +21,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The polygon centroid test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(SplitNBezierTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -48,20 +48,20 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static Point2D[][] SplitBezier(Point2D[] points, params double[] ts)
-            => SplitBezier_(points, ts);
+            => SplitBezier1(points, ts);
 
         /// <summary>
         /// The split.
         /// </summary>
         /// <param name="points">The Bézier.</param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DisplayName("Split Any Number Bezier")]
         [Description("Split Any Number Bezier.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D[][] SplitBezier_(Point2D[] points, params double[] ts)
+        public static Point2D[][] SplitBezier1(Point2D[] points, params double[] ts)
         {
             if (ts is null)
             {

@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the cross product of three 2D points.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(PolygonPerimeterLength2DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -60,12 +60,15 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Perimeter0(IEnumerable<(double X, double Y)> points)
         {
-            var last = (points as List<(double X, double Y)>)[0];
             double dist = 0;
-            foreach (var cur in points.Skip(1))
+            if (!(points is null))
             {
-                dist += Distance2DTests.Distance2D(last.X, last.Y, cur.X, cur.Y);
-                last = cur;
+                var last = (points as List<(double X, double Y)>)?[0];
+                foreach (var cur in points.Skip(1))
+                {
+                    dist += Distance2DTests.Distance2D(last.Value.X, last.Value.Y, cur.X, cur.Y);
+                    last = cur;
+                }
             }
             return dist;
         }
@@ -86,7 +89,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Perimeter1(IEnumerable<(double X, double Y)> points)
         {
-            return points.Zip(points.Skip(1), Distance2Point2DTests.Distance2D_1).Sum();
+            return points.Zip(points.Skip(1), Distance2Point2DTests.Distance2D1).Sum();
         }
     }
 }

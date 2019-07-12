@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(SmoothStepTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -46,7 +46,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double SmoothStep(double amount, double value1, double value2)
-            => SmoothStep_(amount, value1, value2);
+            => SmoothStep1(amount, value1, value2);
 
         /// <summary>
         /// Interpolates between two values using a cubic equation.
@@ -60,7 +60,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SmoothStep_(double amount, double value1, double value2)
+        public static double SmoothStep1(double amount, double value1, double value2)
         {
             // It is expected that 0 < amount < 1
             // If amount < 0, return value1

@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The polygon centroid test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(LeftBisectPointTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -48,7 +48,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static Point2D LeftBisectPoint(double x, double y, double t)
-            => LeftBisectPoint_(x, y, t);
+            => LeftBisectPoint1(x, y, t);
 
         /// <summary>
         /// The split.
@@ -62,7 +62,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D LeftBisectPoint_(double x, double y, double t)
+        public static Point2D LeftBisectPoint1(double x, double y, double t)
         {
             _ = t;
             return (x, y);

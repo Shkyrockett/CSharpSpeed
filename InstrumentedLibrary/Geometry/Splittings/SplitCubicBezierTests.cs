@@ -21,7 +21,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The polygon centroid test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(SplitCubicBezierTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -55,7 +55,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static CubicBezier2D[] Split(double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY, params double[] ts)
-            => Split_(aX, aY, bX, bY, cX, cY, dX, dY, ts);
+            => Split1(aX, aY, bX, bY, cX, cY, dX, dY, ts);
 
         /// <summary>
         /// The split.
@@ -69,13 +69,13 @@ namespace InstrumentedLibrary
         /// <param name="dX"></param>
         /// <param name="dY"></param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DisplayName("Split Cubic Bezier")]
         [Description("Split Cubic Bezier.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CubicBezier2D[] Split_(double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY, params double[] ts)
+        public static CubicBezier2D[] Split1(double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY, params double[] ts)
         {
             if (ts is null)
             {

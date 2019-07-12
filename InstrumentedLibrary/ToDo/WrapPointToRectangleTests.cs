@@ -12,7 +12,7 @@
         ///// <summary>
         ///// Set of tests to run testing methods that calculate the wrapped position of a point in a rectangle.
         ///// </summary>
-        ///// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        ///// <returns>The <see cref="List{T}"/>.</returns>
         //[DisplayName(nameof(Point2DInCircle2DTests))]
         //public static List<SpeedTester> TestHarness()
         //{

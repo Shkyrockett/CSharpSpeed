@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The interpolate cubic bezier1d test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(InterpolateBezierCubic1DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -49,7 +49,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double CubicBezier(double t, double v0, double v1, double v2, double v3)
-            => CubicBezier_(t, v0, v1, v2, v3);
+            => CubicBezier1(t, v0, v1, v2, v3);
 
         /// <summary>
         /// The cubic bezier.
@@ -69,7 +69,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CubicBezier_(double t, double v0, double v1, double v2, double v3)
+        public static double CubicBezier1(double t, double v0, double v1, double v2, double v3)
         {
             // The inverse of t.
             var ti = 1d - t;

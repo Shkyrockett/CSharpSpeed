@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(Distance2DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -64,7 +64,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<(double X, double Y)> PolygonPerimeter0(List<(double X, double Y)> points)
         {
-            var corners = points.Count;
+            var corners = (points?.Count).Value;
 
             const int MAX_SEGS = 1000;
 

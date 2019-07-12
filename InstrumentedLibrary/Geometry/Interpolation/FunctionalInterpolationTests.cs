@@ -21,7 +21,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(FunctionalInterpolationTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -48,7 +48,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static List<(double X, double Y)> Interpolate0to1(int count, Func<double, (double X, double Y)> func)
-            => Interpolate0to1_(count, func);
+            => Interpolate0to1X(count, func);
 
         /// <summary>
         /// Retrieves a list of points interpolated from a function.
@@ -62,7 +62,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<(double X, double Y)> Interpolate0to1_(int count, Func<double, (double X, double Y)> func)
+        public static List<(double X, double Y)> Interpolate0to1X(int count, Func<double, (double X, double Y)> func)
         {
             return new List<(double X, double Y)>(from i in Enumerable.Range(0, count) select func(1d / count * i));
         }

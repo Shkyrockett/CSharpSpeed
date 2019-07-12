@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The polygon centroid test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(OpenEllipseTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -51,7 +51,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static EllipticalArc2D OpenEllipse(double x, double y, double rX, double rY, double angle, double t)
-            => OpenEllipse_(x, y, rX, rY, angle, t);
+            => OpenEllipse1(x, y, rX, rY, angle, t);
 
         /// <summary>
         /// The split.
@@ -69,11 +69,11 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static EllipticalArc2D OpenEllipse_(double x, double y, double rX, double rY, double angle, double t)
+        public static EllipticalArc2D OpenEllipse1(double x, double y, double rX, double rY, double angle, double t)
         {
             if (t < 0d || t > 1d)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(t));
             }
 
             return new EllipticalArc2D(x, y, rX, rY, angle, Maths.Tau * t, Maths.Tau);

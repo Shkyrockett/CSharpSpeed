@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -117,7 +118,7 @@ namespace VisualValidator
             pictureBoxes.Add(pictureBox);
             pictureBox.BorderStyle = BorderStyle.Fixed3D;
             pictureBox.Location = new Point(3, 3);
-            pictureBox.Name = $"pictureBox{Guid.NewGuid().ToString("N")}";
+            pictureBox.Name = $"pictureBox{Guid.NewGuid().ToString("N", CultureInfo.InvariantCulture)}";
             pictureBox.Size = new Size(143, 117);
             pictureBox.TabIndex = pictureBoxes.Count;
             pictureBox.TabStop = false;

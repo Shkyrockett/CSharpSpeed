@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The point2d in circle2d test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(NormalizeBoundedPoint2DTests))]
         public static List<SpeedTester> TestHarness()
         {

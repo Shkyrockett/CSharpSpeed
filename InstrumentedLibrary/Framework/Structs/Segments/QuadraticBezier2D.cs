@@ -17,11 +17,13 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct QuadraticBezier2D
-        : IShapeSegment, ICachableProperties
+        : IShapeSegment, ICachableProperties, IEquatable<QuadraticBezier2D>
     {
+        #region Fields
         private Point2D a;
         private Point2D b;
         private Point2D c;
+        #endregion
 
         #region Constructors
         /// <summary>
@@ -220,11 +222,67 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="v"></param>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2D Interpolate(double v) => new Point2D(InterpolateBezierQuadratic2DTests.QuadraticBezierInterpolate2D(v, A.X, A.Y, B.X, B.Y, C.X, C.Y));
+        public static bool operator ==(QuadraticBezier2D left, QuadraticBezier2D right) => left.Equals(right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator !=(QuadraticBezier2D left, QuadraticBezier2D right) => !(left == right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj) => obj is QuadraticBezier2D && Equals((QuadraticBezier2D)obj);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(QuadraticBezier2D other) => other.a == a && other.b == b && other.c == c;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(QuadraticBezier2D left, QuadraticBezier2D right) => left.Equals(right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override int GetHashCode() => HashCode.Combine(a, b, c);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Point2D Interpolate(double t) => new Point2D(InterpolateBezierQuadratic2DTests.QuadraticBezierInterpolate2D(t, A.X, A.Y, B.X, B.Y, C.X, C.Y));
 
         /// <summary>
         /// 
@@ -233,6 +291,25 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public CubicBezier2D ToCubicBezier2D() => new CubicBezier2D(A.X, A.Y, B.X, B.Y, C.X, C.Y);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (double x1, double y1, double x2, double y2, double x3, double y3) To() => (a.X, a.Y, b.X, b.Y, c.X, c.Y);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public QuadraticBezier2D ToQuadraticBezier2D()
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Creates a <see cref="string"/> representation of this <see cref="IShape"/> interface based on the current culture.
@@ -248,13 +325,11 @@ namespace InstrumentedLibrary
         /// <param name="format"></param>
         /// <param name="formatProvider"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider formatProvider)
         {
-            //if (this is null)
-            //{
-            //    return nameof(QuadraticBezier2D);
-            //}
-
+            if (this == null) return nameof(QuadraticBezier2D);
             var sep = ((formatProvider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
             return $"{nameof(QuadraticBezier2D)}({nameof(A)}: {A.ToString(format, formatProvider)}{sep} {nameof(B)}: {B.ToString(format, formatProvider)}{sep} {nameof(C)}: {C.ToString(format, formatProvider)})";
         }

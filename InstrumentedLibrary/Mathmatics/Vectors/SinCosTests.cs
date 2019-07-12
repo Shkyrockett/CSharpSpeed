@@ -21,7 +21,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The sin cos table.
         /// </summary>
-        public static Dictionary<double, (double, double)?> sinCosTable = new Dictionary<double, (double Cos, double Sin)?>();
+        public static readonly Dictionary<double, (double, double)?> sinCosTable = new Dictionary<double, (double Cos, double Sin)?>();
 
         /// <summary>
         /// Clear the sin cos table.
@@ -36,7 +36,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to lookup the Sin and Cos of a radian angle.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(SinCosTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -66,19 +66,19 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double Cos, double Sin) SinCos(double angle)
-            => SinCos_0(angle);
+            => SinCos0(angle);
 
         /// <summary>
         /// The sin cos.
         /// </summary>
         /// <param name="angle">The angle.</param>
-        /// <returns>The <see cref="T:(double Cos, double Sin)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         [DisplayName("Sin and Cos Reference")]
         [Description("Calculate the tuple of Sin and Cos.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double Cos, double Sin) SinCos_0(double angle)
+        public static (double Cos, double Sin) SinCos0(double angle)
         {
             return (Cos(angle), Sin(angle));
         }
@@ -87,7 +87,7 @@ namespace InstrumentedLibrary
         /// The sin cos low precision.
         /// </summary>
         /// <param name="x">The x.</param>
-        /// <returns>The <see cref="T:(double Cos, double Sin)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <acknowledgment>
         /// http://web.archive.org/web/20110925033606/http://lab.polygonal.de/2007/07/18/fast-and-accurate-sinecosine-approximation/
         /// </acknowledgment>
@@ -131,7 +131,7 @@ namespace InstrumentedLibrary
         /// The sin cos high precision.
         /// </summary>
         /// <param name="x">The x.</param>
-        /// <returns>The <see cref="T:(double Cos, double Sin)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <acknowledgment>
         /// http://web.archive.org/web/20110925033606/http://lab.polygonal.de/2007/07/18/fast-and-accurate-sinecosine-approximation/
         /// </acknowledgment>
@@ -205,7 +205,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double Cos, double Sin) SinCos0(double radian)
+        public static (double Cos, double Sin) SinCosX(double radian)
         {
             return sinCosTable.GetValueOrDefault(radian) ?? (sinCosTable[radian] = (Cos(radian), Sin(radian))).Value;
         }

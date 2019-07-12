@@ -17,7 +17,7 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Size4D
-        : IFormattable
+        : IFormattable, IEquatable<Size4D>
     {
         #region Implementations
         /// <summary>
@@ -425,6 +425,90 @@ namespace InstrumentedLibrary
             if (this == null) return nameof(Size4D);
             var sep = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
             return $"{nameof(Size4D)}({nameof(Width)}: {Width.ToString(format, provider)}{sep} {nameof(Height)}: {Height.ToString(format, provider)}{sep} {nameof(Depth)}: {Depth.ToString(format, provider)}{sep} {nameof(Breadth)}: {Breadth.ToString(format, provider)})";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static Size4D Plus(Size4D item)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Size4D Add(Size4D left, Size4D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static Size4D Negate(Size4D item)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Size4D Subtract(Size4D left, Size4D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Size4D Multiply(Size4D left, Size4D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Size4D Divide(Size4D left, Size4D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Size4D ToSize4D(Size4D left, Size4D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public (double Width, double Height, double Depth, double Breadth) To()
+        {
+            throw new NotImplementedException();
         }
         #endregion Methods
     }

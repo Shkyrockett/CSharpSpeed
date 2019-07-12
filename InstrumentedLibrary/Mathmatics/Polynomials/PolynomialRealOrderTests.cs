@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The normalize2d test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(PolynomialRealOrderTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -101,7 +101,7 @@ namespace InstrumentedLibrary
         public static PolynomialDegree RealOrder0(double[] coefficients, double epsilon = Epsilon)
         {
             var pos = 1;
-            var count = coefficients.Length;
+            var count = (coefficients?.Length).Value;
 
             // Monomial can be a zero constant, skip them and check the rest.
             if (count > 1)
@@ -110,7 +110,7 @@ namespace InstrumentedLibrary
                 for (var i = count - 1; i >= 1 /* Monomials can be 0. */; i--)
                 {
                     // Check if coefficient is a leading zero.
-                    if (Abs(coefficients[i]) <= epsilon)
+                    if (Abs((coefficients?[i]).Value) <= epsilon)
                     {
                         pos++;
                     }

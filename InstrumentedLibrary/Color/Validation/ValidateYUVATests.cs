@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(ValidateYUVATests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -48,7 +48,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static bool ValidateYUVA(double y, double u, double v, double a)
-            => ValidateYUVA_(y, u, v, a);
+            => ValidateYUVA1(y, u, v, a);
 
         /// <summary>
         /// Check whether a yuv color is valid.
@@ -64,7 +64,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool ValidateYUVA_(double y, double u, double v, double a)
+        public static bool ValidateYUVA1(double y, double u, double v, double a)
         {
             return ValueBetweenDoubleTests.Between(a, PercentMin, PercentMax)
                        && ValueBetweenDoubleTests.Between(y, PercentMin, PercentMax)

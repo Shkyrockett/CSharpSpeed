@@ -21,7 +21,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The polygon centroid test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(SplitLineSegmentTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -51,7 +51,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static LineSegment2D[] Split(double aX, double aY, double bX, double bY, params double[] ts)
-            => Split_(aX, aY, bX, bY, ts);
+            => Split1(aX, aY, bX, bY, ts);
 
         /// <summary>
         /// The split.
@@ -61,13 +61,13 @@ namespace InstrumentedLibrary
         /// <param name="bX"></param>
         /// <param name="bY"></param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:LineSegment[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DisplayName("Split Line Segment")]
         [Description("Split Line Segment.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static LineSegment2D[] Split_(double aX, double aY, double bX, double bY, params double[] ts)
+        public static LineSegment2D[] Split1(double aX, double aY, double bX, double bY, params double[] ts)
         {
             if (ts is null)
             {

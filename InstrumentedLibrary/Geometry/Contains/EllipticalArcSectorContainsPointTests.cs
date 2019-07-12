@@ -20,13 +20,13 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(EllipticalArcSectorContainsPointTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 2d, 2d, ToRadiansTests.ToRadians(0d), ToRadiansTests.ToRadians(0d), ToRadiansTests.ToRadians(45d), 0.5d, 0.5d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: Inclusion.Inside, epsilon: double.Epsilon) },
+                { new object[] { 0d, 0d, 2d, 2d, ToRadiansTests.ToRadians(0d), ToRadiansTests.ToRadians(0d), ToRadiansTests.ToRadians(45d), 0.5d, 0.5d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: Inclusions.Inside, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -54,7 +54,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static Inclusion EllipticalArcSectorContainsPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY, double epsilon = Epsilon)
+        public static Inclusions EllipticalArcSectorContainsPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY, double epsilon = Epsilon)
             => EllipticalArcSectorContainsPointSC(cX, cY, r1, r2, angle, startAngle, sweepAngle, pX, pY, epsilon);
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipticalArcSectorContainsPointSC(
+        public static Inclusions EllipticalArcSectorContainsPointSC(
             double cX, double cY,
             double r1, double r2,
             double angle,
@@ -114,7 +114,7 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipticalArcSectorContainsPointSC(
+        public static Inclusions EllipticalArcSectorContainsPointSC(
             double cX, double cY,
             double r1, double r2,
             double cosT, double sinT,
@@ -126,7 +126,7 @@ namespace InstrumentedLibrary
             // If the ellipse is empty it can't contain anything.
             if (r1 <= 0d || r2 <= 0d)
             {
-                return Inclusion.Outside;
+                return Inclusions.Outside;
             }
 
             var endSinT = sweepSinT * startCosT + sweepCosT * startSinT;
@@ -155,14 +155,14 @@ namespace InstrumentedLibrary
             if (Abs(determinant) <= epsilon)
             {
                 return (sX < eX) ?
-                (sX <= pX && pX <= eX) ? Inclusion.Boundary : Inclusion.Outside :
-                (eX <= pX && pX <= sX) ? Inclusion.Boundary : Inclusion.Outside;
+                (sX <= pX && pX <= eX) ? Inclusions.Boundary : Inclusions.Outside :
+                (eX <= pX && pX <= sX) ? Inclusions.Boundary : Inclusions.Outside;
             }
 
             // Check whether the point is on the side of the chord as the center.
             if (Sign(-determinant) == Sign(sweepSinT * sweepCosT))
             {
-                return Inclusion.Outside;
+                return Inclusions.Outside;
             }
 
             // Translate points to origin.
@@ -180,7 +180,7 @@ namespace InstrumentedLibrary
 
             return (normalizedRadius <= 1d)
                 ? ((Abs(normalizedRadius - 1d) < epsilon)
-                ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+                ? Inclusions.Boundary : Inclusions.Inside) : Inclusions.Outside;
         }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipticalArcSectorContainsPoint0(
+        public static Inclusions EllipticalArcSectorContainsPoint0(
             double cX, double cY,
             double r1, double r2,
             double angle,
@@ -238,7 +238,7 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipticalArcSectorContainsPoint0(
+        public static Inclusions EllipticalArcSectorContainsPoint0(
             double cX, double cY,
             double r1, double r2,
             double cosT, double sinT,
@@ -249,7 +249,7 @@ namespace InstrumentedLibrary
             // If the ellipse is empty it can't contain anything.
             if (r1 <= 0d || r2 <= 0d)
             {
-                return Inclusion.Outside;
+                return Inclusions.Outside;
             }
 
             var endAngle = startAngle + sweepAngle;
@@ -277,14 +277,14 @@ namespace InstrumentedLibrary
             if (Abs(determinant) <= epsilon)
             {
                 return (sX < eX) ?
-                (sX <= pX && pX <= eX) ? Inclusion.Boundary : Inclusion.Outside :
-                (eX <= pX && pX <= sX) ? Inclusion.Boundary : Inclusion.Outside;
+                (sX <= pX && pX <= eX) ? Inclusions.Boundary : Inclusions.Outside :
+                (eX <= pX && pX <= sX) ? Inclusions.Boundary : Inclusions.Outside;
             }
 
             // Check whether the point is on the side of the chord as the center.
             if (Sign(determinant) == Sign(sweepAngle))
             {
-                return Inclusion.Outside;
+                return Inclusions.Outside;
             }
 
             // Translate points to origin.
@@ -302,7 +302,7 @@ namespace InstrumentedLibrary
 
             return (normalizedRadius <= 1d)
                 ? ((Abs(normalizedRadius - 1d) < epsilon)
-                ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+                ? Inclusions.Boundary : Inclusions.Inside) : Inclusions.Outside;
         }
 
         /// <summary>
@@ -328,7 +328,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipticalArcContainsPoint1(
+        public static Inclusions EllipticalArcContainsPoint1(
             double cX, double cY,
             double r1, double r2,
             double angle,
@@ -363,7 +363,7 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipticalArcContainsPoint1(
+        public static Inclusions EllipticalArcContainsPoint1(
             double cX, double cY,
             double r1, double r2,
             double cosT, double sinT,
@@ -375,7 +375,7 @@ namespace InstrumentedLibrary
             // If the ellipse is empty it can't contain anything.
             if (r1 <= 0d || r2 <= 0d)
             {
-                return Inclusion.Outside;
+                return Inclusions.Outside;
             }
 
             // If the Sweep angle is Tau, the EllipticalArc must be an Ellipse.
@@ -409,7 +409,7 @@ namespace InstrumentedLibrary
             // Check whether the point is on the same side of the chord as the center.
             if (Sign(-determinant) == Sign(sweepSinT * sweepCosT))
             {
-                return Inclusion.Outside;
+                return Inclusions.Outside;
             }
 
             // Translate point to origin.
@@ -427,7 +427,7 @@ namespace InstrumentedLibrary
 
             return (normalizedRadius <= 1d)
                 ? ((Abs(normalizedRadius - 1d) < epsilon)
-                ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+                ? Inclusions.Boundary : Inclusions.Inside) : Inclusions.Outside;
         }
 
         /// <summary>
@@ -453,7 +453,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipticalArcContainsPoint2(
+        public static Inclusions EllipticalArcContainsPoint2(
             double cX, double cY,
             double r1, double r2,
             double angle,
@@ -488,7 +488,7 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipticalArcContainsPoint2(
+        public static Inclusions EllipticalArcContainsPoint2(
             double cX, double cY,
             double r1, double r2,
             double cosT, double sinT,
@@ -500,7 +500,7 @@ namespace InstrumentedLibrary
             // If the ellipse is empty it can't contain anything.
             if (r1 <= 0d || r2 <= 0d)
             {
-                return Inclusion.Outside;
+                return Inclusions.Outside;
             }
 
             // If the Sweep angle is Tau, the EllipticalArc must be an Ellipse.
@@ -538,7 +538,7 @@ namespace InstrumentedLibrary
             // Check whether the point is on the same side of the chord as the center.
             if (Sign(-determinant) == Sign(sweepSinT * sweepCosT))
             {
-                return Inclusion.Outside;
+                return Inclusions.Outside;
             }
 
             // Translate point to origin.
@@ -556,7 +556,7 @@ namespace InstrumentedLibrary
 
             return (normalizedRadius <= 1d)
                 ? ((Abs(normalizedRadius - 1d) < epsilon)
-                ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+                ? Inclusions.Boundary : Inclusions.Inside) : Inclusions.Outside;
         }
     }
 }

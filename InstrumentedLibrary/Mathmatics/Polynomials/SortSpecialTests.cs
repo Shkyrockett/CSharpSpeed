@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(SortSpecialTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -65,21 +65,25 @@ namespace InstrumentedLibrary
             bool flip;
             double temp;
 
-            do
+            if (!(a is null))
             {
-                flip = false;
-                for (var i = 0; i < a.Length - 1; i++)
+                do
                 {
-                    if ((a[i + 1] >= 0d && a[i] > a[i + 1]) ||
-                        (a[i] < 0d && a[i + 1] >= 0d))
+                    flip = false;
+                    for (var i = 0; i < a.Length - 1; i++)
                     {
-                        flip = true;
-                        temp = a[i];
-                        a[i] = a[i + 1];
-                        a[i + 1] = temp;
+                        if ((a[i + 1] >= 0d && a[i] > a[i + 1]) ||
+                            (a[i] < 0d && a[i + 1] >= 0d))
+                        {
+                            flip = true;
+                            temp = a[i];
+                            a[i] = a[i + 1];
+                            a[i + 1] = temp;
+                        }
                     }
-                }
-            } while (flip);
+                } while (flip);
+            }
+
             return a;
         }
     }

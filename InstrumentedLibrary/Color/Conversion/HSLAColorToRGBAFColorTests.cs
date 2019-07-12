@@ -21,7 +21,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(HSLAColorToRGBAFColorTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -50,7 +50,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double red, double green, double blue, double alpha) HSLAColorToRGBAFColor(double hue, double saturation, double luminance, double alpha)
-            => HSLAColorToRGBAFColor_(hue, saturation, luminance, alpha);
+            => HSLAColorToRGBAFColor1(hue, saturation, luminance, alpha);
 
         /// <summary>
         /// The rgb f create from hsl.
@@ -66,7 +66,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double red, double green, double blue, double alpha) HSLAColorToRGBAFColor_(double hue, double saturation, double luminance, double alpha)
+        public static (double red, double green, double blue, double alpha) HSLAColorToRGBAFColor1(double hue, double saturation, double luminance, double alpha)
         {
             (double red, double green, double blue, double alpha) color = (0d, 0d, 0d, alpha);
             if (ValidateHSLATests.ValidateHSLA(hue, saturation, luminance, alpha) == true)

@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The polygon centroid test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(PolygonIsOrientedClockwiseTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -50,7 +50,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static IShapeSegment LeftBisectRay(double x, double y, double i, double j, double t)
-            => LeftBisectRay_(x, y, i, j, t);
+            => LeftBisectRay1(x, y, i, j, t);
 
         /// <summary>
         /// The split.
@@ -60,13 +60,13 @@ namespace InstrumentedLibrary
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:Shape[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DisplayName("Left Bisect Ray")]
         [Description("Left Bisect Ray.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IShapeSegment LeftBisectRay_(double x, double y, double i, double j, double t)
+        public static IShapeSegment LeftBisectRay1(double x, double y, double i, double j, double t)
         {
             var (X, Y) = InterpolateLinear2DTests.LinearInterpolate2D(t, x, y, x + i, y + j);
 

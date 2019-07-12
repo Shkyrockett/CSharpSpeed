@@ -18,13 +18,13 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(QuadContainsPointTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 2d, 0d, 2d, 2d, 0d, 2d, 1d, 1d }, new TestCaseResults(description: "quad contains point.", trials: trials, expectedReturnValue: Inclusion.Inside, epsilon: double.Epsilon) },
+                { new object[] { 0d, 0d, 2d, 0d, 2d, 2d, 0d, 2d, 1d, 1d }, new TestCaseResults(description: "quad contains point.", trials: trials, expectedReturnValue: Inclusions.Inside, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

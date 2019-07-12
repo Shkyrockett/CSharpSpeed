@@ -3,6 +3,7 @@ using InstrumentedLibrary;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Management;
@@ -82,7 +83,7 @@ namespace CSharpSpeedConsole
             sb.AppendLine();
 
             // Display the description.
-            if (description != "")
+            if (string.IsNullOrEmpty(description))
             {
                 sb.AppendLine(description);
                 sb.AppendLine();
@@ -123,7 +124,7 @@ namespace CSharpSpeedConsole
             sb.AppendLine();
 
             // Display the intended signature for the methods.
-            if (description != "")
+            if (string.IsNullOrEmpty(description))
             {
                 sb.AppendLine("## Method Signature");
                 sb.AppendLine();
@@ -158,7 +159,7 @@ namespace CSharpSpeedConsole
             foreach (var key in results.Keys)
             {
                 var keyString = key.ArrayToString();
-                sb.AppendLine($"- [Test Case: ({keyString})](#{keyString.Replace(" ", "-")})");
+                sb.AppendLine($"- [Test Case: ({keyString})](#{keyString.Replace(" ", "-", true, CultureInfo.InvariantCulture)})");
             }
 
             sb.AppendLine();
@@ -187,7 +188,7 @@ namespace CSharpSpeedConsole
                 sb.AppendLine($"### {((DisplayNameAttribute)test.Method?.GetCustomAttribute(typeof(DisplayNameAttribute)))?.DisplayName}");
                 sb.AppendLine();
                 sb.AppendLine($"{((DescriptionAttribute)test.Method?.GetCustomAttribute(typeof(DescriptionAttribute)))?.Description}  ");
-                sb.Append($"{((AcknowledgmentAttribute)test.Method?.GetCustomAttribute(typeof(AcknowledgmentAttribute)))?.Urls.ArrayToUrlListString()}");
+                sb.Append($"{((AcknowledgmentAttribute)test.Method?.GetCustomAttribute(typeof(AcknowledgmentAttribute)))?.Urls.ArrayToAddressListString()}");
                 sb.AppendLine();
                 sb.AppendLine("```CSharp");
                 sb.Append(test.MethodCode);
@@ -196,7 +197,7 @@ namespace CSharpSpeedConsole
             }
 
             // Capture the folder for the report.
-            var reportFolder = Path.GetFullPath(Path.Combine(applicationRootFolder, "reports", Path.GetDirectoryName(tests[0].FileName).Replace($"..{Path.DirectorySeparatorChar}", "")));
+            var reportFolder = Path.GetFullPath(Path.Combine(applicationRootFolder, "reports", Path.GetDirectoryName(tests[0].FileName).Replace($"..{Path.DirectorySeparatorChar}", "", true, CultureInfo.InvariantCulture)));
 
             // Capture the name and full path of the markdown file.
             var reportFile = Path.GetFullPath(Path.Combine(reportFolder, $"{Path.GetFileNameWithoutExtension(tests[0].FileName)}.md"));
@@ -222,7 +223,7 @@ namespace CSharpSpeedConsole
             var sb = new StringBuilder();
             try
             {
-                var searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
+                using var searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_Processor");
                 foreach (ManagementObject queryObj in searcher.Get())
                 {
                     sb.Append($"Name: {queryObj["Name"]}");
@@ -244,8 +245,7 @@ namespace CSharpSpeedConsole
             var sb = new StringBuilder();
             try
             {
-                var searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PhysicalMemory");
-
+                using var searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PhysicalMemory");
                 foreach (ManagementObject queryObj in searcher.Get())
                 {
                     sb.AppendLine($"> Capacity: {FormatCapacity((ulong)queryObj["Capacity"])}  ");
@@ -264,8 +264,9 @@ namespace CSharpSpeedConsole
         /// https://stackoverflow.com/a/22733709
         /// </summary>
         /// <param name="number">The number.</param>
+        /// <param name="provider"></param>
         /// <returns>The <see cref="string"/>.</returns>
-        public static string FormatCapacity(ulong number)
+        public static string FormatCapacity(ulong number, IFormatProvider provider = null)
         {
             for (var i = 0ul; i < (ulong)suffixes.Length; i++)
             {
@@ -275,7 +276,7 @@ namespace CSharpSpeedConsole
                     return $"{number / (ulong)Math.Pow(1024ul, i)} {suffixes[i]}";
                 }
             }
-            return number.ToString();
+            return number.ToString(provider ?? CultureInfo.CurrentCulture);
         }
         #endregion Helper Methods
     }

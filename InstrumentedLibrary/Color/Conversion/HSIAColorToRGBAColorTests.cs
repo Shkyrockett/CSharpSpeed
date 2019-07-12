@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(HSIAColorToRGBAColorTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -48,7 +48,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (byte red, byte green, byte blue, byte alpha) HSIAColorToRGBAColor(double hue, double saturation, double intensity, double alpha)
-            => HSIAColorToRGBAColor_(hue, saturation, intensity, alpha);
+            => HSIAColorToRGBAColor1(hue, saturation, intensity, alpha);
 
         /// <summary>
         /// Function example takes H, S, I, and a pointer to the
@@ -69,7 +69,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (byte red, byte green, byte blue, byte alpha) HSIAColorToRGBAColor_(double hue, double saturation, double intensity, double alpha)
+        public static (byte red, byte green, byte blue, byte alpha) HSIAColorToRGBAColor1(double hue, double saturation, double intensity, double alpha)
         {
             var h = hue;
             var s = saturation;

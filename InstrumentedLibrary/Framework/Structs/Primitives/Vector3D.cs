@@ -17,7 +17,7 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Vector3D
-        : IFormattable
+        : IFormattable, IEquatable<Vector3D>
     {
         #region Static Fields
         /// <summary>
@@ -485,6 +485,90 @@ namespace InstrumentedLibrary
             if (this == null) return nameof(Vector3D);
             var sep = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
             return $"{nameof(Vector3D)}({nameof(I)}: {I.ToString(format, provider)}{sep} {nameof(J)}: {J.ToString(format, provider)}{sep} {nameof(K)}: {K.ToString(format, provider)})";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static Vector3D Plus(Vector3D item)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Vector3D Add(Vector3D left, Vector3D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static Vector3D Negate(Vector3D item)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Vector3D Subtract(Vector3D left, Vector3D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Vector3D Multiply(Vector3D left, Vector3D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Vector3D Divide(Vector3D left, Vector3D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Vector3D ToVector3D(Vector3D left, Vector3D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public (double I, double J, double K) To()
+        {
+            throw new NotImplementedException();
         }
         #endregion Public Methods
     }

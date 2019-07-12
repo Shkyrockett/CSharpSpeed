@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the 1D cubic interpolation of a point.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(InterpolateBezierQuadratic1DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -47,7 +47,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double QuadraticBezierInterpolate1D(double t, double v0, double v1, double v2)
-            => QuadraticBezierInterpolate1D_0(t, v0, v1, v2);
+            => QuadraticBezierInterpolate1D0(t, v0, v1, v2);
 
         /// <summary>
         /// Three control point Bézier interpolation mu ranges from 0 to 1, start to end of the curve.
@@ -62,7 +62,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double QuadraticBezierInterpolate1D_0(double t, double v0, double v1, double v2)
+        public static double QuadraticBezierInterpolate1D0(double t, double v0, double v1, double v2)
         {
             var mu1 = 1d - t;
             var mu12 = mu1 * mu1;
@@ -88,7 +88,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double QuadraticBezierInterpolate1D_1(double t, double v0, double v1, double v2)
+        public static double QuadraticBezierInterpolate1D1(double t, double v0, double v1, double v2)
         {
             // point between a and b
             var ab = InterpolateLinear1DTests.LinearInterpolate1D(t, v0, v1);
@@ -113,7 +113,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double QuadraticBezierInterpolate1D_2(double t, double v0, double v1, double v2)
+        public static double QuadraticBezierInterpolate1D2(double t, double v0, double v1, double v2)
         {
             return (v0 * ((1d - t) * (1d - t))) + (2 * v1 * (1d - t) * t) + (v2 * (t * t));
         }

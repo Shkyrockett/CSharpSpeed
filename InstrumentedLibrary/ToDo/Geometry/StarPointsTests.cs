@@ -1,4 +1,5 @@
 ﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -19,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(Distance2DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -44,12 +45,12 @@ namespace InstrumentedLibrary
         /// <param name="y"></param>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        /// <param name="num_points"></param>
+        /// <param name="numPoints"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static (double X, double Y)[] StarPoints(double x, double y, double width, double height, int num_points)
-            => StarPoints0(x, y, width, height, num_points);
+        public static (double X, double Y)[] StarPoints(double x, double y, double width, double height, int numPoints)
+            => StarPoints0(x, y, width, height, numPoints);
 
         /// <summary>
         /// The star points.
@@ -58,17 +59,17 @@ namespace InstrumentedLibrary
         /// <param name="y"></param>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        /// <param name="num_points">The num_points.</param>
-        /// <returns>The <see cref="T:PointF[]"/>. Return PointFs to define a star.</returns>
+        /// <param name="numPoints">The num_points.</param>
+        /// <returns>The <see cref="Array"/>. Return PointFs to define a star.</returns>
         [DisplayName("Star Points Tests")]
         [Description("Star Points.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y)[] StarPoints0(double x, double y, double width, double height, int num_points)
+        public static (double X, double Y)[] StarPoints0(double x, double y, double width, double height, int numPoints)
         {
             // Make room for the points.
-            var pts = new (double X, double Y)[num_points];
+            var pts = new (double X, double Y)[numPoints];
 
             var rx = width / 2d;
             var ry = height / 2d;
@@ -77,8 +78,8 @@ namespace InstrumentedLibrary
 
             // Start at the top.
             var theta = -PI / 2d;
-            var dtheta = 4d * PI / num_points;
-            for (var i = 0; i < num_points; i++)
+            var dtheta = 4d * PI / numPoints;
+            for (var i = 0; i < numPoints; i++)
             {
                 pts[i] = (
                     cx + rx * Cos(theta),
@@ -102,6 +103,8 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y)[] UprightStarPolygonRobertEisele(double x, double y, double innerRadius, double outerRadius, int n)
         {
+            _ = x;
+            _ = y;
             var points = new List<(double X, double Y)>();
             for (var i = 0; i <= 2 * n; i++)
             {
@@ -122,7 +125,7 @@ namespace InstrumentedLibrary
         /// <param name="bounds">The bounds.</param>
         /// <param name="chkHalfOnly">The chkHalfOnly.</param>
         /// <param name="chkRelPrimeOnly">The chkRelPrimeOnly.</param>
-        public static void PicCanvas_Paint(/*PaintEventArgs e,*/ int NumPoints, Rectangle2D bounds, bool chkHalfOnly, bool chkRelPrimeOnly)
+        public static void PicCanvasPaint(/*PaintEventArgs e,*/ int NumPoints, Rectangle2D bounds, bool chkHalfOnly, bool chkRelPrimeOnly)
         {
             if (NumPoints < 3)
             {
@@ -184,16 +187,18 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
-        /// <param name="orig_pts">The orig_pts.</param>
+        /// <param name="origPts">The orig_pts.</param>
         /// <param name="skip">The skip.</param>
         /// <param name="NumPoints">The NumPoints.</param>
-        public static void DrawStar(/*Graphics gr,*/ int x, int y, (double X, double Y)[] orig_pts, int skip, int NumPoints)
+        public static void DrawStar(/*Graphics gr,*/ int x, int y, (double X, double Y)[] origPts, int skip, int NumPoints)
         {
+            _ = x;
+            _ = y;
             // Make a PointF array with the points in the proper order.
             var pts = new (double X, double Y)[NumPoints];
             for (var i = 0; i < NumPoints; i++)
             {
-                pts[i] = orig_pts[i * skip % NumPoints];
+                pts[i] = (origPts?[i * skip % NumPoints]).Value;
             }
 
             // Draw the star.
@@ -207,7 +212,7 @@ namespace InstrumentedLibrary
         /// The pic gears paint.
         /// </summary>
         /// <param name="bounds">The bounds.</param>
-        public static void PicGears_Paint(/*PaintEventArgs e,*/ Rectangle2D bounds)
+        public static void PicGearsPaint(/*PaintEventArgs e,*/ Rectangle2D bounds)
         {
             //// Draw smoothly.
             //e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
@@ -233,36 +238,37 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="center">The center.</param>
         /// <param name="radius">The radius.</param>
-        /// <param name="tooth_length">The tooth_length.</param>
-        /// <param name="num_teeth">The num_teeth.</param>
-        /// <param name="axle_radius">The axle_radius.</param>
-        /// <param name="start_with_tooth">The start_with_tooth.</param>
-        public static void DrawGear(/*Graphics gr,*/ /*Brush axle_brush,*/ /*Brush gear_brush,*/ /*Pen gear_pen,*/ Point2D center, double radius, double tooth_length, int num_teeth, double axle_radius, bool start_with_tooth)
+        /// <param name="toothLength">The tooth_length.</param>
+        /// <param name="numTeeth">The num_teeth.</param>
+        /// <param name="axleRadius">The axle_radius.</param>
+        /// <param name="startWithTooth">The start_with_tooth.</param>
+        public static void DrawGear(/*Graphics gr,*/ /*Brush axle_brush,*/ /*Brush gear_brush,*/ /*Pen gear_pen,*/ Point2D center, double radius, double toothLength, int numTeeth, double axleRadius, bool startWithTooth)
         {
-            var dtheta = PI / num_teeth;
+            _ = axleRadius;
+            var dtheta = PI / numTeeth;
             var dtheta_degrees = dtheta * 180 / PI; // dtheta in degrees.
 
             const double chamfer = 2;
             var tooth_width = radius * dtheta - chamfer;
-            var alpha = tooth_width / (radius + tooth_length);
+            var alpha = tooth_width / (radius + toothLength);
             var alpha_degrees = alpha * 180 / PI;
             var phi = (dtheta - alpha) / 2;
 
             // Set theta for the beginning of the first tooth.
             double theta;
-            theta = start_with_tooth ? dtheta / 2 : -dtheta / 2;
+            theta = startWithTooth ? dtheta / 2 : -dtheta / 2;
 
             // Make rectangles to represent the gear's inner and outer arcs.
             var inner_rect = new Rectangle2D(
                 center.X - radius, center.Y - radius,
                 2 * radius, 2 * radius);
             var outer_rect = new Rectangle2D(
-                center.X - radius - tooth_length, center.Y - radius - tooth_length,
-                2 * (radius + tooth_length), 2 * (radius + tooth_length));
+                center.X - radius - toothLength, center.Y - radius - toothLength,
+                2 * (radius + toothLength), 2 * (radius + toothLength));
 
             // Make a path representing the gear.
             //var path = new GraphicsPath();
-            for (var i = 0; i < num_teeth; i++)
+            for (var i = 0; i < numTeeth; i++)
             {
                 // Move across the gap between teeth.
                 var degrees = theta * 180 / PI;

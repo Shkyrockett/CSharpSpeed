@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Vector2D
-        : IFormattable, IShapeSegment
+        : IFormattable, IShapeSegment, IEquatable<Vector2D>
     {
         #region Static Fields
         /// <summary>
@@ -466,6 +466,90 @@ namespace InstrumentedLibrary
             if (this == null) return nameof(Vector2D);
             var sep = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
             return $"{nameof(Vector2D)}({nameof(I)}: {I.ToString(format, provider)}{sep} {nameof(J)}: {J.ToString(format, provider)})";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static Vector2D Plus(Vector2D item)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Vector2D Add(Vector2D left, Vector2D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static Vector2D Negate(Vector2D item)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Vector2D Subtract(Vector2D left, Vector2D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Vector2D Multiply(Vector2D left, Vector2D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Vector2D Divide(Vector2D left, Vector2D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Vector2D ToVector2D(Vector2D left, Vector2D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public (double I, double J) To()
+        {
+            throw new NotImplementedException();
         }
         #endregion Public Methods
     }

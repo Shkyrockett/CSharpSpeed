@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Matrix3x2D
-        : IEnumerable
+        : IEnumerable, IEquatable<Matrix3x2D>
     {
         #region Implementations
         /// <summary>
@@ -38,7 +38,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The type.
         /// </summary>
-        private MatrixTypes type;
+        private MatrixForms type;
 
         /// <summary>
         /// The m0x0.
@@ -88,7 +88,7 @@ namespace InstrumentedLibrary
             this.m1x1 = m2x2;
             this.offsetX = offsetX;
             this.offsetY = offsetY;
-            type = MatrixTypes.Unknown;
+            type = MatrixForms.Unknown;
 
             // We will detect EXACT identity, scale, translation or
             // scale+translation and use special case algorithms.
@@ -132,23 +132,23 @@ namespace InstrumentedLibrary
         {
             get
             {
-                return type == MatrixTypes.Identity ? 1.0f : m0x0;
+                return type == MatrixForms.Identity ? 1.0f : m0x0;
             }
             set
             {
-                if (type == MatrixTypes.Identity)
+                if (type == MatrixForms.Identity)
                 {
                     SetMatrix(value, 0,
                               0, 1,
                               0, 0,
-                              MatrixTypes.Scaling);
+                              MatrixForms.Scaling);
                 }
                 else
                 {
                     m0x0 = value;
-                    if (type != MatrixTypes.Unknown)
+                    if (type != MatrixForms.Unknown)
                     {
-                        type |= MatrixTypes.Scaling;
+                        type |= MatrixForms.Scaling;
                     }
                 }
             }
@@ -162,21 +162,21 @@ namespace InstrumentedLibrary
         {
             get
             {
-                return type == MatrixTypes.Identity ? 0 : m0x1;
+                return type == MatrixForms.Identity ? 0 : m0x1;
             }
             set
             {
-                if (type == MatrixTypes.Identity)
+                if (type == MatrixForms.Identity)
                 {
                     SetMatrix(1, value,
                               0, 1,
                               0, 0,
-                              MatrixTypes.Unknown);
+                              MatrixForms.Unknown);
                 }
                 else
                 {
                     m0x1 = value;
-                    type = MatrixTypes.Unknown;
+                    type = MatrixForms.Unknown;
                 }
             }
         }
@@ -189,21 +189,21 @@ namespace InstrumentedLibrary
         {
             get
             {
-                return type == MatrixTypes.Identity ? 0 : m1x0;
+                return type == MatrixForms.Identity ? 0 : m1x0;
             }
             set
             {
-                if (type == MatrixTypes.Identity)
+                if (type == MatrixForms.Identity)
                 {
                     SetMatrix(1, 0,
                               value, 1,
                               0, 0,
-                              MatrixTypes.Unknown);
+                              MatrixForms.Unknown);
                 }
                 else
                 {
                     m1x0 = value;
-                    type = MatrixTypes.Unknown;
+                    type = MatrixForms.Unknown;
                 }
             }
         }
@@ -215,23 +215,23 @@ namespace InstrumentedLibrary
         {
             get
             {
-                return type == MatrixTypes.Identity ? 1.0f : m1x1;
+                return type == MatrixForms.Identity ? 1.0f : m1x1;
             }
             set
             {
-                if (type == MatrixTypes.Identity)
+                if (type == MatrixForms.Identity)
                 {
                     SetMatrix(1, 0,
                               0, value,
                               0, 0,
-                              MatrixTypes.Scaling);
+                              MatrixForms.Scaling);
                 }
                 else
                 {
                     m1x1 = value;
-                    if (type != MatrixTypes.Unknown)
+                    if (type != MatrixForms.Unknown)
                     {
-                        type |= MatrixTypes.Scaling;
+                        type |= MatrixForms.Scaling;
                     }
                 }
             }
@@ -245,23 +245,23 @@ namespace InstrumentedLibrary
         {
             get
             {
-                return type == MatrixTypes.Identity ? 0 : offsetX;
+                return type == MatrixForms.Identity ? 0 : offsetX;
             }
             set
             {
-                if (type == MatrixTypes.Identity)
+                if (type == MatrixForms.Identity)
                 {
                     SetMatrix(1, 0,
                               0, 1,
                               value, 0,
-                              MatrixTypes.Translation);
+                              MatrixForms.Translation);
                 }
                 else
                 {
                     offsetX = value;
-                    if (type != MatrixTypes.Unknown)
+                    if (type != MatrixForms.Unknown)
                     {
-                        type |= MatrixTypes.Translation;
+                        type |= MatrixForms.Translation;
                     }
                 }
             }
@@ -275,23 +275,23 @@ namespace InstrumentedLibrary
         {
             get
             {
-                return type == MatrixTypes.Identity ? 0 : offsetY;
+                return type == MatrixForms.Identity ? 0 : offsetY;
             }
             set
             {
-                if (type == MatrixTypes.Identity)
+                if (type == MatrixForms.Identity)
                 {
                     SetMatrix(1, 0,
                               0, 1,
                               0, value,
-                              MatrixTypes.Translation);
+                              MatrixForms.Translation);
                 }
                 else
                 {
                     offsetY = value;
-                    if (type != MatrixTypes.Unknown)
+                    if (type != MatrixForms.Unknown)
                     {
-                        type |= MatrixTypes.Translation;
+                        type |= MatrixForms.Translation;
                     }
                 }
             }
@@ -304,14 +304,14 @@ namespace InstrumentedLibrary
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         private bool IsDistinguishedIdentity
-            => type == MatrixTypes.Identity;
+            => type == MatrixForms.Identity;
 
         /// <summary>
         /// Tests whether or not a given transform is an identity transform
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool IsIdentity
-            => type == MatrixTypes.Identity
+            => type == MatrixForms.Identity
             || (
                 Abs(m0x0 - 1) < Epsilon
                 && Abs(m0x1) < Epsilon
@@ -392,7 +392,7 @@ namespace InstrumentedLibrary
             matrix.SetMatrix(1, 0,
                              0, 1,
                              0, 0,
-                             MatrixTypes.Identity);
+                             MatrixForms.Identity);
             return matrix;
         }
 
@@ -424,7 +424,7 @@ namespace InstrumentedLibrary
             matrix.SetMatrix(cos, sin,
                               -sin, cos,
                               dx, dy,
-                              MatrixTypes.Unknown);
+                              MatrixForms.Unknown);
             return matrix;
         }
 
@@ -444,7 +444,7 @@ namespace InstrumentedLibrary
             matrix.SetMatrix(scaleX, 0,
                              0, scaleY,
                              centerX - scaleX * centerX, centerY - scaleY * centerY,
-                             MatrixTypes.Scaling | MatrixTypes.Translation);
+                             MatrixForms.Scaling | MatrixForms.Translation);
 
             return matrix;
         }
@@ -462,7 +462,7 @@ namespace InstrumentedLibrary
             matrix.SetMatrix(scaleX, 0,
                              0, scaleY,
                              0, 0,
-                             MatrixTypes.Scaling);
+                             MatrixForms.Scaling);
             return matrix;
         }
 
@@ -480,7 +480,7 @@ namespace InstrumentedLibrary
             matrix.SetMatrix(1.0f, Tan(skewY),
                              Tan(skewX), 1.0f,
                              0.0f, 0.0f,
-                             MatrixTypes.Unknown);
+                             MatrixForms.Unknown);
 
             return matrix;
         }
@@ -499,7 +499,7 @@ namespace InstrumentedLibrary
             matrix.SetMatrix(1, 0,
                              0, 1,
                              offsetX, offsetY,
-                             MatrixTypes.Translation);
+                             MatrixForms.Translation);
 
             return matrix;
         }
@@ -521,13 +521,13 @@ namespace InstrumentedLibrary
             var matrixType = matrix.type;
 
             // If the matrix is identity, don't worry.
-            if (matrixType == MatrixTypes.Identity)
+            if (matrixType == MatrixForms.Identity)
             {
                 return;
             }
 
             // Scaling
-            if (0 != (matrixType & MatrixTypes.Scaling))
+            if (0 != (matrixType & MatrixForms.Scaling))
             {
                 rect.X *= matrix.m0x0;
                 rect.Y *= matrix.m1x1;
@@ -552,7 +552,7 @@ namespace InstrumentedLibrary
             }
 
             // Translation
-            if (0 != (matrixType & MatrixTypes.Translation))
+            if (0 != (matrixType & MatrixForms.Translation))
             {
                 // X
                 rect.X += matrix.offsetX;
@@ -561,7 +561,7 @@ namespace InstrumentedLibrary
                 rect.Y += matrix.offsetY;
             }
 
-            if (matrixType == MatrixTypes.Unknown)
+            if (matrixType == MatrixForms.Unknown)
             {
                 // Al Bunny implementation.
                 var point0 = matrix.Transform(rect.TopLeft);
@@ -595,36 +595,36 @@ namespace InstrumentedLibrary
             // Check for identities
 
             // If the second is identities, we can just return
-            if (type2 == MatrixTypes.Identity)
+            if (type2 == MatrixForms.Identity)
             {
                 return;
             }
 
             // If the first is identities, we can just copy the memory across.
-            if (type1 == MatrixTypes.Identity)
+            if (type1 == MatrixForms.Identity)
             {
                 matrix1 = matrix2;
                 return;
             }
 
             // Optimize for translate case, where the second is a translate
-            if (type2 == MatrixTypes.Translation)
+            if (type2 == MatrixForms.Translation)
             {
                 // 2 additions
                 matrix1.offsetX += matrix2.offsetX;
                 matrix1.offsetY += matrix2.offsetY;
 
                 // If matrix 1 wasn't unknown we added a translation
-                if (type1 != MatrixTypes.Unknown)
+                if (type1 != MatrixForms.Unknown)
                 {
-                    matrix1.type |= MatrixTypes.Translation;
+                    matrix1.type |= MatrixForms.Translation;
                 }
 
                 return;
             }
 
             // Check for the first value being a translate
-            if (type1 == MatrixTypes.Translation)
+            if (type1 == MatrixForms.Translation)
             {
                 // Save off the old offsets
                 var offsetX = matrix1.offsetX;
@@ -636,13 +636,13 @@ namespace InstrumentedLibrary
                 matrix1.offsetX = (float)(offsetX * matrix2.m0x0 + offsetY * matrix2.m1x0 + matrix2.offsetX);
                 matrix1.offsetY = (float)(offsetX * matrix2.m0x1 + offsetY * matrix2.m1x1 + matrix2.offsetY);
 
-                if (type2 == MatrixTypes.Unknown)
+                if (type2 == MatrixForms.Unknown)
                 {
-                    matrix1.type = MatrixTypes.Unknown;
+                    matrix1.type = MatrixForms.Unknown;
                 }
                 else
                 {
-                    matrix1.type = MatrixTypes.Scaling | MatrixTypes.Translation;
+                    matrix1.type = MatrixForms.Scaling | MatrixForms.Translation;
                 }
 
                 return;
@@ -671,7 +671,7 @@ namespace InstrumentedLibrary
                     matrix1.offsetY = matrix2.offsetY;
 
                     // Transform set to Translate and Scale
-                    matrix1.type = MatrixTypes.Translation | MatrixTypes.Scaling;
+                    matrix1.type = MatrixForms.Translation | MatrixForms.Scaling;
                     return;
 
                 case 50: // S|T * S
@@ -722,35 +722,35 @@ namespace InstrumentedLibrary
             // Check for identities
 
             // If the second is identities, we can just return
-            if (type2 == MatrixTypes.Identity)
+            if (type2 == MatrixForms.Identity)
             {
                 return matrix1;
             }
 
             // If the first is identities, we can just copy the memory across.
-            if (type1 == MatrixTypes.Identity)
+            if (type1 == MatrixForms.Identity)
             {
                 return matrix2;
             }
 
             // Optimize for translate case, where the second is a translate
-            if (type2 == MatrixTypes.Translation)
+            if (type2 == MatrixForms.Translation)
             {
                 // 2 additions
                 matrix1.offsetX += matrix2.offsetX;
                 matrix1.offsetY += matrix2.offsetY;
 
                 // If matrix 1 wasn't unknown we added a translation
-                if (type1 != MatrixTypes.Unknown)
+                if (type1 != MatrixForms.Unknown)
                 {
-                    matrix1.type |= MatrixTypes.Translation;
+                    matrix1.type |= MatrixForms.Translation;
                 }
 
                 return matrix1;
             }
 
             // Check for the first value being a translate
-            if (type1 == MatrixTypes.Translation)
+            if (type1 == MatrixForms.Translation)
             {
                 // Save off the old offsets
                 var offsetX = matrix1.offsetX;
@@ -762,13 +762,13 @@ namespace InstrumentedLibrary
                 matrix1.offsetX = (float)(offsetX * matrix2.m0x0 + offsetY * matrix2.m1x0 + matrix2.offsetX);
                 matrix1.offsetY = (float)(offsetX * matrix2.m0x1 + offsetY * matrix2.m1x1 + matrix2.offsetY);
 
-                if (type2 == MatrixTypes.Unknown)
+                if (type2 == MatrixForms.Unknown)
                 {
-                    matrix1.type = MatrixTypes.Unknown;
+                    matrix1.type = MatrixForms.Unknown;
                 }
                 else
                 {
-                    matrix1.type = MatrixTypes.Scaling | MatrixTypes.Translation;
+                    matrix1.type = MatrixForms.Scaling | MatrixForms.Translation;
                 }
 
                 return matrix1;
@@ -797,7 +797,7 @@ namespace InstrumentedLibrary
                     matrix1.offsetY = matrix2.offsetY;
 
                     // Transform set to Translate and Scale
-                    matrix1.type = MatrixTypes.Translation | MatrixTypes.Scaling;
+                    matrix1.type = MatrixForms.Translation | MatrixForms.Scaling;
                     return matrix1;
 
                 case 50: // S|T * S
@@ -840,11 +840,11 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void PrependOffset(ref Matrix3x2D matrix, double offsetX, double offsetY)
         {
-            if (matrix.type == MatrixTypes.Identity)
+            if (matrix.type == MatrixForms.Identity)
             {
                 matrix = new Matrix3x2D(1, 0, 0, 1, offsetX, offsetY)
                 {
-                    type = MatrixTypes.Translation
+                    type = MatrixForms.Translation
                 };
             }
             else
@@ -863,9 +863,9 @@ namespace InstrumentedLibrary
                 matrix.offsetY += matrix.m0x1 * offsetX + matrix.m1x1 * offsetY;
 
                 // It just gained a translate if was a scale transform. Identity transform is handled above.
-                if (matrix.type != MatrixTypes.Unknown)
+                if (matrix.type != MatrixForms.Unknown)
                 {
-                    matrix.type |= MatrixTypes.Translation;
+                    matrix.type |= MatrixForms.Translation;
                 }
             }
         }
@@ -1025,7 +1025,7 @@ namespace InstrumentedLibrary
             // (where e = _offsetX and f == _offsetY)
             //
 
-            if (type == MatrixTypes.Identity)
+            if (type == MatrixForms.Identity)
             {
                 // Values would be incorrect if matrix was created using default constructor.
                 // or if SetIdentity was called on a matrix which had values.
@@ -1033,9 +1033,9 @@ namespace InstrumentedLibrary
                 SetMatrix(1, 0,
                           0, 1,
                           offsetX, offsetY,
-                          MatrixTypes.Translation);
+                          MatrixForms.Translation);
             }
-            else if (type == MatrixTypes.Unknown)
+            else if (type == MatrixForms.Unknown)
             {
                 this.offsetX += offsetX;
                 this.offsetY += offsetY;
@@ -1046,7 +1046,7 @@ namespace InstrumentedLibrary
                 this.offsetY += offsetY;
 
                 // If matrix wasn't unknown we added a translation
-                type |= MatrixTypes.Translation;
+                type |= MatrixForms.Translation;
             }
         }
 
@@ -1116,19 +1116,19 @@ namespace InstrumentedLibrary
             // Inversion does not change the type of a matrix.
             switch (type)
             {
-                case MatrixTypes.Identity:
+                case MatrixForms.Identity:
                     break;
-                case MatrixTypes.Scaling:
+                case MatrixForms.Scaling:
                     {
                         m0x0 = 1.0f / m0x0;
                         m1x1 = 1.0f / m1x1;
                     }
                     break;
-                case MatrixTypes.Translation:
+                case MatrixForms.Translation:
                     offsetX = -offsetX;
                     offsetY = -offsetY;
                     break;
-                case MatrixTypes.Scaling | MatrixTypes.Translation:
+                case MatrixForms.Scaling | MatrixForms.Translation:
                     {
                         m0x0 = 1.0f / m0x0;
                         m1x1 = 1.0f / m1x1;
@@ -1145,7 +1145,7 @@ namespace InstrumentedLibrary
                                   m0x0 * invdet,
                                   (m1x0 * offsetY - offsetX * m1x1) * invdet,
                                   (offsetX * m0x1 - m0x0 * offsetY) * invdet,
-                                  MatrixTypes.Unknown);
+                                  MatrixForms.Unknown);
                     }
                     break;
             }
@@ -1160,11 +1160,11 @@ namespace InstrumentedLibrary
         {
             switch (type)
             {
-                case MatrixTypes.Identity:
-                case MatrixTypes.Translation:
+                case MatrixForms.Identity:
+                case MatrixForms.Translation:
                     return;
-                case MatrixTypes.Scaling:
-                case MatrixTypes.Scaling | MatrixTypes.Translation:
+                case MatrixForms.Scaling:
+                case MatrixForms.Scaling | MatrixForms.Translation:
                     x *= m0x0;
                     y *= m1x1;
                     break;
@@ -1188,11 +1188,11 @@ namespace InstrumentedLibrary
         {
             switch (type)
             {
-                case MatrixTypes.Identity:
-                case MatrixTypes.Translation:
+                case MatrixForms.Identity:
+                case MatrixForms.Translation:
                     return;
-                case MatrixTypes.Scaling:
-                case MatrixTypes.Scaling | MatrixTypes.Translation:
+                case MatrixForms.Scaling:
+                case MatrixForms.Scaling | MatrixForms.Translation:
                     vector.I *= m0x0;
                     vector.J *= m1x1;
                     break;
@@ -1216,17 +1216,17 @@ namespace InstrumentedLibrary
         {
             switch (type)
             {
-                case MatrixTypes.Identity:
+                case MatrixForms.Identity:
                     return;
-                case MatrixTypes.Translation:
+                case MatrixForms.Translation:
                     x += offsetX;
                     y += offsetY;
                     return;
-                case MatrixTypes.Scaling:
+                case MatrixForms.Scaling:
                     x *= m0x0;
                     y *= m1x1;
                     return;
-                case MatrixTypes.Scaling | MatrixTypes.Translation:
+                case MatrixForms.Scaling | MatrixForms.Translation:
                     x *= m0x0;
                     x += offsetX;
                     y *= m1x1;
@@ -1252,17 +1252,17 @@ namespace InstrumentedLibrary
         {
             switch (type)
             {
-                case MatrixTypes.Identity:
+                case MatrixForms.Identity:
                     return;
-                case MatrixTypes.Translation:
+                case MatrixForms.Translation:
                     point.X += offsetX;
                     point.Y += offsetY;
                     return;
-                case MatrixTypes.Scaling:
+                case MatrixForms.Scaling:
                     point.X *= m0x0;
                     point.Y *= m1x1;
                     return;
-                case MatrixTypes.Scaling | MatrixTypes.Translation:
+                case MatrixForms.Scaling | MatrixForms.Translation:
                     point.X *= m0x0;
                     point.X += offsetX;
                     point.Y *= m1x1;
@@ -1288,7 +1288,7 @@ namespace InstrumentedLibrary
         ///</summary>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void SetMatrix(double m11, double m12, double m21, double m22, double offsetX, double offsetY, MatrixTypes type)
+        private void SetMatrix(double m11, double m12, double m21, double m22, double offsetX, double offsetY, MatrixForms type)
         {
             m0x0 = m11;
             m0x1 = m12;
@@ -1311,24 +1311,24 @@ namespace InstrumentedLibrary
             // Now classify our matrix.
             if (!(Abs(m1x0) < Epsilon && Abs(m0x1) < Epsilon))
             {
-                type = MatrixTypes.Unknown;
+                type = MatrixForms.Unknown;
                 return;
             }
 
             if (!(Abs(m0x0 - 1) < Epsilon && Abs(m1x1 - 1) < Epsilon))
             {
-                type = MatrixTypes.Scaling;
+                type = MatrixForms.Scaling;
             }
 
             if (!(Abs(offsetX) < Epsilon && Abs(offsetY) < Epsilon))
             {
-                type |= MatrixTypes.Translation;
+                type |= MatrixForms.Translation;
             }
 
-            if (0 == (type & (MatrixTypes.Translation | MatrixTypes.Scaling)))
+            if (0 == (type & (MatrixForms.Translation | MatrixForms.Scaling)))
             {
                 // We have an identity matrix.
-                type = MatrixTypes.Identity;
+                type = MatrixForms.Identity;
             }
             return;
         }
@@ -1374,11 +1374,11 @@ namespace InstrumentedLibrary
             {
                 switch (type)
                 {
-                    case MatrixTypes.Identity:
-                    case MatrixTypes.Translation:
+                    case MatrixForms.Identity:
+                    case MatrixForms.Translation:
                         return 1.0d;
-                    case MatrixTypes.Scaling:
-                    case MatrixTypes.Scaling | MatrixTypes.Translation:
+                    case MatrixForms.Scaling:
+                    case MatrixForms.Scaling | MatrixForms.Translation:
                         return m0x0 * m1x1;
                     default:
                         return (m0x0 * m1x1) - (m0x1 * m1x0);
@@ -1561,7 +1561,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="T:IEnumerator{IEnumerable{double}}"/>.</returns>
+        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerator<IEnumerable<double>> GetEnumerator()

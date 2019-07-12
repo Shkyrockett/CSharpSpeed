@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The polygon centroid test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(RightBisectLineSegmentTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -50,7 +50,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static IShapeSegment RightBisectLineSegment(double aX, double aY, double bX, double bY, double t)
-            => RightBisectLineSegment_(aX, aY, bX, bY, t);
+            => RightBisectLineSegment1(aX, aY, bX, bY, t);
 
         /// <summary>
         /// The split.
@@ -67,7 +67,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IShapeSegment RightBisectLineSegment_(double aX, double aY, double bX, double bY, double t)
+        public static IShapeSegment RightBisectLineSegment1(double aX, double aY, double bX, double bY, double t)
         {
             if (t <= 0d)
             {

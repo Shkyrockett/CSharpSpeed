@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using CSharpSpeed;
 using static System.Math;
+using static InstrumentedLibrary.EasingConstants;
+using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
 {
@@ -12,6 +15,16 @@ namespace InstrumentedLibrary
     /// </summary>
     public static class SineInOutPercentageEasingTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double SineInOut(double t)
+            => SineInOut1( t);
+
         /// <summary>
         /// Sine in and out
         /// </summary>
@@ -22,9 +35,9 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SineInOut(double t)
+        public static double SineInOut1(double t)
         {
-            return (-Cos(PI * t) * 0.5d) + 0.5d;
+            return (-Cos(PI * t) * OneHalf) + OneHalf;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The polygon centroid test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(SplitQuadraticBezierTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -65,7 +65,7 @@ namespace InstrumentedLibrary
         /// <param name="cX"></param>
         /// <param name="cY"></param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DisplayName("Split Quadratic Bezier")]
         [Description("Split Quadratic Bezier.")]
         [SourceCodeLocationProvider]

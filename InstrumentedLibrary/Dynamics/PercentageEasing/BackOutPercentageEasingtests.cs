@@ -1,8 +1,11 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using static InstrumentedLibrary.EasingConstants;
+using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
 {
@@ -11,6 +14,16 @@ namespace InstrumentedLibrary
     /// </summary>
     public static class BackOutPercentageEasingtests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double BackOut(double t)
+            =>BackOut1( t);
+
         /// <summary>
         /// Back out.
         /// </summary>
@@ -21,9 +34,9 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double BackOut(double t)
+        public static double BackOut1(double t)
         {
-            return 1d - ((--t) * t * ((-2.70158d * t) - 1.70158d));
+            return 1d - ((--t) * t * ((-BackInKey1 * t) - BackInKey2));
         }
     }
 }

@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the 3D Hermite interpolation of points.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(HermiteInterpolate3DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -59,7 +59,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double X, double Y, double Z) HermiteInterpolate3D(double mu, double x0, double y0, double z0, double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3, double tension, double bias)
-            => HermiteInterpolate3D_(mu, x0, y0, z0, x1, y1, z1, x2, y2, z2, x3, y3, z3, tension, bias);
+            => HermiteInterpolate3D1(mu, x0, y0, z0, x1, y1, z1, x2, y2, z2, x3, y3, z3, tension, bias);
 
         /// <summary>
         /// The hermite interpolate3d.
@@ -89,7 +89,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) HermiteInterpolate3D_(double mu, double x0, double y0, double z0, double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3, double tension, double bias)
+        public static (double X, double Y, double Z) HermiteInterpolate3D1(double mu, double x0, double y0, double z0, double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3, double tension, double bias)
         {
             var mu2 = mu * mu;
             var mu3 = mu2 * mu;

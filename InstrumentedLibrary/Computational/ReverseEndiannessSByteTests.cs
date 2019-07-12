@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the 2D cubic interpolation of a point.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(ReverseEndiannessSByteTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -76,7 +76,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static sbyte ReverseEndianness_(sbyte value)
+        public static sbyte ReverseEndianness1(sbyte value)
         {
             return value;
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -11,6 +12,19 @@ namespace InstrumentedLibrary
     /// </summary>
     public static class BounceInValueEasingTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double BounceIn(double t, double b, double c, double d)
+            => BounceIn1( t,  b,  c,  d);
+
         /// <summary>
         /// Easing equation function for a bounce (exponentially decaying parabolic bounce) easing in:
         /// accelerating from zero velocity.
@@ -25,7 +39,7 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double BounceIn(double t, double b, double c, double d)
+        public static double BounceIn1(double t, double b, double c, double d)
         {
             return c - BounceOutValueEasingTests.BounceOut(d - t, 0d, c, d) + b;
         }

@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(CircleLineSegmentIntersectionTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -83,7 +83,8 @@ namespace InstrumentedLibrary
             double lBX, double lBY,
             double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
+            _ = epsilon;
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // If the circle or line segment are empty, return no intersections.
             if ((r == 0d) || ((lAX == lBX) && (lAY == lBY)))
@@ -114,7 +115,7 @@ namespace InstrumentedLibrary
                 // Add the points if they are between the end points of the line segment.
                 if ((t >= 0d) && (t <= 1d))
                 {
-                    result = new Intersection(IntersectionState.Intersection);
+                    result = new Intersection(IntersectionStates.Intersection);
                     result.AppendPoint(new Point2D(lAX + t * dx, lAY + t * dy));
                 }
             }
@@ -125,7 +126,7 @@ namespace InstrumentedLibrary
                 var t2 = (-b - Sqrt(discriminant)) / (2 * a);
 
                 // Add the points if they are between the end points of the line segment.
-                result = new Intersection(IntersectionState.Intersection);
+                result = new Intersection(IntersectionStates.Intersection);
                 if ((t1 >= 0d) && (t1 <= 1d))
                 {
                     result.AppendPoint(new Point2D(lAX + t1 * dx, lAY + t1 * dy));
@@ -168,6 +169,7 @@ namespace InstrumentedLibrary
             double lBX, double lBY,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             Intersection result;
 
             var a = (lBX - lAX) * (lBX - lAX) + (lBY - lAY) * (lBY - lAY);
@@ -177,22 +179,22 @@ namespace InstrumentedLibrary
             var determinant = b * b - 4 * a * c;
             if (determinant < 0)
             {
-                result = new Intersection(IntersectionState.Outside);
+                result = new Intersection(IntersectionStates.Outside);
             }
             else if (determinant == 0)
             {
-                result = new Intersection(IntersectionState.Tangent | IntersectionState.Intersection);
+                result = new Intersection(IntersectionStates.Tangent | IntersectionStates.Intersection);
                 var u1 = (-b) / (2 * a);
                 if (u1 < 0 || u1 > 1)
                 {
-                    result = (u1 < 0) || (u1 > 1) ? new Intersection(IntersectionState.Outside) : new Intersection(IntersectionState.Inside);
+                    result = (u1 < 0) || (u1 > 1) ? new Intersection(IntersectionStates.Outside) : new Intersection(IntersectionStates.Inside);
                 }
                 else
                 {
-                    result = new Intersection(IntersectionState.Intersection);
+                    result = new Intersection(IntersectionStates.Intersection);
                     if (0 <= u1 && u1 <= 1)
                     {
-                        result.Points.Add(InterpolateLinear2DTests.LinearInterpolate2D(u1, lAX, lAY, lBX, lBY));
+                        result.Items.Add(InterpolateLinear2DTests.LinearInterpolate2D(u1, lAX, lAY, lBX, lBY));
                     }
                 }
             }
@@ -203,19 +205,19 @@ namespace InstrumentedLibrary
                 var u2 = (-b - e) / (2 * a);
                 if ((u1 < 0 || u1 > 1) && (u2 < 0 || u2 > 1))
                 {
-                    result = (u1 < 0 && u2 < 0) || (u1 > 1 && u2 > 1) ? new Intersection(IntersectionState.Outside) : new Intersection(IntersectionState.Inside);
+                    result = (u1 < 0 && u2 < 0) || (u1 > 1 && u2 > 1) ? new Intersection(IntersectionStates.Outside) : new Intersection(IntersectionStates.Inside);
                 }
                 else
                 {
-                    result = new Intersection(IntersectionState.Intersection);
+                    result = new Intersection(IntersectionStates.Intersection);
                     if (0 <= u1 && u1 <= 1)
                     {
-                        result.Points.Add(InterpolateLinear2DTests.LinearInterpolate2D(u1, lAX, lAY, lBX, lBY));
+                        result.Items.Add(InterpolateLinear2DTests.LinearInterpolate2D(u1, lAX, lAY, lBX, lBY));
                     }
 
                     if (0 <= u2 && u2 <= 1)
                     {
-                        result.Points.Add(InterpolateLinear2DTests.LinearInterpolate2D(u2, lAX, lAY, lBX, lBY));
+                        result.Items.Add(InterpolateLinear2DTests.LinearInterpolate2D(u2, lAX, lAY, lBX, lBY));
                     }
                 }
             }

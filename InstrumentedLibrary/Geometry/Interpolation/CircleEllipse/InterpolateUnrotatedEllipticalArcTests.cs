@@ -51,7 +51,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double X, double Y) EllipticalArc(double t, double cX, double cY, double r1, double r2, double startAngle, double sweepAngle)
-            => EllipticalArc_(t, cX, cY, r1, r2, startAngle, sweepAngle);
+            => EllipticalArc1(t, cX, cY, r1, r2, startAngle, sweepAngle);
 
         /// <summary>
         /// Interpolates the unrotated elliptical Arc.
@@ -69,7 +69,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) EllipticalArc_(double t, double cX, double cY, double r1, double r2, double startAngle, double sweepAngle)
+        public static (double X, double Y) EllipticalArc1(double t, double cX, double cY, double r1, double r2, double startAngle, double sweepAngle)
         {
             var phi = startAngle + (sweepAngle * t);
             var theta = phi % PI;

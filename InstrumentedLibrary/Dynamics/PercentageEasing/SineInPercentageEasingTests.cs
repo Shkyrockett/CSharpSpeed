@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using CSharpSpeed;
 using static System.Math;
 using static InstrumentedLibrary.Maths;
 
@@ -14,6 +15,16 @@ namespace InstrumentedLibrary
     public static class SineInPercentageEasingTests
     {
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double SineIn(double t)
+            => SineIn1( t);
+
+        /// <summary>
         /// Sine in.
         /// </summary>
         /// <param name="t">Current time elapsed in ticks.</param>
@@ -23,7 +34,7 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SineIn(double t)
+        public static double SineIn1(double t)
         {
             return (Abs(t - 1d) < Epsilon) ? 1d : (-Cos(HalfPi * t) + 1d);
         }

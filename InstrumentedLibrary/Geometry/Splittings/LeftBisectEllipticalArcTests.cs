@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The polygon centroid test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(LeftBisectEllipticalArcTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -53,7 +53,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static EllipticalArc2D LeftSplitEllipticalArc(double x, double y, double rX, double rY, double angle, double startAngle, double sweepAngle, double t)
-            => LeftSplitEllipticalArc_(x, y, rX, rY, angle, startAngle, sweepAngle, t);
+            => LeftSplitEllipticalArc1(x, y, rX, rY, angle, startAngle, sweepAngle, t);
 
         /// <summary>
         /// 
@@ -72,11 +72,11 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static EllipticalArc2D LeftSplitEllipticalArc_(double x, double y, double rX, double rY, double angle, double startAngle, double sweepAngle, double t)
+        public static EllipticalArc2D LeftSplitEllipticalArc1(double x, double y, double rX, double rY, double angle, double startAngle, double sweepAngle, double t)
         {
             if (t < 0d || t > 1d)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(t));
             }
 
             return new EllipticalArc2D(x, y, rX, rY, angle, startAngle, sweepAngle * t);

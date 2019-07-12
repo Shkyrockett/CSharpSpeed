@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The polygon centroid test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(OpenCircleTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -49,7 +49,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static CircularArc2D OpenCircle(double x, double y, double radius, double t)
-            => OpenCircle_(x, y, radius, t);
+            => OpenCircle1(x, y, radius, t);
 
         /// <summary>
         /// The split.
@@ -65,11 +65,11 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static CircularArc2D OpenCircle_(double x, double y, double radius, double t)
+        public static CircularArc2D OpenCircle1(double x, double y, double radius, double t)
         {
             if (t < 0d || t > 1d)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(t));
             }
 
             return new CircularArc2D(x, y, radius, Maths.Tau * t, Maths.Tau);

@@ -49,7 +49,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double CrossProductVector2D(double aX, double aY, double bX, double bY, double cX, double cY)
-            => CrossProductVector2D_0(aX, aY, bX, bY, cX, cY);
+            => CrossProductVector2D0(aX, aY, bX, bY, cX, cY);
 
         /// <summary>
         /// The cross product is a vector perpendicular to AB
@@ -77,7 +77,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CrossProductVector2D_0(
+        public static double CrossProductVector2D0(
             double aX, double aY,
             double bX, double bY,
             double cX, double cY)
@@ -137,7 +137,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CrossProductVector2D_1(
+        public static double CrossProductVector2D1(
             double aX, double aY,
             double bX, double bY,
             double cX, double cY)
@@ -177,7 +177,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CrossProductVector2D_2(
+        public static double CrossProductVector2D2(
             double Ax, double Ay,
             double Bx, double By,
             double Cx, double Cy)

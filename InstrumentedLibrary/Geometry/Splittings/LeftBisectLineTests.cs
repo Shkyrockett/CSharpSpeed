@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The polygon centroid test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(LeftBisectLineTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -50,7 +50,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static Ray2D LeftBisectLine(double x, double y, double i, double j, double t)
-            =>LeftBisectLine_( x,  y,  i,  j,  t);
+            =>LeftBisectLine1( x,  y,  i,  j,  t);
 
         /// <summary>
         /// Splits a line into two rays.
@@ -66,7 +66,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Ray2D LeftBisectLine_(double x, double y, double i, double j, double t)
+        public static Ray2D LeftBisectLine1(double x, double y, double i, double j, double t)
         {
             var (hX, hY) = InterpolateLinear2DTests.LinearInterpolate2D(t, x, y, x + i, y + j);
 

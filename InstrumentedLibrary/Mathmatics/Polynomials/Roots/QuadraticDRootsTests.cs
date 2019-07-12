@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(QuadraticDRootsTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -63,7 +63,7 @@ namespace InstrumentedLibrary
         /// <param name="b">The b.</param>
         /// <param name="c">The c.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo
         /// https://github.com/Pomax/bezierjs/blob/gh-pages/lib/utils.js

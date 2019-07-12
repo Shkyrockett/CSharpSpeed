@@ -49,7 +49,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double DotProductVector2D(double x1, double y1, double x2, double y2, double x3, double y3)
-            => DotProductVector2D_0(x1, y1, x2, y2, x3, y3);
+            => DotProductVector2D0(x1, y1, x2, y2, x3, y3);
 
         /// <summary>
         /// Return the dot product AB · BC.
@@ -71,7 +71,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double DotProductVector2D_0(
+        public static double DotProductVector2D0(
             double x1, double y1,
             double x2, double y2,
             double x3, double y3)
@@ -99,7 +99,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double DotProductVector2D_2(
+        public static double DotProductVector2D2(
             double x1, double y1,
             double x2, double y2,
             double x3, double y3)

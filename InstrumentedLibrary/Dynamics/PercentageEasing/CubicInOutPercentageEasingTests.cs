@@ -1,8 +1,11 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using static InstrumentedLibrary.EasingConstants;
+using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
 {
@@ -11,6 +14,16 @@ namespace InstrumentedLibrary
     /// </summary>
     public static class CubicInOutPercentageEasingTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double CubicInOut(double t)
+            => CubicInOut1( t);
+
         /// <summary>
         /// Cubic in and out.
         /// </summary>
@@ -21,9 +34,9 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CubicInOut(double t)
+        public static double CubicInOut1(double t)
         {
-            return t <= 0.5d ? t * t * t * 4d : 1d + ((--t) * t * t * 4d);
+            return t <= OneHalf ? t * t * t * 4d : 1d + ((--t) * t * t * 4d);
         }
     }
 }

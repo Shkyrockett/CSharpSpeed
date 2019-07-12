@@ -6,6 +6,7 @@ namespace CSharpSpeed
     /// <summary>
     /// The signature attribute class.
     /// </summary>
+    [AttributeUsage(AttributeTargets.Method)]
     public class SignatureAttribute
         : Attribute
     {
@@ -17,10 +18,7 @@ namespace CSharpSpeed
         /// <param name="line"></param>
         public SignatureAttribute([CallerFilePath] string file = default, [CallerMemberName] string member = default, [CallerLineNumber] int line = default)
         {
-            var File = file;
-            var Member = member;
-            var Line = line;
-
+            _ = member;
             MethodSignature = SpeedTester.GetMethodCodeSignature(file, line);
         }
 

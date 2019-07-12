@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(PolygonContourContainsLineSegmentTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -83,7 +83,7 @@ namespace InstrumentedLibrary
             var theCos = end.X / dist;
             var theSin = end.Y / dist;
             var poly = polygon as List<(double X, double Y)>;
-            for (var i = 0; i < poly.Count; i++)
+            for (var i = 0; i < poly?.Count; i++)
             {
                 var j = i + 1;
                 if (j == poly.Count)

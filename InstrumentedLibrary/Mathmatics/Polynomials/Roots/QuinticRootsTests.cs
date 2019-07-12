@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(QuinticRootsTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -68,7 +68,7 @@ namespace InstrumentedLibrary
         /// <param name="e">The e.</param>
         /// <param name="f">The f.</param>
         /// <param name = "epsilon"> The minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// This is a Copy and paste port of the method found at:
         /// https://web.archive.org/web/20150504111126/http://abecedarical.com/javascript/script_quintic.html

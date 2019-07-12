@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the Intersection of two Cubic Bézier curves.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(CubicBezierCubicBezierIntersectionTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -62,7 +62,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static Intersection CubicBezierSegmentCubicBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double a4X, double a4Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)
-            => CubicBezierSegmentCubicBezierSegmentIntersection_(a1X, a1Y, a2X, a2Y, a3X, a3Y, a4X, a4Y, b1X, b1Y, b2X, b2Y, b3X, b3Y, b4X, b4Y, epsilon);
+            => CubicBezierSegmentCubicBezierSegmentIntersection1(a1X, a1Y, a2X, a2Y, a3X, a3Y, a4X, a4Y, b1X, b1Y, b2X, b2Y, b3X, b3Y, b4X, b4Y, epsilon);
 
         /// <summary>
         /// Find the intersection between two cubic Bézier.
@@ -91,7 +91,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection CubicBezierSegmentCubicBezierSegmentIntersection_(
+        public static Intersection CubicBezierSegmentCubicBezierSegmentIntersection1(
             double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double a4X, double a4Y,
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y,
             double epsilon = Epsilon)
@@ -122,7 +122,7 @@ namespace InstrumentedLibrary
             double epsilon = Epsilon)
         {
             // Initialize the intersection.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // ToDo: The tolerance is off by too much. Need to find the error.
             var tolerance = 4194303 * epsilon;
@@ -202,7 +202,7 @@ namespace InstrumentedLibrary
                                 var t = xRoot - yRoot;
                                 if ((t >= 0 ? t : -t) < tolerance)
                                 {
-                                    result.Points.Add(point);
+                                    result.Items.Add(point);
                                     goto checkRoots; // Break through two levels of for each loops. Using goto for performance.
                                 }
                             }
@@ -212,9 +212,9 @@ namespace InstrumentedLibrary
                 }
             }
 
-            if (result.Points.Count > 0)
+            if (result.Items.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -250,7 +250,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection CubicBezierSegmentCubicBezierSegmentIntersection1(
+        public static Intersection CubicBezierSegmentCubicBezierSegmentIntersectionX(
             double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double a4X, double a4Y,
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)
         {
@@ -330,7 +330,7 @@ namespace InstrumentedLibrary
                 /* t^0 */ (c10.I * c10.J * c11.I * c12.J * c13.I * c13.J) - (c10.I * c10.J * c11.J * c12.I * c13.I * c13.J) + (c10.I * c11.I * c11.J * c12.I * c12.J * c13.J) - (c10.J * c11.I * c11.J * c12.I * c12.J * c13.I) - (c10.I * c11.I * c20.J * c12.J * c13.I * c13.J) + (6 * c10.I * c20.I * c11.J * c12.J * c13.I * c13.J) + (c10.I * c11.J * c12.I * c20.J * c13.I * c13.J) - (c10.J * c11.I * c20.I * c12.J * c13.I * c13.J) - (6 * c10.J * c11.I * c12.I * c20.J * c13.I * c13.J) + (c10.J * c20.I * c11.J * c12.I * c13.I * c13.J) - (c11.I * c20.I * c11.J * c12.I * c12.J * c13.J) + (c11.I * c11.J * c12.I * c20.J * c12.J * c13.I) + (c11.I * c20.I * c20.J * c12.J * c13.I * c13.J) - (c20.I * c11.J * c12.I * c20.J * c13.I * c13.J) - (2 * c10.I * c20.I * c12y3 * c13.I) + (2 * c10.J * c12x3 * c20.J * c13.J) - (3 * c10.I * c10.J * c11.I * c12.I * c13y2) - (6 * c10.I * c10.J * c20.I * c13.I * c13y2) + (3 * c10.I * c10.J * c11.J * c12.J * c13x2) - (2 * c10.I * c10.J * c12.I * c12y2 * c13.I) - (2 * c10.I * c11.I * c20.I * c12.J * c13y2) - (c10.I * c11.I * c11.J * c12y2 * c13.I) + (3 * c10.I * c11.I * c12.I * c20.J * c13y2) - (4 * c10.I * c20.I * c11.J * c12.I * c13y2) + (3 * c10.J * c11.I * c20.I * c12.I * c13y2) + (6 * c10.I * c10.J * c20.J * c13x2 * c13.J) + (2 * c10.I * c10.J * c12x2 * c12.J * c13.J) + (2 * c10.I * c11.I * c11y2 * c13.I * c13.J) + (2 * c10.I * c20.I * c12.I * c12y2 * c13.J) + (6 * c10.I * c20.I * c20.J * c13.I * c13y2) - (3 * c10.I * c11.J * c20.J * c12.J * c13x2) + (2 * c10.I * c12.I * c20.J * c12y2 * c13.I) + (c10.I * c11y2 * c12.I * c12.J * c13.I) + (c10.J * c11.I * c11.J * c12x2 * c13.J) + (4 * c10.J * c11.I * c20.J * c12.J * c13x2) - (3 * c10.J * c20.I * c11.J * c12.J * c13x2) + (2 * c10.J * c20.I * c12.I * c12y2 * c13.I) + (2 * c10.J * c11.J * c12.I * c20.J * c13x2) + (c11.I * c20.I * c11.J * c12y2 * c13.I) - (3 * c11.I * c20.I * c12.I * c20.J * c13y2) - (2 * c10.I * c12x2 * c20.J * c12.J * c13.J) - (6 * c10.J * c20.I * c20.J * c13x2 * c13.J) - (2 * c10.J * c20.I * c12x2 * c12.J * c13.J) - (2 * c10.J * c11x2 * c11.J * c13.I * c13.J) - (c10.J * c11x2 * c12.I * c12.J * c13.J) - (2 * c10.J * c12x2 * c20.J * c12.J * c13.I) - (2 * c11.I * c20.I * c11y2 * c13.I * c13.J) - (c11.I * c11.J * c12x2 * c20.J * c13.J) + (3 * c20.I * c11.J * c20.J * c12.J * c13x2) - (2 * c20.I * c12.I * c20.J * c12y2 * c13.I) - (c20.I * c11y2 * c12.I * c12.J * c13.I) + (3 * c10y2 * c11.I * c12.I * c13.I * c13.J) + (3 * c11.I * c12.I * c20y2 * c13.I * c13.J) + (2 * c20.I * c12x2 * c20.J * c12.J * c13.J) - (3 * c10x2 * c11.J * c12.J * c13.I * c13.J) + (2 * c11x2 * c11.J * c20.J * c13.I * c13.J) + (c11x2 * c12.I * c20.J * c12.J * c13.J) - (3 * c20x2 * c11.J * c12.J * c13.I * c13.J) - (c10x3 * c13y3) + (c10y3 * c13x3) + (c20x3 * c13y3) - (c20y3 * c13x3) - (3 * c10.I * c20x2 * c13y3) - (c10.I * c11y3 * c13x2) + (3 * c10x2 * c20.I * c13y3) + (c10.J * c11x3 * c13y2) + (3 * c10.J * c20y2 * c13x3) + (c20.I * c11y3 * c13x2) + (c10x2 * c12y3 * c13.I) - (3 * c10y2 * c20.J * c13x3) - (c10y2 * c12x3 * c13.J) + (c20x2 * c12y3 * c13.I) - (c11x3 * c20.J * c13y2) - (c12x3 * c20y2 * c13.J) - (c10.I * c11x2 * c11.J * c13y2) + (c10.J * c11.I * c11y2 * c13x2) - (3 * c10.I * c10y2 * c13x2 * c13.J) - (c10.I * c11y2 * c12x2 * c13.J) + (c10.J * c11x2 * c12y2 * c13.I) - (c11.I * c11y2 * c20.J * c13x2) + (3 * c10x2 * c10.J * c13.I * c13y2) + (c10x2 * c11.I * c12.J * c13y2) + (2 * c10x2 * c11.J * c12.I * c13y2) - (2 * c10y2 * c11.I * c12.J * c13x2) - (c10y2 * c11.J * c12.I * c13x2) + (c11x2 * c20.I * c11.J * c13y2) - (3 * c10.I * c20y2 * c13x2 * c13.J) + (3 * c10.J * c20x2 * c13.I * c13y2) + (c11.I * c20x2 * c12.J * c13y2) - (2 * c11.I * c20y2 * c12.J * c13x2) + (c20.I * c11y2 * c12x2 * c13.J) - (c11.J * c12.I * c20y2 * c13x2) - (c10x2 * c12.I * c12y2 * c13.J) - (3 * c10x2 * c20.J * c13.I * c13y2) + (3 * c10y2 * c20.I * c13x2 * c13.J) + (c10y2 * c12x2 * c12.J * c13.I) - (c11x2 * c20.J * c12y2 * c13.I) + (2 * c20x2 * c11.J * c12.I * c13y2) + (3 * c20.I * c20y2 * c13x2 * c13.J) - (c20x2 * c12.I * c12y2 * c13.J) - (3 * c20x2 * c20.J * c13.I * c13y2) + (c12x2 * c20y2 * c12.J * c13.I)
                 ).Trim().RootsInInterval();
 
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             for (var i = 0; i < roots.Length; i++)
             {
@@ -358,7 +358,7 @@ namespace InstrumentedLibrary
                             {
                                 if (Abs(xRoot - yRoots[k]) < epsilon)
                                 {
-                                    result.Points.Add(((Point2D)c23 * (s * s * s)) + ((c22 * s * s) + ((c21 * s) + c20)));
+                                    result.Items.Add(((Point2D)c23 * (s * s * s)) + ((c22 * s * s) + ((c21 * s) + c20)));
                                     goto checkRoots;
                                 }
                             }
@@ -368,9 +368,9 @@ namespace InstrumentedLibrary
                 }
             }
 
-            if (result.Points.Count > 0)
+            if (result.Items.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -410,7 +410,7 @@ namespace InstrumentedLibrary
             double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double a4X, double a4Y,
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // ToDo: Break early if the AABB bounding box of the curve does not intersect.
 
@@ -494,7 +494,7 @@ namespace InstrumentedLibrary
                                 var t = xRoot - yRoot;
                                 if ((t >= 0 ? t : -t) < epsilon)
                                 {
-                                    result.Points.Add(point);
+                                    result.Items.Add(point);
                                     goto checkRoots; // Break through two levels of foreach loops. Using goto for performance.
                                 }
                             }
@@ -504,9 +504,9 @@ namespace InstrumentedLibrary
                 }
             }
 
-            if (result.Points.Count > 0)
+            if (result.Items.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;

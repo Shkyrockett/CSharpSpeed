@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The point2d in polygon set test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(PolygonContainsPointTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -76,7 +76,7 @@ namespace InstrumentedLibrary
             var oddNodes = false;
             int j;
 
-            for (var polyI = 0; polyI < polygons.Count; polyI++)
+            for (var polyI = 0; polyI < polygons?.Count; polyI++)
             {
                 for (var i = 0; i < polygons[polyI].Count; i++)
                 {
@@ -117,7 +117,7 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonSetShkyrockett0(List<List<(double X, double Y)>> polygon, double X, double Y)
-            => PointInPolygonSetShkyrockett(polygon, X, Y) != Inclusion.Outside;
+            => PointInPolygonSetShkyrockett(polygon, X, Y) != Inclusions.Outside;
 
         /// <summary>
         /// This function automatically knows that enclosed polygons are "no-go" areas.
@@ -128,22 +128,25 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInPolygonSetShkyrockett(
+        public static Inclusions PointInPolygonSetShkyrockett(
             List<List<(double X, double Y)>> polygons,
              double X, double Y)
         {
-            var returnValue = Inclusion.Outside;
+            var returnValue = Inclusions.Outside;
 
-            foreach (var poly in polygons)
+            if (!(polygons is null))
             {
-                // Use alternating rule with XOR to determine if the point is in a polygon or a hole.
-                // If the point is in an odd number of polygons, it is inside. If even, it is a hole.
-                returnValue ^= PolygonContourContainsPointTests.PointInPolygonContourHormannAgathosExpanded(poly, X, Y);
-
-                // Any point on any boundary is on a boundary.
-                if (returnValue == Inclusion.Boundary)
+                foreach (var poly in polygons)
                 {
-                    return Inclusion.Boundary;
+                    // Use alternating rule with XOR to determine if the point is in a polygon or a hole.
+                    // If the point is in an odd number of polygons, it is inside. If even, it is a hole.
+                    returnValue ^= PolygonContourContainsPointTests.PointInPolygonContourHormannAgathosExpanded(poly, X, Y);
+
+                    // Any point on any boundary is on a boundary.
+                    if (returnValue == Inclusions.Boundary)
+                    {
+                        return Inclusions.Boundary;
+                    }
                 }
             }
 

@@ -21,7 +21,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(UnrotatedEllipseUnrotatedEllipseIntersectionTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -86,7 +86,7 @@ namespace InstrumentedLibrary
             var ellipseA = (Center: (X: acX, Y: acY), MajorRadius: Max(arX, arY));
             var ellipseB = (Center: (X: bcX, Y: bcY), MajorRadius: Max(brX, brY));
 
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             var d = ellipseB.Center.X * ellipseB.Center.X - ellipseA.Center.X * ellipseA.Center.X - ellipseB.MajorRadius * ellipseB.MajorRadius - Pow(ellipseB.Center.Y - ellipseA.Center.Y, 2) + ellipseA.MajorRadius * ellipseA.MajorRadius;
             var a = Pow(2d * ellipseA.Center.X - 2d * ellipseB.Center.X, 2d) + 4d * Pow(ellipseB.Center.Y - ellipseA.Center.Y, 2d);
@@ -119,7 +119,7 @@ namespace InstrumentedLibrary
 
             result.AppendPoint((XA, YA));
             result.AppendPoint((XB, YC));
-            result.State = IntersectionState.Intersection;
+            result.State = IntersectionStates.Intersection;
             return result;
         }
 
@@ -149,7 +149,7 @@ namespace InstrumentedLibrary
             double bcX, double bcY, double brX, double brY,
             double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             (var Dx1, var Dy1, var Rx1, var Ry1, var A1, var B1, var C1, var D1, var E1, var F1) = GetEllipseFormula(acX, acY, arX, arY, epsilon);
             var Ellipse1 = new Rectangle2D(acX - arX, acY - arY, arX * 2d, arY * 2d);
@@ -416,17 +416,17 @@ namespace InstrumentedLibrary
         /// <param name="d"></param>
         /// <param name="e"></param>
         /// <param name="f"></param>
-        /// <param name="root_sign"></param>
+        /// <param name="rootSign"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double G1Prime(double x, double a, double b, double c, double d, double e, double f, double root_sign)
+        public static double G1Prime(double x, double a, double b, double c, double d, double e, double f, double rootSign)
         {
             var numerator = 2d * (b * x + e) * b - 4d * c * (2d * a * x + d);
             var denominator = 2d * Sqrt((b * x + e) * (b * x + e) - 4d * c * (a * x * x + d * x + f));
-            var result = -b + root_sign * numerator / denominator;
+            var result = -b + rootSign * numerator / denominator;
             result = result / 2d / c;
             return result;
         }
@@ -457,7 +457,7 @@ namespace InstrumentedLibrary
             double bcX, double bcY, double brX, double brY,
             double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             (var Dx1, var Dy1, var Rx1, var Ry1, var A1, var B1, var C1, var D1, var E1, var F1) = GetEllipseFormula(acX, acY, arX, arY, epsilon);
             var Ellipse1 = new Rectangle2D(acX - arX, acY - arY, arX * 2d, arY * 2d);
@@ -622,7 +622,7 @@ namespace InstrumentedLibrary
         /// Find a root by using binary division.
         /// </summary>
         /// <param name="x0"></param>
-        /// <param name="delta_x"></param>
+        /// <param name="deltaX"></param>
         /// <param name="A1"></param>
         /// <param name="B1"></param>
         /// <param name="C1"></param>
@@ -642,7 +642,7 @@ namespace InstrumentedLibrary
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-4/
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double x, double y) UseBinaryDivision(double x0, double delta_x,
+        public static (double x, double y) UseBinaryDivision(double x0, double deltaX,
             double A1, double B1, double C1, double D1, double E1, double F1, double sign1,
             double A2, double B2, double C2, double D2, double E2, double F2, double sign2,
             double epsilon = DoubleEpsilon)
@@ -660,7 +660,7 @@ namespace InstrumentedLibrary
                 return (xmin, g_xmin);
             }
 
-            var xmax = xmin + delta_x;
+            var xmax = xmin + deltaX;
             var g_xmax = G(xmax,
                 A1, B1, C1, D1, E1, F1, sign1,
                 A2, B2, C2, D2, E2, F2, sign2);
@@ -796,18 +796,18 @@ namespace InstrumentedLibrary
         /// <param name="d"></param>
         /// <param name="e"></param>
         /// <param name="f"></param>
-        /// <param name="root_sign"></param>
+        /// <param name="rootSign"></param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double G1(double x, double a, double b, double c, double d, double e, double f, double root_sign)
+        public static double G1(double x, double a, double b, double c, double d, double e, double f, double rootSign)
         {
             var result = b * x + e;
             result *= result;
             result -= 4d * c * (a * x * x + d * x + f);
-            result = root_sign * Sqrt(result);
+            result = rootSign * Sqrt(result);
             result = -(b * x + e) + result;
             result = result / 2d / c;
 

@@ -11,7 +11,7 @@ namespace InstrumentedLibrary
     /// <summary>
     /// The intersection struct.
     /// </summary>
-    public struct Intersection
+    public struct Intersection : IEquatable<Intersection>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Intersection"/> class.
@@ -19,11 +19,11 @@ namespace InstrumentedLibrary
         /// <param name="state">The state.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Intersection(IntersectionState state)
+        public Intersection(IntersectionStates state)
             : this()
         {
             state = State;
-            Points = new List<(double X, double Y)>();
+            Items = new List<(double X, double Y)>();
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace InstrumentedLibrary
         /// <param name="points">The points.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Intersection(IntersectionState state, params (double X, double Y)[] points)
+        public Intersection(IntersectionStates state, params (double X, double Y)[] points)
             : this(state, points as IList<(double X, double Y)>)
         { }
 
@@ -44,7 +44,7 @@ namespace InstrumentedLibrary
         /// <param name="points">The points.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Intersection(IntersectionState state, IEnumerable<(double X, double Y)> points)
+        public Intersection(IntersectionStates state, IEnumerable<(double X, double Y)> points)
             : this(state, points.ToList())
         { }
 
@@ -55,10 +55,10 @@ namespace InstrumentedLibrary
         /// <param name="points">The points.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Intersection(IntersectionState state, IList<(double X, double Y)> points)
+        public Intersection(IntersectionStates state, IList<(double X, double Y)> points)
         {
             State = state;
-            Points = points as List<(double X, double Y)>;
+            Items = points as List<(double X, double Y)>;
         }
 
         /// <summary>
@@ -69,10 +69,10 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public void Deconstruct(out IntersectionState state, out IList<(double X, double Y)> points)
+        public void Deconstruct(out IntersectionStates state, out IList<(double X, double Y)> points)
         {
             state = State;
-            points = Points;
+            points = Items;
         }
 
         /// <summary>
@@ -80,22 +80,22 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="index">The index index.</param>
         /// <returns>One element of type Point2D.</returns>
-        public (double X, double Y) this[int index] { get { return Points[index]; } set { Points[index] = value; } }
+        public (double X, double Y) this[int index] { get { return Items[index]; } set { Items[index] = value; } }
 
         /// <summary>
         /// Gets or sets the state.
         /// </summary>
-        public IntersectionState State { get; set; }
+        public IntersectionStates State { get; set; }
 
         /// <summary>
         /// Gets or sets the points.
         /// </summary>
-        public List<(double X, double Y)> Points { get; set; }
+        public List<(double X, double Y)> Items { get; set; }
 
         /// <summary>
         /// Gets the count.
         /// </summary>
-        public int Count => Points?.Count ?? 0;
+        public int Count => Items?.Count ?? 0;
 
         /// <summary>
         /// The operator ==.
@@ -129,12 +129,12 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void AppendPoint((double X, double Y) point)
         {
-            if (Points is null)
+            if (Items is null)
             {
-                Points = new List<(double X, double Y)>();
+                Items = new List<(double X, double Y)>();
             }
 
-            Points.Add(point);
+            Items.Add(point);
         }
 
         /// <summary>
@@ -150,13 +150,13 @@ namespace InstrumentedLibrary
                 return;
             }
 
-            if (Points is null)
+            if (Items is null)
             {
-                Points = points;
+                Items = points;
             }
             else
             {
-                Points.AddRange(points);
+                Items.AddRange(points);
             }
         }
 
@@ -168,13 +168,13 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void AppendPoints(HashSet<(double X, double Y)> points)
         {
-            if (Points is null)
+            if (Items is null)
             {
-                Points = points.ToList();
+                Items = points.ToList();
             }
             else
             {
-                Points.AddRange(points);
+                Items.AddRange(points);
             }
         }
 
@@ -184,7 +184,7 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="int"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode() => HashCode.Combine(State, Points);
+        public override int GetHashCode() => HashCode.Combine(State, Items);
 
         /// <summary>
         /// The equals.
@@ -194,7 +194,7 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Intersection a, Intersection b) => (a.State == b.State) && (a.Points == b.Points);
+        public static bool Equals(Intersection a, Intersection b) => (a.State == b.State) && (a.Items == b.Items);
 
         /// <summary>
         /// The equals.
@@ -239,7 +239,7 @@ namespace InstrumentedLibrary
         {
             _ = format;
             var sep = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(Intersection)}({nameof(State)}: {State}{sep} {nameof(Points)}: {string.Join(sep, Points)})";
+            return $"{nameof(Intersection)}({nameof(State)}: {State}{sep} {nameof(Items)}: {string.Join(sep, Items)})";
         }
     }
 }

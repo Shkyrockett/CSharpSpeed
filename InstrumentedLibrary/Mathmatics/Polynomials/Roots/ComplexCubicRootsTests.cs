@@ -21,7 +21,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(ComplexCubicRootsTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -79,6 +79,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IList<Complex> SolveCubicDDanbe(double a, double b, double c, double d, double epsilon = Epsilon)
         {
+            _ = epsilon;
             const int NRoots = 3;
             var SquareRootof3 = Sqrt(3);
 

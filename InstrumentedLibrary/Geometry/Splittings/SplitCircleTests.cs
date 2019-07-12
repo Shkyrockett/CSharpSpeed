@@ -21,7 +21,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The polygon centroid test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(SplitCircleTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -59,7 +59,7 @@ namespace InstrumentedLibrary
         /// <param name="y"></param>
         /// <param name="radius"></param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:CircularArc[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DisplayName("Split Circle")]
         [Description("Split Circle.")]
         [SourceCodeLocationProvider]

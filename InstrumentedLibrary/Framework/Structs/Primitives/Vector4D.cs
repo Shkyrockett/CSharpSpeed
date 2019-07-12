@@ -17,7 +17,7 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Vector4D
-        : IFormattable
+        : IFormattable, IEquatable<Vector4D>
     {
         #region Static Fields
         /// <summary>
@@ -495,6 +495,90 @@ namespace InstrumentedLibrary
             if (this == null) return nameof(Vector4D);
             var sep = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
             return $"{nameof(Vector4D)}({nameof(I)}: {I.ToString(format, provider)}{sep} {nameof(J)}: {J.ToString(format, provider)}{sep} {nameof(K)}: {K.ToString(format, provider)}{sep} {nameof(L)}: {L.ToString(format, provider)})";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static Vector4D Plus(Vector4D item)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Vector4D Add(Vector4D left, Vector4D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static Vector4D Negate(Vector4D item)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Vector4D Subtract(Vector4D left, Vector4D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Vector4D Multiply(Vector4D left, Vector4D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Vector4D Divide(Vector4D left, Vector4D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Vector4D ToVector4D(Vector4D left, Vector4D right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public (double I, double J, double K, double L) To()
+        {
+            throw new NotImplementedException();
         }
         #endregion Public Methods
     }

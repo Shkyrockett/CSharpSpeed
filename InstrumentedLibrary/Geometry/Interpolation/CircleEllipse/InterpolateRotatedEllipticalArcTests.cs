@@ -51,7 +51,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double X, double Y) EllipticalArc(double t, double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle)
-            => EllipticalArc_(t, cX, cY, r1, r2, angle, startAngle, sweepAngle);
+            => EllipticalArc1(t, cX, cY, r1, r2, angle, startAngle, sweepAngle);
 
         /// <summary>
         /// Interpolates the Elliptical Arc, corrected for Polar coordinates.
@@ -70,7 +70,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) EllipticalArc_(
+        public static (double X, double Y) EllipticalArc1(
             double t, double cX,
             double cY, double r1,
             double r2,

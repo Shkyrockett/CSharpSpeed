@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Point2D
-        : IShapeSegment
+        : IShapeSegment, IEquatable<Point2D>
     {
         #region Implementations
         /// <summary>
@@ -469,6 +469,65 @@ namespace InstrumentedLibrary
             var sep = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
             return $"{nameof(Point2D)}({nameof(X)}: {X.ToString(format, provider)}{sep} {nameof(Y)}: {Y.ToString(format, provider)})";
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static Point2D Plus(Point2D item) => new Point2D(+item.X, +item.Y);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Point2D Add(Point2D left, Point2D right) => new Point2D(left.X + right.X, left.Y + right.Y);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static Point2D Negate(Point2D item) => new Point2D(-item.X, -item.Y);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Point2D Subtract(Point2D left, Point2D right) => new Point2D(left.X - right.X, left.Y - right.Y);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Point2D Multiply(Point2D left, Size2D right) => new Point2D(left.X * right.Width, left.Y * right.Height);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Point2D Divide(Point2D left, Size2D right) => new Point2D(left.X / right.Width, left.Y / right.Height);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static Point2D ToPoint2D(Size2D item) => new Point2D(item.Width, item.Height);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public (double X, double Y) To() => (X, Y);
         #endregion Methods
     }
 }

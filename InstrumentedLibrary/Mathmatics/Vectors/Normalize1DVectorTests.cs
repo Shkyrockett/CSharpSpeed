@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(GetUnitNormal2DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -45,7 +45,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double Normalize1D(double v)
-            => Normalize1D_0(v);
+            => Normalize1D0(v);
 
         /// <summary>
         /// Normalize a Vector.
@@ -57,7 +57,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Normalize1D_0(double v)
+        public static double Normalize1D0(double v)
         {
             return v / Sqrt(v * v);
         }

@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the distance between two 3D points.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(Distance3DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -51,7 +51,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double Distance3D(double x1, double y1, double z1, double x2, double y2, double z2)
-            => Distance3D_1(x1, y1, z1, x2, y2, z2);
+            => Distance3D1(x1, y1, z1, x2, y2, z2);
 
         /// <summary>
         /// Distance between two 3D points.
@@ -68,7 +68,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance3D_1(
+        public static double Distance3D1(
             double x1, double y1, double z1,
             double x2, double y2, double z2)
         {
@@ -92,7 +92,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance3D_2(
+        public static double Distance3D2(
             double x1, double y1, double z1,
             double x2, double y2, double z2)
         {

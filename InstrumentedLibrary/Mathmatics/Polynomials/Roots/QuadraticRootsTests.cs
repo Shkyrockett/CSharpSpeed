@@ -21,7 +21,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(QuadraticRootsTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -64,7 +64,7 @@ namespace InstrumentedLibrary
         /// <param name="b">The b.</param>
         /// <param name="c">The c.</param>
         /// <param name = "epsilon"> The minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
         /// </acknowledgment>
@@ -117,7 +117,7 @@ namespace InstrumentedLibrary
         /// <param name="b">The b.</param>
         /// <param name="c">The c.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName("Quadratic Equation")]
         [Description("Quadratic Equation.")]
         [SourceCodeLocationProvider]

@@ -46,7 +46,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double Distance2D((double X, double Y) a, (double X, double Y) b)
-            => Distance2D_1(a, b);
+            => Distance2D1(a, b);
 
         /// <summary>
         /// Distance between two 2D points.
@@ -59,7 +59,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance2D_1(
+        public static double Distance2D1(
             (double X, double Y) a,
             (double X, double Y) b)
         {
@@ -77,7 +77,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance_2(
+        public static double Distance2(
             (double X, double Y) a,
             (double X, double Y) b)
         {

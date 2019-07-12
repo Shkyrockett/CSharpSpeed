@@ -6,7 +6,7 @@ namespace InstrumentedLibrary
     /// Enumeration of the inclusion of a point within a shape.
     /// </summary>
     [Flags]
-    public enum Inclusion
+    public enum Inclusions
         : sbyte
     {
         /// <summary>

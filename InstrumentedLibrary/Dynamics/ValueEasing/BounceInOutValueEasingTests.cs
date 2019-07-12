@@ -1,8 +1,11 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using static InstrumentedLibrary.EasingConstants;
+using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
 {
@@ -11,6 +14,19 @@ namespace InstrumentedLibrary
     /// </summary>
     public static class BounceInOutValueEasingTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double BounceEaseInOut(double t, double b, double c, double d)
+            => BounceEaseInOut1( t,  b,  c,  d);
+
         /// <summary>
         /// Easing equation function for a bounce (exponentially decaying parabolic bounce) easing in/out:
         /// acceleration until halfway, then deceleration.
@@ -25,15 +41,15 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double BounceEaseInOut(double t, double b, double c, double d)
+        public static double BounceEaseInOut1(double t, double b, double c, double d)
         {
-            if (t < d / 2d)
+            if (t < d * OneHalf)
             {
-                return (BounceInValueEasingTests.BounceIn(t * 2d, 0d, c, d) * 0.5d) + b;
+                return (BounceInValueEasingTests.BounceIn(t * 2d, 0d, c, d) * OneHalf) + b;
             }
             else
             {
-                return (BounceOutValueEasingTests.BounceOut((t * 2d) - d, 0d, c, d) * 0.5d) + (c * 0.5d) + b;
+                return (BounceOutValueEasingTests.BounceOut((t * 2d) - d, 0d, c, d) * OneHalf) + (c * OneHalf) + b;
             }
         }
 
@@ -51,9 +67,9 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double BounceEaseInOut_0(double t, double b, double c, double d)
+        public static double BounceEaseInOut0(double t, double b, double c, double d)
         {
-            return (t < d / 2d) ? (BounceInValueEasingTests.BounceIn(t * 2d, 0d, c, d) * 0.5d) + b : (BounceOutValueEasingTests.BounceOut((t * 2d) - d, 0d, c, d) * 0.5d) + (c * 0.5d) + b;
+            return (t < d * OneHalf) ? (BounceInValueEasingTests.BounceIn(t * 2d, 0d, c, d) * OneHalf) + b : (BounceOutValueEasingTests.BounceOut((t * 2d) - d, 0d, c, d) * OneHalf) + (c * OneHalf) + b;
         }
     }
 }

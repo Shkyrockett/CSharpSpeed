@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The interpolate cubic bezier3d test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(InterpolateBezierQuintic1DTests))]
         public static List<SpeedTester> TestHarness()
         {

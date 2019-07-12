@@ -1,8 +1,11 @@
-﻿namespace InstrumentedLibrary
+﻿using System;
+
+namespace InstrumentedLibrary
 {
     /// <summary>
     /// The degree of a polynomial or curve.
     /// </summary>
+    [Serializable]
     public enum PolynomialDegree
         : sbyte
     {

@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the area of a polygon.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(PolygonSignedAreaTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -65,11 +65,14 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SignedPolygonArea0((double X, double Y)[] polygon)
         {
-            var j = polygon.Length - 1;
             var area = 0d;
-            for (var i = 0; i < polygon.Length; i++)
+            if (!(polygon is null))
             {
-                area += (polygon[j].X + polygon[i].X) * (polygon[j].Y - polygon[i].Y); j = i;
+                var j = polygon.Length - 1;
+                for (var i = 0; i < polygon.Length; i++)
+                {
+                    area += (polygon[j].X + polygon[i].X) * (polygon[j].Y - polygon[i].Y); j = i;
+                }
             }
 
             return area * 0.5d;
@@ -93,7 +96,7 @@ namespace InstrumentedLibrary
         {
             var area = 0d;
 
-            for (var i = 0; i < polygon.Length; i++)
+            for (var i = 0; i < polygon?.Length; i++)
             {
                 var j = (i + 1) % polygon.Length;
                 area += polygon[i].X * polygon[j].Y;
@@ -120,14 +123,19 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SignedPolygonArea2((double X, double Y)[] polygon)
         {
-            var points = new List<(double X, double Y)>(polygon)
+            if (!(polygon is null))
             {
-                polygon[0]
-            };
-            return points
-                .Take(points.Count - 1)
-               .Select((p, i) => (points[i + 1].X - p.X) * (points[i + 1].Y + p.Y))
-               .Sum() / 2d;
+                var points = new List<(double X, double Y)>(polygon)
+                {
+                    polygon[0]
+                };
+                return points
+                    .Take(points.Count - 1)
+                   .Select((p, i) => (points[i + 1].X - p.X) * (points[i + 1].Y + p.Y))
+                   .Sum() / 2d;
+
+            }
+            return default;
         }
 
         /// <summary>
@@ -146,14 +154,18 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SignedPolygonArea3((double X, double Y)[] polygon)
         {
-            var points = new List<(double X, double Y)>(polygon)
+            if (!(polygon is null))
             {
-                polygon[0]
-            };
-            return -polygon
-                .Take(points.Count - 1)
-                .Select((p, i) => (p.X * points[i + 1].Y) - (p.Y * points[i + 1].X))
-                .Sum() / 2d;
+                var points = new List<(double X, double Y)>(polygon)
+                {
+                    polygon[0]
+                };
+                return -polygon
+                    .Take(points.Count - 1)
+                    .Select((p, i) => (p.X * points[i + 1].Y) - (p.Y * points[i + 1].X))
+                    .Sum() / 2d;
+            }
+            return default;
         }
 
         /// <summary>
@@ -181,17 +193,21 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SignedPolygonArea5((double x, double y)[] polygon)
         {
-            // Add the first point to the end.
-            var num_points = polygon.Length;
-            var pts = new (double X, double Y)[num_points + 1];
-            polygon.CopyTo(pts, 0);
-            pts[num_points] = polygon[0];
-
-            // Get the areas.
             var area = 0d;
-            for (var i = 0; i < num_points; i++)
+
+            if (!(polygon is null))
             {
-                area += (pts[i + 1].X - pts[i].X) * (pts[i + 1].Y + pts[i].Y) / 2d;
+                // Add the first point to the end.
+                var num_points = polygon.Length;
+                var pts = new (double X, double Y)[num_points + 1];
+                polygon.CopyTo(pts, 0);
+                pts[num_points] = polygon[0];
+
+                // Get the areas.
+                for (var i = 0; i < num_points; i++)
+                {
+                    area += (pts[i + 1].X - pts[i].X) * (pts[i + 1].Y + pts[i].Y) / 2d;
+                }
             }
 
             // Return the result.

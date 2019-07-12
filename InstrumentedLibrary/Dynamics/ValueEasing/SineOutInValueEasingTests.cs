@@ -1,8 +1,11 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using static InstrumentedLibrary.EasingConstants;
+using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
 {
@@ -11,6 +14,19 @@ namespace InstrumentedLibrary
     /// </summary>
     public static class SineOutInValueEasingTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double SineOutIn(double t, double b, double c, double d)
+            => SineOutIn1( t,  b,  c,  d);
+
         /// <summary>
         /// Easing equation function for a sinusoidal (sin(t)) easing in/out:
         /// deceleration until halfway, then acceleration.
@@ -25,9 +41,9 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SineOutIn(double t, double b, double c, double d)
+        public static double SineOutIn1(double t, double b, double c, double d)
         {
-            return (t < d * 0.5d) ? SineOutValueEasingTests.SineOut(t * 2, b, c * 0.5d, d) : SineInValueEasingTests.SineIn((t * 2) - d, b + (c * 0.5d), c * 0.5d, d);
+            return (t < d * OneHalf) ? SineOutValueEasingTests.SineOut(t * 2, b, c * OneHalf, d) : SineInValueEasingTests.SineIn((t * 2) - d, b + (c * OneHalf), c * OneHalf, d);
         }
     }
 }

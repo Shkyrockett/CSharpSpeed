@@ -21,7 +21,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the linear interpolation point for a value between two 2D points.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(InterpolateLinear3DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -53,7 +53,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double X, double Y, double Z) LinearInterpolate3D(double t, double x1, double y1, double z1, double x2, double y2, double z2)
-            => LinearInterpolate3D_0(t, x1, y1, z1, x2, y2, z2);
+            => LinearInterpolate3D0(t, x1, y1, z1, x2, y2, z2);
 
         /// <summary>
         /// Precise method which guarantees v = v1 when t = 1.
@@ -71,7 +71,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) LinearInterpolate3D_0(double t, double x1, double y1, double z1, double x2, double y2, double z2)
+        public static (double X, double Y, double Z) LinearInterpolate3D0(double t, double x1, double y1, double z1, double x2, double y2, double z2)
         {
             return (((1d - t) * x1) + (t * x2),
                     ((1d - t) * y1) + (t * y2),
@@ -99,7 +99,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) LinearInterpolate3D_1(double t, double x1, double y1, double z1, double x2, double y2, double z2)
+        public static (double X, double Y, double Z) LinearInterpolate3D1(double t, double x1, double y1, double z1, double x2, double y2, double z2)
         {
             return (
                 x1 + (t * (x2 - x1)),
@@ -128,7 +128,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) LinearInterpolate3D_2(double t, double x1, double y1, double z1, double x2, double y2, double z2)
+        public static (double X, double Y, double Z) LinearInterpolate3D2(double t, double x1, double y1, double z1, double x2, double y2, double z2)
         {
             return (
                 InterpolateLinear1DTests.LinearInterpolate1D(t, x1, x2),
@@ -153,7 +153,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) LinearInterpolate3D_3(
+        public static (double X, double Y, double Z) LinearInterpolate3D3(
             double t, double x1, double y1,
             double z1, double x2, double y2,
             double z2)

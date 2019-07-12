@@ -18,13 +18,13 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct PolygonContour2D
-        : IClosedShape, ICachableProperties
+        : IClosedShape, ICachableProperties, IEquatable<PolygonContour2D>
     {
         #region Implementations
         /// <summary>
         /// The empty.
         /// </summary>
-        public static PolygonContour2D Empty = new PolygonContour2D(new[] { Point2D.Empty });
+        public static readonly PolygonContour2D Empty = new PolygonContour2D(new[] { Point2D.Empty });
         #endregion
 
         #region Constructors
@@ -68,7 +68,7 @@ namespace InstrumentedLibrary
         /// 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public RotationDirections Orientation => PolygonIsOrientedClockwiseTests.PolygonIsOrientedClockwise(Points.Cast<(double X, double Y)>().ToArray()) ? RotationDirections.Clockwise : RotationDirections.CounterClockwise;
+        public RotationDirection Orientation => PolygonIsOrientedClockwiseTests.PolygonIsOrientedClockwise(Points.Cast<(double X, double Y)>().ToArray()) ? RotationDirection.Clockwise : RotationDirection.CounterClockwise;
 
         /// <summary>
         /// Property cache for commonly used properties that may take time to calculate.
@@ -83,11 +83,78 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator ==(PolygonContour2D left, PolygonContour2D right) => left.Equals(right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator !=(PolygonContour2D left, PolygonContour2D right) => !(left == right);
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="polygon"></param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator List<Point2D>(PolygonContour2D polygon) => polygon.Points as List<Point2D>;
         #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public List<Point2D> ToList()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override int GetHashCode() => HashCode.Combine(Points);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj) => obj is PolygonContour2D && Equals((PolygonContour2D)obj);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(PolygonContour2D other) => other.Points == Points;
+
+        /// <summary>
+        /// Tests whether <paramref name="left"/> is a <see cref="PolygonContour2D"/> with the same as <paramref name="right"/>.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(PolygonContour2D left, PolygonContour2D right) => left.Equals(right);
 
         /// <summary>
         /// Creates a <see cref="string"/> representation of this <see cref="IShape"/> interface based on the current culture.
@@ -105,11 +172,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider formatProvider)
         {
-            //if (this is null)
-            //{
-            //    return nameof(PolygonContour2D);
-            //}
-
+            if (this == null) return nameof(PolygonContour2D);
             var sep = $"{((formatProvider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator()} ";
             return $"{nameof(PolygonContour2D)}({string.Join(sep, Points)})";
         }

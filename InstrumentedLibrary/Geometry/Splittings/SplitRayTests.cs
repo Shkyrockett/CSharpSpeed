@@ -21,7 +21,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The polygon centroid test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(SplitRayTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -51,7 +51,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static IShapeSegment[] SplitRay(double x, double y, double i, double j, params double[] ts)
-            => SplitRay_(x, y, i, j, ts);
+            => SplitRay1(x, y, i, j, ts);
 
         /// <summary>
         /// The split.
@@ -61,13 +61,13 @@ namespace InstrumentedLibrary
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:Shape[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DisplayName("Split Ray")]
         [Description("Split Ray.")]
         [SourceCodeLocationProvider]
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static IShapeSegment[] SplitRay_(double x, double y, double i, double j, params double[] ts)
+        public static IShapeSegment[] SplitRay1(double x, double y, double i, double j, params double[] ts)
         {
             if (ts is null)
             {

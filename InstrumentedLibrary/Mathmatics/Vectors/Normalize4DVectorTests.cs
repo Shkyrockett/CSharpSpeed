@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The normalize3d test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(Normalize3DVectorTests))]
         public static List<SpeedTester> TestHarness()
         {

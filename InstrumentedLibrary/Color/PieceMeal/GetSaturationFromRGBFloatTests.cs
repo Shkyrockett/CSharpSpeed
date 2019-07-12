@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(GetSaturationFromRGBFloatTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -43,7 +43,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double GetSaturation(double red, double green, double blue)
-            => GetSaturation_(red, green, blue);
+            => GetSaturation1(red, green, blue);
 
         /// <summary>
         /// Get the saturation.
@@ -57,7 +57,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double GetSaturation_(double red, double green, double blue)
+        public static double GetSaturation1(double red, double green, double blue)
         {
             var max = red;
             if (green > max)

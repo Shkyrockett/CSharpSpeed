@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(RotatedRectangleCornersTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -63,7 +63,7 @@ namespace InstrumentedLibrary
         /// <param name="fulcrumX"></param>
         /// <param name="fulcrumY"></param>
         /// <param name="angle">The angle.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{Point2D}"/>.</returns>
         [DisplayName("Rotated Rectangle Points")]
         [Description("Find the corner points of a rotated rectangle.")]
         [SourceCodeLocationProvider]
@@ -71,6 +71,8 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y)[] RotatedRectangleCorners0(double x, double y, double width, double height, double fulcrumX, double fulcrumY, double angle)
         {
+            _ = x;
+            _ = y;
             var xaxis = (X: Cos(angle), Y: Sin(angle));
             var yaxis = (X: -Sin(angle), Y: Cos(angle));
 

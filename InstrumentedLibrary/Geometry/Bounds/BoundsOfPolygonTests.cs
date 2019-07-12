@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that Find the bounds of polygons.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(BoundsOfPolygonTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -65,7 +65,7 @@ namespace InstrumentedLibrary
         public static Rectangle2D GetBounds0(List<List<(double X, double Y)>> paths)
         {
             var i = 0;
-            var cnt = paths.Count;
+            var cnt = paths?.Count;
             while (i < cnt && paths[i].Count == 0)
             {
                 i++;

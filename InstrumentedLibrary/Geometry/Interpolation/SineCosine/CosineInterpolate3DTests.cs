@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the 3D Cosine interpolation point.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(CosineInterpolate3DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -52,7 +52,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double X, double Y, double Z) CosineInterpolate3D(double t, double x1, double y1, double z1, double x2, double y2, double z2)
-            => CosineInterpolate3D_(t, x1, y1, z1, x2, y2, z2);
+            => CosineInterpolate3D1(t, x1, y1, z1, x2, y2, z2);
 
         /// <summary>
         /// The cosine interpolate3d.
@@ -74,7 +74,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) CosineInterpolate3D_(double t, double x1, double y1, double z1, double x2, double y2, double z2)
+        public static (double X, double Y, double Z) CosineInterpolate3D1(double t, double x1, double y1, double z1, double x2, double y2, double z2)
         {
             var mu2 = (1d - Cos(t * PI)) / 2d;
             return (

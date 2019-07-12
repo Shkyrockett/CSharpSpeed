@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -12,6 +13,16 @@ namespace InstrumentedLibrary
     public static class QuinticOutPercentageEasingTests
     {
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double QuintOut(double t)
+            => QuintOut1( t);
+
+        /// <summary>
         /// Quint out.
         /// </summary>
         /// <param name="t">Current time elapsed in ticks.</param>
@@ -21,7 +32,7 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double QuintOut(double t)
+        public static double QuintOut1(double t)
         {
             return ((t -= 1d) * t * t * t * t) + 1d;
         }

@@ -3,7 +3,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public enum Finalities
+    public enum Finality
     {
         /// <summary>
         /// 

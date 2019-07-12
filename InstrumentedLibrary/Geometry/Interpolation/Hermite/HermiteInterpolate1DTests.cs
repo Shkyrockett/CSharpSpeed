@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the 1D Hermite interpolation of points.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(HermiteInterpolate1DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -50,7 +50,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double HermiteInterpolate1D(double s, double v0, double v1, double v2, double v3, double tension, double bias)
-            => HermiteInterpolate1D_(s, v0, v1, v2, v3, tension, bias);
+            => HermiteInterpolate1D1(s, v0, v1, v2, v3, tension, bias);
 
         /// <summary>
         /// The hermite interpolate1d.
@@ -72,7 +72,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double HermiteInterpolate1D_(double s, double v0, double v1, double v2, double v3, double tension, double bias)
+        public static double HermiteInterpolate1D1(double s, double v0, double v1, double v2, double v3, double tension, double bias)
         {
             var sSquared = s * s;
             var sCubed = sSquared * s;
@@ -106,6 +106,8 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Hermite(double s, double v1, double t1, double v2, double t2, double tension, double bias)
         {
+            _ = tension;
+            _ = bias;
             double result;
             var sSquared = s * s;
             var sCubed = sSquared * s;
@@ -136,7 +138,7 @@ namespace InstrumentedLibrary
         /// <param name="tension">Tension: 1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">Bias: 0 is even,</param>
         /// <returns>The <see cref="double"/>. positive is towards First segment, negative towards the other</returns>
-        public static double Hermite_Interpolate(double mu, double y0, double y1, double y2, double y3, double tension, double bias)
+        public static double HermiteInterpolate(double mu, double y0, double y1, double y2, double y3, double tension, double bias)
         {
             var m0 = (y1 - y0) * ((1d + bias) * ((1d - tension) / 2d));
             m0 += (y2 - y1) * ((1d - bias) * ((1d - tension) / 2d));
@@ -162,7 +164,7 @@ namespace InstrumentedLibrary
         /// <param name="tension">The tension.</param>
         /// <param name="bias">The bias.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        public static double HermiteInterpolate(double mu, double y0, double y1, double y2, double y3, double tension, double bias)
+        public static double HermiteInterpolate1(double mu, double y0, double y1, double y2, double y3, double tension, double bias)
         {
             var m0 = (y1 - y0) * ((1d + bias) * ((1d - tension) / 2d));
             m0 += (y2 - y1) * ((1d - bias) * ((1d - tension) / 2d));

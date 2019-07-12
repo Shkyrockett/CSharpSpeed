@@ -20,14 +20,14 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(RectangleContainsPointTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
             var rectangle = new Rectangle2D(0d, 0d, 2d, 2d);
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { rectangle, 1d, 1d }, new TestCaseResults(description: "rectangle contains point.", trials: trials, expectedReturnValue: Inclusion.Inside, epsilon: double.Epsilon) },
+                { new object[] { rectangle, 1d, 1d }, new TestCaseResults(description: "rectangle contains point.", trials: trials, expectedReturnValue: Inclusions.Inside, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -48,7 +48,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static Inclusion RectangleContainsPoint2D(Rectangle2D rectangle, double x, double y)
+        public static Inclusions RectangleContainsPoint2D(Rectangle2D rectangle, double x, double y)
             => Contains(rectangle, x, y);
 
         /// <summary>
@@ -63,13 +63,13 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains(Rectangle2D rectangle, double X, double Y)
+        public static Inclusions Contains(Rectangle2D rectangle, double X, double Y)
         {
             var point = (X, Y);
             return (rectangle.X <= point.X
                 && point.X < rectangle.X + rectangle.Width
                 && rectangle.Y <= point.Y
-                && point.Y < rectangle.Y + rectangle.Height) ? Inclusion.Inside : Inclusion.Outside;
+                && point.Y < rectangle.Y + rectangle.Height) ? Inclusions.Inside : Inclusions.Outside;
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains2(Rectangle2D rectangle, double X, double Y)
+        public static Inclusions Contains2(Rectangle2D rectangle, double X, double Y)
         {
             var point = (X, Y);
             if (((Abs(rectangle.X - point.X) < DoubleEpsilon
@@ -94,13 +94,13 @@ namespace InstrumentedLibrary
              || Abs(rectangle.Left - point.Y) < DoubleEpsilon)
              && ((rectangle.X <= point.X) == (rectangle.Right >= point.X))))
             {
-                return Inclusion.Boundary;
+                return Inclusions.Boundary;
             }
 
             return (rectangle.X <= point.X
                 && point.X < rectangle.X + rectangle.Width
                 && rectangle.Y <= point.Y
-                && point.Y < rectangle.Y + rectangle.Height) ? Inclusion.Inside : Inclusion.Outside;
+                && point.Y < rectangle.Y + rectangle.Height) ? Inclusions.Inside : Inclusions.Outside;
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointOnRectangleX(Rectangle2D rectangle, double X, double Y)
+        public static Inclusions PointOnRectangleX(Rectangle2D rectangle, double X, double Y)
         {
             var point = (X, Y);
             var top = Sqrt((rectangle.Right - rectangle.Left) * (rectangle.Right - rectangle.Left) + (rectangle.Top - rectangle.Top) * (rectangle.Top - rectangle.Top));
@@ -130,13 +130,13 @@ namespace InstrumentedLibrary
                 || Abs(top - Sqrt(brp - blp)) < DoubleEpsilon
                 || Abs(right - Sqrt(blp - tlp)) < DoubleEpsilon)
             {
-                return Inclusion.Boundary;
+                return Inclusions.Boundary;
             }
 
             return (rectangle.X <= point.X
                 && point.X < rectangle.X + rectangle.Width
                 && rectangle.Y <= point.Y
-                && point.Y < rectangle.Y + rectangle.Height) ? Inclusion.Inside : Inclusion.Outside;
+                && point.Y < rectangle.Y + rectangle.Height) ? Inclusions.Inside : Inclusions.Outside;
         }
     }
 }

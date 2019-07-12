@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(WaterDistortionTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -63,6 +63,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Water0(Point2D point, Point2D fulcrum, double nWave = 1)
         {
+            _ = fulcrum;
             var xo = nWave * Sin(2d * PI * point.Y / 128d);
             var yo = nWave * Cos(2d * PI * point.X / 128d);
             var newX = point.X + xo;

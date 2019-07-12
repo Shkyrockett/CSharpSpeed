@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(MatrixInverseDeterminant3x3Tests))]
         public static List<SpeedTester> TestHarness()
         {

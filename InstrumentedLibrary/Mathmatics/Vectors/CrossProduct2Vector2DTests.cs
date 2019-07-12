@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the cross product of two 2D points.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(CrossProduct2Vector2DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -47,7 +47,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double CrossProduct2Vector2D(double x1, double y1, double x2, double y2)
-            => CrossProduct2Vector2D_0(x1, y1, x2, y2);
+            => CrossProduct2Vector2D0(x1, y1, x2, y2);
 
         /// <summary>
         /// Cross Product of two vectors.
@@ -66,7 +66,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CrossProduct2Vector2D_0(
+        public static double CrossProduct2Vector2D0(
             double x1, double y1,
             double x2, double y2)
         {

@@ -19,6 +19,7 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Matrix2x2D
+        : IEquatable<Matrix2x2D>
     {
         #region Static Fields
         /// <summary>
@@ -155,7 +156,9 @@ namespace InstrumentedLibrary
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The Second row of the " + nameof(Matrix2x2D))]
         public Vector2D Ry { get { return new Vector2D(M1x0, M1x1); } set { (M1x0, M1x1) = value; } }
+        #endregion
 
+        #region Operators
         /// <summary>
         /// Compares two Matrix instances for exact equality.
         /// Note that double values can acquire error when operated upon, such that
@@ -185,6 +188,25 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Matrix2x2D matrix1, Matrix2x2D matrix2) => !Equals(matrix1, matrix2);
+
+        /// <summary>
+        /// Tuple to <see cref="Matrix4x4D"/>.
+        /// </summary>
+        /// <param name="matrix"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator (double, double, double, double)(Matrix2x2D matrix)
+            => (matrix.M0x0, matrix.M0x1, matrix.M1x0, matrix.M1x1);
+
+        /// <summary>
+        /// Tuple to <see cref="Matrix4x4D"/>.
+        /// </summary>
+        /// <param name="tuple"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Matrix2x2D((double, double, double, double) tuple) => new Matrix2x2D(tuple);
         #endregion
 
         #region Methods
@@ -201,19 +223,13 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="T:IEnumerator{IEnumerable{double}}"/>.</returns>
+        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
         public IEnumerator<IEnumerable<double>> GetEnumerator()
             => new List<List<double>>
             {
                 new List<double> { M0x0, M0x1 },
                 new List<double> { M1x0, M1x1 },
             }.GetEnumerator();
-
-        ///// <summary>
-        ///// Get the enumerator.
-        ///// </summary>
-        ///// <returns>The <see cref="IEnumerator"/>.</returns>
-        //IEnumerator GetEnumerator() => GetEnumerator();
 
         /// <summary>
         /// Compares two Matrix instances for object equality.  In this equality
@@ -264,6 +280,23 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Matrix2x2D value) => Equals(this, value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tuple"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Matrix2x2D From((double, double, double, double) tuple) => tuple;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (double, double, double, double) To() => this;
 
         /// <summary>
         /// Creates a string representation of this <see cref="Matrix2x2D"/> struct based on the current culture.

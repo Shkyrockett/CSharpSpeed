@@ -1,4 +1,5 @@
 ﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -19,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(LinearDRootsTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -56,7 +57,7 @@ namespace InstrumentedLibrary
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo
         /// </acknowledgment>
@@ -68,6 +69,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<double> LinearDRootsPoMax(double a, double b, double epsilon = Epsilon)
         {
+            _ = epsilon;
             if (a != b)
             {
                 return new List<double> { a / (a - b) };
@@ -82,7 +84,7 @@ namespace InstrumentedLibrary
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:IList{double}"/>.</returns>
+        /// <returns>The <see cref="IList{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// https://github.com/Pomax/bezierjs/blob/gh-pages/lib/utils.js
@@ -95,7 +97,8 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IList<double> LinearDRoots0(double a, double b, double epsilon = Epsilon)
         {
-            return a != b ? (new double[] { a / (a - b) }) : (new double[] { });
+            _ = epsilon;
+            return a != b ? (new double[] { a / (a - b) }) : Array.Empty<double>();
         }
     }
 }

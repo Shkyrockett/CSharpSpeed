@@ -18,13 +18,13 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Polyline2D
-        : IShapeSegment, ICachableProperties
+        : IShapeSegment, ICachableProperties, IEquatable<Polyline2D>
     {
         #region Implementations
         /// <summary>
         /// The empty.
         /// </summary>
-        public static Polyline2D Empty = new Polyline2D(new[] { Point2D.Empty });
+        public static readonly Polyline2D Empty = new Polyline2D(new[] { Point2D.Empty });
         #endregion
 
         #region Constructors
@@ -37,7 +37,7 @@ namespace InstrumentedLibrary
         public Polyline2D(List<Point2D> points)
             : this()
         {
-            Points = points;
+            Items = points;
         }
 
         /// <summary>
@@ -55,14 +55,14 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets or sets the points.
         /// </summary>
-        [DataMember(Name = nameof(Points)), XmlArray(nameof(Points)), SoapElement(nameof(Points))]
-        public List<Point2D> Points { get; set; }
+        [DataMember(Name = nameof(Items)), XmlArray(nameof(Items)), SoapElement(nameof(Items))]
+        public List<Point2D> Items { get; set; }
 
         /// <summary>
         /// Gets the count.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public int Count => Points?.Count ?? 0;
+        public int Count => Items?.Count ?? 0;
 
         /// <summary>
         /// Property cache for commonly used properties that may take time to calculate.
@@ -72,6 +72,62 @@ namespace InstrumentedLibrary
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         Dictionary<object, object> ICachableProperties.PropertyCache { get; set; }
         #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator ==(Polyline2D left, Polyline2D right) => left.Equals(right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator !=(Polyline2D left, Polyline2D right) => !(left == right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj) => obj is Polyline2D && Equals((Polyline2D)obj);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Polyline2D other) => other.Items == Items;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(Polyline2D left, Polyline2D right) => left.Equals(right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override int GetHashCode() => HashCode.Combine(Items);
 
         /// <summary>
         /// Creates a <see cref="string"/> representation of this <see cref="IShape"/> interface based on the current culture.
@@ -91,13 +147,9 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider formatProvider)
         {
-            //if (this is null)
-            //{
-            //    return nameof(Polyline2D);
-            //}
-
+            if (this == null) return nameof(Polyline2D);
             var sep = $"{((formatProvider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator()} ";
-            return $"{nameof(Polyline2D)}({string.Join(sep, Points)})";
+            return $"{nameof(Polyline2D)}({string.Join(sep, Items)})";
         }
     }
 }

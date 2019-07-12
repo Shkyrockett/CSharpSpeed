@@ -17,7 +17,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(CatmullRomToCubicBeziersTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -63,7 +63,7 @@ namespace InstrumentedLibrary
             (double X, double Y)[] points)
         {
             var d = new List<(double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)>();
-            for (int i = 0, iLen = points.Length; iLen - 4 > i; i++)
+            for (int i = 0, iLen = (points?.Length).Value; iLen - 4 > i; i++)
             {
                 var p = new List<(double x, double y)>();
                 if (0 == i)

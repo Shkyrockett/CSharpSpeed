@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the 2D cubic interpolation of a point.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(BezierInterpolateCubic2DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -55,7 +55,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double X, double Y) CubicBezierInterpolate2D(double t, double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
-            => CubicBezierInterpolate2D_0(t, x0, y0, x1, y1, x2, y2, x3, y3);
+            => CubicBezierInterpolate2D0(t, x0, y0, x1, y1, x2, y2, x3, y3);
 
         /// <summary>
         /// Four control point Bezier interpolation mu ranges from 0 to 1, start to end of curve.
@@ -75,7 +75,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) CubicBezierInterpolate2D_0(double t, double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
+        public static (double X, double Y) CubicBezierInterpolate2D0(double t, double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
         {
             var mum1 = 1d - t;
             var mum13 = mum1 * mum1 * mum1;
@@ -111,7 +111,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) CubicBezierInterpolate2D_1(double t, double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)
+        public static (double X, double Y) CubicBezierInterpolate2D1(double t, double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)
         {
             // Formula from Wikipedia article on Bézier curves.
             return (
@@ -142,7 +142,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) CubicBezierInterpolate2D_2(double t, double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
+        public static (double X, double Y) CubicBezierInterpolate2D2(double t, double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
         {
             // point between a and b
             (var abX, var abY) = InterpolateLinear2DTests.LinearInterpolate2D(t, x0, y0, x1, y1);
@@ -176,12 +176,12 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) CubicBezierInterpolate2D_3(double t, double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)
+        public static (double X, double Y) CubicBezierInterpolate2D3(double t, double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)
         {
             var v = 1d - t;
             return (
-                (aX * v * v * v) + (3 * bX * t * v * v) + (3 * cX * t * t * v) + (dX * v * v * v),
-                (aY * v * v * v) + (3 * bY * t * v * v) + (3 * cY * t * t * v) + (dY * v * v * v));
+                (aX * v * v * v) + (3d * bX * t * v * v) + (3d * cX * t * t * v) + (dX * v * v * v),
+                (aY * v * v * v) + (3d * bY * t * v * v) + (3d * cY * t * t * v) + (dY * v * v * v));
         }
 
         /// <summary>
@@ -196,7 +196,7 @@ namespace InstrumentedLibrary
         /// <param name="y2">The y2.</param>
         /// <param name="x3">The x3.</param>
         /// <param name="y3">The y3.</param>
-        /// <returns>The <see cref="T:(double X, double Y)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <acknowledgment>
         /// https://groups.google.com/d/msg/comp.graphics.algorithms/SRm97nRWlw4/R1Rn38ep8n0J
         /// </acknowledgment>
@@ -208,8 +208,8 @@ namespace InstrumentedLibrary
         public static (double X, double Y) InterpolateCubic(double t, double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
         {
             return (
-                (-(t * t * t) * (x0 - (3 * x1) + (3 * x2) - x3)) + (3 * t * t * (x0 - (2 * x1) + x2)) + (3 * t * (x1 - x0)) + x0,
-                (-(t * t * t) * (y0 - (3 * y1) + (3 * y2) - y3)) + (3 * t * t * (y0 - (2 * y1) + y2)) + (3 * t * (y1 - y0)) + y0
+                (-(t * t * t) * (x0 - (3d * x1) + (3d * x2) - x3)) + (3d * t * t * (x0 - (2d * x1) + x2)) + (3d * t * (x1 - x0)) + x0,
+                (-(t * t * t) * (y0 - (3d * y1) + (3d * y2) - y3)) + (3d * t * t * (y0 - (2d * y1) + y2)) + (3d * t * (y1 - y0)) + y0
                 );
         }
 
@@ -225,7 +225,7 @@ namespace InstrumentedLibrary
         /// <param name="p2Y">The p2Y.</param>
         /// <param name="p3X">The p3X.</param>
         /// <param name="p3Y">The p3Y.</param>
-        /// <returns>The <see cref="T:(double X, double Y)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <acknowledgment>
         /// http://en.wikipedia.org/wiki/B%C3%A9zier_curve
         /// </acknowledgment>
@@ -237,8 +237,8 @@ namespace InstrumentedLibrary
         public static (double X, double Y) CubicBezierCurve(double t, double p0X, double p0Y, double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y)
         {
             return (
-                (Pow(1 - t, 3) * p0X) + (3 * Pow(1 - t, 2) * t * p1X) + (3 * (1 - t) * Pow(t, 2) * p2X) + (Pow(t, 3) * p3X),
-                (Pow(1 - t, 3) * p0Y) + (3 * Pow(1 - t, 2) * t * p1Y) + (3 * (1 - t) * Pow(t, 2) * p2Y) + (Pow(t, 3) * p3Y));
+                (Pow(1 - t, 3) * p0X) + (3d * Pow(1 - t, 2) * t * p1X) + (3d * (1 - t) * Pow(t, 2) * p2X) + (Pow(t, 3) * p3X),
+                (Pow(1 - t, 3) * p0Y) + (3d * Pow(1 - t, 2) * t * p1Y) + (3d * (1 - t) * Pow(t, 2) * p2Y) + (Pow(t, 3) * p3Y));
         }
 
         /// <summary>
@@ -254,7 +254,7 @@ namespace InstrumentedLibrary
         /// <param name="dX"></param>
         /// <param name="dY"></param>
         /// <returns></returns>
-        /// <returns>The <see cref="T:(double X, double Y)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <acknowledgment>
         /// http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/
         /// </acknowledgment>

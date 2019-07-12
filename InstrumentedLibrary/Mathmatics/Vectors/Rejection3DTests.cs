@@ -50,7 +50,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double X, double Y, double Z) Rejection(double x1, double y1, double z1, double x2, double y2, double z2)
-            => Rejection_(x1, y1, z1, x2, y2, z2);
+            => Rejection1(x1, y1, z1, x2, y2, z2);
 
         /// <summary>
         /// The rejection.
@@ -70,7 +70,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) Rejection_(
+        public static (double X, double Y, double Z) Rejection1(
             double x1, double y1, double z1,
             double x2, double y2, double z2)
         {

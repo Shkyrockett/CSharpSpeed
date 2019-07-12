@@ -14,7 +14,7 @@ namespace InstrumentedLibrary
     [ComVisible(true)]
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
-    public struct Orientation3D
+    public struct Orientation3D : IEquatable<Orientation3D>
     {
         #region Constructors
         /// <summary>
@@ -211,6 +211,15 @@ namespace InstrumentedLibrary
             if (this == null) return nameof(Orientation3D);
             var sep = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
             return $"{nameof(Orientation3D)}({nameof(Roll)}: {Roll.ToString(format, provider)}{sep} {nameof(Pitch)}: {Pitch.ToString(format, provider)}{sep} {nameof(Yaw)}: {Yaw.ToString(format, provider)})";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public Orientation3D ToOrientation3D()
+        {
+            throw new NotImplementedException();
         }
         #endregion Public Methods
     }

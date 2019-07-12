@@ -1,13 +1,21 @@
-﻿namespace InstrumentedLibrary
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using static System.Math;
+using static InstrumentedLibrary.Maths;
+
+namespace InstrumentedLibrary
 {
     /// <summary>
     /// The trim polynomial leading zeros tests class.
     /// </summary>
-    internal class TrimPolynomialLeadingZerosTests
+    internal static class TrimPolynomialLeadingZerosTests
     {
         ///// <summary>
         ///// Simplify a polynomial, removing near zero terms.
         ///// </summary>
+        ///// <param name="thiscoefficients"></param>
         ///// <param name="epsilon">The minimal difference for comparison.</param>
         ///// <returns>Returns a new instance of the <see cref="Polynomial"/> struct with the near zero terms removed.</returns>
         ///// <acknowledgment>
@@ -19,11 +27,11 @@
         ///// </acknowledgment>
         //[DebuggerStepThrough]
         //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public Polynomial Trim(double epsilon = Epsilon)
+        //public static Polynomial Trim(double[] thiscoefficients, double epsilon = Epsilon)
         //{
-        //    var coefficients = new double[Count];
+        //    var coefficients = new double[thiscoefficients.Length + 1];
         //    var degree = (int)Degree;
-        //    Array.Copy(this.coefficients, coefficients, degree);
+        //    Array.Copy(thiscoefficients, coefficients, degree);
         //    for (var i = degree; i >= 0; i--)
         //    {
         //        if (Abs(coefficients[i]) <= epsilon)
@@ -46,20 +54,20 @@
         ///// </acknowledgment>
         //[DebuggerStepThrough]
         //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public Polynomial Trim(double[] coefficients, double epsilon = Epsilon)
+        //public static Polynomial Trim(double[] coefficients, double epsilon = Epsilon)
         //{
         //    var pos = 0;
         //    for (var i = Count - 1; i >= 0; i--)
         //    {
-        //        if (Abs(this.coefficients[i]) <= epsilon)
+        //        if (Abs(coefficients[i]) <= epsilon)
         //            pos++;
         //        else
         //            break;
         //    }
 
         //    var ret = new double[Count - pos];
-        //    Array.Copy(this.coefficients, 0, ret, 0, Count - pos);
-        //    return new Polynomial() { coefficients = ret, isReadonly = this.isReadonly };
+        //    Array.Copy(coefficients, 0, ret, 0, Count - pos);
+        //    return new Polynomial() { Coefficients = ret, IsReadonly = isReadonly };
         //}
 
         ///// <summary>

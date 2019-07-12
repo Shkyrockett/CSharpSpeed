@@ -18,6 +18,7 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Matrix4x4D
+        : IEquatable<Matrix4x4D>
     {
         #region Static Fields
         /// <summary>
@@ -264,8 +265,8 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Gets or sets the m3x3.
         /// </summary>
-         [DataMember(Name = nameof(M3x3)), XmlAttribute(nameof(M3x3)), SoapAttribute(nameof(M3x3))]
-       public double M3x3 { get; set; }
+        [DataMember(Name = nameof(M3x3)), XmlAttribute(nameof(M3x3)), SoapAttribute(nameof(M3x3))]
+        public double M3x3 { get; set; }
 
         /// <summary>
         /// Gets or sets the cx.
@@ -325,7 +326,6 @@ namespace InstrumentedLibrary
         #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// Compares two Matrix instances for exact equality.
         /// Note that double values can acquire error when operated upon, such that
@@ -362,12 +362,7 @@ namespace InstrumentedLibrary
         /// <param name="source"></param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Matrix4x4D(Matrix3x3D source)
-            => new Matrix4x4D(
-                source.M0x0, source.M0x1, source.M0x2, 0,
-                source.M1x0, source.M1x1, source.M1x2, 0,
-                source.M2x0, source.M2x1, source.M2x2, 0,
-                0, 0, 0, 1);
+        public static explicit operator Matrix4x4D(Matrix3x3D source) => FromMatrix3x3D(source);
 
         /// <summary>
         /// 
@@ -375,12 +370,7 @@ namespace InstrumentedLibrary
         /// <param name="source"></param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Matrix4x4D(Matrix2x2D source)
-            => new Matrix4x4D(
-                source.M0x0, source.M0x1, 0, 0,
-                source.M1x0, source.M1x1, 0, 0,
-                0, 0, 1, 0,
-                0, 0, 0, 1);
+        public static explicit operator Matrix4x4D(Matrix2x2D source) => FromMatrix2x2D(source);
 
         /// <summary>
         /// Tuple to <see cref="Matrix4x4D"/>.
@@ -399,11 +389,55 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Matrix4x4D((double, double, double, double, double, double, double, double, double, double, double, double, double, double, double, double) tuple)
-            => new Matrix4x4D(tuple);
+        public static implicit operator Matrix4x4D((double, double, double, double, double, double, double, double, double, double, double, double, double, double, double, double) tuple) => new Matrix4x4D(tuple);
         #endregion Operators
 
         #region Factories
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D FromMatrix2x2D(Matrix2x2D source)
+            => new Matrix4x4D(
+                source.M0x0, source.M0x1, 0, 0,
+                source.M1x0, source.M1x1, 0, 0,
+                0, 0, 1, 0,
+                0, 0, 0, 1);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix4x4D FromMatrix3x3D(Matrix3x3D source)
+            => new Matrix4x4D(
+                source.M0x0, source.M0x1, source.M0x2, 0,
+                source.M1x0, source.M1x1, source.M1x2, 0,
+                source.M2x0, source.M2x1, source.M2x2, 0,
+                0, 0, 0, 1);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tuple"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Matrix4x4D From((double, double, double, double, double, double, double, double, double, double, double, double, double, double, double, double) tuple) => tuple;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (double, double, double, double, double, double, double, double, double, double, double, double, double, double, double, double) To() => this;
+
         /// <summary>
         /// Creates a scaling transform around the origin
         /// </summary>
@@ -557,17 +591,29 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode() => new
         {
-            M0x0, M0x1, M0x2, M0x3,
-			M1x0, M1x1, M1x2, M1x3,
-            M2x0, M2x1, M2x2, M2x3,
-            M3x0, M3x1, M3x2, M3x3
+            M0x0,
+            M0x1,
+            M0x2,
+            M0x3,
+            M1x0,
+            M1x1,
+            M1x2,
+            M1x3,
+            M2x0,
+            M2x1,
+            M2x2,
+            M2x3,
+            M3x0,
+            M3x1,
+            M3x2,
+            M3x3
         }.GetHashCode();
 
         /// <returns></returns>
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="T:IEnumerator{IEnumerable{double}}"/>.</returns>
+        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
         public IEnumerator<IEnumerable<double>> GetEnumerator()
             => new List<List<double>>
             {
@@ -576,13 +622,6 @@ namespace InstrumentedLibrary
                 new List<double> { M2x0, M2x1, M2x2, M2x3 },
                 new List<double> { M3x0, M3x1, M3x2, M3x3 },
             }.GetEnumerator();
-
-        ///// <returns></returns>
-        ///// <summary>
-        ///// Get the enumerator.
-        ///// </summary>
-        ///// <returns>The <see cref="IEnumerator"/>.</returns>
-        //IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         /// <summary>
         /// Compares two <see cref="Matrix4x4D"/> instances for object equality.  In this equality

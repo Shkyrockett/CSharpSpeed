@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(PointNearLineSegmentTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -46,12 +46,12 @@ namespace InstrumentedLibrary
         /// <param name="y1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
-        /// <param name="close_distance"></param>
+        /// <param name="closeDistance"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static bool PointNearSegment(double px, double py, double x1, double y1, double x2, double y2, double close_distance)
-            => PointNearSegment1(px, py, x1, y1, x2, y2, close_distance);
+        public static bool PointNearSegment(double px, double py, double x1, double y1, double x2, double y2, double closeDistance)
+            => PointNearSegment1(px, py, x1, y1, x2, y2, closeDistance);
 
         /// <summary>
         /// The point near segment.
@@ -62,16 +62,16 @@ namespace InstrumentedLibrary
         /// <param name="y1">The y1.</param>
         /// <param name="x2">The x2.</param>
         /// <param name="y2">The y2.</param>
-        /// <param name="close_distance">The close_distance. Return True if (px, py) is within close_distance if the segment from (x1, y1) to (X2, y2).</param>
+        /// <param name="closeDistance">The close_distance. Return True if (px, py) is within close_distance if the segment from (x1, y1) to (X2, y2).</param>
         /// <returns>The <see cref="bool"/>.</returns>
         [DisplayName("Point Near Line Segment Tests")]
         [Description("Determines whether a point is near to a line segment.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointNearSegment1(double px, double py, double x1, double y1, double x2, double y2, double close_distance)
+        public static bool PointNearSegment1(double px, double py, double x1, double y1, double x2, double y2, double closeDistance)
         {
-            return DistanceToLineSegmentTests.DistanceToSegment(px, py, x1, y1, x2, y2) <= close_distance;
+            return DistanceToLineSegmentTests.DistanceToSegment(px, py, x1, y1, x2, y2) <= closeDistance;
         }
     }
 }

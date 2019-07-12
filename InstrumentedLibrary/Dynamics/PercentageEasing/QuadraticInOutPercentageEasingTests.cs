@@ -1,8 +1,11 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using static InstrumentedLibrary.EasingConstants;
+using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
 {
@@ -11,6 +14,16 @@ namespace InstrumentedLibrary
     /// </summary>
     public static class QuadraticInOutPercentageEasingTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double QuadInOut(double t)
+            => QuadInOut1( t);
+
         /// <summary>
         /// Easing equation function for a quadratic (t^2) easing in/out:
         /// acceleration until halfway, then deceleration.
@@ -22,9 +35,9 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double QuadInOut(double t)
+        public static double QuadInOut1(double t)
         {
-            return t <= 0.5d ? t * t * 2d : 1d - ((--t) * t * 2d);
+            return t <= OneHalf ? t * t * 2d : 1d - ((--t) * t * 2d);
         }
     }
 }

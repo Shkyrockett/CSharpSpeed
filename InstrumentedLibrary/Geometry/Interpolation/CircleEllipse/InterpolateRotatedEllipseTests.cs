@@ -50,7 +50,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double X, double Y) Ellipse(double t, double cX, double cY, double r1, double r2, double angle)
-            => Ellipse_(t, cX, cY, r1, r2, angle);
+            => Ellipse1(t, cX, cY, r1, r2, angle);
 
         /// <summary>
         /// Interpolate a point on an Ellipse.
@@ -71,7 +71,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Ellipse_(double t, double cX, double cY, double r1, double r2, double angle)
+        public static (double X, double Y) Ellipse1(double t, double cX, double cY, double r1, double r2, double angle)
             => Ellipse(Cos(t), Sin(t), cX, cY, r1, r2, Cos(angle), Sin(angle));
 
         /// <summary>

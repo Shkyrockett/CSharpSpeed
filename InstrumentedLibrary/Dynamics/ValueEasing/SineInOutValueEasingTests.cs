@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using CSharpSpeed;
 using static System.Math;
+using static InstrumentedLibrary.EasingConstants;
 using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
@@ -13,6 +15,19 @@ namespace InstrumentedLibrary
     /// </summary>
     public static class SineInOutValueEasingTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double SineInOut(double t, double b, double c, double d)
+            => SineInOut1( t,  b,  c,  d);
+
         /// <summary>
         /// Easing equation function for a sinusoidal (sin(t)) easing in/out:
         /// acceleration until halfway, then deceleration.
@@ -27,9 +42,9 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SineInOut(double t, double b, double c, double d)
+        public static double SineInOut1(double t, double b, double c, double d)
         {
-            return ((t /= d * 0.5d) < 1d) ? (c * 0.5d * Sin(HalfPi * t)) + b : (-c * 0.5d * (Cos(HalfPi * --t) - 2d)) + b;
+            return ((t /= d * OneHalf) < 1d) ? (c * OneHalf * Sin(HalfPi * t)) + b : (-c * OneHalf * (Cos(HalfPi * --t) - 2d)) + b;
         }
     }
 }

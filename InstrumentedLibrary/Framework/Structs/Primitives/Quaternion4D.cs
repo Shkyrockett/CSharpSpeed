@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Quaternion4D
-        : IFormattable
+        : IFormattable, IEquatable<Quaternion4D>
     {
         #region Static Fields
         /// <summary>
@@ -633,6 +633,24 @@ namespace InstrumentedLibrary
             if (this == null) return nameof(Quaternion4D);
             var sep = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
             return $"{nameof(Quaternion4D)}({nameof(X)}: {X.ToString(format, provider)}{sep} {nameof(Y)}: {Y.ToString(format, provider)}{sep} {nameof(Z)}: {Z.ToString(format, provider)}{sep} {nameof(W)}: {W.ToString(format, provider)})";
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public (double X, double Y, double Z, double W) To()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public Quaternion4D ToQuaternion4D()
+        {
+            throw new NotImplementedException();
         }
         #endregion Methods
     }

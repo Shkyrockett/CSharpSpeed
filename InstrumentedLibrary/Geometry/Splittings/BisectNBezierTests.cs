@@ -21,7 +21,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// The polygon centroid test.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(BisectNBezierTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -48,7 +48,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (Point2D[] A, Point2D[] B) BisectNBezier(Point2D[] points, double t)
-            => BisectNBezier_(points, t);
+            => BisectNBezier1(points, t);
 
         /// <summary>
         /// Cut a Bezier into multiple fragments at the given t indices, using "De Casteljau" algorithm.
@@ -56,7 +56,7 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="points">The points.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/#decasteljau
@@ -67,11 +67,11 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (Point2D[] A, Point2D[] B) BisectNBezier_(Point2D[] points, double t)
+        public static (Point2D[] A, Point2D[] B) BisectNBezier1(Point2D[] points, double t)
         {
             if (t < 0d || t > 1d)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(t));
             }
 
             var bezier2 = new List<Point2D>();

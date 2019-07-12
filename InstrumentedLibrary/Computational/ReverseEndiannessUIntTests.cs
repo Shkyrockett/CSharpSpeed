@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the 2D cubic interpolation of a point.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(ReverseEndiannessUIntTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -75,7 +75,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static uint ReverseEndianness_(uint value)
+        public static uint ReverseEndianness1(uint value)
         {
             // This takes advantage of the fact that the JIT can detect
             // ROL32 / ROR32 patterns and output the correct intrinsic.

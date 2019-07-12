@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the mixed product for three 3D points.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(MixedProduct3Vector3DTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -52,7 +52,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double MixedProduct3D(double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3)
-            => MixedProduct3D_0(x1, y1, z1, x2, y2, z2, x3, y3, z3);
+            => MixedProduct3D0(x1, y1, z1, x2, y2, z2, x3, y3, z3);
 
         /// <summary>
         /// The mixed product3d 0.
@@ -72,7 +72,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double MixedProduct3D_0(
+        public static double MixedProduct3D0(
             double x1, double y1, double z1,
             double x2, double y2, double z2,
             double x3, double y3, double z3)

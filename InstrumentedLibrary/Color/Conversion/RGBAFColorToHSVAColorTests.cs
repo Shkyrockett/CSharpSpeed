@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(RGBAFColorToHSVAColorTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -48,7 +48,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double hue, double saturation, double value, double alpha) RGBAFColorToHSVAColor(double red, double green, double blue, double alpha)
-            => RGBAFColorToHSVAColor_(red, green, blue, alpha);
+            => RGBAFColorToHSVAColor1(red, green, blue, alpha);
 
         /// <summary>
         /// The hsv create from rgb f.
@@ -64,7 +64,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double hue, double saturation, double value, double alpha) RGBAFColorToHSVAColor_(double red, double green, double blue, double alpha)
+        public static (double hue, double saturation, double value, double alpha) RGBAFColorToHSVAColor1(double red, double green, double blue, double alpha)
         {
             (double hue, double saturation, double value, double alpha) color = (0d, 0d, 0d, alpha);
             if (ValidateRGBAFloatTests.ValidateRGBAF(red, green, blue, alpha) == true)

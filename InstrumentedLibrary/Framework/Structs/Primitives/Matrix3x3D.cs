@@ -18,6 +18,7 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Matrix3x3D
+        : IEquatable<Matrix3x3D>
     {
         #region Static Fields
         /// <summary>
@@ -228,6 +229,16 @@ namespace InstrumentedLibrary
 
         #region Operators
         /// <summary>
+        /// Scale a point
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D operator *(Matrix3x3D left, Matrix3x3D right) => Multiply(left, right);
+
+        /// <summary>
         /// Compares two Matrix instances for exact equality.
         /// Note that double values can acquire error when operated upon, such that
         /// an exact comparison between two values which are logically equal may fail.
@@ -256,95 +267,122 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Matrix3x3D matrix1, Matrix3x3D matrix2) => !Equals(matrix1, matrix2);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static explicit operator Matrix3x3D(Matrix2x2D source) => FromMatrix2x2D(source);
+
+        /// <summary>
+        /// Tuple to <see cref="Matrix4x4D"/>.
+        /// </summary>
+        /// <param name="matrix"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator (double, double, double, double, double, double, double, double, double)(Matrix3x3D matrix)
+            => (matrix.M0x0, matrix.M0x1, matrix.M0x2, matrix.M1x0, matrix.M1x1, matrix.M1x2, matrix.M2x0, matrix.M2x1, matrix.M2x2);
+
+        /// <summary>
+        /// Tuple to <see cref="Matrix4x4D"/>.
+        /// </summary>
+        /// <param name="tuple"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Matrix3x3D((double, double, double, double, double, double, double, double, double) tuple) => new Matrix3x3D(tuple);
         #endregion Operators
 
         #region Factories
-        ///// <summary>
-        ///// The from rotation x.
-        ///// </summary>
-        ///// <param name="radianAngle">The radianAngle.</param>
-        ///// <returns>The <see cref="Matrix3x3D"/>.</returns>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static Matrix3x3D FromRotationX(double radianAngle)
-        //{
-        //    var sin = Sin(radianAngle);
-        //    var cos = Cos(radianAngle);
-        //    return new Matrix3x3D(
-        //        1, 0, 0,
-        //        0, cos, -sin,
-        //        0, sin, cos);
-        //}
+        /// <summary>
+        /// The from rotation x.
+        /// </summary>
+        /// <param name="radianAngle">The radianAngle.</param>
+        /// <returns>The <see cref="Matrix3x3D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D FromRotationX(double radianAngle)
+        {
+            var sin = Sin(radianAngle);
+            var cos = Cos(radianAngle);
+            return new Matrix3x3D(
+                1, 0, 0,
+                0, cos, -sin,
+                0, sin, cos);
+        }
 
-        ///// <summary>
-        ///// The from rotation y.
-        ///// </summary>
-        ///// <param name="radianAngle">The radianAngle.</param>
-        ///// <returns>The <see cref="Matrix3x3D"/>.</returns>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static Matrix3x3D FromRotationY(double radianAngle)
-        //{
-        //    var sin = Sin(radianAngle);
-        //    var cos = Cos(radianAngle);
-        //    return new Matrix3x3D(
-        //        cos, 0, -sin,
-        //        0, 1, 0,
-        //        sin, 0, cos);
-        //}
+        /// <summary>
+        /// The from rotation y.
+        /// </summary>
+        /// <param name="radianAngle">The radianAngle.</param>
+        /// <returns>The <see cref="Matrix3x3D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D FromRotationY(double radianAngle)
+        {
+            var sin = Sin(radianAngle);
+            var cos = Cos(radianAngle);
+            return new Matrix3x3D(
+                cos, 0, -sin,
+                0, 1, 0,
+                sin, 0, cos);
+        }
 
-        ///// <summary>
-        ///// The from rotation z.
-        ///// </summary>
-        ///// <param name="radianAngle">The radianAngle.</param>
-        ///// <returns>The <see cref="Matrix3x3D"/>.</returns>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static Matrix3x3D FromRotationZ(double radianAngle)
-        //{
-        //    var sin = Sin(radianAngle);
-        //    var cos = Cos(radianAngle);
-        //    return new Matrix3x3D(
-        //        cos, -sin, 0,
-        //        sin, cos, 0,
-        //        0, 0, 1);
-        //}
+        /// <summary>
+        /// The from rotation z.
+        /// </summary>
+        /// <param name="radianAngle">The radianAngle.</param>
+        /// <returns>The <see cref="Matrix3x3D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D FromRotationZ(double radianAngle)
+        {
+            var sin = Sin(radianAngle);
+            var cos = Cos(radianAngle);
+            return new Matrix3x3D(
+                cos, -sin, 0,
+                sin, cos, 0,
+                0, 0, 1);
+        }
 
-        ///// <summary>
-        ///// The from rotation axis using atan.
-        ///// </summary>
-        ///// <param name="radianAngle">The radianAngle.</param>
-        ///// <param name="axis">The axis.</param>
-        ///// <returns>The <see cref="Matrix3x3D"/>.</returns>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static Matrix3x3D FromRotationAxisUsingAtan(double radianAngle, Vector3D axis)
-        //{
-        //    double zAngle;
-        //    double yAngle;
-        //    if (axis.I == 0)
-        //    {
-        //        if (axis.J == 0)
-        //        {
-        //            return FromRotationZ(radianAngle);
-        //        }
-        //        else
-        //        {
-        //            zAngle = HalfPi;
-        //            yAngle = Atan(axis.K / axis.J);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        zAngle = Atan(axis.J / axis.I);
-        //        yAngle = Atan(axis.K / Sqrt((axis.I * axis.I) + (axis.J * axis.J)));
-        //    }
-        //    return FromRotationZ(-zAngle) *
-        //    FromRotationY(-yAngle) *
-        //    FromRotationX(radianAngle) *
-        //    FromRotationY(yAngle) *
-        //    FromRotationZ(zAngle);
-        //}
+        /// <summary>
+        /// The from rotation axis using atan.
+        /// </summary>
+        /// <param name="radianAngle">The radianAngle.</param>
+        /// <param name="axis">The axis.</param>
+        /// <returns>The <see cref="Matrix3x3D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D FromRotationAxisUsingAtan(double radianAngle, Vector3D axis)
+        {
+            double zAngle;
+            double yAngle;
+            if (axis.I == 0)
+            {
+                if (axis.J == 0)
+                {
+                    return FromRotationZ(radianAngle);
+                }
+                else
+                {
+                    zAngle = Maths.HalfPi;
+                    yAngle = Atan(axis.K / axis.J);
+                }
+            }
+            else
+            {
+                zAngle = Atan(axis.J / axis.I);
+                yAngle = Atan(axis.K / Sqrt((axis.I * axis.I) + (axis.J * axis.J)));
+            }
+            return FromRotationZ(-zAngle) *
+            FromRotationY(-yAngle) *
+            FromRotationX(radianAngle) *
+            FromRotationY(yAngle) *
+            FromRotationZ(zAngle);
+        }
 
         ///// <summary>
         ///// The from rotation axis.
@@ -459,15 +497,15 @@ namespace InstrumentedLibrary
                 0, 1, value.J,
                 0, 0, 1);
 
-        ///// <summary>
-        ///// Constructs this Matrix from 3 Euler angles, in degrees.
-        ///// </summary>
-        ///// <param name="yaw"></param>
-        ///// <param name="pitch"></param>
-        ///// <param name="roll"></param>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static Matrix3x3D FromEulerAnglesXYZ(double yaw, double pitch, double roll) => FromRotationX(yaw) * (FromRotationY(pitch) * FromRotationZ(roll));
+        /// <summary>
+        /// Constructs this Matrix from 3 Euler angles, in degrees.
+        /// </summary>
+        /// <param name="yaw"></param>
+        /// <param name="pitch"></param>
+        /// <param name="roll"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D FromEulerAnglesXYZ(double yaw, double pitch, double roll) => FromRotationX(yaw) * (FromRotationY(pitch) * FromRotationZ(roll));
 
         ///// <summary>
         ///// Parse a string for a <see cref="Matrix3x3D"/> value.
@@ -482,42 +520,61 @@ namespace InstrumentedLibrary
         //[MethodImpl(MethodImplOptions.AggressiveInlining)]
         //public static Matrix3x3D Parse(string source) => Parse(source, CultureInfo.InvariantCulture);
 
-    //    /// <summary>
-    //    /// Parse a string for a <see cref="Matrix3x2D"/> value.
-    //    /// </summary>
-    //    /// <param name="source"><see cref="string"/> with <see cref="Matrix3x2D"/> data </param>
-    //    /// <param name="provider"></param>
-    //    /// <returns>
-    //    /// Returns an instance of the <see cref="Matrix3x2D"/> struct converted
-    //    /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
-    //    /// </returns>
-    //    [DebuggerStepThrough]
-    //    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    //    public static Matrix3x3D Parse(string source, IFormatProvider provider)
-    //    {
-    //        var tokenizer = new Tokenizer(source, provider);
-    //        var firstToken = tokenizer.NextTokenRequired();
+        ///// <summary>
+        ///// Parse a string for a <see cref="Matrix3x2D"/> value.
+        ///// </summary>
+        ///// <param name="source"><see cref="string"/> with <see cref="Matrix3x2D"/> data </param>
+        ///// <param name="provider"></param>
+        ///// <returns>
+        ///// Returns an instance of the <see cref="Matrix3x2D"/> struct converted
+        ///// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        ///// </returns>
+        //[DebuggerStepThrough]
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static Matrix3x3D Parse(string source, IFormatProvider provider)
+        //{
+        //    var tokenizer = new Tokenizer(source, provider);
+        //    var firstToken = tokenizer.NextTokenRequired();
 
-    //        // The token will already have had whitespace trimmed so we can do a simple string compare.
-    //        var value = firstToken == nameof(Identity) ? Identity : new Matrix3x3D(
-    //            Convert.ToDouble(firstToken, provider),
-    //            Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-    //            Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-    //            Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-    //            Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-    //            Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-    //            Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-    //            Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
-    //            Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
-				//);
+        //    // The token will already have had whitespace trimmed so we can do a simple string compare.
+        //    var value = firstToken == nameof(Identity) ? Identity : new Matrix3x3D(
+        //        Convert.ToDouble(firstToken, provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider),
+        //        Convert.ToDouble(tokenizer.NextTokenRequired(), provider)
+        //    );
 
-    //        // There should be no more tokens in this string.
-    //        tokenizer.LastTokenRequired();
-    //        return value;
-    //    }
+        //    // There should be no more tokens in this string.
+        //    tokenizer.LastTokenRequired();
+        //    return value;
+        //}
         #endregion Factories
 
         #region Methods
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D Multiply(Matrix3x3D left, Matrix3x3D right)
+            => ((left.M0x0 * right.M0x0) + (left.M0x1 * right.M1x0) + (left.M0x2 * right.M2x0),
+                (left.M0x0 * right.M0x1) + (left.M0x1 * right.M1x1) + (left.M0x2 * right.M2x1),
+                (left.M0x0 * right.M0x2) + (left.M0x1 * right.M1x2) + (left.M0x2 * right.M2x2),
+                (left.M1x0 * right.M0x0) + (left.M1x1 * right.M1x0) + (left.M1x2 * right.M2x0),
+                (left.M1x0 * right.M0x1) + (left.M1x1 * right.M1x1) + (left.M1x2 * right.M2x1),
+                (left.M1x0 * right.M0x2) + (left.M1x1 * right.M1x2) + (left.M1x2 * right.M2x2),
+                (left.M2x0 * right.M0x0) + (left.M2x1 * right.M1x0) + (left.M2x2 * right.M2x0),
+                (left.M2x0 * right.M0x1) + (left.M2x1 * right.M1x1) + (left.M2x2 * right.M2x1),
+                (left.M2x0 * right.M0x2) + (left.M2x1 * right.M1x2) + (left.M2x2 * right.M2x2));
+
         /// <summary>
         /// Returns the HashCode for this Matrix
         /// </summary>
@@ -531,7 +588,9 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="T:IEnumerator{IEnumerable{double}}"/>.</returns>
+        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerator<IEnumerable<double>> GetEnumerator()
             => new List<List<double>>
             {
@@ -539,38 +598,6 @@ namespace InstrumentedLibrary
                 new List<double> { M1x0, M1x1, M1x2 },
                 new List<double> { M2x0, M2x1, M2x2 },
             }.GetEnumerator();
-
-        ///// <returns></returns>
-        ///// <summary>
-        ///// Get the enumerator.
-        ///// </summary>
-        ///// <returns>The <see cref="IEnumerator"/>.</returns>
-        //IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-        /// <summary>
-        /// Compares two Matrix instances for object equality.  In this equality
-        /// Double.NaN is equal to itself, unlike in numeric equality.
-        /// Note that double values can acquire error when operated upon, such that
-        /// an exact comparison between two values which
-        /// are logically equal may fail.
-        /// </summary>
-        /// <returns>
-        /// bool - true if the two Matrix instances are exactly equal, false otherwise
-        /// </returns>
-        /// <param name='matrix1'>The first Matrix to compare</param>
-        /// <param name='matrix2'>The second Matrix to compare</param>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Matrix3x3D matrix1, Matrix3x3D matrix2)
-            => matrix1.M0x0.Equals(matrix2.M0x0)
-                && matrix1.M0x1.Equals(matrix2.M0x1)
-                && matrix1.M0x2.Equals(matrix2.M0x2)
-                && matrix1.M1x0.Equals(matrix2.M1x0)
-                && matrix1.M1x1.Equals(matrix2.M1x1)
-                && matrix1.M1x2.Equals(matrix2.M1x2)
-                && matrix1.M2x0.Equals(matrix2.M2x0)
-                && matrix1.M2x1.Equals(matrix2.M2x1)
-                && matrix1.M2x2.Equals(matrix2.M2x2);
 
         /// <summary>
         /// Equals - compares this Matrix with the passed in object.  In this equality
@@ -601,6 +628,61 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Matrix3x3D value) => Equals(this, value);
+
+        /// <summary>
+        /// Compares two Matrix instances for object equality.  In this equality
+        /// Double.NaN is equal to itself, unlike in numeric equality.
+        /// Note that double values can acquire error when operated upon, such that
+        /// an exact comparison between two values which
+        /// are logically equal may fail.
+        /// </summary>
+        /// <returns>
+        /// bool - true if the two Matrix instances are exactly equal, false otherwise
+        /// </returns>
+        /// <param name='matrix1'>The first Matrix to compare</param>
+        /// <param name='matrix2'>The second Matrix to compare</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(Matrix3x3D matrix1, Matrix3x3D matrix2)
+            => matrix1.M0x0.Equals(matrix2.M0x0)
+                && matrix1.M0x1.Equals(matrix2.M0x1)
+                && matrix1.M0x2.Equals(matrix2.M0x2)
+                && matrix1.M1x0.Equals(matrix2.M1x0)
+                && matrix1.M1x1.Equals(matrix2.M1x1)
+                && matrix1.M1x2.Equals(matrix2.M1x2)
+                && matrix1.M2x0.Equals(matrix2.M2x0)
+                && matrix1.M2x1.Equals(matrix2.M2x1)
+                && matrix1.M2x2.Equals(matrix2.M2x2);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D FromMatrix2x2D(Matrix2x2D source)
+            => new Matrix3x3D(
+                source.M0x0, source.M0x1, 0,
+                source.M1x0, source.M1x1, 0,
+                0, 0, 1);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tuple"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Matrix3x3D From((double, double, double, double, double, double, double, double, double) tuple) => tuple;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (double, double, double, double, double, double, double, double, double) To() => this;
 
         /// <summary>
         /// Creates a string representation of this <see cref="Matrix3x2D"/> struct based on the current culture.

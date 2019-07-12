@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that evaluates a polynomial.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(EvaluatePolynomialTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -72,12 +72,15 @@ namespace InstrumentedLibrary
                 throw new ArithmeticException($"{nameof(Evaluate)}: parameter {nameof(x)} must be a number");
             }
 
-            var degree = coefficients.Length - 1;
             var result = 0d;
-
-            for (var i = degree; i >= 0; i--)
+            if (!(coefficients is null))
             {
-                result = result * x + coefficients[i];
+                var degree = coefficients.Length - 1;
+
+                for (var i = degree; i >= 0; i--)
+                {
+                    result = result * x + coefficients[i];
+                }
             }
 
             return result;
@@ -133,7 +136,7 @@ namespace InstrumentedLibrary
                 throw new ArithmeticException($"{nameof(Compute)}: parameter {nameof(x)} must be a number");
             }
 
-            var degree = coefficients.Length - 1;
+            var degree = coefficients?.Length - 1;
             var result = 0d;
             var ncoef = 1d;
             for (var i = 0; i <= degree; i++)

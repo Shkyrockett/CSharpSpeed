@@ -3,7 +3,7 @@
     /// <summary>
     /// The signs enum.
     /// </summary>
-    public enum Signs
+    public enum Sign
         : sbyte
     {
         /// <summary>

@@ -11,7 +11,7 @@
         ///// <summary>
         ///// Set of tests to run testing methods that calculate the 2D cubic interpolation of a point.
         ///// </summary>
-        ///// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        ///// <returns>The <see cref="List{T}"/>.</returns>
         //[DisplayName(nameof(InterpolateCubic2DTests))]
         //public static List<SpeedTester> TestHarness()
         //{

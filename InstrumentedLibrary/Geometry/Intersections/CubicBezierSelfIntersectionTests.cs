@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(CubicBezierSelfIntersectionTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -144,7 +144,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y)? CubicBezierSelfIntersection_(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
+        public static (double X, double Y)? CubicBezierSelfIntersection1(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
         {
             var (xCurveA, xCurveB, xCurveC, xCurveD) = CubicBezierCoefficientsTests.CubicBezierCoefficients(x0, x1, x2, x3);
             (var a, var b) = (xCurveD == 0d) ? (xCurveC, xCurveB) : (xCurveC / xCurveD, xCurveB / xCurveD);

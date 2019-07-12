@@ -3,7 +3,7 @@
     /// <summary>
     /// The rotation directions enum.
     /// </summary>
-    public enum RotationDirections
+    public enum RotationDirection
         : sbyte
     {
         /// <summary>

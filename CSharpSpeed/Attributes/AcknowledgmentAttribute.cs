@@ -5,6 +5,7 @@ namespace CSharpSpeed
     /// <summary>
     /// The acknowledgment attribute class.
     /// </summary>
+    [AttributeUsage(AttributeTargets.Enum | AttributeTargets.Interface | AttributeTargets.Delegate | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Method)]
     public class AcknowledgmentAttribute
         : Attribute
     {

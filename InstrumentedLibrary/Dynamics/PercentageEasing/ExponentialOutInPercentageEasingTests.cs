@@ -1,8 +1,11 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using static InstrumentedLibrary.EasingConstants;
+using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
 {
@@ -11,6 +14,16 @@ namespace InstrumentedLibrary
     /// </summary>
     public static class ExponentialOutInPercentageEasingTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double ExpoOutIn(double t)
+            => ExpoOutIn1( t);
+
         /// <summary>
         /// Easing equation function for an exponential (2^t) easing out/in:
         /// deceleration until halfway, then acceleration.
@@ -23,9 +36,9 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ExpoOutIn(double t)
+        public static double ExpoOutIn1(double t)
         {
-            return (t < 0.5d) ? ExponentialOutPercentageEasingTests.ExpoOut(t * 2d) : ExponentialInPercentageEasingTests.ExpoIn((t * 2d) - 1d);
+            return (t < OneHalf) ? ExponentialOutPercentageEasingTests.ExpoOut(t * 2d) : ExponentialInPercentageEasingTests.ExpoIn((t * 2d) - 1d);
         }
     }
 }

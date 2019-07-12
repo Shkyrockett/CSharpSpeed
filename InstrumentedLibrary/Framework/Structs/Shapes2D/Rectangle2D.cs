@@ -18,7 +18,7 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Rectangle2D
-        : IClosedShape, ICachableProperties
+        : IClosedShape, ICachableProperties, IEquatable<Rectangle2D>
     {
         #region Implementations
         /// <summary>
@@ -178,15 +178,7 @@ namespace InstrumentedLibrary
         [Description("The " + nameof(X) + " coordinate location of the " + nameof(Rectangle2D) + ".")]
         [RefreshProperties(RefreshProperties.All)]
         [DataMember(Name = nameof(X)), XmlAttribute(nameof(X)), SoapAttribute(nameof(X))]
-        public double X
-        {
-            get => x;
-            set
-            {
-                x = value;
-                (this as ICachableProperties).ClearCache();
-            }
-        }
+        public double X { get { return x; } set { x = value; (this as ICachableProperties).ClearCache(); } }
 
         /// <summary>
         /// Gets or sets the Y coordinate location of the rectangle.
@@ -197,15 +189,7 @@ namespace InstrumentedLibrary
         [Description("The " + nameof(Y) + " coordinate location of the " + nameof(Rectangle2D) + ".")]
         [RefreshProperties(RefreshProperties.All)]
         [DataMember(Name = nameof(Y)), XmlAttribute(nameof(Y)), SoapAttribute(nameof(Y))]
-        public double Y
-        {
-            get => y;
-            set
-            {
-                y = value;
-                (this as ICachableProperties).ClearCache();
-            }
-        }
+        public double Y { get { return y; } set { y = value; (this as ICachableProperties).ClearCache(); } }
 
         /// <summary>
         /// Gets or sets the width of the rectangle.
@@ -216,15 +200,7 @@ namespace InstrumentedLibrary
         [Description("The " + nameof(Width) + " of the " + nameof(Rectangle2D) + ".")]
         [RefreshProperties(RefreshProperties.All)]
         [DataMember(Name = nameof(Width)), XmlAttribute(nameof(Width)), SoapAttribute(nameof(Width))]
-        public double Width
-        {
-            get => width;
-            set
-            {
-                width = value;
-                (this as ICachableProperties).ClearCache();
-            }
-        }
+        public double Width { get { return width; } set { width = value; (this as ICachableProperties).ClearCache(); } }
 
         /// <summary>
         /// Gets or sets the height of the rectangle.
@@ -235,15 +211,7 @@ namespace InstrumentedLibrary
         [Description("The " + nameof(Height) + " of the " + nameof(Rectangle2D) + ".")]
         [RefreshProperties(RefreshProperties.All)]
         [DataMember(Name = nameof(Height)), XmlAttribute(nameof(Height)), SoapAttribute(nameof(Height))]
-        public double Height
-        {
-            get => height;
-            set
-            {
-                height = value;
-                (this as ICachableProperties).ClearCache();
-            }
-        }
+        public double Height { get { return height; } set { height = value; (this as ICachableProperties).ClearCache(); } }
 
         /// <summary>
         /// Gets or sets the location of the rectangle.
@@ -522,14 +490,19 @@ namespace InstrumentedLibrary
 
         #region Methods
         /// <summary>
-        /// Tests whether <paramref name="left"/> is a <see cref="Rectangle2D"/> with the same location and size of <paramref name="right"/>.
+        /// 
         /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Rectangle2D left, Rectangle2D right) => left.X == right.X && left.Y == right.Y && left.Width == right.Width && left.Height == right.Height;
+        /// <returns></returns>
+        public (double Left, double Top, double Width, double Height) To() => (x, y, width, height);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public Rectangle2D ToRectangle2D()
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Tests whether <paramref name="obj"/> is a <see cref="Rectangle2D"/> with the same location and size of this <see cref="Rectangle2D"/>.
@@ -538,7 +511,26 @@ namespace InstrumentedLibrary
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj) => obj != null && obj is Rectangle2D && Equals(this, (Rectangle2D)obj);
+        public override bool Equals(object obj) => obj is Rectangle2D && Equals(this, (Rectangle2D)obj);
+
+        /// <summary>
+        /// Tests whether <paramref name="left"/> is a <see cref="Rectangle2D"/> with the same location and size of <paramref name="right"/>.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(Rectangle2D left, Rectangle2D right) => left.Equals(right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Rectangle2D other) => other.X == X && other.Y == Y && other.Width == Width && other.Height == Height;
 
         /// <summary>
         /// Gets the hash code for this <see cref="Rectangle2D"/>.

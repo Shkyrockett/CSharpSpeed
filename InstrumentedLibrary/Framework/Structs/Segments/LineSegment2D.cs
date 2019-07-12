@@ -17,13 +17,13 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct LineSegment2D
-        : IShapeSegment, ICachableProperties
+        : IShapeSegment, ICachableProperties, IEquatable<LineSegment2D>
     {
         #region Implementations
         /// <summary>
         /// The empty.
         /// </summary>
-        public static LineSegment2D Empty = new LineSegment2D(0d, 0d, 0d, 0d);
+        public static readonly LineSegment2D Empty = new LineSegment2D(0d, 0d, 0d, 0d);
         #endregion
 
         #region Fields
@@ -186,6 +186,26 @@ namespace InstrumentedLibrary
 
         #region Operators
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator ==(LineSegment2D left, LineSegment2D right) => left.Equals(right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator !=(LineSegment2D left, LineSegment2D right) => !(left == right);
+
+        /// <summary>
         /// Implicit conversion from tuple.
         /// </summary>
         /// <param name="tuple"></param>
@@ -227,11 +247,47 @@ namespace InstrumentedLibrary
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="v"></param>
+        /// <param name="t"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2D Interpolate(double v) => new Point2D(InterpolateLinear2DTests.LinearInterpolate2D(v, A.X, A.Y, B.X, B.Y));
+        public Point2D Interpolate(double t) => new Point2D(InterpolateLinear2DTests.LinearInterpolate2D(t, A.X, A.Y, B.X, B.Y));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj) => obj is LineSegment2D && Equals((LineSegment2D)obj);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(LineSegment2D other) => other.aX == aX && other.aY == aY && other.bX == bX && other.bY == bY;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(LineSegment2D left, LineSegment2D right) => left.Equals(right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override int GetHashCode() => HashCode.Combine(aX, aY, bX, bY);
 
         /// <summary>
         /// 
@@ -248,6 +304,25 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public CubicBezier2D ToCubicBezier2D() => new CubicBezier2D(A.X, A.Y, B.X, B.Y);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public LineSegment2D ToLineSegment2D()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (double x1, double y1, double x2, double y2) To() => (aX, aY, bX, bY);
 
         /// <summary>
         /// Creates a <see cref="string"/> representation of this <see cref="IShape"/> interface based on the current culture.
@@ -267,11 +342,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider formatProvider)
         {
-            //if (this is null)
-            //{
-            //    return $"{nameof(Ray2D)}";
-            //}
-
+            if (this == null) return $"{nameof(Ray2D)}";
             var sep = ((formatProvider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
             return $"{nameof(Ray2D)}({nameof(A)}: {A.ToString(format, formatProvider)}{sep} {nameof(B)}: {B.ToString(format, formatProvider)})";
         }

@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using CSharpSpeed;
 using static System.Math;
+using static InstrumentedLibrary.EasingConstants;
+using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
 {
@@ -12,6 +15,19 @@ namespace InstrumentedLibrary
     /// </summary>
     public static class CircularInOutValueEasingTests
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [Signature]
+        public static double CircInOut(double t, double b, double c, double d)
+            => CircInOut1( t,  b,  c,  d);
+
         /// <summary>
         /// Easing equation function for a circular (sqrt(1-t^2)) easing in/out:
         /// acceleration until halfway, then deceleration.
@@ -26,9 +42,9 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CircInOut(double t, double b, double c, double d)
+        public static double CircInOut1(double t, double b, double c, double d)
         {
-            return ((t /= d / 2d) < 1d) ? (-c / 2d * (Sqrt(1d - (t * t)) - 1d)) + b : (c / 2d * (Sqrt(1d - ((t -= 2d) * t)) + 1d)) + b;
+            return ((t /= d * OneHalf) < 1d) ? (-c * OneHalf * (Sqrt(1d - (t * t)) - 1d)) + b : (c * OneHalf * (Sqrt(1d - ((t -= 2d) * t)) + 1d)) + b;
         }
     }
 }

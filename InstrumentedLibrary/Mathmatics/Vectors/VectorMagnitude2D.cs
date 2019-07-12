@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(ToDegreesTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -46,7 +46,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double Magnitude(double i, double j)
-            => Magnitude_(i, j);
+            => Magnitude1(i, j);
 
         /// <summary>
         /// The Magnitude of a two dimensional Vector.
@@ -59,7 +59,7 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Magnitude_(double i, double j)
+        public static double Magnitude1(double i, double j)
         {
             return Math.Sqrt((i * i) + (j * j));
         }

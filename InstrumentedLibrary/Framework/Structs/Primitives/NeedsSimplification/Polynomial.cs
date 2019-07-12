@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
     [ComVisible(true)]
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
-    public struct Polynomial
+    public struct Polynomial : IEquatable<Polynomial>
     {
         #region Constants
         /// <summary>
@@ -38,7 +38,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// An empty polynomial.
         /// </summary>
-        public static Polynomial Empty = new Polynomial(0);
+        public static readonly Polynomial Empty = new Polynomial(0);
 
         /// <summary>
         /// The T Identity polynomial.
@@ -115,7 +115,7 @@ namespace InstrumentedLibrary
             {
                 if (index < 0)
                 {
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(index));
                 }
 
                 if (index >= coefficients.Length)
@@ -134,7 +134,7 @@ namespace InstrumentedLibrary
 
                 if (index < 0 || index > coefficients.Length)
                 {
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(index));
                 }
 
                 coefficients[coefficients.Length - 1 - index] = value;
@@ -159,7 +159,7 @@ namespace InstrumentedLibrary
             {
                 if (index < 0)
                 {
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(index));
                 }
 
                 if ((int)index >= coefficients.Length)
@@ -178,7 +178,7 @@ namespace InstrumentedLibrary
 
                 if (index < 0 || (int)index > coefficients.Length)
                 {
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(index));
                 }
 
                 coefficients[coefficients.Length - 1 - (int)index] = value;
@@ -203,7 +203,7 @@ namespace InstrumentedLibrary
             {
                 if (index < 0)
                 {
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(index));
                 }
 
                 if ((int)index >= coefficients.Length)
@@ -222,7 +222,7 @@ namespace InstrumentedLibrary
 
                 if (index < 0 || (int)index > coefficients.Length)
                 {
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(index));
                 }
 
                 coefficients[(int)index] = value;
@@ -1000,7 +1000,7 @@ namespace InstrumentedLibrary
         /// Get the standard base.
         /// </summary>
         /// <param name="degree">The degree.</param>
-        /// <returns>The <see cref="T:Polynomial[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <exception cref="ArgumentException"></exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1235,7 +1235,7 @@ namespace InstrumentedLibrary
         /// Will try to solve root analytically, and if it can will use numerical approach.
         /// </summary>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:IEnumerable{double}"/>.</returns>
+        /// <returns>The <see cref="IEnumerable{T}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerable<double> RealOrComplexRoots(double epsilon = Epsilon)
@@ -1254,7 +1254,7 @@ namespace InstrumentedLibrary
         /// This method use the Durand-Kerner aka Weierstrass algorithm to find approximate root of this polynomial.
         /// </summary>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:Complex[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// http://en.wikipedia.org/wiki/Durand%E2%80%93Kerner_method
@@ -1266,7 +1266,7 @@ namespace InstrumentedLibrary
             var poly = Normalize();
             if (poly.Count == 1)
             {
-                return new Complex[0];
+                return Array.Empty<Complex>();
             }
 
             var order = (int)poly.Degree;
@@ -1336,7 +1336,7 @@ namespace InstrumentedLibrary
         /// <param name="min">The min.</param>
         /// <param name="max">The max.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:double[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
         /// </acknowledgment>
@@ -1405,7 +1405,7 @@ namespace InstrumentedLibrary
         /// Find the Roots of up to Quintic degree <see cref="Polynomial"/>s.
         /// </summary>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:double[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
         /// </acknowledgment>
@@ -1599,17 +1599,17 @@ namespace InstrumentedLibrary
             for (var i = (coefficients?.Length ?? 0) - 1; i >= 0; i--)
             {
                 var value = coefficients[i];
-                var powStr = i.ToString();
-                powStr = powStr.Replace("1", "¹");
-                powStr = powStr.Replace("2", "²");
-                powStr = powStr.Replace("3", "³");
-                powStr = powStr.Replace("4", "⁴");
-                powStr = powStr.Replace("5", "⁵");
-                powStr = powStr.Replace("6", "⁶");
-                powStr = powStr.Replace("7", "⁷");
-                powStr = powStr.Replace("8", "⁸");
-                powStr = powStr.Replace("9", "⁹");
-                powStr = powStr.Replace("0", "⁰");
+                var powStr = i.ToString(CultureInfo.InvariantCulture);
+                powStr = powStr.Replace("1", "¹", true, CultureInfo.InvariantCulture);
+                powStr = powStr.Replace("2", "²", true, CultureInfo.InvariantCulture);
+                powStr = powStr.Replace("3", "³", true, CultureInfo.InvariantCulture);
+                powStr = powStr.Replace("4", "⁴", true, CultureInfo.InvariantCulture);
+                powStr = powStr.Replace("5", "⁵", true, CultureInfo.InvariantCulture);
+                powStr = powStr.Replace("6", "⁶", true, CultureInfo.InvariantCulture);
+                powStr = powStr.Replace("7", "⁷", true, CultureInfo.InvariantCulture);
+                powStr = powStr.Replace("8", "⁸", true, CultureInfo.InvariantCulture);
+                powStr = powStr.Replace("9", "⁹", true, CultureInfo.InvariantCulture);
+                powStr = powStr.Replace("0", "⁰", true, CultureInfo.InvariantCulture);
                 if (value != 0)
                 {
                     var sign = (value < 0) ? " - " : " + ";
@@ -1648,6 +1648,79 @@ namespace InstrumentedLibrary
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static Polynomial Plus(Polynomial item)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Polynomial Add(Polynomial left, Polynomial right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static Polynomial Negate(Polynomial item)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Polynomial Subtract(Polynomial left, Polynomial right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Polynomial Multiply(Polynomial left, Polynomial right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static Polynomial Divide(Polynomial left, Polynomial right)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public Polynomial ToPolynomial()
+        {
+            throw new NotImplementedException();
         }
         #endregion Standard Methods
     }

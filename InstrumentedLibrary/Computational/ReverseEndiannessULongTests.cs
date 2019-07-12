@@ -19,7 +19,7 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Set of tests to run testing methods that calculate the 2D cubic interpolation of a point.
         /// </summary>
-        /// <returns>The <see cref="T:List{SpeedTester}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         [DisplayName(nameof(ReverseEndiannessULongTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -74,13 +74,13 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ulong ReverseEndianness_(ulong value)
+        public static ulong ReverseEndianness1(ulong value)
         {
             // Operations on 32-bit values have higher throughput than
             // operations on 64-bit values, so decompose.
 
-            return ((ulong)ReverseEndiannessUIntTests.ReverseEndianness_((uint)value) << 32)
-                + ReverseEndiannessUIntTests.ReverseEndianness_((uint)(value >> 32));
+            return ((ulong)ReverseEndiannessUIntTests.ReverseEndianness1((uint)value) << 32)
+                + ReverseEndiannessUIntTests.ReverseEndianness1((uint)(value >> 32));
         }
 
         /// <summary>
