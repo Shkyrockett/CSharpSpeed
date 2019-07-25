@@ -20,6 +20,10 @@
     <Optimize>false</Optimize>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
+  
+  <PropertyGroup>
+    <DefineConstants Condition="$(TargetFramework.StartsWith('netcoreapp'))">$(DefineConstants);HAS_INTRINSICS</DefineConstants>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.4-beta1.final" />

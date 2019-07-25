@@ -10,6 +10,10 @@ using System.Management;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
+#if HAS_INTRINSICS
+using System.Runtime.Intrinsics;
+using System.Runtime.Intrinsics.X86;
+#endif
 
 namespace CSharpSpeedConsole
 {
@@ -113,6 +117,24 @@ namespace CSharpSpeedConsole
             sb.AppendLine($"> **Physical Memory:**  ");
             sb.Append($"{physicalMemory}");
 
+#if HAS_INTRINSICS
+            sb.AppendLine("> **System.Runtime.Intrinsics.X86 support**  ");
+            sb.AppendLine($"> Is {nameof(Aes)} supported? {Aes.IsSupported}  ");
+            sb.AppendLine($"> Is {nameof(Avx)} supported? {Avx.IsSupported}  ");
+            sb.AppendLine($"> Is {nameof(Avx2)} supported? {Avx2.IsSupported}  ");
+            sb.AppendLine($"> Is {nameof(Bmi1)} supported? {Bmi1.IsSupported}  ");
+            sb.AppendLine($"> Is {nameof(Bmi2)} supported? {Bmi2.IsSupported}  ");
+            sb.AppendLine($"> Is {nameof(Fma)} supported? {Fma.IsSupported}  ");
+            sb.AppendLine($"> Is {nameof(Lzcnt)} supported? {Lzcnt.IsSupported}  ");
+            sb.AppendLine($"> Is {nameof(Pclmulqdq)} supported? {Pclmulqdq.IsSupported}  ");
+            sb.AppendLine($"> Is {nameof(Popcnt)} supported? {Popcnt.IsSupported}  ");
+            sb.AppendLine($"> Is {nameof(Sse)} supported? {Sse.IsSupported}  ");
+            sb.AppendLine($"> Is {nameof(Sse2)} supported? {Sse2.IsSupported}  ");
+            sb.AppendLine($"> Is {nameof(Sse3)} supported? {Sse3.IsSupported}  ");
+            sb.AppendLine($"> Is {nameof(Sse41)} supported? {Sse41.IsSupported}  ");
+            sb.AppendLine($"> Is {nameof(Sse42)} supported? {Sse42.IsSupported}  ");
+#endif
+
             sb.AppendLine();
             sb.AppendLine("## Results");
             sb.AppendLine();
@@ -213,7 +235,7 @@ namespace CSharpSpeedConsole
             stream.Write(sb.ToString());
         }
 
-        #region Helper Methods
+#region Helper Methods
         /// <summary>
         /// The processor name.
         /// </summary>
@@ -278,6 +300,6 @@ namespace CSharpSpeedConsole
             }
             return number.ToString(provider ?? CultureInfo.CurrentCulture);
         }
-        #endregion Helper Methods
+#endregion Helper Methods
     }
 }

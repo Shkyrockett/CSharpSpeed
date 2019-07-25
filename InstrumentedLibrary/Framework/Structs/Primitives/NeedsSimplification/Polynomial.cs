@@ -239,7 +239,7 @@ namespace InstrumentedLibrary
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public PolynomialDegree Degree
             // If degree uninitialized look up the real order then cache it and return.
-            => (degree ??= RealOrder(Epsilon)).Value;
+            => (degree ??= RealOrder(Epsilon));
 
         /// <summary>
         /// Gets the raw number of coefficients found in the polynomial, including any leading zero coefficients.
@@ -690,7 +690,7 @@ namespace InstrumentedLibrary
             }
 
             // Get the real degree to skip any leading zero coefficients.
-            var order = (int)(degree ??= RealOrder(epsilon)).Value + 1; /*Warning! Side effect!*/
+            var order = (int)(degree ??= RealOrder(epsilon)) + 1; /*Warning! Side effect!*/
 
             // Copy the remaining coefficients to a new array and return it.
             var coeffs = new double[order];
