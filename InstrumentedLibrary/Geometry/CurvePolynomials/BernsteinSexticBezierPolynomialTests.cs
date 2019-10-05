@@ -13,13 +13,13 @@ namespace InstrumentedLibrary
     [DisplayName("Sextic Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a Sextic Bezier Curve.")]
     [SourceCodeLocationProvider]
-    public static class SexticBezierCoefficientsTests
+    public static class BernsteinSexticBezierPolynomialTests
     {
         /// <summary>
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="List{T}"/>.</returns>
-        [DisplayName(nameof(SexticBezierCoefficientsTests))]
+        [DisplayName(nameof(BernsteinSexticBezierPolynomialTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 1000;
@@ -98,7 +98,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F, double G) SexticBezierCoefficientsGeneral(double a, double b, double c, double d, double e, double f, double g)
         {
-            var polynomial = RecursiveBezierCoefficientsTests.BezierCoefficientsRecursive(a, b, c, d, e, f, g);
+            var polynomial = BernsteinRecursiveBezierPolynomialTests.BezierCoefficientsRecursive(a, b, c, d, e, f, g);
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d], polynomial[PolynomialTerm.e], polynomial[PolynomialTerm.f], polynomial[PolynomialTerm.g]);
         }
 
@@ -124,7 +124,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F, double G) SexticBezierCoefficientsRecursive(double a, double b, double c, double d, double e, double f, double g)
         {
-            var polynomial = (Polynomial.OneMinusT * QuinticBezierCoefficientsTests.QuinticBezierCoefficients(a, b, c, d, e, f)) + (Polynomial.T * QuinticBezierCoefficientsTests.QuinticBezierCoefficients(b, c, d, e, f, g));
+            var polynomial = (Polynomial.OneMinusT * BernsteinQuinticBezierPolynomialTests.QuinticBezierCoefficients(a, b, c, d, e, f)) + (Polynomial.T * BernsteinQuinticBezierPolynomialTests.QuinticBezierCoefficients(b, c, d, e, f, g));
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d], polynomial[PolynomialTerm.e], polynomial[PolynomialTerm.f], polynomial[PolynomialTerm.g]);
         }
     }

@@ -1,4 +1,5 @@
 ﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -20,13 +21,15 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="List{T}"/>.</returns>
+        /// <returns>
+        /// The <see cref="List{T}" />.
+        /// </returns>
         [DisplayName(nameof(CircleLineIntersectionTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 1d, 1d, 2d, 1.5d, 1.5d, 3d, 3d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue:15d, epsilon: double.Epsilon) },
+                { new object[] { 1d, 1d, 2d, 1.5d, 1.5d, 3d, 3d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: new (double X, double Y)[]{(2.414213562373095d, 2.414213562373095d), (-0.4142135623730949d, -0.4142135623730949d)}, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -39,20 +42,20 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// 
+        /// Circles the line segment intersection.
         /// </summary>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="radius"></param>
-        /// <param name="lAX"></param>
-        /// <param name="lAY"></param>
-        /// <param name="lBX"></param>
-        /// <param name="lBY"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="cX">The c x.</param>
+        /// <param name="cY">The c y.</param>
+        /// <param name="radius">The radius.</param>
+        /// <param name="lAX">The l ax.</param>
+        /// <param name="lAY">The l ay.</param>
+        /// <param name="lBX">The l bx.</param>
+        /// <param name="lBY">The l by.</param>
+        /// <param name="epsilon">The epsilon.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static Intersection CircleLineSegmentIntersection(double cX, double cY, double radius, double lAX, double lAY, double lBX, double lBY, double epsilon = Epsilon)
+        public static (double X, double Y)[] CircleLineSegmentIntersection(double cX, double cY, double radius, double lAX, double lAY, double lBX, double lBY, double epsilon = Epsilon)
             => LineCircle(cX, cY, radius, lAX, lAY, lBX, lBY, epsilon);
 
         /// <summary>
@@ -76,14 +79,9 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection LineCircle(
-            double cX, double cY,
-            double radius,
-            double lAX, double lAY,
-            double lBX, double lBY,
-            double epsilon = Epsilon)
+        public static (double X, double Y)[] LineCircle(double cX, double cY, double radius, double lAX, double lAY, double lBX, double lBY, double epsilon = Epsilon)
         {
-            double t;
+            //double t;
 
             var dx = lBX - lAX;
             var dy = lBY - lAY;
@@ -92,29 +90,32 @@ namespace InstrumentedLibrary
             var B = 2d * (dx * (lAX - cX) + dy * (lAY - cY));
             var C = (lAX - cX) * (lAX - cX) + (lAY - cY) * (lAY - cY) - radius * radius;
 
-            var det = B * B - 4 * A * C;
-            if ((A <= epsilon) || (det < 0))
+            var det = B * B - 4d * A * C;
+            if ((A <= epsilon) || (det < 0d))
             {
                 // No real solutions.
-                return new Intersection(IntersectionStates.NoIntersection);
+                //return new Intersection(IntersectionStates.NoIntersection);
+                return Array.Empty<(double X, double Y)>();
             }
             else if (Abs(det) < DoubleEpsilon)
             {
                 // One solution.
-                t = -B / (2 * A);
-                var intersection = new Intersection(IntersectionStates.Intersection);
-                intersection.AppendPoint((lAX + t * dx, lAY + t * dy));
-                return intersection;
+                var t = -B / (2d * A);
+                //var intersection = new Intersection(IntersectionStates.Intersection);
+                //intersection.AppendPoint((lAX + t * dx, lAY + t * dy));
+                return new (double X, double Y)[] { (lAX + t * dx, lAY + t * dy) };
+                //return intersection;
             }
             else
             {
                 // Two solutions.
-                var intersection = new Intersection(IntersectionStates.Intersection);
-                t = (-B + Sqrt(det)) / (2d * A);
-                intersection.AppendPoint((lAX + t * dx, lAY + t * dy));
-                t = (-B - Sqrt(det)) / (2d * A);
-                intersection.AppendPoint((lAX + t * dx, lAY + t * dy));
-                return intersection;
+                //var intersection = new Intersection(IntersectionStates.Intersection);
+                var t1 = (-B + Sqrt(det)) / (2d * A);
+                //intersection.AppendPoint((lAX + t1 * dx, lAY + t1 * dy));
+                var t2 = (-B - Sqrt(det)) / (2d * A);
+                //intersection.AppendPoint((lAX + t2 * dx, lAY + t2 * dy));
+                return new (double X, double Y)[] { (lAX + t1 * dx, lAY + t1 * dy), (lAX + t2 * dx, lAY + t2 * dy) };
+                //return intersection;
             }
         }
 
@@ -139,20 +140,16 @@ namespace InstrumentedLibrary
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection CircleLineIntersection(
-            double cX, double cY,
-            double r,
-            double lAX, double lAY,
-            double lBX, double lBY,
-            double epsilon = Epsilon)
+        public static (double X, double Y)[] CircleLineIntersection(double cX, double cY, double r, double lAX, double lAY, double lBX, double lBY, double epsilon = Epsilon)
         {
             _ = epsilon;
-            var result = new Intersection(IntersectionStates.NoIntersection);
+            //var result = new Intersection(IntersectionStates.NoIntersection);
 
             // If the circle or line segment are empty, return no intersections.
             if ((r == 0d) || ((lAX == lBX) && (lAY == lBY)))
             {
-                return result;
+                return Array.Empty<(double X, double Y)>();
+                //return result;
             }
 
             var dx = lBX - lAX;
@@ -164,34 +161,38 @@ namespace InstrumentedLibrary
             var c = (lAX - cX) * (lAX - cX) + (lAY - cY) * (lAY - cY) - r * r;
 
             // Calculate the discriminant.
-            var discriminant = b * b - 4 * a * c;
+            var discriminant = b * b - 4d * a * c;
 
-            if ((a <= Epsilon) || (discriminant < 0))
+            if ((a <= Epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
+                return Array.Empty<(double X, double Y)>();
             }
-            else if (discriminant == 0)
+            else if (discriminant == 0d)
             {
                 // One possible solution.
-                var t = -b / (2 * a);
+                var t = -b / (2d * a);
 
                 // Add the points.
-                result = new Intersection(IntersectionStates.Intersection);
-                result.AppendPoint(new Point2D(lAX + t * dx, lAY + t * dy));
+                //result = new Intersection(IntersectionStates.Intersection);
+                //result.AppendPoint(new Point2D(lAX + t * dx, lAY + t * dy));
+                return new (double X, double Y)[] { (lAX + t * dx, lAY + t * dy) };
             }
-            else if (discriminant > 0)
+            else if (discriminant > 0d)
             {
                 // Two possible solutions.
-                var t1 = (-b + Sqrt(discriminant)) / (2 * a);
-                var t2 = (-b - Sqrt(discriminant)) / (2 * a);
+                var t1 = (-b + Sqrt(discriminant)) / (2d * a);
+                var t2 = (-b - Sqrt(discriminant)) / (2d * a);
 
                 // Add the points.
-                result = new Intersection(IntersectionStates.Intersection);
-                result.AppendPoint(new Point2D(lAX + t1 * dx, lAY + t1 * dy));
-                result.AppendPoint(new Point2D(lAX + t2 * dx, lAY + t2 * dy));
+                //result = new Intersection(IntersectionStates.Intersection);
+                //result.AppendPoint(new Point2D(lAX + t1 * dx, lAY + t1 * dy));
+                //result.AppendPoint(new Point2D(lAX + t2 * dx, lAY + t2 * dy));
+                return new (double X, double Y)[] { (lAX + t1 * dx, lAY + t1 * dy), (lAX + t2 * dx, lAY + t2 * dy) };
             }
 
-            return result;
+            //return result;
+            return Array.Empty<(double X, double Y)>();
         }
     }
 }

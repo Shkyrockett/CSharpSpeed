@@ -19,7 +19,9 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Matrix2x2D
-        : IEquatable<Matrix2x2D>
+        : IFormattable,
+        IEquatable<Matrix2x2D>,
+        IPrintable
     {
         #region Static Fields
         /// <summary>

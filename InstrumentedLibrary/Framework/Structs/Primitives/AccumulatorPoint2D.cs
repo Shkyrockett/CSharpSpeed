@@ -18,7 +18,9 @@ namespace InstrumentedLibrary
     [DebuggerDisplay("{ToString()}")]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public struct AccumulatorPoint2D
-        : IFormattable, IEquatable<AccumulatorPoint2D>
+        : IFormattable,
+        IEquatable<AccumulatorPoint2D>,
+        IPrintable
     {
         #region Implementations
         /// <summary>

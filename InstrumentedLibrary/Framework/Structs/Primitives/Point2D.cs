@@ -18,7 +18,10 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Point2D
-        : IShapeSegment, IEquatable<Point2D>
+        : IFormattable,
+        IShapeSegment,
+        IEquatable<Point2D>,
+        IPrintable
     {
         #region Implementations
         /// <summary>

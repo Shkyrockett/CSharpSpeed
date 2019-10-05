@@ -18,7 +18,10 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Vector2D
-        : IFormattable, IShapeSegment, IEquatable<Vector2D>
+        : IFormattable,
+        IShapeSegment,
+        IEquatable<Vector2D>,
+        IPrintable
     {
         #region Static Fields
         /// <summary>

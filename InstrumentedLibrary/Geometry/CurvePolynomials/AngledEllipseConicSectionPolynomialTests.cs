@@ -9,7 +9,7 @@ namespace InstrumentedLibrary
     /// <summary>
     /// 
     /// </summary>
-    public static class ConvertAngledEllipseToConicSectionSexticTests
+    public static class AngledEllipseConicSectionPolynomialTests
     {
         /// <summary>
         /// Converts the ellipse to conic section sextic.

@@ -13,13 +13,13 @@ namespace InstrumentedLibrary
     [DisplayName("Quartic Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a Quartic Bezier Curve.")]
     [SourceCodeLocationProvider]
-    public static class QuarticBezierCoefficientsTests
+    public static class BernsteinQuarticBezierPolynomialTests
     {
         /// <summary>
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="List{T}"/>.</returns>
-        [DisplayName(nameof(QuarticBezierCoefficientsTests))]
+        [DisplayName(nameof(BernsteinQuarticBezierPolynomialTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 1000;
@@ -95,7 +95,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E) QuarticBezierCoefficientsGeneral(double a, double b, double c, double d, double e)
         {
-            var polynomial = RecursiveBezierCoefficientsTests.BezierCoefficientsRecursive(a, b, c, d, e);
+            var polynomial = BernsteinRecursiveBezierPolynomialTests.BezierCoefficientsRecursive(a, b, c, d, e);
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d], polynomial[PolynomialTerm.e]);
         }
 
@@ -119,7 +119,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E) QuarticBezierCoefficientsRecursive(double a, double b, double c, double d, double e)
         {
-            var polynomial = (Polynomial.OneMinusT * CubicBezierCoefficientsTests.CubicBezierCoefficients(a, b, c, d)) + (Polynomial.T * CubicBezierCoefficientsTests.CubicBezierCoefficients(b, c, d, e));
+            var polynomial = (Polynomial.OneMinusT * BernsteinCubicBezierPolynomialTests.CubicBezierCoefficients(a, b, c, d)) + (Polynomial.T * BernsteinCubicBezierPolynomialTests.CubicBezierCoefficients(b, c, d, e));
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d], polynomial[PolynomialTerm.e]);
         }
     }

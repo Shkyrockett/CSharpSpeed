@@ -17,7 +17,9 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Size3D
-        : IFormattable, IEquatable<Size3D>
+        : IFormattable,
+        IEquatable<Size3D>,
+        IPrintable
     {
         #region Implementations
         /// <summary>

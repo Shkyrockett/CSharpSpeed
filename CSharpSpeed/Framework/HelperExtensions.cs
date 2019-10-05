@@ -1,5 +1,8 @@
-﻿using System;
+﻿using InstrumentedLibrary;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Numerics;
 using System.Reflection;
@@ -108,8 +111,10 @@ namespace CSharpSpeed
             // This mess is to make sure to print reproducible floating point values in order to be able to correct test cases, and enable printing some complex types.
             return value switch
             {
+                null => "null",
                 float f => $"{f:R}",
                 double d => $"{d:R}",
+                IPrintable i => i.ToString("R", CultureInfo.InvariantCulture),
                 ValueTuple<float, float> t => $"({t.Item1:R}, {t.Item2:R})",
                 ValueTuple<double, double> t => $"({t.Item1:R}, {t.Item2:R})",
                 ValueTuple<float, float, float> t => $"({t.Item1:R}, {t.Item2:R}, {t.Item3:R})",
@@ -196,7 +201,6 @@ namespace CSharpSpeed
                 List<Complex> l => $"List\\<Complex\\> {{{string.Join(", ", l.Select(x => $"{x:R}"))}}}",
                 IList<Complex> l => $"IList\\<Complex\\> {{{string.Join(", ", l.Select(x => $"{x:R}"))}}}",
                 object[] l => $"object\\[\\] {{{string.Join(", ", l.Select(x => x?.ToString() ?? "Null"))}}}",
-                null => "Null",
                 _ => value?.ToString(),
             };
         }
@@ -1010,5 +1014,19 @@ namespace CSharpSpeed
 
             return equivalency;
         }
+
+        /// <summary>
+        /// Elapsed the nano seconds.
+        /// </summary>
+        /// <param name="watch">The watch.</param>
+        /// <returns></returns>
+        public static long ElapsedNanoSeconds(this Stopwatch watch) => watch?.ElapsedTicks * 1000000000L / Stopwatch.Frequency ?? 0L;
+
+        /// <summary>
+        /// Elapsed the micro seconds.
+        /// </summary>
+        /// <param name="watch">The watch.</param>
+        /// <returns></returns>
+        public static long ElapsedMicroSeconds(this Stopwatch watch) => watch?.ElapsedTicks * 1000000L / Stopwatch.Frequency ?? 0L;
     }
 }

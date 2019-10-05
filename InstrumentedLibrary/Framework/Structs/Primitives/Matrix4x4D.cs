@@ -18,7 +18,9 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Matrix4x4D
-        : IEquatable<Matrix4x4D>
+        : IFormattable,
+        IEquatable<Matrix4x4D>,
+        IPrintable
     {
         #region Static Fields
         /// <summary>

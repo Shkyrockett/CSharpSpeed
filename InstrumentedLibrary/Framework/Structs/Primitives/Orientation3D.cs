@@ -14,7 +14,10 @@ namespace InstrumentedLibrary
     [ComVisible(true)]
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
-    public struct Orientation3D : IEquatable<Orientation3D>
+    public struct Orientation3D
+        : IFormattable,
+        IEquatable<Orientation3D>,
+        IPrintable
     {
         #region Constructors
         /// <summary>

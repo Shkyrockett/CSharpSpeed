@@ -13,13 +13,13 @@ namespace InstrumentedLibrary
     [DisplayName("Decic Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a Decic Bezier Curve.")]
     [SourceCodeLocationProvider]
-    public static class DecicBezierCoefficientsTests
+    public static class BernsteinDecicBezierPolynomialTests
     {
         /// <summary>
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="List{T}"/>.</returns>
-        [DisplayName(nameof(DecicBezierCoefficientsTests))]
+        [DisplayName(nameof(BernsteinDecicBezierPolynomialTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 1000;
@@ -114,7 +114,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, double K) DecicBezierCoefficientsGeneral0(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k)
         {
-            var polynomial = RecursiveBezierCoefficientsTests.BezierCoefficientsRecursive(a, b, c, d, e, f, g, h, i, j, k);
+            var polynomial = BernsteinRecursiveBezierPolynomialTests.BezierCoefficientsRecursive(a, b, c, d, e, f, g, h, i, j, k);
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d], polynomial[PolynomialTerm.e], polynomial[PolynomialTerm.f], polynomial[PolynomialTerm.g], polynomial[PolynomialTerm.h], polynomial[PolynomialTerm.i], polynomial[PolynomialTerm.j], polynomial[PolynomialTerm.k]);
         }
 
@@ -144,7 +144,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, double K) DecicBezierCoefficientsRecursive(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k)
         {
-            var polynomial = (Polynomial.OneMinusT * NonicBezierCoefficientsTests.NonicBezierCoefficients(a, b, c, d, e, f, g, h, i, j)) + (Polynomial.T * NonicBezierCoefficientsTests.NonicBezierCoefficients(b, c, d, e, f, g, h, i, j, k));
+            var polynomial = (Polynomial.OneMinusT * BernsteinNonicBezierPolynomialTests.NonicBezierCoefficients(a, b, c, d, e, f, g, h, i, j)) + (Polynomial.T * BernsteinNonicBezierPolynomialTests.NonicBezierCoefficients(b, c, d, e, f, g, h, i, j, k));
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d], polynomial[PolynomialTerm.e], polynomial[PolynomialTerm.f], polynomial[PolynomialTerm.g], polynomial[PolynomialTerm.h], polynomial[PolynomialTerm.i], polynomial[PolynomialTerm.j], polynomial[PolynomialTerm.k]);
         }
     }

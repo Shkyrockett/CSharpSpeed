@@ -122,7 +122,8 @@ namespace CSharpSpeed
                 GCSettings.LatencyMode = oldMode;
                 //GC.EndNoGCRegion();
 
-                testCase.Value.TotalRunningTime = (int)watch.ElapsedMilliseconds;
+                testCase.Value.TotalRunningTime = (int)watch.ElapsedNanoSeconds();
+                //testCase.Value.TotalRunningTime = (int)watch.ElapsedMilliseconds;
             }
         }
 
@@ -237,7 +238,8 @@ namespace CSharpSpeed
             var sb = new Dictionary<object[], string>();
             foreach (var testcase in TestCases)
             {
-                sb.Add(testcase.Key, $"| [{Member}({testcase.Key.ArrayToString()})](#{((DisplayNameAttribute)Method?.GetCustomAttribute(typeof(DisplayNameAttribute)))?.DisplayName.Replace(" ", "-")}) | {testcase.Value.ReturnValue.ObjectValueToString()} {testcase.Equivalency()} {testcase.Value.ExpectedReturnValue.ObjectValueToString()} | {testcase.Value.Trials} in {testcase.Value.TotalRunningTime} ms. {testcase.Value.AverageRunningTime:R} ms. average | {testcase.Value.Description} |");
+                var equivalency = testcase.Equivalency();
+                sb.Add(testcase.Key, $"| [{Member}({testcase.Key.ArrayToString()})](#{((DisplayNameAttribute)Method?.GetCustomAttribute(typeof(DisplayNameAttribute)))?.DisplayName.Replace(" ", "-")}) | {(equivalency=="!="?"<span style = \"color: red;\" >": "<span style = \"color: green;\">")} {testcase.Value.ReturnValue.ObjectValueToString()} { "</span>" } {equivalency} {testcase.Value.ExpectedReturnValue.ObjectValueToString()} | {testcase.Value.Trials} in {testcase.Value.TotalRunningTime} ns. {testcase.Value.AverageRunningTime:R} ns. average | {testcase.Value.Description} |");
             }
             return sb;
         }

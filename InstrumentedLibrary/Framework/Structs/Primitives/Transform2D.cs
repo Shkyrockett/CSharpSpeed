@@ -15,7 +15,9 @@ namespace InstrumentedLibrary
     [ComVisible(true)]
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
-    public struct Transform2D : IEquatable<Transform2D>
+    public struct Transform2D
+        : IEquatable<Transform2D>,
+        IPrintable
     {
         #region Implementations
         /// <summary>

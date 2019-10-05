@@ -18,7 +18,9 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Quaternion4D
-        : IFormattable, IEquatable<Quaternion4D>
+        : IFormattable,
+        IEquatable<Quaternion4D>,
+        IPrintable
     {
         #region Static Fields
         /// <summary>

@@ -11,7 +11,11 @@ namespace InstrumentedLibrary
     /// <summary>
     /// The intersection struct.
     /// </summary>
-    public struct Intersection : IEquatable<Intersection>
+    /// <seealso cref="IEquatable{T}" />
+    /// <seealso cref="IPrintable" />
+    public struct Intersection
+        : IEquatable<Intersection>,
+        IPrintable
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Intersection"/> class.
@@ -192,9 +196,13 @@ namespace InstrumentedLibrary
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Intersection a, Intersection b) => (a.State == b.State) && (a.Items == b.Items);
+        public static bool Equals(Intersection a, Intersection b)
+        {
+            if (a.State != b.State) return false;
+            return (a.Items is null || b.Items is null) ? (a.Items is null && b.Items is null) : a.Items.SequenceEqual(b.Items);
+        }
 
         /// <summary>
         /// The equals.
@@ -215,6 +223,16 @@ namespace InstrumentedLibrary
         public bool Equals(Intersection value) => Equals(this, value);
 
         /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public new string ToString() => ToString("R", CultureInfo.InvariantCulture);
+
+        /// <summary>
         /// Creates a string representation of this <see cref="Size2D"/> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
@@ -222,7 +240,7 @@ namespace InstrumentedLibrary
         /// <returns>A string representation of this <see cref="Size2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
+        public string ToString(IFormatProvider provider) => ToString("R", provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Intersection"/> struct based on the format string
@@ -233,13 +251,13 @@ namespace InstrumentedLibrary
         /// <param name="format">The format.</param>
         /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
         /// <returns>A string representation of this <see cref="Intersection"/>.</returns>
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider provider)
         {
             _ = format;
             var sep = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
-            return $"{nameof(Intersection)}({nameof(State)}: {State}{sep} {nameof(Items)}: {string.Join(sep, Items)})";
+            return $"{nameof(Intersection)}({nameof(State)}: {State}{sep} {nameof(Items)}: {(Items is null ? "null" : string.Join(sep, Items))})";
         }
     }
 }

@@ -11,22 +11,22 @@ namespace InstrumentedLibrary
     public static class GetNonicPolynomialFromQuinticBezierAndPointTests
     {
         /// <summary>
-        /// 
+        /// Gets the nonic polynomial from quintic bezier and point.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="dX"></param>
-        /// <param name="dY"></param>
-        /// <param name="eX"></param>
-        /// <param name="fX"></param>
-        /// <param name="fY"></param>
-        /// <param name="eY"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="aX">a x.</param>
+        /// <param name="aY">a y.</param>
+        /// <param name="bX">The b x.</param>
+        /// <param name="bY">The b y.</param>
+        /// <param name="cX">The c x.</param>
+        /// <param name="cY">The c y.</param>
+        /// <param name="dX">The d x.</param>
+        /// <param name="dY">The d y.</param>
+        /// <param name="eX">The e x.</param>
+        /// <param name="fX">The f x.</param>
+        /// <param name="fY">The f y.</param>
+        /// <param name="eY">The e y.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/
@@ -46,7 +46,7 @@ namespace InstrumentedLibrary
             var t1 = 45 * aX * aX + 45 * aY * aY - 90 * aX * bX + 25 * bX * bX - 90 * aY * bY + 25 * bY * bY + 20 * aX * cX + 20 * aY * cY - 20 * aX * x + 40 * bX * x - 20 * cX * x - 20 * aY * y + 40 * bY * y - 20 * cY * y;
             var t0 = -5 * aX * aX - 5 * aY * aY + 5 * aX * bX + 5 * aY * bY + 5 * aX * x - 5 * bX * x + 5 * aY * y - 5 * bY * y;
 
-            return (t0 / t9, t1 / t9, t2 / t9, t3 / t9, t4 / t9, t5 / t9, t6 / t9, t7 / t9, t8 / t9, 1d);
+            return t9 == 0 ? (t0, t1, t2, t3, t4, t5, t6, t7, t8, 1d) : (t0 / t9, t1 / t9, t2 / t9, t3 / t9, t4 / t9, t5 / t9, t6 / t9, t7 / t9, t8 / t9, 1d);
         }
     }
 }

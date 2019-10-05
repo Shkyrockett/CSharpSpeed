@@ -39,16 +39,16 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// 
+        /// Circles the line segment intersection.
         /// </summary>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="r"></param>
-        /// <param name="lAX"></param>
-        /// <param name="lAY"></param>
-        /// <param name="lBX"></param>
-        /// <param name="lBY"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="cX">The c x.</param>
+        /// <param name="cY">The c y.</param>
+        /// <param name="r">The r.</param>
+        /// <param name="lAX">The l ax.</param>
+        /// <param name="lAY">The l ay.</param>
+        /// <param name="lBX">The l bx.</param>
+        /// <param name="lBY">The l by.</param>
+        /// <param name="epsilon">The epsilon.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
@@ -58,14 +58,14 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Find the points of the intersection of a circle and a line segment.
         /// </summary>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="r"></param>
-        /// <param name="lAX"></param>
-        /// <param name="lAY"></param>
-        /// <param name="lBX"></param>
-        /// <param name="lBY"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="cX">The c x.</param>
+        /// <param name="cY">The c y.</param>
+        /// <param name="r">The r.</param>
+        /// <param name="lAX">The l ax.</param>
+        /// <param name="lAY">The l ay.</param>
+        /// <param name="lBX">The l bx.</param>
+        /// <param name="lBY">The l by.</param>
+        /// <param name="epsilon">The epsilon.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/

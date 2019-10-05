@@ -11,27 +11,27 @@ namespace InstrumentedLibrary
     public static class GetSepticPolynomialFromQuarticBezierAndPointTests
     {
         /// <summary>
-        /// 
+        /// Gets the quintic polynomial from cubic bezier and point.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="dX"></param>
-        /// <param name="dY"></param>
-        /// <param name="eX"></param>
-        /// <param name="eY"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="aX">a x.</param>
+        /// <param name="aY">a y.</param>
+        /// <param name="bX">The b x.</param>
+        /// <param name="bY">The b y.</param>
+        /// <param name="cX">The c x.</param>
+        /// <param name="cY">The c y.</param>
+        /// <param name="dX">The d x.</param>
+        /// <param name="dY">The d y.</param>
+        /// <param name="eX">The e x.</param>
+        /// <param name="eY">The e y.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double a, double b, double c, double d, double e, double f, double g, double h) GetQuinticPolynomialFromCubicBezierAndPoint(
+        public static (double a, double b, double c, double d, double e, double f, double g, double h) GetSepticPolynomialFromQuarticBezierAndPoint(
             double aX, double aY,
             double bX, double bY,
             double cX, double cY,
@@ -48,7 +48,7 @@ namespace InstrumentedLibrary
             var t1 = (-12d * x * aX) + (28d * aX * aX) + (24d * x * bX) - (56d * aX * bX) + (16d * bX * bX) - (12d * x * cX) + (12d * aX * cX) - (12d * y * aY) + (28d * aY * aY) + (24d * y * bY) - (56d * aY * bY) + (16d * bY * bY) - (12d * y * cY) + (12d * aY * cY);
             var t0 = (4d * x * aX) - (4d * aX * aX) - (4d * x * bX) + (4d * aX * bX) + (4d * y * aY) - (4d * aY * aY) - (4d * y * bY) + (4d * aY * bY);
 
-            return (t0 / t7, t1 / t7, t2 / t7, t3 / t7, t4 / t7, t5 / t7, t6 / t7, 1d);
+            return t7 == 0 ? (t0, t1, t2, t3, t4, t5, t6, 1d) : (t0 / t7, t1 / t7, t2 / t7, t3 / t7, t4 / t7, t5 / t7, t6 / t7, 1d);
         }
     }
 }

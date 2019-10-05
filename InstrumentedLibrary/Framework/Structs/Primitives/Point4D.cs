@@ -17,7 +17,9 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Point4D
-        : IFormattable, IEquatable<Point4D>
+        : IFormattable,
+        IEquatable<Point4D>,
+        IPrintable
     {
         #region Implementations
         /// <summary>

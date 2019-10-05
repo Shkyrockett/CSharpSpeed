@@ -11,18 +11,18 @@ namespace InstrumentedLibrary
     public static class GetQuinticPolynomialFromCubicBezierAndPointTests
     {
         /// <summary>
-        /// 
+        /// Gets the quintic polynomial from cubic bezier and point.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="dX"></param>
-        /// <param name="dY"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="aX">a x.</param>
+        /// <param name="aY">a y.</param>
+        /// <param name="bX">The b x.</param>
+        /// <param name="bY">The b y.</param>
+        /// <param name="cX">The c x.</param>
+        /// <param name="cY">The c y.</param>
+        /// <param name="dX">The d x.</param>
+        /// <param name="dY">The d y.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/
@@ -43,7 +43,7 @@ namespace InstrumentedLibrary
             var t1 = (-6d * x * aX) + (15d * aX * aX) + (12d * x * bX) - (30d * aX * bX) + (9d * bX * bX) - (6d * x * cX) + (6d * aX * cX) - (6d * y * aY) + (15d * aY * aY) + (12d * y * bY) - (30d * aY * bY) + (9d * bY * bY) - (6d * y * cY) + (6d * aY * cY);
             var t0 = (3d * x * aX) - (3d * aX * aX) - (3d * x * bX) + (3d * aX * bX) + (3d * y * aY) - (3d * aY * aY) - (3d * y * bY) + (3d * aY * bY);
 
-            return (t0 / t5, t1 / t5, t2 / t5, t3 / t5, t4 / t5, 1d);
+            return t5 == 0 ? (t0, t1, t2, t3, t4, 1d) : (t0 / t5, t1 / t5, t2 / t5, t3 / t5, t4 / t5, 1d);
         }
     }
 }

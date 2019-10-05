@@ -20,7 +20,9 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Matrix3x2D
-        : IEnumerable, IEquatable<Matrix3x2D>
+        : IEnumerable,
+        IEquatable<Matrix3x2D>,
+        IPrintable
     {
         #region Implementations
         /// <summary>

@@ -16,18 +16,18 @@ namespace InstrumentedLibrary
     [DisplayName("Ellipse, Ellipse Intersection Tests")]
     [Description("Finds the intersection points of two Ellipse.")]
     [SourceCodeLocationProvider]
-    public static class UnrotatedEllipseUnrotatedEllipseIntersectionTests
+    public static class OrthogonalEllipseOrthogonalEllipseIntersectionTests
     {
         /// <summary>
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="List{T}"/>.</returns>
-        [DisplayName(nameof(UnrotatedEllipseUnrotatedEllipseIntersectionTests))]
+        [DisplayName(nameof(OrthogonalEllipseOrthogonalEllipseIntersectionTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 2d, 2d, 1d, 0d, 2d, 2d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: true, epsilon: double.Epsilon) },
+                { new object[] { 0d, 0d, 2d, 2d, 1d, 0d, 2d, 2d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: new Intersection(IntersectionStates.Intersection, new List<(double X, double Y)> {(X: 0.5d, Y: 1.9364916731037085d), (X: 0.5d, Y: -1.9364916731037085d)}), double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -40,17 +40,17 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// 
+        /// Unrotated ellipse unrotated ellipse intersection.
         /// </summary>
-        /// <param name="acX"></param>
-        /// <param name="acY"></param>
-        /// <param name="arX"></param>
-        /// <param name="arY"></param>
-        /// <param name="bcX"></param>
-        /// <param name="bcY"></param>
-        /// <param name="brX"></param>
-        /// <param name="brY"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="acX">The ac x.</param>
+        /// <param name="acY">The ac y.</param>
+        /// <param name="arX">The ar x.</param>
+        /// <param name="arY">The ar y.</param>
+        /// <param name="bcX">The bc x.</param>
+        /// <param name="bcY">The bc y.</param>
+        /// <param name="brX">The br x.</param>
+        /// <param name="brY">The br y.</param>
+        /// <param name="epsilon">The epsilon.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
@@ -58,16 +58,81 @@ namespace InstrumentedLibrary
             => Intersect(acX, acY, arX, arY, bcX, bcY, brX, brY, epsilon);
 
         /// <summary>
+        /// Find the intersection between two orthogonal ellipses.
+        /// </summary>
+        /// <param name="c1X">The c1X.</param>
+        /// <param name="c1Y">The c1Y.</param>
+        /// <param name="rx1">The rx1.</param>
+        /// <param name="ry1">The ry1.</param>
+        /// <param name="c2X">The c2X.</param>
+        /// <param name="c2Y">The c2Y.</param>
+        /// <param name="rx2">The rx2.</param>
+        /// <param name="ry2">The ry2.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
+        [DisplayName("Orthogonal Ellipse, Orthogonal Ellipse Intersection Tests")]
+        [Description("Finds the intersection points of two Ellipse.")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection OrthogonalEllipseOrthogonalEllipseIntersection(
+            double c1X, double c1Y, double rx1, double ry1,
+            double c2X, double c2Y, double rx2, double ry2,
+            double epsilon = Epsilon)
+        {
+            // Polynomials representing the orthogonal Ellipses.
+            var a = OrthagonalEllipseConicSectionPolynomialTests.OrthogonalEllipseConicPolynomial(c1X, c1Y, rx1, ry1);
+            var b = OrthagonalEllipseConicSectionPolynomialTests.OrthogonalEllipseConicPolynomial(c2X, c2Y, rx2, ry2);
+
+            var yRoots = new Polynomial(EllipseBezoutPolynomialTests.Bezout(a, b)).Trim().Roots();
+
+            var norm0 = ((a.a * a.a) + (2d * a.b * a.b) + (a.c * a.c)) * epsilon;
+            //var norm1 = ((b.a * b.a) + (2d * b.b * b.b) + (b.c * b.c)) * epsilon;
+
+            var result = new Intersection(IntersectionStates.NoIntersection);
+            for (var y = 0; y < yRoots.Length; y++)
+            {
+                var xRoots = new Polynomial(
+                    a.a,
+                    a.d + (yRoots[y] * a.b),
+                    a.f + (yRoots[y] * (a.e + (yRoots[y] * a.c))),
+                    epsilon).Trim().Roots();
+                for (var x = 0; x < xRoots.Length; x++)
+                {
+                    var test = (((a.a * xRoots[x]) + (a.b * yRoots[y]) + a.d) * xRoots[x]) + (((a.c * yRoots[y]) + a.e) * yRoots[y]) + a.f;
+                    if (Abs(test) < norm0)
+                    {
+                        test = (((b.a * xRoots[x]) + (b.b * yRoots[y]) + b.d) * xRoots[x]) + (((b.c * yRoots[y]) + b.e) * yRoots[y]) + b.f;
+                        if (Abs(test) < 1)//norm1) // Using norm1 breaks when an ellipse intersects another ellipse that 
+                        {
+                            result.AppendPoint(new Point2D(xRoots[x], yRoots[y]));
+                        }
+                    }
+                }
+            }
+
+            if (result.Items.Count > 0)
+            {
+                result.State = IntersectionStates.Intersection;
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Finds Intersection of two Ellipse'
         /// </summary>
-        /// <param name="acX"></param>
-        /// <param name="acY"></param>
-        /// <param name="arX"></param>
-        /// <param name="arY"></param>
-        /// <param name="bcX"></param>
-        /// <param name="bcY"></param>
-        /// <param name="brX"></param>
-        /// <param name="brY"></param>
+        /// <param name="h1"></param>
+        /// <param name="k1"></param>
+        /// <param name="a1"></param>
+        /// <param name="b1"></param>
+        /// <param name="h2"></param>
+        /// <param name="k2"></param>
+        /// <param name="a2"></param>
+        /// <param name="b2"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <acknowledgment>
@@ -79,44 +144,40 @@ namespace InstrumentedLibrary
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersect(
-            double acX, double acY, double arX, double arY,
-            double bcX, double bcY, double brX, double brY,
+            double h1, double k1, double a1, double b1,
+            double h2, double k2, double a2, double b2,
             double epsilon = Epsilon)
         {
-            var ellipseA = (Center: (X: acX, Y: acY), MajorRadius: Max(arX, arY));
-            var ellipseB = (Center: (X: bcX, Y: bcY), MajorRadius: Max(brX, brY));
+            var MajorRadius1 = Max(a1, b1);
+            var MajorRadius2 = Max(a2, b2);
 
-            var result = new Intersection(IntersectionStates.NoIntersection);
-
-            var d = ellipseB.Center.X * ellipseB.Center.X - ellipseA.Center.X * ellipseA.Center.X - ellipseB.MajorRadius * ellipseB.MajorRadius - Pow(ellipseB.Center.Y - ellipseA.Center.Y, 2) + ellipseA.MajorRadius * ellipseA.MajorRadius;
-            var a = Pow(2d * ellipseA.Center.X - 2d * ellipseB.Center.X, 2d) + 4d * Pow(ellipseB.Center.Y - ellipseA.Center.Y, 2d);
-            var b = 2d * d * (2d * ellipseA.Center.X - 2d * ellipseB.Center.X) - 8d * ellipseB.Center.X * Pow(ellipseB.Center.Y - ellipseA.Center.Y, 2d);
-            var C = 4d * ellipseB.Center.X * ellipseB.Center.X * Pow(ellipseB.Center.Y - ellipseA.Center.Y, 2d) + d * d - 4d * Pow(ellipseB.Center.Y - ellipseA.Center.Y, 2d) * ellipseB.MajorRadius * ellipseB.MajorRadius;
+            var d = h2 * h2 - h1 * h1 - MajorRadius2 * MajorRadius2 - (k2 - k1) * (k2 - k1) + MajorRadius1 * MajorRadius1;
+            var a = (2d * h1 - 2d * h2) * (2d * h1 - 2d * h2) + 4d * (k2 - k1) * (k2 - k1);
+            var b = 2d * d * (2d * h1 - 2d * h2) - 8d * h2 * (k2 - k1) * (k2 - k1);
+            var C = 4d * h2 * h2 * (k2 - k1) * (k2 - k1) + d * d - 4d * (k2 - k1) * (k2 - k1) * MajorRadius2 * MajorRadius2;
             var XA = (-b + Sqrt(b * b - 4d * a * C)) / (2d * a);
             var XB = (-b - Sqrt(b * b - 4d * a * C)) / (2d * a);
-            var YA = Sqrt(ellipseA.MajorRadius * ellipseA.MajorRadius - Pow(XA - ellipseA.Center.X, 2)) + ellipseA.Center.Y;
-            var YB = -Sqrt(ellipseA.MajorRadius * ellipseA.MajorRadius - Pow(XA - ellipseA.Center.X, 2)) + ellipseA.Center.Y;
-            var YC = Sqrt(ellipseA.MajorRadius * ellipseA.MajorRadius - Pow(XB - ellipseA.Center.X, 2)) + ellipseA.Center.Y;
-            var YD = -Sqrt(ellipseA.MajorRadius * ellipseA.MajorRadius - Pow(XB - ellipseA.Center.X, 2)) + ellipseA.Center.Y;
-            var e = XA - ellipseB.Center.X + Pow(YA - ellipseB.Center.Y, 2) - ellipseB.MajorRadius * ellipseB.MajorRadius;
-            var F = XA - ellipseB.Center.X + Pow(YB - ellipseB.Center.Y, 2) - ellipseB.MajorRadius * ellipseB.MajorRadius;
-            var g = XB - ellipseB.Center.X + Pow(YC - ellipseB.Center.Y, 2) - ellipseB.MajorRadius * ellipseB.MajorRadius;
-            var H = XB - ellipseB.Center.X + Pow(YD - ellipseB.Center.Y, 2) - ellipseB.MajorRadius * ellipseB.MajorRadius;
-            if (Abs(F) < Abs(e))
+            var YA = Sqrt(MajorRadius1 * MajorRadius1 - (XA - h1) * (XA - h1)) + k1;
+            var YB = -Sqrt(MajorRadius1 * MajorRadius1 - (XA - h1) * (XA - h1)) + k1;
+            var YC = Sqrt(MajorRadius1 * MajorRadius1 - (XB - h1) * (XB - h1)) + k1;
+            var YD = -Sqrt(MajorRadius1 * MajorRadius1 - (XB - h1) * (XB - h1)) + k1;
+
+            if (Abs(XA - h2 + (YB - k2) * (YB - k2) - MajorRadius2 * MajorRadius2) < Abs(XA - h2 + (YA - k2) * (YA - k2) - MajorRadius2 * MajorRadius2))
             {
                 YA = YB;
             }
 
-            if (Abs(H) < Abs(g))
+            if (Abs(XB - h2 + (YD - k2) * (YD - k2) - MajorRadius2 * MajorRadius2) < Abs(XB - h2 + (YC - k2) * (YC - k2) - MajorRadius2 * MajorRadius2))
             {
                 YC = YD;
             }
 
-            if (Abs(ellipseA.Center.Y - ellipseB.Center.Y) < epsilon)
+            if (Abs(k1 - k2) < epsilon)
             {
-                YC = 2 * ellipseA.Center.Y - YA;
+                YC = 2 * k1 - YA;
             }
 
+            var result = new Intersection(IntersectionStates.NoIntersection);
             result.AppendPoint((XA, YA));
             result.AppendPoint((XB, YC));
             result.State = IntersectionStates.Intersection;
@@ -380,21 +441,21 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Calculate G'(x).
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="A1"></param>
-        /// <param name="B1"></param>
-        /// <param name="C1"></param>
-        /// <param name="D1"></param>
-        /// <param name="E1"></param>
-        /// <param name="F1"></param>
-        /// <param name="sign1"></param>
-        /// <param name="A2"></param>
-        /// <param name="B2"></param>
-        /// <param name="C2"></param>
-        /// <param name="D2"></param>
-        /// <param name="E2"></param>
-        /// <param name="F2"></param>
-        /// <param name="sign2"></param>
+        /// <param name="x">The x.</param>
+        /// <param name="A1">The a1.</param>
+        /// <param name="B1">The b1.</param>
+        /// <param name="C1">The c1.</param>
+        /// <param name="D1">The d1.</param>
+        /// <param name="E1">The e1.</param>
+        /// <param name="F1">The f1.</param>
+        /// <param name="sign1">The sign1.</param>
+        /// <param name="A2">The a2.</param>
+        /// <param name="B2">The b2.</param>
+        /// <param name="C2">The c2.</param>
+        /// <param name="D2">The d2.</param>
+        /// <param name="E2">The e2.</param>
+        /// <param name="F2">The f2.</param>
+        /// <param name="sign2">The sign2.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/

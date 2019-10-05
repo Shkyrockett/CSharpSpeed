@@ -16,13 +16,13 @@ namespace InstrumentedLibrary
     [DisplayName("Orthogonal Ellipse Line Segment Intersection Tests")]
     [Description("Finds the intersection points of an Orthogonal Ellipse and a Line Segment Intersection.")]
     [SourceCodeLocationProvider]
-    public static class UnrotatedEllipseLineSegmentIntersectionTests
+    public static class OrthogonalEllipseLineSegmentIntersectionTests
     {
         /// <summary>
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="List{T}"/>.</returns>
-        [DisplayName(nameof(UnrotatedEllipseLineSegmentIntersectionTests))]
+        [DisplayName(nameof(OrthogonalEllipseLineSegmentIntersectionTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;

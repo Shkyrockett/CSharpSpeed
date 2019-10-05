@@ -15,13 +15,13 @@ namespace InstrumentedLibrary
     [DisplayName("Intersection of unrotated elliptical arc and line segment")]
     [Description("Find the intersection points between unrotated elliptical and arc line segment.")]
     [SourceCodeLocationProvider]
-    public static class UnrotatedEllipticalArcLineSegmentIntersectionTests
+    public static class OrthogonalEllipticalArcLineSegmentIntersectionTests
     {
         /// <summary>
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="List{T}"/>.</returns>
-        [DisplayName(nameof(UnrotatedEllipticalArcLineSegmentIntersectionTests))]
+        [DisplayName(nameof(OrthogonalEllipticalArcLineSegmentIntersectionTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 10000;
@@ -39,19 +39,19 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// 
+        /// Unrotated elliptical arc line segment intersection.
         /// </summary>
-        /// <param name="cx"></param>
-        /// <param name="cy"></param>
-        /// <param name="rx"></param>
-        /// <param name="ry"></param>
-        /// <param name="startAngle"></param>
-        /// <param name="sweepAngle"></param>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="cx">The cx.</param>
+        /// <param name="cy">The cy.</param>
+        /// <param name="rx">The rx.</param>
+        /// <param name="ry">The ry.</param>
+        /// <param name="startAngle">The start angle.</param>
+        /// <param name="sweepAngle">The sweep angle.</param>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="epsilon">The epsilon.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]

@@ -17,7 +17,9 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Vector3D
-        : IFormattable, IEquatable<Vector3D>
+        : IFormattable,
+        IEquatable<Vector3D>,
+        IPrintable
     {
         #region Static Fields
         /// <summary>

@@ -35,7 +35,7 @@ namespace CSharpSpeed
         public int Trials { get; private set; }
 
         /// <summary>
-        /// Gets the total milliseconds it took to run the method trials.
+        /// Gets the total nanoseconds it took to run the method trials.
         /// </summary>
         [DisplayName("Total Running Time")]
         public int? TotalRunningTime { get; set; } = null;

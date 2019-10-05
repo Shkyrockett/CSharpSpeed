@@ -144,7 +144,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(PolygonContour2D other) => other.Points == Points;
+        public bool Equals(PolygonContour2D other) => other.Points.SequenceEqual(Points);
 
         /// <summary>
         /// Tests whether <paramref name="left"/> is a <see cref="PolygonContour2D"/> with the same as <paramref name="right"/>.

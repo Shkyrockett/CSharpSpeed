@@ -75,8 +75,8 @@ namespace InstrumentedLibrary
         public static (double X, double Y)? CubicBezierSelfIntersectionX(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
         {
             return CubicBezierSelfIntersectionX(
-                CubicBezierCoefficientsTests.CubicBezierCoefficients(x0, x1, x2, x3),
-                CubicBezierCoefficientsTests.CubicBezierCoefficients(y0, y1, y2, y3));
+                BernsteinCubicBezierPolynomialTests.CubicBezierCoefficients(x0, x1, x2, x3),
+                BernsteinCubicBezierPolynomialTests.CubicBezierCoefficients(y0, y1, y2, y3));
         }
 
         /// <summary>
@@ -146,9 +146,9 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y)? CubicBezierSelfIntersection1(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
         {
-            var (xCurveA, xCurveB, xCurveC, xCurveD) = CubicBezierCoefficientsTests.CubicBezierCoefficients(x0, x1, x2, x3);
+            var (xCurveA, xCurveB, xCurveC, xCurveD) = BernsteinCubicBezierPolynomialTests.CubicBezierCoefficients(x0, x1, x2, x3);
             (var a, var b) = (xCurveD == 0d) ? (xCurveC, xCurveB) : (xCurveC / xCurveD, xCurveB / xCurveD);
-            var (yCurveA, yCurveB, yCurveC, yCurveD) = CubicBezierCoefficientsTests.CubicBezierCoefficients(y0, y1, y2, y3);
+            var (yCurveA, yCurveB, yCurveC, yCurveD) = BernsteinCubicBezierPolynomialTests.CubicBezierCoefficients(y0, y1, y2, y3);
             (var p, var q) = (yCurveD == 0d) ? (yCurveC, yCurveB) : (yCurveC / yCurveD, yCurveB / yCurveD);
 
             if (a == p || q == b)

@@ -13,13 +13,13 @@ namespace InstrumentedLibrary
     [DisplayName("Quadratic Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a Quadratic Bezier Curve.")]
     [SourceCodeLocationProvider]
-    public static class QuadraticBezierCoefficientsTests
+    public static class BernsteinQuadraticBezierPolynomialTests
     {
         /// <summary>
         /// Set of tests to run testing methods that calculate the Polynomial Bezier Coefficients.
         /// </summary>
         /// <returns>The <see cref="List{T}"/>.</returns>
-        [DisplayName(nameof(QuadraticBezierCoefficientsTests))]
+        [DisplayName(nameof(BernsteinQuadraticBezierPolynomialTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 1000;
@@ -88,7 +88,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C) QuadraticBezierCoefficientsGeneral(double a, double b, double c)
         {
-            var polynomial = RecursiveBezierCoefficientsTests.BezierCoefficientsRecursive(a, b, c);
+            var polynomial = BernsteinRecursiveBezierPolynomialTests.BezierCoefficientsRecursive(a, b, c);
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c]);
         }
 
@@ -110,7 +110,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C) QuadraticBezierCoefficientsRecursive(double a, double b, double c)
         {
-            var polynomial = (Polynomial.OneMinusT * LinearBezierCoefficientsTests.LinearBezierCoefficients(a, b)) + (Polynomial.T * LinearBezierCoefficientsTests.LinearBezierCoefficients(b, c));
+            var polynomial = (Polynomial.OneMinusT * BernsteinLinearBezierPolynomialTests.LinearBezierCoefficients(a, b)) + (Polynomial.T * BernsteinLinearBezierPolynomialTests.LinearBezierCoefficients(b, c));
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c]);
         }
     }

@@ -57,7 +57,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static (double X, double Y)[] FindCircleCircleIntersections(double cx0, double cy0, double radius0, double cx1, double cy1, double radius1, double epsilon = Epsilon)
-            => FindCircleCircleIntersections1(cx0, cy0, radius0, cx1, cy1, radius1, epsilon);
+            => IntersectCircleCircleFlat(cx0, cy0, radius0, cx1, cy1, radius1, epsilon);
 
         /// <summary>
         /// 
@@ -70,7 +70,7 @@ namespace InstrumentedLibrary
         /// <param name="r2"></param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        [DisplayName("Circle, circle Intersection")]
+        [DisplayName("Circle, circle Intersection Flat")]
         [Description("Find the intersection between two Circles.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
@@ -112,7 +112,7 @@ namespace InstrumentedLibrary
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/09/determine-where-two-circles-intersect-in-c/
         /// </acknowledgment>
-        [DisplayName("Circle, circle Intersection")]
+        [DisplayName("Find Circle, circle Intersection 1")]
         [Description("Find the intersection between two Circles.")]
         [SourceCodeLocationProvider]
         [DebuggerStepThrough]
@@ -177,6 +177,170 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
+        /// Find intersection between two circles.
+        /// </summary>
+        /// <param name="cx0">The cx0.</param>
+        /// <param name="cy0">The cy0.</param>
+        /// <param name="radius0">The radius0.</param>
+        /// <param name="cx1">The cx1.</param>
+        /// <param name="cy1">The cy1.</param>
+        /// <param name="radius1">The radius1.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/09/determine-where-two-circles-intersect-in-c/
+        /// </acknowledgment>
+        [DisplayName("Circle, circle Intersection 2")]
+        [Description("Find the intersection between two Circles.")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double x, double y)[] CircleCircleIntersection2(
+            double cx0, double cy0, double radius0,
+            double cx1, double cy1, double radius1,
+            double epsilon = Epsilon)
+        {
+            var result = Array.Empty<(double x, double y)>();//new Intersection(IntersectionStates.NoIntersection);
+
+            // If either of the circles are empty, return no intersections.
+            if ((radius0 == 0d) || (radius1 == 0d))
+            {
+                return result;
+            }
+
+            // Find the distance between the centers.
+            var dx = cx0 - cx1;
+            var dy = cy0 - cy1;
+            var dist = Sqrt((dx * dx) + (dy * dy));
+
+            // See how many solutions there are.
+            if (dist > radius0 + radius1)
+            {
+                // No solutions, the circles are too far apart.
+                // This would be a good point to return a null Lotus.
+
+                //result.State = IntersectionStates.Outside;
+            }
+            else if (dist < Abs(radius0 - radius1))
+            {
+                // No solutions, one circle contains the other.
+                // This would be a good point to return a Lotus struct of the smaller of the circles.
+
+                //result.State = IntersectionStates.Inside;
+            }
+            else if ((Abs(dist) < epsilon) && (Abs(radius0 - radius1) < epsilon))
+            {
+                // No solutions, the circles coincide.
+                // This would be a good point to return a Lotus struct of one of the circles.
+
+                //result.State = IntersectionStates.Outside;
+            }
+            else
+            {
+                // Find a and h.
+                var a = ((radius0 * radius0) - (radius1 * radius1) + (dist * dist)) / (2d * dist);
+                var h = Sqrt((radius0 * radius0) - (a * a));
+
+                // Find P2.
+                var cx2 = cx0 + (a * (cx1 - cx0) / dist);
+                var cy2 = cy0 + (a * (cy1 - cy0) / dist);
+
+                // See if we have 1 or 2 solutions.
+                if (Abs(dist - radius0 + radius1) < epsilon)
+                {
+                    // Get the points P3.
+                    //result = new Intersection(IntersectionStates.Intersection);
+                    result = new (double x, double y)[]{ (
+                         cx2 + (h * (cy1 - cy0) / dist),
+                         cy2 - (h * (cx1 - cx0) / dist))};
+                }
+                else
+                {
+                    // Get the points P3.
+                    //result = new Intersection(IntersectionStates.Intersection);
+                    result = new (double x, double y)[]{
+                    (cx2 + (h * (cy1 - cy0) / dist),
+                    cy2 - (h * (cx1 - cx0) / dist)),
+                    (cx2 - (h * (cy1 - cy0) / dist),
+                    cy2 + (h * (cx1 - cx0) / dist))};
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Find intersection between two circles.
+        /// </summary>
+        /// <param name="c1X">The c1X.</param>
+        /// <param name="c1Y">The c1Y.</param>
+        /// <param name="r1">The r1.</param>
+        /// <param name="c2X">The c2X.</param>
+        /// <param name="c2Y">The c2Y.</param>
+        /// <param name="r2">The r2.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
+        [DisplayName("Circle, circle Intersection 3")]
+        [Description("Find the intersection between two Circles.")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double x, double y)[] CircleCircleIntersection3(
+            double c1X, double c1Y, double r1,
+            double c2X, double c2Y, double r2,
+            double epsilon = Epsilon)
+        {
+            _ = epsilon;
+            var r_max = r1 + r2;
+            var r_min = Abs(r1 - r2);
+            var c_dist = Distance2DTests.Distance2D(c1X, c1Y, c2X, c2Y);
+            var result = Array.Empty<(double x, double y)>();
+            if (c_dist > r_max)
+            {
+                result = Array.Empty<(double x, double y)>();//new Intersection(IntersectionStates.Outside);
+            }
+            else if (c_dist < r_min)
+            {
+                result = Array.Empty<(double x, double y)>();//new Intersection(IntersectionStates.Inside);
+            }
+            else
+            {
+                //result = new Intersection(IntersectionStates.Intersection);
+                var a = ((r1 * r1) - (r2 * r2) + (c_dist * c_dist)) / (2d * c_dist);
+                var h = Sqrt((r1 * r1) - (a * a));
+                var (x, y) = InterpolateLinear2DTests.Lerp(c1X, c1Y, c2X, c2Y, a / c_dist);
+                var b = h / c_dist;
+                result = new (double x, double y)[] { (new Point2D(x - (b * (c2Y - c1Y)), y + (b * (c2X - c1X)))),
+                (new Point2D(x + (b * (c2Y - c1Y)), y - (b * (c2X - c1X))))};
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Circles the circle intersection4.
+        /// </summary>
+        /// <param name="c1X">The c1 x.</param>
+        /// <param name="c1Y">The c1 y.</param>
+        /// <param name="r1">The r1.</param>
+        /// <param name="c2X">The c2 x.</param>
+        /// <param name="c2Y">The c2 y.</param>
+        /// <param name="r2">The r2.</param>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns></returns>
+        [DisplayName("Circle, circle Intersection 4")]
+        [Description("Find the intersection between two Circles.")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double x, double y)[] CircleCircleIntersection4(
+            double c1X, double c1Y, double r1,
+            double c2X, double c2Y, double r2, double epsilon = Epsilon) => CircleCircleIntersection(new Circle2D(c1X, c1Y, r1), new Circle2D(c2X, c2Y, r2));
+
+        /// <summary>
         /// The circle circle intersection.
         /// </summary>
         /// <param name="A">The A.</param>
@@ -212,7 +376,7 @@ namespace InstrumentedLibrary
             else
             {
                 // No Intersection, far outside
-                return null;
+                return Array.Empty<(double x, double y)>();
             }
         }
     }

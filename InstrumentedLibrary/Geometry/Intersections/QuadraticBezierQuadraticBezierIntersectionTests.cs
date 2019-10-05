@@ -99,10 +99,10 @@ namespace InstrumentedLibrary
             // ToDo: Break early if the AABB of the curve does not intersect.
 
             // Parametric matrix form of the Bézier curve
-            var xCoeffA = QuadraticBezierCoefficientsTests.QuadraticBezierCoefficients(a1X, a2X, a3X);
-            var yCoeffA = QuadraticBezierCoefficientsTests.QuadraticBezierCoefficients(a1Y, a2Y, a3Y);
-            var xCoeffB = QuadraticBezierCoefficientsTests.QuadraticBezierCoefficients(b1X, b2X, b3X);
-            var yCoeffB = QuadraticBezierCoefficientsTests.QuadraticBezierCoefficients(b1Y, b2Y, b3Y);
+            var xCoeffA = BernsteinQuadraticBezierPolynomialTests.QuadraticBezierCoefficients(a1X, a2X, a3X);
+            var yCoeffA = BernsteinQuadraticBezierPolynomialTests.QuadraticBezierCoefficients(a1Y, a2Y, a3Y);
+            var xCoeffB = BernsteinQuadraticBezierPolynomialTests.QuadraticBezierCoefficients(b1X, b2X, b3X);
+            var yCoeffB = BernsteinQuadraticBezierPolynomialTests.QuadraticBezierCoefficients(b1Y, b2Y, b3Y);
 
             IList<double> roots = new List<double>();
 
@@ -223,10 +223,10 @@ namespace InstrumentedLibrary
             // Initialize the intersection.
             var result = new Intersection(IntersectionStates.NoIntersection);
 
-            var xCoeffA = QuadraticBezierCoefficientsTests.QuadraticBezierCoefficients(a1X, a2X, a3X);
-            var yCoeffA = QuadraticBezierCoefficientsTests.QuadraticBezierCoefficients(a1Y, a2Y, a3Y);
-            var xCoeffB = QuadraticBezierCoefficientsTests.QuadraticBezierCoefficients(b1X, b2X, b3X);
-            var yCoeffB = QuadraticBezierCoefficientsTests.QuadraticBezierCoefficients(b1Y, b2Y, b3Y);
+            var xCoeffA = BernsteinQuadraticBezierPolynomialTests.QuadraticBezierCoefficients(a1X, a2X, a3X);
+            var yCoeffA = BernsteinQuadraticBezierPolynomialTests.QuadraticBezierCoefficients(a1Y, a2Y, a3Y);
+            var xCoeffB = BernsteinQuadraticBezierPolynomialTests.QuadraticBezierCoefficients(b1X, b2X, b3X);
+            var yCoeffB = BernsteinQuadraticBezierPolynomialTests.QuadraticBezierCoefficients(b1Y, b2Y, b3Y);
 
             var a = (xCoeffA.C * yCoeffA.B) - (xCoeffA.B * yCoeffA.C);
             var b = (xCoeffB.C * yCoeffA.B) - (xCoeffA.B * yCoeffB.C);

@@ -14,13 +14,13 @@ namespace InstrumentedLibrary
     [DisplayName("General Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a General Bezier Curve.")]
     [SourceCodeLocationProvider]
-    public static class RecursiveBezierCoefficientsTests
+    public static class BernsteinRecursiveBezierPolynomialTests
     {
         /// <summary>
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="List{T}"/>.</returns>
-        [DisplayName(nameof(RecursiveBezierCoefficientsTests))]
+        [DisplayName(nameof(BernsteinRecursiveBezierPolynomialTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 1000;

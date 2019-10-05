@@ -20,7 +20,10 @@ namespace InstrumentedLibrary
     [ComVisible(true)]
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
-    public struct Polynomial : IEquatable<Polynomial>
+    public struct Polynomial
+        : IFormattable,
+        IEquatable<Polynomial>,
+        IPrintable
     {
         #region Constants
         /// <summary>
@@ -95,6 +98,87 @@ namespace InstrumentedLibrary
             isReadonly = false;
             degree = null;
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polynomial"/> struct.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial((double a, double b) tuple)
+            : this(tuple.a, tuple.b)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polynomial"/> struct.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial((double a, double b, double c) tuple)
+            : this(tuple.a, tuple.b, tuple.c)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polynomial"/> struct.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial((double a, double b, double c, double d) tuple)
+            : this(tuple.a, tuple.b, tuple.c, tuple.d)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polynomial"/> struct.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial((double a, double b, double c, double d, double e) tuple)
+            : this(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polynomial"/> struct.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial((double a, double b, double c, double d, double e, double f) tuple)
+            : this(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polynomial"/> struct.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial((double a, double b, double c, double d, double e, double f, double g) tuple)
+            : this(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f, tuple.g)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polynomial"/> struct.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial((double a, double b, double c, double d, double e, double f, double g, double h) tuple)
+            : this(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f, tuple.g, tuple.h)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polynomial"/> struct.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial((double a, double b, double c, double d, double e, double f, double g, double h, double i) tuple)
+            : this(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f, tuple.g, tuple.h, tuple.i)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polynomial"/> struct.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Polynomial((double a, double b, double c, double d, double e, double f, double g, double h, double i, double j) tuple)
+            : this(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f, tuple.g, tuple.h, tuple.i, tuple.j)
+        { }
         #endregion Constructors
 
         #region Indexers
@@ -239,7 +323,7 @@ namespace InstrumentedLibrary
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public PolynomialDegree Degree
             // If degree uninitialized look up the real order then cache it and return.
-            => (degree ??= RealOrder(Epsilon)).Value;
+            => (degree ??= RealOrder(Epsilon));
 
         /// <summary>
         /// Gets the raw number of coefficients found in the polynomial, including any leading zero coefficients.
@@ -1127,30 +1211,30 @@ namespace InstrumentedLibrary
                 case var n when n < 1:
                     throw new ArgumentNullException(nameof(values), "At least 2 different points must be given");
                 case 1:
-                    return LinearBezierCoefficientsTests.LinearBezierCoefficients(values[0], values[1]);
+                    return BernsteinLinearBezierPolynomialTests.LinearBezierCoefficients(values[0], values[1]);
                 case 2:
-                    return QuadraticBezierCoefficientsTests.QuadraticBezierCoefficients(values[0], values[1], values[2]);
+                    return BernsteinQuadraticBezierPolynomialTests.QuadraticBezierCoefficients(values[0], values[1], values[2]);
                 case 3:
-                    return CubicBezierCoefficientsTests.CubicBezierCoefficients(values[0], values[1], values[2], values[3]);
+                    return BernsteinCubicBezierPolynomialTests.CubicBezierCoefficients(values[0], values[1], values[2], values[3]);
                 case 4:
-                    return QuarticBezierCoefficientsTests.QuarticBezierCoefficients(values[0], values[1], values[2], values[3], values[4]);
+                    return BernsteinQuarticBezierPolynomialTests.QuarticBezierCoefficients(values[0], values[1], values[2], values[3], values[4]);
                 case 5:
-                    return QuinticBezierCoefficientsTests.QuinticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5]);
+                    return BernsteinQuinticBezierPolynomialTests.QuinticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5]);
                 case 6:
                     // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
-                    return SexticBezierCoefficientsTests.SexticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6]);
+                    return BernsteinSexticBezierPolynomialTests.SexticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6]);
                 case 7:
                     // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
-                    return SepticBezierCoefficientsTests.SepticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]);
+                    return BernsteinSepticBezierPolynomialTests.SepticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]);
                 case 8:
                     // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
-                    return OcticBezierCoefficientsTests.OcticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]);
+                    return BernsteinOcticBezierPolynomialTests.OcticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]);
                 case 9:
                     // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
-                    return NonicBezierCoefficientsTests.NonicBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]);
+                    return BernsteinNonicBezierPolynomialTests.NonicBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]);
                 case 10:
                     // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
-                    return DecicBezierCoefficientsTests.DecicBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]);
+                    return BernsteinDecicBezierPolynomialTests.DecicBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]);
                 default:
                     // We don't have an optimized or stacked Method for this Polynomial. Use the recursive method.
                     return Bezier(0, values.Length - 1, values);

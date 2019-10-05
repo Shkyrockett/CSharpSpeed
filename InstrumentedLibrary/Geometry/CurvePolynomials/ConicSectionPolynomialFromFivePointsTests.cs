@@ -9,7 +9,7 @@ namespace InstrumentedLibrary
     /// <summary>
     /// 
     /// </summary>
-    public static class ConicSectionFromFivePointsTests
+    public static class ConicSectionPolynomialFromFivePointsTests
     {
         /// <summary>
         /// Finds the conic section.

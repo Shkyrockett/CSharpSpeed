@@ -18,7 +18,9 @@ namespace InstrumentedLibrary
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]
     public struct Matrix3x3D
-        : IEquatable<Matrix3x3D>
+        : IFormattable,
+        IEquatable<Matrix3x3D>,
+        IPrintable
     {
         #region Static Fields
         /// <summary>

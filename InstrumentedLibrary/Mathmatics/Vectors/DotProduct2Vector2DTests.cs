@@ -4,6 +4,10 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+#if HAS_INTRINSICS
+using System.Runtime.Intrinsics;
+using System.Runtime.Intrinsics.X86;
+#endif
 
 namespace InstrumentedLibrary
 {
@@ -24,7 +28,9 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 0d, 0d, 1d, 0d }, new TestCaseResults(description: "0, 0, 1, 1.", trials: trials, expectedReturnValue:0d, epsilon: double.Epsilon) },
+                { new object[] { 0d, 0d, 1d, 1d }, new TestCaseResults(description: "0, 0, 1, 1.", trials: trials, expectedReturnValue: 0d, epsilon: double.Epsilon) },
+                { new object[] { 4d, 3d, 2d, 1d }, new TestCaseResults(description: "4, 3, 2, 1.", trials: trials, expectedReturnValue: 11d, epsilon: double.Epsilon) },
+                { new object[] { 1d, 2d, 3d, 4d }, new TestCaseResults(description: "1, 2, 3, 4.", trials: trials, expectedReturnValue: 11d, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -67,6 +73,36 @@ namespace InstrumentedLibrary
             double x1, double y1,
             double x2, double y2)
         {
+            return (x1 * x2) + (y1 * y2);
+        }
+
+        /// <summary>
+        /// Calculates the dot Aka. scalar or inner product of a vector.
+        /// </summary>
+        /// <param name="x1">First Point X component.</param>
+        /// <param name="y1">First Point Y component.</param>
+        /// <param name="x2">Second Point X component.</param>
+        /// <param name="y2">Second Point Y component.</param>
+        /// <returns>The Dot Product.</returns>
+        /// <remarks>The dot product "·" is calculated with DotProduct = X ^ 2 + Y ^ 2</remarks>
+        [DisplayName("Dot Product of two 2D Vectors SSE")]
+        [Description("Dot Product of two 2D Vectors")]
+        [SourceCodeLocationProvider]
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static unsafe double DotProduct2DSSE(
+            double x1, double y1,
+            double x2, double y2)
+        {
+#if HAS_INTRINSICS
+            if (Sse41.IsSupported)
+            {
+                var vf1 = Sse2.LoadVector128(&x1);
+                var vf2 = Sse2.LoadVector128(&x2);
+                Unsafe.Write(&x1, Sse41.DotProduct(vf1, vf2, 51));
+                return x1;
+            }
+#endif
             return (x1 * x2) + (y1 * y2);
         }
     }

@@ -14,13 +14,13 @@ namespace InstrumentedLibrary
     [DisplayName("Cubic Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a Cubic Bezier Curve.")]
     [SourceCodeLocationProvider]
-    public static class CubicBezierCoefficientsTests
+    public static class BernsteinCubicBezierPolynomialTests
     {
         /// <summary>
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="List{T}"/>.</returns>
-        [DisplayName(nameof(CubicBezierCoefficientsTests))]
+        [DisplayName(nameof(BernsteinCubicBezierPolynomialTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 1000;
@@ -116,7 +116,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D) CubicBezierCoefficientsGeneral(double a, double b, double c, double d)
         {
-            var polynomial = RecursiveBezierCoefficientsTests.BezierCoefficientsRecursive(a, b, c, d);
+            var polynomial = BernsteinRecursiveBezierPolynomialTests.BezierCoefficientsRecursive(a, b, c, d);
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d]);
         }
 
@@ -139,7 +139,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D) CubicBezierCoefficientsRecursive(double a, double b, double c, double d)
         {
-            var polynomial = (Polynomial.OneMinusT * QuadraticBezierCoefficientsTests.QuadraticBezierCoefficients(a, b, c)) + (Polynomial.T * QuadraticBezierCoefficientsTests.QuadraticBezierCoefficients(b, c, d));
+            var polynomial = (Polynomial.OneMinusT * BernsteinQuadraticBezierPolynomialTests.QuadraticBezierCoefficients(a, b, c)) + (Polynomial.T * BernsteinQuadraticBezierPolynomialTests.QuadraticBezierCoefficients(b, c, d));
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d]);
         }
     }
