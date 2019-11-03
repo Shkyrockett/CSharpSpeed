@@ -9,7 +9,7 @@ namespace InstrumentedLibrary
     /// <summary>
     /// 
     /// </summary>
-    public static class EllipseBezoutPolynomialTests
+    public static class ConicSectionBezoutTests
     {
         /// <summary>
         /// Calculate the intersection polynomial coefficients of two ellipses.
@@ -27,7 +27,7 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double a, double b, double c, double d, double e) Bezout(
+        public static (double a, double b, double c, double d, double e) ConicSectionBezout(
             (double a, double b, double c, double d, double e, double f) a,
             (double a, double b, double c, double d, double e, double f) b)
         {
@@ -78,7 +78,7 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double a, double b, double c, double d, double e) GetEllipseQuartic(
+        public static (double a, double b, double c, double d, double e) GetConicSectionQuartic(
             (double a, double b, double c, double d, double e, double f) a,
             (double a, double b, double c, double d, double e, double f) b)
         {

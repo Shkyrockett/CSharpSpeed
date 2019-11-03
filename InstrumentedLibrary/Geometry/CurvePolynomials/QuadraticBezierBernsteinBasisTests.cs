@@ -13,13 +13,13 @@ namespace InstrumentedLibrary
     [DisplayName("Quadratic Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a Quadratic Bezier Curve.")]
     [SourceCodeLocationProvider]
-    public static class BernsteinQuadraticBezierPolynomialTests
+    public static class QuadraticBezierBernsteinBasisTests
     {
         /// <summary>
         /// Set of tests to run testing methods that calculate the Polynomial Bezier Coefficients.
         /// </summary>
         /// <returns>The <see cref="List{T}"/>.</returns>
-        [DisplayName(nameof(BernsteinQuadraticBezierPolynomialTests))]
+        [DisplayName(nameof(QuadraticBezierBernsteinBasisTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 1000;
@@ -37,26 +37,24 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// 
+        /// Quadratics the bezier bernstein basis.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static (double A, double B, double C) QuadraticBezierCoefficients(double a, double b, double c)
+        public static (double A, double B, double C) QuadraticBezierBernsteinBasis(double a, double b, double c)
             => QuadraticBezierCoefficients0(a, b, c);
 
         /// <summary>
         /// Coefficients for a Quadratic Bézier curve.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
         /// <returns></returns>
-        /// <remarks>
-        /// </remarks>
         /// <acknowledgment>
         /// http://fontforge.github.io/bezier.html
         /// </acknowledgment>
@@ -79,7 +77,9 @@ namespace InstrumentedLibrary
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <param name="c">The c.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         [DisplayName("Quadratic Polynomial Coefficients")]
         [Description("Find the Polynomial Coefficients of a Quadratic Bezier Curve.")]
         [Acknowledgment("http://fontforge.github.io/bezier.html")]
@@ -88,16 +88,16 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C) QuadraticBezierCoefficientsGeneral(double a, double b, double c)
         {
-            var polynomial = BernsteinRecursiveBezierPolynomialTests.BezierCoefficientsRecursive(a, b, c);
+            var polynomial = RecursiveBezierBernsteinBasisTests.BezierCoefficientsRecursive(a, b, c);
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c]);
         }
 
         /// <summary>
         /// Coefficients for a Quadratic Bézier curve.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
@@ -110,7 +110,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C) QuadraticBezierCoefficientsRecursive(double a, double b, double c)
         {
-            var polynomial = (Polynomial.OneMinusT * BernsteinLinearBezierPolynomialTests.LinearBezierCoefficients(a, b)) + (Polynomial.T * BernsteinLinearBezierPolynomialTests.LinearBezierCoefficients(b, c));
+            var polynomial = (Polynomial.OneMinusT * LinearBezierBernsteinBasisTests.LinearBezierBernsteinBasis(a, b)) + (Polynomial.T * LinearBezierBernsteinBasisTests.LinearBezierBernsteinBasis(b, c));
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c]);
         }
     }

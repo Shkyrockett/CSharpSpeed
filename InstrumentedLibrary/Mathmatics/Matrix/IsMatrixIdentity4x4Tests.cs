@@ -6,6 +6,9 @@ using System.Text;
 
 namespace InstrumentedLibrary
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class IsMatrixIdentity4x4Tests
     {
         /// <summary>

@@ -38,20 +38,20 @@ namespace InstrumentedLibrary
         {
             if (t < BounceKey1)
             {
-                return BounceMultiplyer * t * t;
+                return BounceMultiplier * t * t;
             }
 
             if (t < BounceKey2)
             {
-                return (BounceMultiplyer * (t - BounceKey3) * (t - BounceKey3)) + ThreeQuarters;
+                return (BounceMultiplier * (t - BounceKey3) * (t - BounceKey3)) + ThreeQuarters;
             }
 
             if (t < BounceKey4)
             {
-                return (BounceMultiplyer * (t - BounceKey5) * (t - BounceKey5)) + FifteenSixteenth;
+                return (BounceMultiplier * (t - BounceKey5) * (t - BounceKey5)) + FifteenSixteenth;
             }
 
-            return (BounceMultiplyer * (t - BounceKey6) * (t - BounceKey6)) + SixtythreeSixtyfourth;
+            return (BounceMultiplier * (t - BounceKey6) * (t - BounceKey6)) + SixtythreeSixtyfourth;
         }
     }
 }

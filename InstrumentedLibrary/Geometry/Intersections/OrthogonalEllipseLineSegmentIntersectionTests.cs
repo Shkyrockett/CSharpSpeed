@@ -40,17 +40,17 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// 
+        /// Unrotated ellipse line segment intersection.
         /// </summary>
-        /// <param name="cx"></param>
-        /// <param name="cy"></param>
-        /// <param name="rx"></param>
-        /// <param name="ry"></param>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="cx">The cx.</param>
+        /// <param name="cy">The cy.</param>
+        /// <param name="rx">The rx.</param>
+        /// <param name="ry">The ry.</param>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="epsilon">The epsilon.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
@@ -60,15 +60,15 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Find the points of the intersection between an unrotated ellipse and a line segment.
         /// </summary>
-        /// <param name="cx"></param>
-        /// <param name="cy"></param>
-        /// <param name="rx"></param>
-        /// <param name="ry"></param>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="cx">The cx.</param>
+        /// <param name="cy">The cy.</param>
+        /// <param name="rx">The rx.</param>
+        /// <param name="ry">The ry.</param>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="epsilon">The epsilon.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
@@ -144,8 +144,10 @@ namespace InstrumentedLibrary
         /// <param name="y1">The y1.</param>
         /// <param name="x2">The x2.</param>
         /// <param name="y2">The y2.</param>
-        /// <param name="epsilon"></param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3}" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://forums.codeguru.com/showthread.php?157823-How-to-get-ellipse-and-line-Intersection-points
         /// </acknowledgment>
@@ -228,15 +230,15 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Find the points of the intersection of an unrotated ellipse and a line segment.
         /// </summary>
-        /// <param name="cx"></param>
-        /// <param name="cy"></param>
-        /// <param name="rx"></param>
-        /// <param name="ry"></param>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <param name="cx">The cx.</param>
+        /// <param name="cy">The cy.</param>
+        /// <param name="rx">The rx.</param>
+        /// <param name="ry">The ry.</param>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
@@ -326,8 +328,10 @@ namespace InstrumentedLibrary
         /// <param name="a1Y">The a1Y.</param>
         /// <param name="a2X">The a2X.</param>
         /// <param name="a2Y">The a2Y.</param>
-        /// <param name="epsilon"></param>
-        /// <returns>The <see cref="Intersection"/>.</returns>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>
+        /// The <see cref="Intersection" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -400,15 +404,15 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Finds the Intersection of a Ellipse and a Line
         /// </summary>
-        /// <param name="centerX"></param>
-        /// <param name="centerY"></param>
-        /// <param name="rx"></param>
-        /// <param name="ry"></param>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="centerX">The center x.</param>
+        /// <param name="centerY">The center y.</param>
+        /// <param name="rx">The rx.</param>
+        /// <param name="ry">The ry.</param>
+        /// <param name="a1X">The a1 x.</param>
+        /// <param name="a1Y">The a1 y.</param>
+        /// <param name="a2X">The a2 x.</param>
+        /// <param name="a2Y">The a2 y.</param>
+        /// <param name="epsilon">The epsilon.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersect(

@@ -104,8 +104,8 @@ namespace InstrumentedLibrary
             var B = l0x - l1x;      //B=x1-x2
             var C = l0x * (l0y - l1y) + l0y * (l1x - l0x);  //C=x1*(y1-y2)+y1*(x2-x1)
 
-            var xCoeff = BernsteinCubicBezierPolynomialTests.CubicBezierCoefficients(p0x, p1x, p2x, p3x);
-            var yCoeff = BernsteinCubicBezierPolynomialTests.CubicBezierCoefficients(p0y, p1y, p2y, p3y);
+            var xCoeff = CubicBezierBernsteinBasisTests.CubicBezierBernsteinBasis(p0x, p1x, p2x, p3x);
+            var yCoeff = CubicBezierBernsteinBasisTests.CubicBezierBernsteinBasis(p0y, p1y, p2y, p3y);
 
             var r = CubicRootsTests.CubicRoots(
                 /* t^3 */ A * xCoeff.D + B * yCoeff.D,

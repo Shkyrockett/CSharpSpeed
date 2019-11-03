@@ -1211,30 +1211,30 @@ namespace InstrumentedLibrary
                 case var n when n < 1:
                     throw new ArgumentNullException(nameof(values), "At least 2 different points must be given");
                 case 1:
-                    return BernsteinLinearBezierPolynomialTests.LinearBezierCoefficients(values[0], values[1]);
+                    return LinearBezierBernsteinBasisTests.LinearBezierBernsteinBasis(values[0], values[1]);
                 case 2:
-                    return BernsteinQuadraticBezierPolynomialTests.QuadraticBezierCoefficients(values[0], values[1], values[2]);
+                    return QuadraticBezierBernsteinBasisTests.QuadraticBezierBernsteinBasis(values[0], values[1], values[2]);
                 case 3:
-                    return BernsteinCubicBezierPolynomialTests.CubicBezierCoefficients(values[0], values[1], values[2], values[3]);
+                    return CubicBezierBernsteinBasisTests.CubicBezierBernsteinBasis(values[0], values[1], values[2], values[3]);
                 case 4:
-                    return BernsteinQuarticBezierPolynomialTests.QuarticBezierCoefficients(values[0], values[1], values[2], values[3], values[4]);
+                    return QuarticBezierBernsteinBasisTests.QuarticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4]);
                 case 5:
-                    return BernsteinQuinticBezierPolynomialTests.QuinticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5]);
+                    return QuinticBezierBernsteinBasisTests.QuinticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5]);
                 case 6:
                     // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
-                    return BernsteinSexticBezierPolynomialTests.SexticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6]);
+                    return SexticBezierBernsteinBasisTests.SexticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6]);
                 case 7:
                     // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
-                    return BernsteinSepticBezierPolynomialTests.SepticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]);
+                    return SepticBezierBernsteinBasisTests.SepticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]);
                 case 8:
                     // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
-                    return BernsteinOcticBezierPolynomialTests.OcticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]);
+                    return OcticBezierBernsteinBasisTests.OcticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]);
                 case 9:
                     // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
-                    return BernsteinNonicBezierPolynomialTests.NonicBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]);
+                    return NonicBezierBernsteinBasisTests.NonicBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]);
                 case 10:
                     // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
-                    return BernsteinDecicBezierPolynomialTests.DecicBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]);
+                    return DecicBezierBernsteinBasisTests.DecicBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]);
                 default:
                     // We don't have an optimized or stacked Method for this Polynomial. Use the recursive method.
                     return Bezier(0, values.Length - 1, values);

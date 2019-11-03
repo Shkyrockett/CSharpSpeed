@@ -21,7 +21,9 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="List{T}"/>.</returns>
+        /// <returns>
+        /// The <see cref="List{T}" />.
+        /// </returns>
         [DisplayName(nameof(QuadraticRootsTests))]
         public static List<SpeedTester> TestHarness()
         {
@@ -45,12 +47,12 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// 
+        /// Find the roots of a Quadratic.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="epsilon">The epsilon.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
@@ -63,8 +65,10 @@ namespace InstrumentedLibrary
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <param name="c">The c.</param>
-        /// <param name = "epsilon"> The minimal value to represent a change.</param>
-        /// <returns>The <see cref="List{T}"/>.</returns>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>
+        /// The <see cref="List{T}" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
         /// </acknowledgment>
@@ -105,6 +109,13 @@ namespace InstrumentedLibrary
             {
                 // There should actually be two roots with same value, but we will only return one.
                 results.Add(OneHalf * -b_);
+            }
+            else if (discriminant < 0d)
+            {
+                // Complex or duplicate roots.
+                var e = -Sqrt(-discriminant);
+                results.Add(OneHalf * (-b_ + e));
+                results.Add(OneHalf * (-b_ - e));
             }
 
             return results.ToList();

@@ -87,10 +87,12 @@ namespace InstrumentedLibrary
             var a = OrthagonalEllipseConicSectionPolynomialTests.OrthogonalEllipseConicPolynomial(c1X, c1Y, rx1, ry1);
             var b = OrthagonalEllipseConicSectionPolynomialTests.OrthogonalEllipseConicPolynomial(c2X, c2Y, rx2, ry2);
 
-            var yRoots = new Polynomial(EllipseBezoutPolynomialTests.Bezout(a, b)).Trim().Roots();
+            var yRoots = new Polynomial(ConicSectionBezoutTests.ConicSectionBezout(a, b)).Trim().Roots();
 
+            // Double epsilon is too small for here.
+            epsilon = 1e-6; //1e-3;
             var norm0 = ((a.a * a.a) + (2d * a.b * a.b) + (a.c * a.c)) * epsilon;
-            //var norm1 = ((b.a * b.a) + (2d * b.b * b.b) + (b.c * b.c)) * epsilon;
+            var norm1 = ((b.a * b.a) + (2d * b.b * b.b) + (b.c * b.c)) * epsilon;
 
             var result = new Intersection(IntersectionStates.NoIntersection);
             for (var y = 0; y < yRoots.Length; y++)
@@ -106,7 +108,7 @@ namespace InstrumentedLibrary
                     if (Abs(test) < norm0)
                     {
                         test = (((b.a * xRoots[x]) + (b.b * yRoots[y]) + b.d) * xRoots[x]) + (((b.c * yRoots[y]) + b.e) * yRoots[y]) + b.f;
-                        if (Abs(test) < 1)//norm1) // Using norm1 breaks when an ellipse intersects another ellipse that 
+                        if (Abs(test) < norm1)
                         {
                             result.AppendPoint(new Point2D(xRoots[x], yRoots[y]));
                         }
@@ -125,15 +127,15 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Finds Intersection of two Ellipse'
         /// </summary>
-        /// <param name="h1"></param>
-        /// <param name="k1"></param>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="h2"></param>
-        /// <param name="k2"></param>
-        /// <param name="a2"></param>
-        /// <param name="b2"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="h1">The h1.</param>
+        /// <param name="k1">The k1.</param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="h2">The h2.</param>
+        /// <param name="k2">The k2.</param>
+        /// <param name="a2">The a2.</param>
+        /// <param name="b2">The b2.</param>
+        /// <param name="epsilon">The epsilon.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
@@ -196,7 +198,9 @@ namespace InstrumentedLibrary
         /// <param name="brX">The brX.</param>
         /// <param name="brY">The brY.</param>
         /// <param name="epsilon">The epsilon.</param>
-        /// <returns>The <see cref="Intersection"/>.</returns>
+        /// <returns>
+        /// The <see cref="Intersection" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
         /// </acknowledgment>
@@ -235,20 +239,21 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Find the points of intersection.
         /// </summary>
-        /// <param name="xmin"></param>
-        /// <param name="xmax"></param>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="c1"></param>
-        /// <param name="d1"></param>
-        /// <param name="e1"></param>
-        /// <param name="f1"></param>
-        /// <param name="a2"></param>
-        /// <param name="b2"></param>
-        /// <param name="c2"></param>
-        /// <param name="d2"></param>
-        /// <param name="e2"></param>
-        /// <param name="f2"></param>
+        /// <param name="xmin">The xmin.</param>
+        /// <param name="xmax">The xmax.</param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="c1">The c1.</param>
+        /// <param name="d1">The d1.</param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="f1">The f1.</param>
+        /// <param name="a2">The a2.</param>
+        /// <param name="b2">The b2.</param>
+        /// <param name="c2">The c2.</param>
+        /// <param name="d2">The d2.</param>
+        /// <param name="e2">The e2.</param>
+        /// <param name="f2">The f2.</param>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
         /// </acknowledgment>
@@ -299,23 +304,23 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Find roots by using Newton's method.
         /// </summary>
-        /// <param name="xmin"></param>
-        /// <param name="xmax"></param>
-        /// <param name="A1"></param>
-        /// <param name="B1"></param>
-        /// <param name="C1"></param>
-        /// <param name="D1"></param>
-        /// <param name="E1"></param>
-        /// <param name="F1"></param>
-        /// <param name="sign1"></param>
-        /// <param name="A2"></param>
-        /// <param name="B2"></param>
-        /// <param name="C2"></param>
-        /// <param name="D2"></param>
-        /// <param name="E2"></param>
-        /// <param name="F2"></param>
-        /// <param name="sign2"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="xmin">The xmin.</param>
+        /// <param name="xmax">The xmax.</param>
+        /// <param name="A1">The a1.</param>
+        /// <param name="B1">The b1.</param>
+        /// <param name="C1">The c1.</param>
+        /// <param name="D1">The d1.</param>
+        /// <param name="E1">The e1.</param>
+        /// <param name="F1">The f1.</param>
+        /// <param name="sign1">The sign1.</param>
+        /// <param name="A2">The a2.</param>
+        /// <param name="B2">The b2.</param>
+        /// <param name="C2">The c2.</param>
+        /// <param name="D2">The d2.</param>
+        /// <param name="E2">The e2.</param>
+        /// <param name="F2">The f2.</param>
+        /// <param name="sign2">The sign2.</param>
+        /// <param name="epsilon">The epsilon.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
@@ -374,21 +379,22 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Find a root by using Newton's method.
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="A1"></param>
-        /// <param name="B1"></param>
-        /// <param name="C1"></param>
-        /// <param name="D1"></param>
-        /// <param name="E1"></param>
-        /// <param name="F1"></param>
-        /// <param name="sign1"></param>
-        /// <param name="A2"></param>
-        /// <param name="B2"></param>
-        /// <param name="C2"></param>
-        /// <param name="D2"></param>
-        /// <param name="E2"></param>
-        /// <param name="F2"></param>
-        /// <param name="sign2"></param>
+        /// <param name="x0">The x0.</param>
+        /// <param name="A1">The a1.</param>
+        /// <param name="B1">The b1.</param>
+        /// <param name="C1">The c1.</param>
+        /// <param name="D1">The d1.</param>
+        /// <param name="E1">The e1.</param>
+        /// <param name="F1">The f1.</param>
+        /// <param name="sign1">The sign1.</param>
+        /// <param name="A2">The a2.</param>
+        /// <param name="B2">The b2.</param>
+        /// <param name="C2">The c2.</param>
+        /// <param name="D2">The d2.</param>
+        /// <param name="E2">The e2.</param>
+        /// <param name="F2">The f2.</param>
+        /// <param name="sign2">The sign2.</param>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
         /// </acknowledgment>
@@ -470,14 +476,14 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Calculate G1'(x). root_sign is -1 or 1.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="rootSign"></param>
+        /// <param name="x">The x.</param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="rootSign">The root sign.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
@@ -504,7 +510,9 @@ namespace InstrumentedLibrary
         /// <param name="brX">The brX.</param>
         /// <param name="brY">The brY.</param>
         /// <param name="epsilon">The epsilon.</param>
-        /// <returns>The <see cref="Intersection"/>.</returns>
+        /// <returns>
+        /// The <see cref="Intersection" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
         /// </acknowledgment>
@@ -541,21 +549,22 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Find the points of intersection.
         /// </summary>
-        /// <param name="xmin"></param>
-        /// <param name="xmax"></param>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="c1"></param>
-        /// <param name="d1"></param>
-        /// <param name="e1"></param>
-        /// <param name="f1"></param>
-        /// <param name="a2"></param>
-        /// <param name="b2"></param>
-        /// <param name="c2"></param>
-        /// <param name="d2"></param>
-        /// <param name="e2"></param>
-        /// <param name="f2"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="xmin">The xmin.</param>
+        /// <param name="xmax">The xmax.</param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="c1">The c1.</param>
+        /// <param name="d1">The d1.</param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="f1">The f1.</param>
+        /// <param name="a2">The a2.</param>
+        /// <param name="b2">The b2.</param>
+        /// <param name="c2">The c2.</param>
+        /// <param name="d2">The d2.</param>
+        /// <param name="e2">The e2.</param>
+        /// <param name="f2">The f2.</param>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-4/
         /// </acknowledgment>
@@ -607,23 +616,23 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Find roots by using binary division.
         /// </summary>
-        /// <param name="xmin"></param>
-        /// <param name="xmax"></param>
-        /// <param name="A1"></param>
-        /// <param name="B1"></param>
-        /// <param name="C1"></param>
-        /// <param name="D1"></param>
-        /// <param name="E1"></param>
-        /// <param name="F1"></param>
-        /// <param name="sign1"></param>
-        /// <param name="A2"></param>
-        /// <param name="B2"></param>
-        /// <param name="C2"></param>
-        /// <param name="D2"></param>
-        /// <param name="E2"></param>
-        /// <param name="F2"></param>
-        /// <param name="sign2"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="xmin">The xmin.</param>
+        /// <param name="xmax">The xmax.</param>
+        /// <param name="A1">The a1.</param>
+        /// <param name="B1">The b1.</param>
+        /// <param name="C1">The c1.</param>
+        /// <param name="D1">The d1.</param>
+        /// <param name="E1">The e1.</param>
+        /// <param name="F1">The f1.</param>
+        /// <param name="sign1">The sign1.</param>
+        /// <param name="A2">The a2.</param>
+        /// <param name="B2">The b2.</param>
+        /// <param name="C2">The c2.</param>
+        /// <param name="D2">The d2.</param>
+        /// <param name="E2">The e2.</param>
+        /// <param name="F2">The f2.</param>
+        /// <param name="sign2">The sign2.</param>
+        /// <param name="epsilon">The epsilon.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-4/
@@ -682,23 +691,25 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Find a root by using binary division.
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="deltaX"></param>
-        /// <param name="A1"></param>
-        /// <param name="B1"></param>
-        /// <param name="C1"></param>
-        /// <param name="D1"></param>
-        /// <param name="E1"></param>
-        /// <param name="F1"></param>
-        /// <param name="sign1"></param>
-        /// <param name="A2"></param>
-        /// <param name="B2"></param>
-        /// <param name="C2"></param>
-        /// <param name="D2"></param>
-        /// <param name="E2"></param>
-        /// <param name="F2"></param>
-        /// <param name="sign2"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="x0">The x0.</param>
+        /// <param name="deltaX">The delta x.</param>
+        /// <param name="A1">The a1.</param>
+        /// <param name="B1">The b1.</param>
+        /// <param name="C1">The c1.</param>
+        /// <param name="D1">The d1.</param>
+        /// <param name="E1">The e1.</param>
+        /// <param name="F1">The f1.</param>
+        /// <param name="sign1">The sign1.</param>
+        /// <param name="A2">The a2.</param>
+        /// <param name="B2">The b2.</param>
+        /// <param name="C2">The c2.</param>
+        /// <param name="D2">The d2.</param>
+        /// <param name="E2">The e2.</param>
+        /// <param name="F2">The f2.</param>
+        /// <param name="sign2">The sign2.</param>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException">Unexpected difference curve. Cannot find a root between X = {xmin} and X = {xmax}</exception>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-4/
         /// </acknowledgment>
@@ -821,21 +832,21 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Calculate G(x).
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="A1"></param>
-        /// <param name="B1"></param>
-        /// <param name="C1"></param>
-        /// <param name="D1"></param>
-        /// <param name="E1"></param>
-        /// <param name="F1"></param>
-        /// <param name="sign1"></param>
-        /// <param name="A2"></param>
-        /// <param name="B2"></param>
-        /// <param name="C2"></param>
-        /// <param name="D2"></param>
-        /// <param name="E2"></param>
-        /// <param name="F2"></param>
-        /// <param name="sign2"></param>
+        /// <param name="x">The x.</param>
+        /// <param name="A1">The a1.</param>
+        /// <param name="B1">The b1.</param>
+        /// <param name="C1">The c1.</param>
+        /// <param name="D1">The d1.</param>
+        /// <param name="E1">The e1.</param>
+        /// <param name="F1">The f1.</param>
+        /// <param name="sign1">The sign1.</param>
+        /// <param name="A2">The a2.</param>
+        /// <param name="B2">The b2.</param>
+        /// <param name="C2">The c2.</param>
+        /// <param name="D2">The d2.</param>
+        /// <param name="E2">The e2.</param>
+        /// <param name="F2">The f2.</param>
+        /// <param name="sign2">The sign2.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
@@ -850,14 +861,14 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Calculate G1(x). root_sign is -1 or 1.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="rootSign"></param>
+        /// <param name="x">The x.</param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="rootSign">The root sign.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
@@ -878,22 +889,22 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Get points representing the difference between the two ellipses' equations.
         /// </summary>
-        /// <param name="xmin1"></param>
-        /// <param name="xmax1"></param>
-        /// <param name="xmin2"></param>
-        /// <param name="xmax2"></param>
-        /// <param name="A1"></param>
-        /// <param name="B1"></param>
-        /// <param name="C1"></param>
-        /// <param name="D1"></param>
-        /// <param name="E1"></param>
-        /// <param name="F1"></param>
-        /// <param name="A2"></param>
-        /// <param name="B2"></param>
-        /// <param name="C2"></param>
-        /// <param name="D2"></param>
-        /// <param name="E2"></param>
-        /// <param name="F2"></param>
+        /// <param name="xmin1">The xmin1.</param>
+        /// <param name="xmax1">The xmax1.</param>
+        /// <param name="xmin2">The xmin2.</param>
+        /// <param name="xmax2">The xmax2.</param>
+        /// <param name="A1">The a1.</param>
+        /// <param name="B1">The b1.</param>
+        /// <param name="C1">The c1.</param>
+        /// <param name="D1">The d1.</param>
+        /// <param name="E1">The e1.</param>
+        /// <param name="F1">The f1.</param>
+        /// <param name="A2">The a2.</param>
+        /// <param name="B2">The b2.</param>
+        /// <param name="C2">The c2.</param>
+        /// <param name="D2">The d2.</param>
+        /// <param name="E2">The e2.</param>
+        /// <param name="F2">The f2.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
@@ -937,19 +948,20 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Find tangents to the difference functions.
         /// </summary>
-        /// <param name="TangentX"></param>
-        /// <param name="a1"></param>
-        /// <param name="b1"></param>
-        /// <param name="c1"></param>
-        /// <param name="d1"></param>
-        /// <param name="e1"></param>
-        /// <param name="f1"></param>
-        /// <param name="a2"></param>
-        /// <param name="b2"></param>
-        /// <param name="c2"></param>
-        /// <param name="d2"></param>
-        /// <param name="e2"></param>
-        /// <param name="f2"></param>
+        /// <param name="TangentX">The tangent x.</param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="c1">The c1.</param>
+        /// <param name="d1">The d1.</param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="f1">The f1.</param>
+        /// <param name="a2">The a2.</param>
+        /// <param name="b2">The b2.</param>
+        /// <param name="c2">The c2.</param>
+        /// <param name="d2">The d2.</param>
+        /// <param name="e2">The e2.</param>
+        /// <param name="f2">The f2.</param>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
         /// </acknowledgment>
@@ -1044,11 +1056,12 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Get the equation for this ellipse.
         /// </summary>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="rX"></param>
-        /// <param name="rY"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="cX">The c x.</param>
+        /// <param name="cY">The c y.</param>
+        /// <param name="rX">The r x.</param>
+        /// <param name="rY">The r y.</param>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
         /// </acknowledgment>
@@ -1088,15 +1101,16 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Verify that the equation gives a value close to 0 for the given point (x, y).
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
         /// </acknowledgment>
@@ -1112,14 +1126,14 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Get an ellipse's points from its equation.
         /// </summary>
-        /// <param name="xmin"></param>
-        /// <param name="xmax"></param>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
+        /// <param name="xmin">The xmin.</param>
+        /// <param name="xmax">The xmax.</param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/

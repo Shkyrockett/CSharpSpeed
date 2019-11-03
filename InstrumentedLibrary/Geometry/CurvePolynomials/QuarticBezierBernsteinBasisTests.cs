@@ -13,13 +13,13 @@ namespace InstrumentedLibrary
     [DisplayName("Quartic Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a Quartic Bezier Curve.")]
     [SourceCodeLocationProvider]
-    public static class BernsteinQuarticBezierPolynomialTests
+    public static class QuarticBezierBernsteinBasisTests
     {
         /// <summary>
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="List{T}"/>.</returns>
-        [DisplayName(nameof(BernsteinQuarticBezierPolynomialTests))]
+        [DisplayName(nameof(QuarticBezierBernsteinBasisTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 1000;
@@ -37,27 +37,27 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// 
+        /// Quartics the bezier Bernstein basis.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static (double A, double B, double C, double D, double E) QuarticBezierCoefficients(double a, double b, double c, double d, double e)
+        public static (double A, double B, double C, double D, double E) QuarticBezierBernsteinBasis(double a, double b, double c, double d, double e)
             => QuarticBezierCoefficients0(a, b, c, d, e);
 
         /// <summary>
         /// Coefficients for a Quartic Bézier curve.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// Coefficient calculation found in the matrix representation at:
@@ -86,7 +86,9 @@ namespace InstrumentedLibrary
         /// <param name="c">The c.</param>
         /// <param name="d">The d.</param>
         /// <param name="e">The e.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         [DisplayName("Quartic Polynomial Coefficients")]
         [Description("Find the Polynomial Coefficients of a Quartic Bezier Curve.")]
         [Acknowledgment("https://github.com/superlloyd/Poly")]
@@ -95,18 +97,18 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E) QuarticBezierCoefficientsGeneral(double a, double b, double c, double d, double e)
         {
-            var polynomial = BernsteinRecursiveBezierPolynomialTests.BezierCoefficientsRecursive(a, b, c, d, e);
+            var polynomial = RecursiveBezierBernsteinBasisTests.BezierCoefficientsRecursive(a, b, c, d, e);
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d], polynomial[PolynomialTerm.e]);
         }
 
         /// <summary>
         /// Coefficients for a Quartic Bézier curve.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
@@ -119,7 +121,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E) QuarticBezierCoefficientsRecursive(double a, double b, double c, double d, double e)
         {
-            var polynomial = (Polynomial.OneMinusT * BernsteinCubicBezierPolynomialTests.CubicBezierCoefficients(a, b, c, d)) + (Polynomial.T * BernsteinCubicBezierPolynomialTests.CubicBezierCoefficients(b, c, d, e));
+            var polynomial = (Polynomial.OneMinusT * CubicBezierBernsteinBasisTests.CubicBezierBernsteinBasis(a, b, c, d)) + (Polynomial.T * CubicBezierBernsteinBasisTests.CubicBezierBernsteinBasis(b, c, d, e));
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d], polynomial[PolynomialTerm.e]);
         }
     }

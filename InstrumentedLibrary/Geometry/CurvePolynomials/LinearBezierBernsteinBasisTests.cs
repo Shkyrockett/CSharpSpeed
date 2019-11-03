@@ -13,13 +13,13 @@ namespace InstrumentedLibrary
     [DisplayName("Linear Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a Linear Bezier Curve.")]
     [SourceCodeLocationProvider]
-    public static class BernsteinLinearBezierPolynomialTests
+    public static class LinearBezierBernsteinBasisTests
     {
         /// <summary>
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="List{T}"/>.</returns>
-        [DisplayName(nameof(BernsteinLinearBezierPolynomialTests))]
+        [DisplayName(nameof(LinearBezierBernsteinBasisTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 1000;
@@ -44,7 +44,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static (double A, double B) LinearBezierCoefficients(double a, double b)
+        public static (double A, double B) LinearBezierBernsteinBasis(double a, double b)
             => LinearBezierCoefficients0(a, b);
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B) LinearBezierCoefficientsGeneral(double a, double b)
         {
-            var polynomial = BernsteinRecursiveBezierPolynomialTests.BezierCoefficientsRecursive(a, b);
+            var polynomial = RecursiveBezierBernsteinBasisTests.BezierCoefficientsRecursive(a, b);
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b]);
         }
 

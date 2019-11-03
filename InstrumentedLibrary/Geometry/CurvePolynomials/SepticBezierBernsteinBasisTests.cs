@@ -13,13 +13,15 @@ namespace InstrumentedLibrary
     [DisplayName("Septic Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a Septic Bezier Curve.")]
     [SourceCodeLocationProvider]
-    public static class BernsteinSepticBezierPolynomialTests
+    public static class SepticBezierBernsteinBasisTests
     {
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="List{T}"/>.</returns>
-        [DisplayName(nameof(BernsteinSepticBezierPolynomialTests))]
+        /// <returns>
+        /// The <see cref="List{T}" />.
+        /// </returns>
+        [DisplayName(nameof(SepticBezierBernsteinBasisTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 1000;
@@ -37,33 +39,33 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// 
+        /// Septics the bezier bernstein basis.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static (double A, double B, double C, double D, double E, double F, double G, double H) SepticBezierCoefficients(double a, double b, double c, double d, double e, double f, double g, double h)
+        public static (double A, double B, double C, double D, double E, double F, double G, double H) SepticBezierBernsteinBasis(double a, double b, double c, double d, double e, double f, double g, double h)
             => SepticBezierCoefficients0(a, b, c, d, e, f, g, h);
 
         /// <summary>
         /// Coefficients for a Septic Bézier curve.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
         /// <returns></returns>
         [DisplayName("Septic Polynomial Coefficients")]
         [Description("Find the Polynomial Coefficients of a Septic Bezier Curve.")]
@@ -93,7 +95,9 @@ namespace InstrumentedLibrary
         /// <param name="f">The f.</param>
         /// <param name="g">The g.</param>
         /// <param name="h">The h.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         [DisplayName("Septic Polynomial Coefficients")]
         [Description("Find the Polynomial Coefficients of a Septic Bezier Curve.")]
         [Acknowledgment("https://github.com/superlloyd/Poly")]
@@ -102,21 +106,21 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F, double G, double H) SepticBezierCoefficientsGeneral(double a, double b, double c, double d, double e, double f, double g, double h)
         {
-            var polynomial = BernsteinRecursiveBezierPolynomialTests.BezierCoefficientsRecursive(a, b, c, d, e, f, g, h);
+            var polynomial = RecursiveBezierBernsteinBasisTests.BezierCoefficientsRecursive(a, b, c, d, e, f, g, h);
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d], polynomial[PolynomialTerm.e], polynomial[PolynomialTerm.f], polynomial[PolynomialTerm.g], polynomial[PolynomialTerm.h]);
         }
 
         /// <summary>
         /// Coefficients for a Septic Bézier curve.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
@@ -129,7 +133,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F, double G, double H) SepticBezierCoefficientsRecursive(double a, double b, double c, double d, double e, double f, double g, double h)
         {
-            var polynomial = (Polynomial.OneMinusT * BernsteinSexticBezierPolynomialTests.SexticBezierCoefficients(a, b, c, d, e, f, g)) + (Polynomial.T * BernsteinSexticBezierPolynomialTests.SexticBezierCoefficients(b, c, d, e, f, g, h));
+            var polynomial = (Polynomial.OneMinusT * SexticBezierBernsteinBasisTests.SexticBezierBernsteinBasis(a, b, c, d, e, f, g)) + (Polynomial.T * SexticBezierBernsteinBasisTests.SexticBezierBernsteinBasis(b, c, d, e, f, g, h));
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d], polynomial[PolynomialTerm.e], polynomial[PolynomialTerm.f], polynomial[PolynomialTerm.g], polynomial[PolynomialTerm.h]);
         }
     }

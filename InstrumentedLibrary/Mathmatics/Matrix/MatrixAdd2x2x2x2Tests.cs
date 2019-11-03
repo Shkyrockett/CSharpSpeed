@@ -6,6 +6,9 @@ using System.Text;
 
 namespace InstrumentedLibrary
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class MatrixAdd2x2x2x2Tests
     {
         /// <summary>

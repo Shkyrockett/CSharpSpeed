@@ -6,7 +6,7 @@ namespace InstrumentedLibrary
     /// MatrixTypes
     /// </summary>
     [Flags]
-    public enum MatrixForms
+    public enum MatriciesForms
         : byte
     {
         /// <summary>

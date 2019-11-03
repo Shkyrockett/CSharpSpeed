@@ -6,6 +6,9 @@ using System.Text;
 
 namespace InstrumentedLibrary
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class MatrixAdjoint3x3Tests
     {
         /// <summary>

@@ -47,7 +47,7 @@ namespace InstrumentedLibrary
             var a = RotatedEllipseConicSectionPolynomialTests.EllipseConicPolynomial(h1, k1, a1, b1, cos1, sin1);
             var b = RotatedEllipseConicSectionPolynomialTests.EllipseConicPolynomial(h2, k2, a2, b2, cos2, sin2);
 
-            var yRoots = new Polynomial(EllipseBezoutPolynomialTests.Bezout(a, b)).Trim().Roots();
+            var yRoots = new Polynomial(ConicSectionBezoutTests.ConicSectionBezout(a, b)).Trim().Roots();
 
             var norm0 = ((a.a * a.a) + (2d * a.b * a.b) + (a.c * a.c)) * epsilon;
             //var norm1 = ((b.a * b.a) + (2d * b.b * b.b) + (b.c * b.c)) * epsilon;

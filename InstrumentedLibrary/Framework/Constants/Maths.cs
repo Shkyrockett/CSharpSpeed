@@ -177,6 +177,58 @@ namespace InstrumentedLibrary
         public const double Degree = 180d / PI; // 57.295779513082320876798154814105d;
         #endregion Pi Derivations
 
+        /// <summary>
+        /// Represents the golden ratio as specified by the constant, φ (phi).
+        /// </summary>
+        /// <value>≈1.61803...</value>
+        public static readonly double Phi = (1d + Sqrt(5)) * 0.5d; // 1.6180339887498948482045868343656d;
+
+        /// <summary>
+        ///  Represents the plastic constant as specified by the constant, ρ.
+        /// </summary>
+        /// <value>≈1.32471...</value>
+        public static readonly double Rho = RootTests.Root(0.5d + (1d / 6d * Sqrt(23d / 3d)), 3d) + RootTests.Root(0.5d - (1d / 6d * Sqrt(23d / 3d)), 3d);
+
+        /// <summary>
+        /// The cosine of 0.
+        /// </summary>
+        public static readonly double Cos0 = Cos(0);
+
+        /// <summary>
+        /// The cosine of PI.
+        /// </summary>
+        public static readonly double CosHalfPi = Cos(HalfPi);
+
+        /// <summary>
+        /// The cosine of Pi.
+        /// </summary>
+        public static readonly double CosPi = Cos(PI);
+
+        /// <summary>
+        /// The cosine of Pau.
+        /// </summary>
+        public static readonly double CosPau = Cos(Pau);
+
+        /// <summary>
+        /// The sine of 0.
+        /// </summary>
+        public static readonly double Sin0 = Sin(0);
+
+        /// <summary>
+        /// The sine of half Pi.
+        /// </summary>
+        public static readonly double SinHalfPi = Sin(HalfPi);
+
+        /// <summary>
+        /// The sine of Pi.
+        /// </summary>
+        public static readonly double SinPi = Sin(PI);
+
+        /// <summary>
+        /// The sine of Pau.
+        /// </summary>
+        public static readonly double SinPau = Sin(Pau);
+
         #region Roots
         /// <summary>
         /// Represents the inverse square root of 2.

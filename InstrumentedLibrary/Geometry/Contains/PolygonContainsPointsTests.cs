@@ -103,10 +103,10 @@ namespace InstrumentedLibrary
             {
                 foreach (var poly in polygons)
                 {
-                    for (var i = 0; i < poly.Count(); i++)
+                    for (var i = 0; i < poly.Count; i++)
                     {
                         j = i + 1;
-                        if (j == poly.Count())
+                        if (j == poly.Count)
                         {
                             j = 0;
                         }

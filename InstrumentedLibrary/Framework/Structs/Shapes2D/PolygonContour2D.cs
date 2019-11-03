@@ -62,7 +62,7 @@ namespace InstrumentedLibrary
         /// Gets the count.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public int Count => Points?.Count() ?? 0;
+        public int Count => Points?.Count ?? 0;
 
         /// <summary>
         /// 

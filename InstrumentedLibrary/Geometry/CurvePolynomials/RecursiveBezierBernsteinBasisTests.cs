@@ -14,13 +14,15 @@ namespace InstrumentedLibrary
     [DisplayName("General Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a General Bezier Curve.")]
     [SourceCodeLocationProvider]
-    public static class BernsteinRecursiveBezierPolynomialTests
+    public static class RecursiveBezierBernsteinBasisTests
     {
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="List{T}"/>.</returns>
-        [DisplayName(nameof(BernsteinRecursiveBezierPolynomialTests))]
+        /// <returns>
+        /// The <see cref="List{T}" />.
+        /// </returns>
+        [DisplayName(nameof(RecursiveBezierBernsteinBasisTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 1000;
@@ -48,20 +50,21 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// 
+        /// Beziers the Bernstein basis.
         /// </summary>
-        /// <param name="values"></param>
+        /// <param name="values">The values.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static Polynomial RecursiveBezierCoefficients(params double[] values)
+        public static Polynomial BezierBernsteinBasis(params double[] values)
             => BezierCoefficientsRecursive(values);
 
         /// <summary>
         /// Recursive method for calculating the Bezier Polynomial.
         /// </summary>
-        /// <param name="values"></param>
+        /// <param name="values">The values.</param>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException">values - At least 2 different points must be given</exception>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -84,9 +87,9 @@ namespace InstrumentedLibrary
         /// <summary>
         /// Internal Recursive method for calculating the Bezier Polynomial.
         /// </summary>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <param name="values"></param>
+        /// <param name="from">From.</param>
+        /// <param name="to">To.</param>
+        /// <param name="values">The values.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly

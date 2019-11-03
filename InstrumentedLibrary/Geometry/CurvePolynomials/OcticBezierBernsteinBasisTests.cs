@@ -13,13 +13,15 @@ namespace InstrumentedLibrary
     [DisplayName("Octic Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a Octic Bezier Curve.")]
     [SourceCodeLocationProvider]
-    public static class BernsteinOcticBezierPolynomialTests
+    public static class OcticBezierBernsteinBasisTests
     {
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="List{T}"/>.</returns>
-        [DisplayName(nameof(BernsteinOcticBezierPolynomialTests))]
+        /// <returns>
+        /// The <see cref="List{T}" />.
+        /// </returns>
+        [DisplayName(nameof(OcticBezierBernsteinBasisTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 1000;
@@ -37,35 +39,35 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// 
+        /// Octics the bezier bernstein basis.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
-        /// <param name="i"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="i">The i.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I) OcticBezierCoefficients(double a, double b, double c, double d, double e, double f, double g, double h, double i)
+        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I) OcticBezierBernsteinBasis(double a, double b, double c, double d, double e, double f, double g, double h, double i)
             => OcticBezierCoefficients0(a, b, c, d, e, f, g, h, i);
 
         /// <summary>
         /// Coefficients for a Octic Bézier curve.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
-        /// <param name="i"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="i">The i.</param>
         /// <returns></returns>
         [DisplayName("Octic Polynomial Coefficients")]
         [Description("Find the Polynomial Coefficients of a Octic Bezier Curve.")]
@@ -97,7 +99,9 @@ namespace InstrumentedLibrary
         /// <param name="g">The g.</param>
         /// <param name="h">The h.</param>
         /// <param name="i">The i.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         [DisplayName("Octic Polynomial Coefficients")]
         [Description("Find the Polynomial Coefficients of a Octic Bezier Curve.")]
         [Acknowledgment("https://github.com/superlloyd/Poly")]
@@ -106,22 +110,22 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F, double G, double H, double I) OcticBezierCoefficientsGeneral(double a, double b, double c, double d, double e, double f, double g, double h, double i)
         {
-            var polynomial = BernsteinRecursiveBezierPolynomialTests.BezierCoefficientsRecursive(a, b, c, d, e, f, g, h, i);
+            var polynomial = RecursiveBezierBernsteinBasisTests.BezierCoefficientsRecursive(a, b, c, d, e, f, g, h, i);
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d], polynomial[PolynomialTerm.e], polynomial[PolynomialTerm.f], polynomial[PolynomialTerm.g], polynomial[PolynomialTerm.h], polynomial[PolynomialTerm.i]);
         }
 
         /// <summary>
         /// Coefficients for a Octic Bézier curve.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
-        /// <param name="i"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="i">The i.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
@@ -134,7 +138,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F, double G, double H, double I) OcticBezierCoefficientsRecursive(double a, double b, double c, double d, double e, double f, double g, double h, double i)
         {
-            var polynomial = (Polynomial.OneMinusT * BernsteinSepticBezierPolynomialTests.SepticBezierCoefficients(a, b, c, d, e, f, g, h)) + (Polynomial.T * BernsteinSepticBezierPolynomialTests.SepticBezierCoefficients(b, c, d, e, f, g, h, i));
+            var polynomial = (Polynomial.OneMinusT * SepticBezierBernsteinBasisTests.SepticBezierBernsteinBasis(a, b, c, d, e, f, g, h)) + (Polynomial.T * SepticBezierBernsteinBasisTests.SepticBezierBernsteinBasis(b, c, d, e, f, g, h, i));
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d], polynomial[PolynomialTerm.e], polynomial[PolynomialTerm.f], polynomial[PolynomialTerm.g], polynomial[PolynomialTerm.h], polynomial[PolynomialTerm.i]);
         }
     }

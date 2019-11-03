@@ -13,13 +13,15 @@ namespace InstrumentedLibrary
     [DisplayName("Decic Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a Decic Bezier Curve.")]
     [SourceCodeLocationProvider]
-    public static class BernsteinDecicBezierPolynomialTests
+    public static class DecicBezierBernsteinBasisTests
     {
         /// <summary>
         /// Test the harness.
         /// </summary>
-        /// <returns>The <see cref="List{T}"/>.</returns>
-        [DisplayName(nameof(BernsteinDecicBezierPolynomialTests))]
+        /// <returns>
+        /// The <see cref="List{T}" />.
+        /// </returns>
+        [DisplayName(nameof(DecicBezierBernsteinBasisTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 1000;
@@ -37,39 +39,39 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// 
+        /// Decics the bezier bernstein basis.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="k"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="k">The k.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, double K) DecicBezierCoefficients(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k)
+        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, double K) DecicBezierBernsteinBasis(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k)
             => DecicBezierCoefficients0(a, b, c, d, e, f, g, h, i, j, k);
 
         /// <summary>
         /// Coefficients for a Decic Bézier curve.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="k"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="k">The k.</param>
         /// <returns></returns>
         [DisplayName("Decic Polynomial Coefficients")]
         [Description("Find the Polynomial Coefficients of a Decic Bezier Curve.")]
@@ -105,7 +107,9 @@ namespace InstrumentedLibrary
         /// <param name="i">The i.</param>
         /// <param name="j">The j.</param>
         /// <param name="k">The k.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         [DisplayName("Decic Polynomial Coefficients")]
         [Description("Find the Polynomial Coefficients of a Decic Bezier Curve.")]
         [Acknowledgment("https://github.com/superlloyd/Poly")]
@@ -114,24 +118,24 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, double K) DecicBezierCoefficientsGeneral0(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k)
         {
-            var polynomial = BernsteinRecursiveBezierPolynomialTests.BezierCoefficientsRecursive(a, b, c, d, e, f, g, h, i, j, k);
+            var polynomial = RecursiveBezierBernsteinBasisTests.BezierCoefficientsRecursive(a, b, c, d, e, f, g, h, i, j, k);
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d], polynomial[PolynomialTerm.e], polynomial[PolynomialTerm.f], polynomial[PolynomialTerm.g], polynomial[PolynomialTerm.h], polynomial[PolynomialTerm.i], polynomial[PolynomialTerm.j], polynomial[PolynomialTerm.k]);
         }
 
         /// <summary>
         /// Coefficients for a Decic Bézier curve.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="k"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="k">The k.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
@@ -144,7 +148,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, double K) DecicBezierCoefficientsRecursive(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k)
         {
-            var polynomial = (Polynomial.OneMinusT * BernsteinNonicBezierPolynomialTests.NonicBezierCoefficients(a, b, c, d, e, f, g, h, i, j)) + (Polynomial.T * BernsteinNonicBezierPolynomialTests.NonicBezierCoefficients(b, c, d, e, f, g, h, i, j, k));
+            var polynomial = (Polynomial.OneMinusT * NonicBezierBernsteinBasisTests.NonicBezierBernsteinBasis(a, b, c, d, e, f, g, h, i, j)) + (Polynomial.T * NonicBezierBernsteinBasisTests.NonicBezierBernsteinBasis(b, c, d, e, f, g, h, i, j, k));
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d], polynomial[PolynomialTerm.e], polynomial[PolynomialTerm.f], polynomial[PolynomialTerm.g], polynomial[PolynomialTerm.h], polynomial[PolynomialTerm.i], polynomial[PolynomialTerm.j], polynomial[PolynomialTerm.k]);
         }
     }

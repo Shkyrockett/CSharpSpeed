@@ -7,7 +7,7 @@
     {
         #region Back In Constants
         /// <summary>
-        /// 
+        /// The back in key1
         /// </summary>
         /// <acknowledgment>
         /// https://bitbucket.org/jacobalbano/glide
@@ -15,7 +15,7 @@
         public const double BackInKey1 = 2.70158d;
 
         /// <summary>
-        /// 
+        /// The back in key2
         /// </summary>
         /// <acknowledgment>
         /// https://bitbucket.org/jacobalbano/glide
@@ -23,16 +23,16 @@
         public const double BackInKey2 = 1.70158d;
 
         /// <summary>
-        /// 
+        /// The back in key3
         /// </summary>
         public const double BackInKey3 = 1.525d;
         #endregion Back In Constants
 
         #region Bounce Constants
         /// <summary>
-        /// 
+        /// The bounce multiplier
         /// </summary>
-        public const double BounceMultiplyer = 7.5625d;
+        public const double BounceMultiplier = 7.5625d;
 
         /// <summary>
         /// The bounce key1 (const). Value: 0.3636363636363636.

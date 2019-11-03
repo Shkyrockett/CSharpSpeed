@@ -96,10 +96,10 @@ namespace InstrumentedLibrary
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y,
             double epsilon = Epsilon)
             => CubicBezierSegmentCubicBezierSegmentIntersection(
-                BernsteinCubicBezierPolynomialTests.CubicBezierCoefficients(a1X, a2X, a3X, a4X),
-                BernsteinCubicBezierPolynomialTests.CubicBezierCoefficients(a1Y, a2Y, a3Y, a4Y),
-                BernsteinCubicBezierPolynomialTests.CubicBezierCoefficients(b1X, b2X, b3X, b4X),
-                BernsteinCubicBezierPolynomialTests.CubicBezierCoefficients(b1Y, b2Y, b3Y, b4Y),
+                CubicBezierBernsteinBasisTests.CubicBezierBernsteinBasis(a1X, a2X, a3X, a4X),
+                CubicBezierBernsteinBasisTests.CubicBezierBernsteinBasis(a1Y, a2Y, a3Y, a4Y),
+                CubicBezierBernsteinBasisTests.CubicBezierBernsteinBasis(b1X, b2X, b3X, b4X),
+                CubicBezierBernsteinBasisTests.CubicBezierBernsteinBasis(b1Y, b2Y, b3Y, b4Y),
                 epsilon);
 
         /// <summary>

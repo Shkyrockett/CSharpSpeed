@@ -41,39 +41,39 @@ namespace InstrumentedLibrary
                 t = 1d - (t * 2d);
                 if (t < BounceKey1)
                 {
-                    return (1d - BounceMultiplyer * t * t) * OneHalf;
+                    return (1d - BounceMultiplier * t * t) * OneHalf;
                 }
 
                 if (t < BounceKey2)
                 {
-                    return (1d - (BounceMultiplyer * (t - BounceKey3) * (t - BounceKey3) + ThreeQuarters)) * OneHalf;
+                    return (1d - (BounceMultiplier * (t - BounceKey3) * (t - BounceKey3) + ThreeQuarters)) * OneHalf;
                 }
 
                 if (t < BounceKey4)
                 {
-                    return (1d - (BounceMultiplyer * (t - BounceKey5) * (t - BounceKey5) + FifteenSixteenth)) * OneHalf;
+                    return (1d - (BounceMultiplier * (t - BounceKey5) * (t - BounceKey5) + FifteenSixteenth)) * OneHalf;
                 }
 
-                return (1d - (BounceMultiplyer * (t - BounceKey6) * (t - BounceKey6) + SixtythreeSixtyfourth)) * OneHalf;
+                return (1d - (BounceMultiplier * (t - BounceKey6) * (t - BounceKey6) + SixtythreeSixtyfourth)) * OneHalf;
             }
 
             t = (t * 2d) - 1d;
             if (t < BounceKey1)
             {
-                return BounceMultiplyer * t * t * OneHalf + OneHalf;
+                return BounceMultiplier * t * t * OneHalf + OneHalf;
             }
 
             if (t < BounceKey2)
             {
-                return ((BounceMultiplyer * (t - BounceKey3) * (t - BounceKey3) + ThreeQuarters) * OneHalf) + OneHalf;
+                return ((BounceMultiplier * (t - BounceKey3) * (t - BounceKey3) + ThreeQuarters) * OneHalf) + OneHalf;
             }
 
             if (t < BounceKey4)
             {
-                return ((BounceMultiplyer * (t - BounceKey5) * (t - BounceKey5) + FifteenSixteenth) * OneHalf) + OneHalf;
+                return ((BounceMultiplier * (t - BounceKey5) * (t - BounceKey5) + FifteenSixteenth) * OneHalf) + OneHalf;
             }
 
-            return ((BounceMultiplyer * (t - BounceKey6) * (t - BounceKey6) + SixtythreeSixtyfourth) * OneHalf) + OneHalf;
+            return ((BounceMultiplier * (t - BounceKey6) * (t - BounceKey6) + SixtythreeSixtyfourth) * OneHalf) + OneHalf;
         }
     }
 }

@@ -45,19 +45,19 @@ namespace InstrumentedLibrary
         {
             if ((t /= d) < (BounceKey1))
             {
-                return (c * (BounceMultiplyer * t * t)) + b;
+                return (c * (BounceMultiplier * t * t)) + b;
             }
             else if (t < (BounceKey2))
             {
-                return (c * ((BounceMultiplyer * (t -= BounceKey3) * t) + ThreeQuarters)) + b;
+                return (c * ((BounceMultiplier * (t -= BounceKey3) * t) + ThreeQuarters)) + b;
             }
             else if (t < (BounceKey4))
             {
-                return (c * ((BounceMultiplyer * (t -= BounceKey5) * t) + FifteenSixteenth)) + b;
+                return (c * ((BounceMultiplier * (t -= BounceKey5) * t) + FifteenSixteenth)) + b;
             }
             else
             {
-                return (c * ((BounceMultiplyer * (t -= BounceKey6) * t) + SixtythreeSixtyfourth)) + b;
+                return (c * ((BounceMultiplier * (t -= BounceKey6) * t) + SixtythreeSixtyfourth)) + b;
             }
         }
     }

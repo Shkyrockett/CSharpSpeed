@@ -205,7 +205,6 @@ namespace InstrumentedLibrary
         /// </summary>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        /// <returns>The <see cref="Bitmap"/>.</returns>
         public static /*Bitmap*/ void DrawHeart(int width, int height)
         {
             //var bm = new Bitmap(width, height);
@@ -872,7 +871,7 @@ namespace InstrumentedLibrary
 
             // While the copy of the polygon has more than
             // three points, remove an ear.
-            while (pgon.Points.Count() > 3)
+            while (pgon.Points.Count > 3)
             {
                 // Remove an ear from the polygon.
                 RemoveEar(pgon, triangles);

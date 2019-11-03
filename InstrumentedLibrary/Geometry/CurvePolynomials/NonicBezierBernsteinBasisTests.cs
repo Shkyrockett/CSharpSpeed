@@ -13,13 +13,13 @@ namespace InstrumentedLibrary
     [DisplayName("Nonic Polynomial Coefficients")]
     [Description("Find the Polynomial Coefficients of a Nonic Bezier Curve.")]
     [SourceCodeLocationProvider]
-    public static class BernsteinNonicBezierPolynomialTests
+    public static class NonicBezierBernsteinBasisTests
     {
         /// <summary>
         /// Test the harness.
         /// </summary>
         /// <returns>The <see cref="List{T}"/>.</returns>
-        [DisplayName(nameof(BernsteinNonicBezierPolynomialTests))]
+        [DisplayName(nameof(NonicBezierBernsteinBasisTests))]
         public static List<SpeedTester> TestHarness()
         {
             var trials = 1000;
@@ -37,37 +37,37 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// 
+        /// Nonics the bezier bernstein basis.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) NonicBezierCoefficients(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j)
+        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) NonicBezierBernsteinBasis(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j)
             => NonicBezierCoefficients0(a, b, c, d, e, f, g, h, i, j);
 
         /// <summary>
         /// Coefficients for a Nonic Bézier curve.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
         /// <returns></returns>
         [DisplayName("Nonic Polynomial Coefficients")]
         [Description("Find the Polynomial Coefficients of a Nonic Bezier Curve.")]
@@ -101,7 +101,9 @@ namespace InstrumentedLibrary
         /// <param name="h">The h.</param>
         /// <param name="i">The i.</param>
         /// <param name="j">The j.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         [DisplayName("Nonic Polynomial Coefficients")]
         [Description("Find the Polynomial Coefficients of a Nonic Bezier Curve.")]
         [Acknowledgment("https://github.com/superlloyd/Poly")]
@@ -110,23 +112,23 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) NonicBezierCoefficientsGeneral(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j)
         {
-            var polynomial = BernsteinRecursiveBezierPolynomialTests.BezierCoefficientsRecursive(a, b, c, d, e, f, g, h, i, j);
+            var polynomial = RecursiveBezierBernsteinBasisTests.BezierCoefficientsRecursive(a, b, c, d, e, f, g, h, i, j);
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d], polynomial[PolynomialTerm.e], polynomial[PolynomialTerm.f], polynomial[PolynomialTerm.g], polynomial[PolynomialTerm.h], polynomial[PolynomialTerm.i], polynomial[PolynomialTerm.j]);
         }
 
         /// <summary>
         /// Coefficients for a Nonic Bézier curve.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
@@ -139,7 +141,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) NonicBezierCoefficientsRecursive(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j)
         {
-            var polynomial = (Polynomial.OneMinusT * BernsteinOcticBezierPolynomialTests.OcticBezierCoefficients(a, b, c, d, e, f, g, h, i)) + (Polynomial.T * BernsteinOcticBezierPolynomialTests.OcticBezierCoefficients(b, c, d, e, f, g, h, i, j));
+            var polynomial = (Polynomial.OneMinusT * OcticBezierBernsteinBasisTests.OcticBezierBernsteinBasis(a, b, c, d, e, f, g, h, i)) + (Polynomial.T * OcticBezierBernsteinBasisTests.OcticBezierBernsteinBasis(b, c, d, e, f, g, h, i, j));
             return (polynomial[PolynomialTerm.a], polynomial[PolynomialTerm.b], polynomial[PolynomialTerm.c], polynomial[PolynomialTerm.d], polynomial[PolynomialTerm.e], polynomial[PolynomialTerm.f], polynomial[PolynomialTerm.g], polynomial[PolynomialTerm.h], polynomial[PolynomialTerm.i], polynomial[PolynomialTerm.j]);
         }
     }

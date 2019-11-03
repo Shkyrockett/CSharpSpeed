@@ -9,6 +9,9 @@ using System.Reflection;
 
 namespace InstrumentedLibrary
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class MultiplyMatrix4x4x4x4Tests
     {
         /// <summary>

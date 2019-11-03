@@ -5,6 +5,9 @@ using System.Text;
 
 namespace InstrumentedLibrary
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class UnaryNegateMatrix5x5Tests
     {
         /// <summary>

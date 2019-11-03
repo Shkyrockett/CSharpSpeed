@@ -29,7 +29,7 @@ namespace InstrumentedLibrary
         [Browsable(false)]
         //[field: NonSerialized]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        Dictionary<object, object> PropertyCache { get; set; }
+        Dictionary<object, object> PropertyCache { get; protected set; }
 
         ///// <summary>
         ///// Raises the property changing event.
