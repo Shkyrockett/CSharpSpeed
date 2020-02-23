@@ -68,6 +68,6 @@ namespace CSharpSpeed
         /// The to string.
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
-        public override string ToString() => $"| {Description} | {Trials} | {TotalRunningTime} ms | {AverageRunningTime:R} ms | {ExpectedReturnValue.ToString()} | {ReturnValue} |";
+        public override string ToString() => $"| {Description} | {Trials} | {TotalRunningTime} ms | {AverageRunningTime:R} ms | {ExpectedReturnValue} | {ReturnValue} |";
     }
 }

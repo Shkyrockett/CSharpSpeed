@@ -16,6 +16,9 @@ namespace InstrumentedLibrary
     /// <summary>
     /// 
     /// </summary>
+    /// <seealso cref="System.Collections.IEnumerable" />
+    /// <seealso cref="System.IEquatable{T}" />
+    /// <seealso cref="InstrumentedLibrary.IPrintable" />
     [ComVisible(true)]
     [DataContract, Serializable]
     [DebuggerDisplay("{ToString()}")]

@@ -913,7 +913,9 @@ namespace InstrumentedLibrary
         /// <typeparam name="TValue">The type of the values in the dictionary.</typeparam>
         /// <param name="dic">The dictionary to call this method on.</param>
         /// <param name="key">The key to look up.</param>
-        /// <returns>The key value. null if this key is not in the dictionary.</returns>
+        /// <returns>
+        /// The key value. null if this key is not in the dictionary.
+        /// </returns>
         /// <remarks>
         /// http://blogs.windward.net/davidt/2012/01/12/c-dictionary-getvalueordefault/
         /// </remarks>

@@ -107,17 +107,13 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Sign SignSwitch(double value)
         {
-            switch (value)
+            return value switch
             {
-                case double s when s < 0:
-                    return InstrumentedLibrary.Sign.Negative;
-                case double s when s > 0:
-                    return InstrumentedLibrary.Sign.Positive;
-                case double s when s == 0:
-                    return InstrumentedLibrary.Sign.Zero;
-                default:
-                    throw new ArithmeticException("NAN is not a valid value for Sign.");
-            }
+                double s when s < 0 => InstrumentedLibrary.Sign.Negative,
+                double s when s > 0 => InstrumentedLibrary.Sign.Positive,
+                double s when s == 0 => InstrumentedLibrary.Sign.Zero,
+                _ => throw new ArithmeticException("NAN is not a valid value for Sign."),
+            };
         }
 
         /// <summary>

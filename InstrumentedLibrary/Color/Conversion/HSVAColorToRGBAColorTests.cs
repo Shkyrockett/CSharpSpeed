@@ -169,21 +169,15 @@ namespace InstrumentedLibrary
             var t = Convert.ToByte(value * (1d - ((1d - f) * saturation)));
             var a = Convert.ToByte(((1d - alpha) * 255d) + 0.5d);
 
-            switch (hi)
+            return hi switch
             {
-                case 0:
-                    return (v, t, p, a);
-                case 1:
-                    return (q, v, p, a);
-                case 2:
-                    return (p, v, t, a);
-                case 3:
-                    return (p, q, v, a);
-                case 4:
-                    return (t, p, v, a);
-                default:
-                    return (v, p, q, a);
-            }
+                0 => (v, t, p, a),
+                1 => (q, v, p, a),
+                2 => (p, v, t, a),
+                3 => (p, q, v, a),
+                4 => (t, p, v, a),
+                _ => (v, p, q, a),
+            };
         }
 
         /// <summary>

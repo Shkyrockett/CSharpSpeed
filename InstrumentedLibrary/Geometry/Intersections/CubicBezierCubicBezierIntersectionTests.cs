@@ -39,25 +39,25 @@ namespace InstrumentedLibrary
         }
 
         /// <summary>
-        /// 
+        /// Cubics the bezier segment cubic bezier segment intersection.
         /// </summary>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
-        /// <param name="a3X"></param>
-        /// <param name="a3Y"></param>
-        /// <param name="a4X"></param>
-        /// <param name="a4Y"></param>
-        /// <param name="b1X"></param>
-        /// <param name="b1Y"></param>
-        /// <param name="b2X"></param>
-        /// <param name="b2Y"></param>
-        /// <param name="b3X"></param>
-        /// <param name="b3Y"></param>
-        /// <param name="b4X"></param>
-        /// <param name="b4Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="a1X">The a1 x.</param>
+        /// <param name="a1Y">The a1 y.</param>
+        /// <param name="a2X">The a2 x.</param>
+        /// <param name="a2Y">The a2 y.</param>
+        /// <param name="a3X">The a3 x.</param>
+        /// <param name="a3Y">The a3 y.</param>
+        /// <param name="a4X">The a4 x.</param>
+        /// <param name="a4Y">The a4 y.</param>
+        /// <param name="b1X">The b1 x.</param>
+        /// <param name="b1Y">The b1 y.</param>
+        /// <param name="b2X">The b2 x.</param>
+        /// <param name="b2Y">The b2 y.</param>
+        /// <param name="b3X">The b3 x.</param>
+        /// <param name="b3Y">The b3 y.</param>
+        /// <param name="b4X">The b4 x.</param>
+        /// <param name="b4Y">The b4 y.</param>
+        /// <param name="epsilon">The epsilon.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]

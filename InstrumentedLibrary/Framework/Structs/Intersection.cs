@@ -26,7 +26,7 @@ namespace InstrumentedLibrary
         public Intersection(IntersectionStates state)
             : this()
         {
-            state = State;
+            State = state;
             Items = new List<(double X, double Y)>();
         }
 

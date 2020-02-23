@@ -894,7 +894,7 @@ namespace InstrumentedLibrary
                     return inside;
                 }
 
-                var oldPoint = polygon[polygon.Count - 1];
+                var oldPoint = polygon[^1];
 
                 for (var i = 0; i < polygon.Count; i++)
                 {

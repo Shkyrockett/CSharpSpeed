@@ -220,7 +220,7 @@ namespace InstrumentedLibrary
                 return 0d;
             }
 
-            var area = MatrixDeterminant2x2Tests.Determinant(polygon[polygon.Length - 1].X, polygon[polygon.Length - 1].Y, polygon[0].X, polygon[0].Y);
+            var area = MatrixDeterminant2x2Tests.Determinant(polygon[^1].X, polygon[^1].Y, polygon[0].X, polygon[0].Y);
             for (var i = 1; i < polygon.Length; i++)
             {
                 area += MatrixDeterminant2x2Tests.Determinant(polygon[i - 1].X, polygon[i - 1].Y, polygon[i].X, polygon[i].Y);

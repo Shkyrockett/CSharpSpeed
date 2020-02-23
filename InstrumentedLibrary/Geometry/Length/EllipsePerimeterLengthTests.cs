@@ -138,7 +138,7 @@ namespace InstrumentedLibrary
             var h = (b - a) * (b - a) / ((b + a) * (b + a));
             var H2 = 4d - (3d * h);
             var d = (11d * PI / (44d - (14d * PI))) + 24100d - (24100d * h);
-            return PI * (b + a) * (1d + (3d * h / (10d + Pow(H2, 0.5d))) + (((1.5d * Pow(h, 6)) - (0.5d * Pow(h, 12d))) / d));
+            return PI * (b + a) * (1d + (3d * h / (10d + Sqrt(H2))) + (((1.5d * Pow(h, 6)) - (0.5d * Pow(h, 12d))) / d));
         }
 
         /// <summary>

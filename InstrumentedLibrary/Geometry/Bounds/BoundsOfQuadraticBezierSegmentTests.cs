@@ -81,13 +81,13 @@ namespace InstrumentedLibrary
             var right = points[0].X;
             var bottom = points[0].Y;
 
-            foreach (var point in points)
+            foreach (var (X, Y) in points)
             {
                 // ToDo: Measure performance impact of overwriting each time.
-                left = point.X <= left ? point.X : left;
-                top = point.Y <= top ? point.Y : top;
-                right = point.X >= right ? point.X : right;
-                bottom = point.Y >= bottom ? point.Y : bottom;
+                left = X <= left ? X : left;
+                top = Y <= top ? Y : top;
+                right = X >= right ? X : right;
+                bottom = Y >= bottom ? Y : bottom;
             }
 
             return Rectangle2D.FromLTRB(left, top, right, bottom);

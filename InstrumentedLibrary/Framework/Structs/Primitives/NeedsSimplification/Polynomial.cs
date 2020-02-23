@@ -1206,39 +1206,21 @@ namespace InstrumentedLibrary
         {
             Contract.Ensures(Contract.Result<Polynomial>() != null);
 
-            switch (values?.Length - 1)
+            return (values?.Length - 1) switch
             {
-                case var n when n < 1:
-                    throw new ArgumentNullException(nameof(values), "At least 2 different points must be given");
-                case 1:
-                    return LinearBezierBernsteinBasisTests.LinearBezierBernsteinBasis(values[0], values[1]);
-                case 2:
-                    return QuadraticBezierBernsteinBasisTests.QuadraticBezierBernsteinBasis(values[0], values[1], values[2]);
-                case 3:
-                    return CubicBezierBernsteinBasisTests.CubicBezierBernsteinBasis(values[0], values[1], values[2], values[3]);
-                case 4:
-                    return QuarticBezierBernsteinBasisTests.QuarticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4]);
-                case 5:
-                    return QuinticBezierBernsteinBasisTests.QuinticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5]);
-                case 6:
-                    // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
-                    return SexticBezierBernsteinBasisTests.SexticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6]);
-                case 7:
-                    // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
-                    return SepticBezierBernsteinBasisTests.SepticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]);
-                case 8:
-                    // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
-                    return OcticBezierBernsteinBasisTests.OcticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]);
-                case 9:
-                    // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
-                    return NonicBezierBernsteinBasisTests.NonicBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]);
-                case 10:
-                    // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
-                    return DecicBezierBernsteinBasisTests.DecicBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]);
-                default:
-                    // We don't have an optimized or stacked Method for this Polynomial. Use the recursive method.
-                    return Bezier(0, values.Length - 1, values);
-            }
+                var n when n < 1 => throw new ArgumentNullException(nameof(values), "At least 2 different points must be given"),
+                1 => LinearBezierBernsteinBasisTests.LinearBezierBernsteinBasis(values[0], values[1]),
+                2 => QuadraticBezierBernsteinBasisTests.QuadraticBezierBernsteinBasis(values[0], values[1], values[2]),
+                3 => CubicBezierBernsteinBasisTests.CubicBezierBernsteinBasis(values[0], values[1], values[2], values[3]),
+                4 => QuarticBezierBernsteinBasisTests.QuarticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4]),
+                5 => QuinticBezierBernsteinBasisTests.QuinticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5]),
+                6 => SexticBezierBernsteinBasisTests.SexticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6]),// We don't have a hand optimized Method for this Polynomial. Use the stacked method.
+                7 => SepticBezierBernsteinBasisTests.SepticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]),// We don't have a hand optimized Method for this Polynomial. Use the stacked method.
+                8 => OcticBezierBernsteinBasisTests.OcticBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]),// We don't have a hand optimized Method for this Polynomial. Use the stacked method.
+                9 => NonicBezierBernsteinBasisTests.NonicBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]),// We don't have a hand optimized Method for this Polynomial. Use the stacked method.
+                10 => DecicBezierBernsteinBasisTests.DecicBezierBernsteinBasis(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]),// We don't have a hand optimized Method for this Polynomial. Use the stacked method.
+                _ => Bezier(0, values.Length - 1, values),// We don't have an optimized or stacked Method for this Polynomial. Use the recursive method.
+            };
         }
 
         /// <summary>

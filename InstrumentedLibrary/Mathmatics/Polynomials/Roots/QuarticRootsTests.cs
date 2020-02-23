@@ -310,7 +310,7 @@ namespace InstrumentedLibrary
                 // if (delta < 0) I guess the new test is ok because we're only interested in real roots
                 Q = d1 + Sqrt((d1 * d1) - (4d * d0 * d0 * d0));
                 Q /= 2d;
-                Q = Pow(Q, 1d / 3d);
+                Q = Cbrt(Q);
                 S = 0.5d * Sqrt((-2d / 3d * p) + (1d / (3d * a) * (Q + (d0 / Q))));
             }
             else

@@ -219,21 +219,13 @@ namespace CSharpSpeed
             switch (testcase.Value.ReturnValue)
             {
                 case int i:
-                    switch (testcase.Value.ExpectedReturnValue)
+                    equivalency = testcase.Value.ExpectedReturnValue switch
                     {
-                        case int j:
-                            equivalency = Math.Abs(i - j) <= testcase.Value.Epsilon ? equal : notEqual;
-                            break;
-                        case float f:
-                            equivalency = Math.Abs(i - f) <= testcase.Value.Epsilon ? equal : notEqual;
-                            break;
-                        case double d:
-                            equivalency = Math.Abs(i - d) <= testcase.Value.Epsilon ? equal : notEqual;
-                            break;
-                        default:
-                            equivalency = Equals(i, testcase.Value.ExpectedReturnValue) ? equal : notEqual;
-                            break;
-                    }
+                        int j => Math.Abs(i - j) <= testcase.Value.Epsilon ? equal : notEqual,
+                        float f => Math.Abs(i - f) <= testcase.Value.Epsilon ? equal : notEqual,
+                        double d => Math.Abs(i - d) <= testcase.Value.Epsilon ? equal : notEqual,
+                        _ => Equals(i, testcase.Value.ExpectedReturnValue) ? equal : notEqual,
+                    };
                     break;
                 case float f:
                     switch (testcase.Value.ExpectedReturnValue)

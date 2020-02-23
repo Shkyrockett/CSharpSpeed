@@ -1,4 +1,5 @@
 ﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -27,9 +28,13 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { 1d, 2d, 3d, 4d, Epsilon }, new TestCaseResults(description: "Dumb Polynomial test.", trials: trials, expectedReturnValue: new List<double>{-1.6506291914393882d }, epsilon: double.Epsilon) },
-                { new object[] { 4d, 3d, 2d, 1d, Epsilon }, new TestCaseResults(description: "Dumb Polynomial test.", trials: trials, expectedReturnValue: new List<double>{-0.605829586188268d }, epsilon: double.Epsilon) },
-                { new object[] { 1d, 3d, -6d, 18d, Epsilon }, new TestCaseResults(description: "Dumb Polynomial test.", trials: trials, expectedReturnValue: new List<double>{-4.9478859233751713d }, epsilon: double.Epsilon) },
+                { new object[] { 1d, 3d, 4d, 2, Epsilon }, new TestCaseResults(description: "r is 0", trials: trials, expectedReturnValue: new List<double>{-1d }, epsilon: double.Epsilon) },
+                { new object[] { 3d, 9d, 12d, 6, Epsilon }, new TestCaseResults(description: "r is 0", trials: trials, expectedReturnValue: new List<double>{-1d }, epsilon: double.Epsilon) },
+                { new object[] { 12d, 6d, 4d, 2d, Epsilon }, new TestCaseResults(description: "Root is half", trials: trials, expectedReturnValue: new List<double>{-0.5d }, epsilon: double.Epsilon) },
+                { new object[] { 1d, -2d, 3d, -4d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: new List<double>{1.6506291914393882d }, epsilon: double.Epsilon) },
+                { new object[] { 1d, 2d, 3d, 4d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: new List<double>{-1.6506291914393882d }, epsilon: double.Epsilon) },
+                { new object[] { 4d, 3d, 2d, 1d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: new List<double>{-0.605829586188268d }, epsilon: double.Epsilon) },
+                { new object[] { 1d, 3d, -6d, 18d, Epsilon }, new TestCaseResults(description: "", trials: trials, expectedReturnValue: new List<double>{-4.9478859233751713d }, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -71,7 +76,7 @@ namespace InstrumentedLibrary
         [Description("Find real Cubic Roots  Stephen R. Schmitt.")]
         [Acknowledgment("https://web.archive.org/web/20170322034124/http://abecedarical.com/javascript/script_exact_cubic.html")]
         [SourceCodeLocationProvider]
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IList<double> CubicRootsStephenRSchmitt(double a, double b, double c, double d, double epsilon = Epsilon)
         {
@@ -81,17 +86,17 @@ namespace InstrumentedLibrary
                 return QuadraticRootsTests.QuadraticRoots(b, c, d, epsilon);
             }
 
-            var A = b / a;
-            var B = c / a;
-            var C = d / a;
+            var ba = b / a;
+            var ca = c / a;
+            var da = d / a;
 
-            var Q = ((3d * B) - (A * A)) / 9d;
-            var R = (-(2d * A * A * A) + (9d * A * B) - (27d * C)) / 54d;
+            var q = ((3d * ca) - (ba * ba)) / 9d;
+            var r = (-(2d * ba * ba * ba) + (9d * ba * ca) - (27d * da)) / 54d;
 
-            var offset = A * OneThird;
+            var offset = ba * OneThird;
 
             // Polynomial discriminant
-            var discriminant = (R * R) + (Q * Q * Q);
+            var discriminant = (r * r) + (q * q * q);
 
             // ToDo: May need to switch from a hash set to a list for scan-beams.
             var results = new HashSet<double>();
@@ -103,7 +108,7 @@ namespace InstrumentedLibrary
 
             if (discriminant == 0d)
             {
-                var t = Sign(R) * Pow(Abs(R), OneThird);
+                var t = Sign(r) * Cbrt(Abs(r));
 
                 // Real root.
                 results.Add(-offset + (t + t));
@@ -113,14 +118,15 @@ namespace InstrumentedLibrary
             }
             if (discriminant > 0)
             {
-                var s = Sign(R + Sqrt(discriminant)) * Pow(Abs(R + Sqrt(discriminant)), OneThird);
-                var t = Sign(R - Sqrt(discriminant)) * Pow(Abs(R - Sqrt(discriminant)), OneThird);
+                var e = Sqrt(discriminant);
+                var s = Sign(r + e) * Cbrt(Abs(r + e));
+                var t = Sign(r - e) * Cbrt(Abs(r - e));
 
                 // Real root.
                 results.Add(-offset + (s + t));
 
                 // Complex part of root pair.
-                var Im = Abs(Sqrt(3d) * (s - t) * OneHalf);
+                var Im = Abs(Sqrt3 * (s - t) * OneHalf);
                 if (Im == 0d)
                 {
                     // Real part of complex root.
@@ -130,11 +136,12 @@ namespace InstrumentedLibrary
             else if (discriminant < 0)
             {
                 // Distinct real roots.
-                var th = Acos(R / Sqrt(-Q * Q * Q));
+                var th = Acos(r / Sqrt(-q * q * q));
 
-                results.Add((2d * Sqrt(-Q) * Cos(th * OneThird)) - offset);
-                results.Add((2d * Sqrt(-Q) * Cos((th + Tau) * OneThird)) - offset);
-                results.Add((2d * Sqrt(-Q) * Cos((th + (4d * PI)) * OneThird)) - offset);
+                var sq = Sqrt(-q);
+                results.Add((2d * sq * Cos(th * OneThird)) - offset);
+                results.Add((2d * sq * Cos((th + Tau) * OneThird)) - offset);
+                results.Add((2d * sq * Cos((th + (4d * PI)) * OneThird)) - offset);
             }
 
             return results.ToList();
@@ -166,62 +173,154 @@ namespace InstrumentedLibrary
                 return QuadraticRootsTests.QuadraticRoots(b, c, d, epsilon);
             }
 
-            var results = new List<double>();
-            var c2 = b / a;
-            var c1 = c / a;
-            var c0 = d / a;
+            var ba = b / a;
+            var ca = c / a;
+            var da = d / a;
 
-            var Q = ((3 * c1) - (c2 * c2)) * OneThird;
-            var R = ((2 * c2 * c2 * c2) - (9 * c1 * c2) + (27 * c0)) * OneTwentySeventh;
+            var q = ((3d * ca) - (ba * ba)) * OneThird;
+            var r = ((2d * ba * ba * ba) - (9d * ca * ba) + (27d * da)) * OneTwentySeventh;
 
-            var offset = c2 * OneThird;
-            var discriminant = (R * R * OneQuarter) + (Q * Q * Q * OneTwentySeventh);
+            var offset = ba * OneThird;
+            var discriminant = (r * r * OneQuarter) + (q * q * q * OneTwentySeventh);
 
-            var halfB = OneHalf * R;
+            var halfR = OneHalf * r;
             //var ZEROepsilon = ZeroErrorEstimate();
 
             if (Abs(discriminant) <= epsilon)//ZEROepsilon)
             {
-                discriminant = 0;
+                discriminant = 0d;
             }
 
-            if (discriminant > 0)
+            var results = new HashSet<double>();
+            if (discriminant > 0d)
             {
                 var e = Sqrt(discriminant);
-                var tmp = -halfB + e;
-                double root;
-                root = tmp >= 0 ? Pow(tmp, OneThird) : -Pow(-tmp, OneThird);
-                tmp = -halfB - e;
+                var tmp = -halfR + e;
+                var root = tmp >= 0 ? Cbrt(tmp) : -Cbrt(-tmp);
+                tmp = -halfR - e;
                 if (tmp >= 0)
                 {
-                    root += Pow(tmp, OneThird);
+                    root += Cbrt(tmp);
                 }
                 else
                 {
-                    root -= Pow(-tmp, OneThird);
+                    root -= Cbrt(-tmp);
                 }
 
                 results.Add(root - offset);
             }
-            else if (discriminant < 0)
+            else if (discriminant < 0d)
             {
-                var distance = Sqrt(-Q * OneThird);
-                var angle = Atan2(Sqrt(-discriminant), -halfB) * OneThird;
+                var distance = Sqrt(-q * OneThird);
+                var angle = Atan2(Sqrt(-discriminant), -halfR) * OneThird;
+
+                //var (c, s) = ();
+
                 var cos = Cos(angle);
                 var sin = Sin(angle);
-                results.Add((2 * distance * cos) - offset);
+                results.Add((2d * distance * cos) - offset);
                 results.Add((-distance * (cos + (Sqrt3 * sin))) - offset);
                 results.Add((-distance * (cos - (Sqrt3 * sin))) - offset);
             }
             else
             {
-                double tmp;
-                tmp = halfB >= 0 ? -Pow(halfB, OneThird) : Pow(-halfB, OneThird);
-                results.Add((2 * tmp) - offset);
+                var tmp = halfR >= 0d ? -Cbrt(halfR) : Cbrt(-halfR);
+                results.Add((2d * tmp) - offset);
                 // really should return next root twice, but we return only one
                 results.Add(-tmp - offset);
             }
-            return results;
+            return results.ToList();
+        }
+
+        /// <summary>
+        /// Cubics the roots switch.
+        /// </summary>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns></returns>
+        [DisplayName("Cubic Roots")]
+        [Description("Find real Cubic Roots.")]
+        [SourceCodeLocationProvider]
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IList<double> CubicRootsSwitch(double a, double b, double c, double d, double epsilon = Epsilon)
+        {
+            if (a is 0d)
+            {
+                return QuadraticRootsTests.QuadraticRoots(b, c, d, epsilon);
+            }
+
+            var ba = b / a;
+            var ca = c / a;
+            var da = d / a;
+
+            var q = ((3d * ca) - (ba * ba)) * OneThird; // / 9d;
+            var r = ((2d * ba * ba * ba) - (9d * ba * ca) + (27d * da)) * OneTwentySeventh;// / 54d;
+
+            var offset = ba * OneThird;
+            var discriminant = (r * r * OneQuarter) + (q * q * q * OneTwentySeventh);
+            var halfB = OneHalf * r;
+
+            if (Abs(discriminant) <= epsilon)
+            {
+                discriminant = 0d;
+            }
+
+            switch (discriminant)
+            {
+                case 0:
+                    {
+                        var f = halfB >= 0d ? -Cbrt(halfB) : Cbrt(-halfB);
+                        return new double[] {
+                            (2d * f) - offset,
+                            -f - offset
+                        }.ToList();
+                    }
+                case double v when v > 0d:
+                    {
+                        var e = Sqrt(v);
+                        var tmp = -halfB + e;
+                        var root = tmp >= 0 ? Cbrt(tmp) : -Cbrt(-tmp);
+                        tmp = -halfB - e;
+                        if (tmp >= 0)
+                        {
+                            root += Cbrt(tmp);
+                        }
+                        else
+                        {
+                            root -= Cbrt(-tmp);
+                        }
+
+                        return new double[] { root - offset }.ToList();
+
+                        //var s = Sign(r + e) * Cbrt(Abs(r + e));
+                        //var t = Sign(r - e) * Cbrt(Abs(r - e));
+                        //var im = Abs(Sqrt(3d) * (s - t) * OneHalf);
+                        //return im == 0d ?
+                        //    new double[] {
+                        //    -offset + (s + t)
+                        //    }.ToList() :
+                        //    new double[] {
+                        //        -offset + (s + t),
+                        //        -offset - ((s + t) * OneHalf)
+                        //    }.ToList();
+                    }
+                default:
+                    {
+                        var distance = Sqrt(-q * OneThird);
+                        var angle = Atan2(Sqrt(-discriminant), -halfB) * OneThird;
+                        var cos = Cos(angle);
+                        var sin = Sin(angle);
+                        return new double[] {
+                            (2d * distance * cos) - offset,
+                            (-distance * (cos + (Sqrt3 * sin))) - offset,
+                            (-distance * (cos - (Sqrt3 * sin))) - offset
+                        }.ToList();
+                    }
+            }
         }
     }
 }

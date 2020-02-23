@@ -10,7 +10,6 @@ namespace InstrumentedLibrary
     /// </summary>
     public static class CubicBezierSegmentOrthogonalEllipseIntersectionTests
     {
-
         /// <summary>
         /// Find the intersection between a cubic Bézier and an orthogonal ellipse.
         /// </summary>

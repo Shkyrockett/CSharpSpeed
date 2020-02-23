@@ -401,9 +401,9 @@ namespace InstrumentedLibrary
             if (!(polygons is null))
                 foreach (var poly in polygons)
                 {
-                    foreach (var point in poly)
+                    foreach (var (X, Y) in poly)
                     {
-                        pointList.Add((point.X, point.Y, 0, 0));
+                        pointList.Add((X, Y, 0, 0));
                     }
                 }
 

@@ -91,7 +91,7 @@ namespace InstrumentedLibrary
             var DELTA0 = (b * b) - (3d * a * c);
             var DELTA1 = (2d * b * b * b) - (9d * a * b * c) + (27d * a * a * d);
             Complex DELTA2 = -27d * a * a * DELTA;
-            var C = Complex.Pow((DELTA1 + Complex.Pow(DELTA2, 0.5d)) / 2d, 1d / 3d); //Phew...
+            var C = Complex.Pow((DELTA1 + Complex.Sqrt(DELTA2)) / 2d, 1d / 3d); //Phew...
 
             var R = new List<Complex>(NRoots);
             for (var i = 0; i < NRoots; i++)
