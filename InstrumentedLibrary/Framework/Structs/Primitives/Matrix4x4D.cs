@@ -127,24 +127,24 @@ namespace InstrumentedLibrary
 
         #region Deconstructors
         /// <summary>
-        /// Deconstruct this <see cref="Matrix2x2D"/> to a <see cref="ValueTuple{T1, T2, T3, T4, T5, T6, T7, T8}"/>.
+        /// Deconstruct this <see cref="Matrix2x2D" /> to a <see cref="ValueTuple{T1, T2, T3, T4, T5, T6, T7, T8}" />.
         /// </summary>
         /// <param name="m0x0">The m0x0.</param>
         /// <param name="m0x1">The m0x1.</param>
-        /// <param name="m0x2"></param>
-        /// <param name="m0x3"></param>
+        /// <param name="m0x2">The M0X2.</param>
+        /// <param name="m0x3">The M0X3.</param>
         /// <param name="m1x0">The m1x0.</param>
         /// <param name="m1x1">The m1x1.</param>
-        /// <param name="m1x2"></param>
-        /// <param name="m1x3"></param>
-        /// <param name="m2x0"></param>
-        /// <param name="m2x1"></param>
-        /// <param name="m2x2"></param>
-        /// <param name="m2x3"></param>
-        /// <param name="m3x0"></param>
-        /// <param name="m3x1"></param>
-        /// <param name="m3x2"></param>
-        /// <param name="m3x3"></param>
+        /// <param name="m1x2">The M1X2.</param>
+        /// <param name="m1x3">The M1X3.</param>
+        /// <param name="m2x0">The M2X0.</param>
+        /// <param name="m2x1">The M2X1.</param>
+        /// <param name="m2x2">The M2X2.</param>
+        /// <param name="m2x3">The M2X3.</param>
+        /// <param name="m3x0">The M3X0.</param>
+        /// <param name="m3x1">The M3X1.</param>
+        /// <param name="m3x2">The M3X2.</param>
+        /// <param name="m3x3">The M3X3.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -166,10 +166,10 @@ namespace InstrumentedLibrary
             m2x1 = M2x1;
             m2x2 = M2x2;
             m2x3 = M2x3;
-            m3x0 = M2x0;
-            m3x1 = M2x1;
-            m3x2 = M2x2;
-            m3x3 = M2x3;
+            m3x0 = M3x0;
+            m3x1 = M3x1;
+            m3x2 = M3x2;
+            m3x3 = M3x3;
         }
         #endregion Deconstructors
 
@@ -466,7 +466,7 @@ namespace InstrumentedLibrary
                 scale.I, 0, 0, 0,
                 0, scale.J, 0, 0,
                 0, 0, scale.K, 0,
-                0, 0, 0, 0);
+                0, 0, 0, 1);
 
         /// <summary>
         /// Creates a scaling transform around the origin
@@ -509,7 +509,7 @@ namespace InstrumentedLibrary
                 scaleX, 0, 0, 0,
                 0, scaleY, 0, 0,
                 0, 0, scaleZ, 0,
-                0, 0, 0, 0);
+                0, 0, 0, 1);
 
         /// <summary>
         /// Creates a scaling transform around the origin

@@ -334,7 +334,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(Matrix4x4D);
+            if (this == null) return nameof(Matrix2x2D);
             //if (IsIdentity) return nameof(Identity);
             var sep = ((provider as CultureInfo) ?? CultureInfo.InvariantCulture).GetNumericListSeparator();
             return $"{nameof(Matrix2x2D)}({nameof(M0x0)}: {M0x0.ToString(format, provider)}{sep} {nameof(M0x1)}: {M0x1.ToString(format, provider)}{sep} {nameof(M1x0)}: {M1x0.ToString(format, provider)}{sep} {nameof(M1x1)}: {M1x1.ToString(format, provider)})";
