@@ -1,10 +1,6 @@
 ﻿using CSharpSpeed;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Text;
-using static InstrumentedLibrary.EasingConstants;
 using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
@@ -22,7 +18,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double ElasticOutIn(double t)
-            => ElasticOutIn1( t);
+            => ElasticOutIn1(t);
 
         /// <summary>
         /// Easing equation function for an elastic (exponentially decaying sine wave) easing out/in:

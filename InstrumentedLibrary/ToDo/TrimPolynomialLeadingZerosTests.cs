@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using static System.Math;
-using static InstrumentedLibrary.Maths;
-
-namespace InstrumentedLibrary
+﻿namespace InstrumentedLibrary
 {
     /// <summary>
     /// The trim polynomial leading zeros tests class.

@@ -1,9 +1,6 @@
 ﻿using CSharpSpeed;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Text;
 using static System.Math;
 
 namespace InstrumentedLibrary
@@ -21,7 +18,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double ExpoIn(double t)
-            => ExpoIn1( t);
+            => ExpoIn1(t);
 
         /// <summary>
         /// Exponential in.

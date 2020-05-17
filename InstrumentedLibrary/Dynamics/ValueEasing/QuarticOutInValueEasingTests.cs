@@ -1,10 +1,6 @@
 ﻿using CSharpSpeed;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Text;
-using static InstrumentedLibrary.EasingConstants;
 using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
@@ -25,7 +21,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double QuartOutIn(double t, double b, double c, double d)
-            => QuartOutIn1( t,  b,  c,  d);
+            => QuartOutIn1(t, b, c, d);
 
         /// <summary>
         /// Easing equation function for a quartic (t^4) easing out/in:

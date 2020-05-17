@@ -1,9 +1,6 @@
 ﻿using CSharpSpeed;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Text;
 using static System.Math;
 
 namespace InstrumentedLibrary
@@ -24,7 +21,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double ExpoIn(double t, double b, double c, double d)
-            => ExpoIn1( t,  b,  c,  d);
+            => ExpoIn1(t, b, c, d);
 
         /// <summary>
         /// Easing equation function for an exponential (2^t) easing in:

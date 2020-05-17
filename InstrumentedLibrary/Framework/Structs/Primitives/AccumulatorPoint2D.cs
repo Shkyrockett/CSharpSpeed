@@ -44,7 +44,7 @@ namespace InstrumentedLibrary
         public AccumulatorPoint2D(AccumulatorPoint2D accumulatorPoint2D)
             : this(accumulatorPoint2D.X, accumulatorPoint2D.Y, accumulatorPoint2D.Theta, accumulatorPoint2D.TotalDistance, accumulatorPoint2D.PreviousIndex)
         { }
- 
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AccumulatorPoint2D"/> class.
         /// </summary>
@@ -216,7 +216,7 @@ namespace InstrumentedLibrary
         /// <param name="point">The <see cref="AccumulatorPoint2D"/> to be converted.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator (double X, double Y) (AccumulatorPoint2D point) => (point.X, point.Y);
+        public static implicit operator (double X, double Y)(AccumulatorPoint2D point) => (point.X, point.Y);
         #endregion Operators
 
         #region Factories

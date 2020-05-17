@@ -1,10 +1,6 @@
 ﻿using CSharpSpeed;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Text;
-using static InstrumentedLibrary.EasingConstants;
 using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
@@ -22,7 +18,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double QuadInOut(double t)
-            => QuadInOut1( t);
+            => QuadInOut1(t);
 
         /// <summary>
         /// Easing equation function for a quadratic (t^2) easing in/out:

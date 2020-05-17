@@ -1,12 +1,11 @@
-﻿using System;
+﻿using CSharpSpeed;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Linq;
-using CSharpSpeed;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace InstrumentedLibrary
 {

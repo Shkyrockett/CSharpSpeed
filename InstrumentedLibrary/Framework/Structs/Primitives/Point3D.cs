@@ -322,7 +322,7 @@ namespace InstrumentedLibrary
         /// <param name="point">The <see cref="Point3D"/> to be converted.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator (double X, double Y, double Z) (Point3D point) => (point.X, point.Y, point.Z);
+        public static implicit operator (double X, double Y, double Z)(Point3D point) => (point.X, point.Y, point.Z);
         #endregion Operators
 
         #region Factories

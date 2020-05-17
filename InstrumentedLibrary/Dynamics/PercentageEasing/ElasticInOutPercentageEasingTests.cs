@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CSharpSpeed;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Text;
-using CSharpSpeed;
-using static System.Math;
-using static InstrumentedLibrary.EasingConstants;
 using static InstrumentedLibrary.Maths;
+using static System.Math;
 
 namespace InstrumentedLibrary
 {
@@ -23,7 +19,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double ElasticInOut(double t)
-            => ElasticInOut1( t);
+            => ElasticInOut1(t);
 
         /// <summary>
         /// Elastic in and out.

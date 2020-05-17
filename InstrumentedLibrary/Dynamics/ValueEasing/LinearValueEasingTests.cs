@@ -1,9 +1,6 @@
 ﻿using CSharpSpeed;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace InstrumentedLibrary
 {
@@ -23,7 +20,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double Linear(double t, double b, double c, double d)
-            => Linear1( t,  b,  c,  d);
+            => Linear1(t, b, c, d);
 
         /// <summary>
         /// Easing equation function for a simple linear tweening, with no easing.

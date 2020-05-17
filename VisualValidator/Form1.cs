@@ -14,21 +14,22 @@ namespace VisualValidator
     /// <summary>
     /// 
     /// </summary>
+    /// <seealso cref="System.Windows.Forms.Form" />
     public partial class Form1
         : Form
     {
         /// <summary>
-        /// 
+        /// The picture boxes
         /// </summary>
         private readonly List<PictureBox> pictureBoxes = new List<PictureBox>();
 
         /// <summary>
-        /// 
+        /// The methods
         /// </summary>
         private List<MethodInfo> methods;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Form1"/> class.
         /// </summary>
         public Form1()
         {
@@ -74,14 +75,13 @@ namespace VisualValidator
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event arguments.</param>
         private void ComboBox2_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-        }
+        { }
 
         /// <summary>
-        /// 
+        /// Removes the canvas.
         /// </summary>
-        /// <param name="parent"></param>
-        /// <param name="pictureBox"></param>
+        /// <param name="parent">The parent.</param>
+        /// <param name="pictureBox">The picture box.</param>
         /// <returns></returns>
         private bool RemoveCanvas(FlowLayoutPanel parent, PictureBox pictureBox)
         {
@@ -92,11 +92,11 @@ namespace VisualValidator
         }
 
         /// <summary>
-        /// 
+        /// Removes the canvas.
         /// </summary>
-        /// <param name="parent"></param>
-        /// <param name="pictureBoxes"></param>
-        /// <param name="pictureBox"></param>
+        /// <param name="parent">The parent.</param>
+        /// <param name="pictureBoxes">The picture boxes.</param>
+        /// <param name="pictureBox">The picture box.</param>
         internal static void RemoveCanvas(FlowLayoutPanel parent, List<PictureBox> pictureBoxes, PictureBox pictureBox)
         {
             parent.Controls.Remove(pictureBox);
@@ -106,10 +106,10 @@ namespace VisualValidator
         }
 
         /// <summary>
-        /// 
+        /// Adds the canvas.
         /// </summary>
-        /// <param name="parent"></param>
-        /// <param name="pictureBoxes"></param>
+        /// <param name="parent">The parent.</param>
+        /// <param name="pictureBoxes">The picture boxes.</param>
         private static void AddCanvas(FlowLayoutPanel parent, List<PictureBox> pictureBoxes)
         {
             var pictureBox = new PictureBox();

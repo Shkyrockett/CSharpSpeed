@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CSharpSpeed;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Text;
-using CSharpSpeed;
-using static System.Math;
 using static InstrumentedLibrary.Maths;
+using static System.Math;
 
 namespace InstrumentedLibrary
 {
@@ -22,7 +19,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double SineOut(double t)
-            => SineOut1( t);
+            => SineOut1(t);
 
         /// <summary>
         /// Sine out.

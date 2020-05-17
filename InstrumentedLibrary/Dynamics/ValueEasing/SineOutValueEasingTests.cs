@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CSharpSpeed;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Text;
-using CSharpSpeed;
-using static System.Math;
 using static InstrumentedLibrary.Maths;
+using static System.Math;
 
 namespace InstrumentedLibrary
 {
@@ -25,7 +22,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double SineOut(double t, double b, double c, double d)
-            => SineOut1( t,  b,  c,  d);
+            => SineOut1(t, b, c, d);
 
         /// <summary>
         /// Easing equation function for a sinusoidal (sin(t)) easing out:

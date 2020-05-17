@@ -11,7 +11,6 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 #if HAS_INTRINSICS
-using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
 #endif
 
@@ -235,11 +234,13 @@ namespace CSharpSpeedConsole
             stream.Write(sb.ToString());
         }
 
-#region Helper Methods
+        #region Helper Methods
         /// <summary>
         /// The processor name.
         /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
         public static string GetProcessorName()
         {
             var sb = new StringBuilder();
@@ -261,7 +262,9 @@ namespace CSharpSpeedConsole
         /// <summary>
         /// The physical memory.
         /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
         public static string GetPhysicalMemory()
         {
             var sb = new StringBuilder();
@@ -286,8 +289,10 @@ namespace CSharpSpeedConsole
         /// https://stackoverflow.com/a/22733709
         /// </summary>
         /// <param name="number">The number.</param>
-        /// <param name="provider"></param>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <param name="provider">The provider.</param>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
         public static string FormatCapacity(ulong number, IFormatProvider provider = null)
         {
             for (var i = 0ul; i < (ulong)suffixes.Length; i++)
@@ -300,6 +305,6 @@ namespace CSharpSpeedConsole
             }
             return number.ToString(provider ?? CultureInfo.CurrentCulture);
         }
-#endregion Helper Methods
+        #endregion Helper Methods
     }
 }

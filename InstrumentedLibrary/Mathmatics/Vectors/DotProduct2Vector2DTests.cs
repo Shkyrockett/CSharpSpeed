@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 #if HAS_INTRINSICS
-using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
 #endif
 

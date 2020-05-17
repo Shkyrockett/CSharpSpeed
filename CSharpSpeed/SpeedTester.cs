@@ -23,11 +23,11 @@ namespace CSharpSpeed
         private readonly Delegate methodDelegate;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SpeedTester"/> class.
+        /// Initializes a new instance of the <see cref="SpeedTester" /> class.
         /// </summary>
         /// <param name="method">The method.</param>
-        /// <param name="methodDescription"></param>
-        /// <param name="testCases"></param>
+        /// <param name="methodDescription">The method description.</param>
+        /// <param name="testCases">The test cases.</param>
         public SpeedTester(MethodInfo method, string methodDescription, Dictionary<object[], TestCaseResults> testCases)
         {
             Method = method;
@@ -44,42 +44,63 @@ namespace CSharpSpeed
         /// <summary>
         /// Gets the method.
         /// </summary>
+        /// <value>
+        /// The method.
+        /// </value>
         [DisplayName("Method Info")]
         public MethodInfo Method { get; private set; }
 
         /// <summary>
         /// Gets or sets the method description.
         /// </summary>
+        /// <value>
+        /// The method description.
+        /// </value>
         [DisplayName("Method Description")]
         public string MethodDescription { get; set; }
 
         /// <summary>
         /// Gets the method code.
         /// </summary>
+        /// <value>
+        /// The method code.
+        /// </value>
         [DisplayName("Method Source Code")]
         public string MethodCode { get; private set; }
 
         /// <summary>
         /// Gets the file name.
         /// </summary>
+        /// <value>
+        /// The name of the file.
+        /// </value>
         [DisplayName("Test case Filename")]
         public string FileName { get; private set; }
 
         /// <summary>
         /// Gets the member.
         /// </summary>
+        /// <value>
+        /// The member.
+        /// </value>
         [DisplayName("Tested Member")]
         public string Member { get; private set; }
 
         /// <summary>
         /// Gets the line number.
         /// </summary>
+        /// <value>
+        /// The line number.
+        /// </value>
         [DisplayName("Method Line Number")]
         public int LineNumber { get; private set; }
 
         /// <summary>
         /// Gets or sets the test case.
         /// </summary>
+        /// <value>
+        /// The test cases.
+        /// </value>
         public Dictionary<object[], TestCaseResults> TestCases { get; }
 
         /// <summary>
@@ -115,6 +136,7 @@ namespace CSharpSpeed
                         // Run the method
                         testCase.Value.ReturnValue = methodDelegate.DynamicInvoke(testCase.Key);
                     }
+
                     watch.Stop();
                 }
 
@@ -131,7 +153,9 @@ namespace CSharpSpeed
         /// Create the delegate.
         /// </summary>
         /// <param name="method">The method.</param>
-        /// <returns>The <see cref="Delegate"/>.</returns>
+        /// <returns>
+        /// The <see cref="Delegate" />.
+        /// </returns>
         /// <exception cref="ArgumentNullException">method</exception>
         /// <exception cref="ArgumentException">method</exception>
         /// <exception cref="ArgumentException">method</exception>
@@ -164,7 +188,9 @@ namespace CSharpSpeed
         /// </summary>
         /// <param name="filePath">The filePath.</param>
         /// <param name="referencePath">The referencePath.</param>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static string MakeRelative(string filePath, string referencePath)
         {
@@ -179,7 +205,9 @@ namespace CSharpSpeed
         /// </summary>
         /// <param name="fileName">The fileName.</param>
         /// <param name="lineNumber">The lineNumber.</param>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static string GetMethodCode(string fileName, int lineNumber)
         {
@@ -192,6 +220,7 @@ namespace CSharpSpeed
                 {
                     reader.ReadLine();
                 }
+
                 var line = string.Empty;
                 while (!reader.EndOfStream && !((line = reader.ReadLine()) is null))
                 {
@@ -202,6 +231,7 @@ namespace CSharpSpeed
                     }
                 }
             }
+
             return sb.ToString();
         }
 
@@ -210,7 +240,9 @@ namespace CSharpSpeed
         /// </summary>
         /// <param name="fileName">The fileName.</param>
         /// <param name="lineNumber">The lineNumber.</param>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static string GetMethodCodeSignature(string fileName, int lineNumber)
         {
@@ -223,15 +255,19 @@ namespace CSharpSpeed
                 {
                     reader.ReadLine();
                 }
+
                 sb.Append(reader.ReadLine());
             }
+
             return sb.ToString();
         }
 
         /// <summary>
         /// The to string.
         /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Dictionary<object[], string> ToResultsString()
         {
@@ -239,7 +275,7 @@ namespace CSharpSpeed
             foreach (var testcase in TestCases)
             {
                 var equivalency = testcase.Equivalency();
-                sb.Add(testcase.Key, $"| [{Member}({testcase.Key.ArrayToString()})](#{((DisplayNameAttribute)Method?.GetCustomAttribute(typeof(DisplayNameAttribute)))?.DisplayName.Replace(" ", "-")}) | {(equivalency=="!="?"<span style = \"color: red;\" >": "<span style = \"color: green;\">")} {testcase.Value.ReturnValue.ObjectValueToString()} { "</span>" } {equivalency} {testcase.Value.ExpectedReturnValue.ObjectValueToString()} | {testcase.Value.Trials} in {testcase.Value.TotalRunningTime} ns. {testcase.Value.AverageRunningTime:R} ns. average | {testcase.Value.Description} |");
+                sb.Add(testcase.Key, $"| [{Member}({testcase.Key.ArrayToString()})](#{((DisplayNameAttribute)Method?.GetCustomAttribute(typeof(DisplayNameAttribute)))?.DisplayName.Replace(" ", "-")}) | {(equivalency == "!=" ? "<span style = \"color: red;\" >" : "<span style = \"color: green;\">")} {testcase.Value.ReturnValue.ObjectValueToString()} { "</span>" } {equivalency} {testcase.Value.ExpectedReturnValue.ObjectValueToString()} | {testcase.Value.Trials} in {testcase.Value.TotalRunningTime} ns. {testcase.Value.AverageRunningTime:R} ns. average | {testcase.Value.Description} |");
             }
             return sb;
         }

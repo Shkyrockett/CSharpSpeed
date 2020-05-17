@@ -1,5 +1,9 @@
 ﻿namespace VisualValidator
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <seealso cref="System.Windows.Forms.Form" />
     partial class Form1
     {
         /// <summary>
@@ -7,8 +11,19 @@
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        /// <summary>
+        /// The combo box1
+        /// </summary>
         private System.Windows.Forms.ComboBox comboBox1;
+
+        /// <summary>
+        /// The combo box2
+        /// </summary>
         private System.Windows.Forms.ComboBox comboBox2;
+
+        /// <summary>
+        /// The flow layout panel1
+        /// </summary>
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
 
         /// <summary>
@@ -26,7 +41,6 @@
         }
 
         #region Windows Form Designer generated code
-
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
@@ -87,7 +101,6 @@
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
         }
-
         #endregion
     }
 }

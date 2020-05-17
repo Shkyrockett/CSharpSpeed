@@ -20,7 +20,9 @@ namespace CSharpSpeed
         /// The list static factory constructors.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns>The <see cref="List{MethodInfo}"/>.</returns>
+        /// <returns>
+        /// The <see cref="List{MethodInfo}" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<MethodInfo> ListStaticFactoryConstructors(this Type type)
             => new List<MethodInfo>
@@ -36,7 +38,9 @@ namespace CSharpSpeed
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="type2">The type2.</param>
-        /// <returns>The <see cref="List{MethodInfo}"/>.</returns>
+        /// <returns>
+        /// The <see cref="List{MethodInfo}" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<MethodInfo> ListStaticFactoryConstructorsList(this Type type, Type type2)
             => new List<MethodInfo>
@@ -52,7 +56,9 @@ namespace CSharpSpeed
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="attributeType">The attribute.</param>
-        /// <returns>The <see cref="List{MethodInfo}"/>.</returns>
+        /// <returns>
+        /// The <see cref="List{MethodInfo}" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<MethodInfo> ListStaticMethodsWithAttribute(this Type type, Type attributeType)
             => new List<MethodInfo>(
@@ -66,7 +72,9 @@ namespace CSharpSpeed
         /// The list classes with attribute.
         /// </summary>
         /// <param name="attributeType">The attributeType.</param>
-        /// <returns>The <see cref="IEnumerable{TypeInfo}"/>.</returns>
+        /// <returns>
+        /// The <see cref="IEnumerable{TypeInfo}" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<TypeInfo> ListClassesWithAttribute(this Type attributeType)
             => (from assembly in AppDomain.CurrentDomain.GetAssemblies()
@@ -78,7 +86,9 @@ namespace CSharpSpeed
         /// The array to string.
         /// </summary>
         /// <param name="array">The array.</param>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string ArrayToAddressListString(this string[] array)
         {
@@ -95,7 +105,9 @@ namespace CSharpSpeed
         /// The array to string.
         /// </summary>
         /// <param name="array">The array.</param>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string ArrayToString(this object[] array)
             => string.Join(", ", array.Select(x => x.ObjectValueToString()));
@@ -104,7 +116,9 @@ namespace CSharpSpeed
         /// The object value to string.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string ObjectValueToString(this object value)
         {
@@ -209,7 +223,9 @@ namespace CSharpSpeed
         /// Special equivalency tests.
         /// </summary>
         /// <param name="testcase">The test-case.</param>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string Equivalency(this KeyValuePair<object[], TestCaseResults> testcase)
         {
@@ -238,6 +254,14 @@ namespace CSharpSpeed
                             {
                                 equivalency = float.IsNaN(g) ? equal : notEqual;
                             }
+                            else if (float.IsPositiveInfinity(f))
+                            {
+                                equivalency = float.IsPositiveInfinity(g) ? equal : notEqual;
+                            }
+                            else if (float.IsNegativeInfinity(f))
+                            {
+                                equivalency = float.IsNegativeInfinity(g) ? equal : notEqual;
+                            }
                             else
                             {
                                 equivalency = Math.Abs(f - g) <= testcase.Value.Epsilon ? equal : notEqual;
@@ -247,6 +271,14 @@ namespace CSharpSpeed
                             if (float.IsNaN(f))
                             {
                                 equivalency = double.IsNaN(e) ? equal : notEqual;
+                            }
+                            else if (float.IsPositiveInfinity(f))
+                            {
+                                equivalency = double.IsPositiveInfinity(e) ? equal : notEqual;
+                            }
+                            else if (float.IsNegativeInfinity(f))
+                            {
+                                equivalency = double.IsNegativeInfinity(e) ? equal : notEqual;
                             }
                             else
                             {
@@ -269,6 +301,14 @@ namespace CSharpSpeed
                             {
                                 equivalency = float.IsNaN(f) ? equal : notEqual;
                             }
+                            else if (double.IsPositiveInfinity(d))
+                            {
+                                equivalency = float.IsPositiveInfinity(f) ? equal : notEqual;
+                            }
+                            else if (double.IsNegativeInfinity(d))
+                            {
+                                equivalency = float.IsNegativeInfinity(f) ? equal : notEqual;
+                            }
                             else
                             {
                                 equivalency = Math.Abs(d - f) <= testcase.Value.Epsilon ? equal : notEqual;
@@ -278,6 +318,14 @@ namespace CSharpSpeed
                             if (double.IsNaN(d))
                             {
                                 equivalency = double.IsNaN(e) ? equal : notEqual;
+                            }
+                            else if (double.IsPositiveInfinity(e))
+                            {
+                                equivalency = double.IsPositiveInfinity(d) ? equal : notEqual;
+                            }
+                            else if (double.IsNegativeInfinity(e))
+                            {
+                                equivalency = double.IsNegativeInfinity(d) ? equal : notEqual;
                             }
                             else
                             {

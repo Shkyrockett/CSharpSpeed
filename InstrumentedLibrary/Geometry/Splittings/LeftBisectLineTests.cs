@@ -1,11 +1,9 @@
 ﻿using CSharpSpeed;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace InstrumentedLibrary
 {
@@ -50,7 +48,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static Ray2D LeftBisectLine(double x, double y, double i, double j, double t)
-            =>LeftBisectLine1( x,  y,  i,  j,  t);
+            => LeftBisectLine1(x, y, i, j, t);
 
         /// <summary>
         /// Splits a line into two rays.

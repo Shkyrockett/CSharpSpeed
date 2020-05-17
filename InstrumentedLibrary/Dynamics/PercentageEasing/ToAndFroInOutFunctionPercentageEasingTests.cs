@@ -1,10 +1,7 @@
 ﻿using CSharpSpeed;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Text;
-using static InstrumentedLibrary.EasingConstants;
 using static InstrumentedLibrary.Maths;
 
 namespace InstrumentedLibrary
@@ -23,7 +20,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static Func<double, double> ToAndFro(Func<double, double> easer1, Func<double, double> easer2)
-            => ToAndFro1( easer1,  easer2);
+            => ToAndFro1(easer1, easer2);
 
         /// <summary>
         /// Ease a value to its target and then back with another easing function. Use this to wrap two other easing functions.

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CSharpSpeed;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Text;
-using CSharpSpeed;
-using static System.Math;
-using static InstrumentedLibrary.EasingConstants;
 using static InstrumentedLibrary.Maths;
+using static System.Math;
 
 namespace InstrumentedLibrary
 {
@@ -26,7 +22,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
         public static double CircInOut(double t, double b, double c, double d)
-            => CircInOut1( t,  b,  c,  d);
+            => CircInOut1(t, b, c, d);
 
         /// <summary>
         /// Easing equation function for a circular (sqrt(1-t^2)) easing in/out:

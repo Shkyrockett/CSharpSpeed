@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
-using System.Text;
 using System.Xml.Serialization;
 
 namespace InstrumentedLibrary
@@ -60,7 +59,7 @@ namespace InstrumentedLibrary
         /// <remarks>http://syncor.blogspot.com/2010/11/passing-getter-and-setter-of-c-property.html</remarks>
         [Browsable(false)]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public object CachingProperty(Func<object> func, [CallerMemberName]string name = "")
+        public object CachingProperty(Func<object> func, [CallerMemberName] string name = "")
         {
             if (PropertyCache is null)
             {

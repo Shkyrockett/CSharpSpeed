@@ -208,7 +208,7 @@ namespace InstrumentedLibrary
                             }
                         }
                     }
-                checkRoots:;
+                    checkRoots:;
                 }
             }
 
@@ -364,7 +364,7 @@ namespace InstrumentedLibrary
                             }
                         }
                     }
-                checkRoots:;
+                    checkRoots:;
                 }
             }
 
@@ -500,7 +500,7 @@ namespace InstrumentedLibrary
                             }
                         }
                     }
-                checkRoots:;
+                    checkRoots:;
                 }
             }
 
