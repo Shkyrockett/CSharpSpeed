@@ -163,7 +163,7 @@ namespace CSharpSpeedConsole
             {
                 // Run test cases.
                 test.RunTest();
-                Console.WriteLine($"Processing: {test.Method.Name}");
+                Console.WriteLine($"Processing: {Path.GetFileNameWithoutExtension(test.FileName)}.{test.Method.Name}");
                 var resultSet = test.ToResultsString();
                 foreach (var result in resultSet)
                 {

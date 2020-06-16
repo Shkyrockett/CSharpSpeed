@@ -285,19 +285,19 @@ namespace InstrumentedLibrary
             double i = m3x1, j = m3x2, k = m3x3, l = m3x4;
             double m = m4x1, n = m4x2, o = m4x3, p = m4x4;
 
-            var kp_lo = k * p - l * o;
-            var jp_ln = j * p - l * n;
-            var jo_kn = j * o - k * n;
-            var ip_lm = i * p - l * m;
-            var io_km = i * o - k * m;
-            var in_jm = i * n - j * m;
+            var kp_lo = (k * p) - (l * o);
+            var jp_ln = (j * p) - (l * n);
+            var jo_kn = (j * o) - (k * n);
+            var ip_lm = (i * p) - (l * m);
+            var io_km = (i * o) - (k * m);
+            var in_jm = (i * n) - (j * m);
 
-            var a11 = +(f * kp_lo - g * jp_ln + h * jo_kn);
-            var a12 = -(e * kp_lo - g * ip_lm + h * io_km);
-            var a13 = +(e * jp_ln - f * ip_lm + h * in_jm);
-            var a14 = -(e * jo_kn - f * io_km + g * in_jm);
+            var a11 = +((f * kp_lo) - (g * jp_ln) + (h * jo_kn));
+            var a12 = -((e * kp_lo) - (g * ip_lm) + (h * io_km));
+            var a13 = +((e * jp_ln) - (f * ip_lm) + (h * in_jm));
+            var a14 = -((e * jo_kn) - (f * io_km) + (g * in_jm));
 
-            var det = a * a11 + b * a12 + c * a13 + d * a14;
+            var det = (a * a11) + (b * a12) + (c * a13) + (d * a14);
 
             if (Math.Abs(det) < double.Epsilon)
             {
@@ -319,34 +319,34 @@ namespace InstrumentedLibrary
             result.m31 = a13 * invDet;
             result.m41 = a14 * invDet;
 
-            result.m12 = -(b * kp_lo - c * jp_ln + d * jo_kn) * invDet;
-            result.m22 = +(a * kp_lo - c * ip_lm + d * io_km) * invDet;
-            result.m32 = -(a * jp_ln - b * ip_lm + d * in_jm) * invDet;
-            result.m42 = +(a * jo_kn - b * io_km + c * in_jm) * invDet;
+            result.m12 = -((b * kp_lo) - (c * jp_ln) + (d * jo_kn)) * invDet;
+            result.m22 = +((a * kp_lo) - (c * ip_lm) + (d * io_km)) * invDet;
+            result.m32 = -((a * jp_ln) - (b * ip_lm) + (d * in_jm)) * invDet;
+            result.m42 = +((a * jo_kn) - (b * io_km) + (c * in_jm)) * invDet;
 
-            var gp_ho = g * p - h * o;
-            var fp_hn = f * p - h * n;
-            var fo_gn = f * o - g * n;
-            var ep_hm = e * p - h * m;
-            var eo_gm = e * o - g * m;
-            var en_fm = e * n - f * m;
+            var gp_ho = (g * p) - (h * o);
+            var fp_hn = (f * p) - (h * n);
+            var fo_gn = (f * o) - (g * n);
+            var ep_hm = (e * p) - (h * m);
+            var eo_gm = (e * o) - (g * m);
+            var en_fm = (e * n) - (f * m);
 
-            result.m13 = +(b * gp_ho - c * fp_hn + d * fo_gn) * invDet;
-            result.m23 = -(a * gp_ho - c * ep_hm + d * eo_gm) * invDet;
-            result.m33 = +(a * fp_hn - b * ep_hm + d * en_fm) * invDet;
-            result.m43 = -(a * fo_gn - b * eo_gm + c * en_fm) * invDet;
+            result.m13 = +((b * gp_ho) - (c * fp_hn) + (d * fo_gn)) * invDet;
+            result.m23 = -((a * gp_ho) - (c * ep_hm) + (d * eo_gm)) * invDet;
+            result.m33 = +((a * fp_hn) - (b * ep_hm) + (d * en_fm)) * invDet;
+            result.m43 = -((a * fo_gn) - (b * eo_gm) + (c * en_fm)) * invDet;
 
-            var gl_hk = g * l - h * k;
-            var fl_hj = f * l - h * j;
-            var fk_gj = f * k - g * j;
-            var el_hi = e * l - h * i;
-            var ek_gi = e * k - g * i;
-            var ej_fi = e * j - f * i;
+            var gl_hk = (g * l) - (h * k);
+            var fl_hj = (f * l) - (h * j);
+            var fk_gj = (f * k) - (g * j);
+            var el_hi = (e * l) - (h * i);
+            var ek_gi = (e * k) - (g * i);
+            var ej_fi = (e * j) - (f * i);
 
-            result.m14 = -(b * gl_hk - c * fl_hj + d * fk_gj) * invDet;
-            result.m24 = +(a * gl_hk - c * el_hi + d * ek_gi) * invDet;
-            result.m34 = -(a * fl_hj - b * el_hi + d * ej_fi) * invDet;
-            result.m44 = +(a * fk_gj - b * ek_gi + c * ej_fi) * invDet;
+            result.m14 = -((b * gl_hk) - (c * fl_hj) + (d * fk_gj)) * invDet;
+            result.m24 = +((a * gl_hk) - (c * el_hi) + (d * ek_gi)) * invDet;
+            result.m34 = -((a * fl_hj) - (b * el_hi) + (d * ej_fi)) * invDet;
+            result.m44 = +((a * fk_gj) - (b * ek_gi) + (c * ej_fi)) * invDet;
 
             return result;
         }

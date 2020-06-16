@@ -108,7 +108,7 @@ namespace InstrumentedLibrary
             double x2, double y2,
             double x3, double y3)
         {
-            return (x2 - x1) * (y1 - y3) - (x1 - x3) * (y2 - y1);
+            return ((x2 - x1) * (y1 - y3)) - ((x1 - x3) * (y2 - y1));
         }
 
         /// <summary>

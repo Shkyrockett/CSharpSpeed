@@ -29,16 +29,16 @@ namespace InstrumentedLibrary
             // Partial Fix for Oblique Ellipse, Oblique Ellipse intersection Test Case 2.
             if (sin == 1d || sin == -1d) cos = 0d;
 
-            var coefA = a * a * sin * sin + b * b * cos * cos;
-            var coefB = 2d * (b * b - a * a) * sin * cos;
-            var coefC = a * a * cos * cos + b * b * sin * sin;
+            var coefA = (a * a * sin * sin) + (b * b * cos * cos);
+            var coefB = 2d * ((b * b) - (a * a)) * sin * cos;
+            var coefC = (a * a * cos * cos) + (b * b * sin * sin);
             return (
                 a: coefA,
                 b: coefB,
                 c: coefC,
-                d: -2d * coefA * h - coefB * k,
-                e: -2d * coefC * k - coefB * h,
-                f: coefA * h * h + coefB * h * k + coefC * k * k - a * a * b * b);
+                d: (-2d * coefA * h) - (coefB * k),
+                e: (-2d * coefC * k) - (coefB * h),
+                f: (coefA * h * h) + (coefB * h * k) + (coefC * k * k) - (a * a * b * b));
         }
     }
 }

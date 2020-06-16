@@ -239,13 +239,13 @@ namespace InstrumentedLibrary
             var dy21 = q1.Y - q0.Y;
             var dx10 = q0.X - p.X;
             var dy10 = q0.Y - p.Y;
-            var segLength = Sqrt(dx21 * dx21 + dy21 * dy21);
+            var segLength = Sqrt((dx21 * dx21) + (dy21 * dy21));
             if (segLength < Epsilon)
             {
                 throw new Exception("Expected line segment, not point.");
             }
 
-            var num = Abs(dx21 * dy10 - dx10 * dy21);
+            var num = Abs((dx21 * dy10) - (dx10 * dy21));
             var d = num / segLength;
             return d;
         }

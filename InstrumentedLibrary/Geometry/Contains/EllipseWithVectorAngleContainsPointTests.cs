@@ -93,8 +93,8 @@ namespace InstrumentedLibrary
             var v = pY - cY;
 
             // Apply the rotation transformation.
-            var a = u * cosT + v * sinT;
-            var b = u * sinT - v * cosT;
+            var a = (u * cosT) + (v * sinT);
+            var b = (u * sinT) - (v * cosT);
 
             var normalizedRadius = (a * a / (rx * rx)) + (b * b / (ry * ry));
 
@@ -142,8 +142,8 @@ namespace InstrumentedLibrary
             var v = y - cy;
 
             // Apply the rotation transformation.
-            var a = cosT * u + sinT * v;
-            var b = sinT * u - cosT * v;
+            var a = (cosT * u) + (sinT * v);
+            var b = (sinT * u) - (cosT * v);
 
             // sqrt x/y terms
             var termX = 2 * a / rx;

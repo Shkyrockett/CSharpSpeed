@@ -83,7 +83,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ASin1(double d)
         {
-            return Atan2(d, Sqrt(1d - d * d));
+            return Atan2(d, Sqrt(1d - (d * d)));
         }
     }
 }

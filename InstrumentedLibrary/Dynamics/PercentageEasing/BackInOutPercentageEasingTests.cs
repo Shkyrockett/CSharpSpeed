@@ -36,7 +36,7 @@ namespace InstrumentedLibrary
             t *= 2d;
             if (t < 1d)
             {
-                return t * t * (BackInKey1 * t - BackInKey2) * OneHalf;
+                return t * t * ((BackInKey1 * t) - BackInKey2) * OneHalf;
             }
 
             t--;

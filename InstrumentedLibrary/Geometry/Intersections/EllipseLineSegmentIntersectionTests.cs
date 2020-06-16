@@ -108,18 +108,18 @@ namespace InstrumentedLibrary
             var v2 = y1 - cy;
 
             // Apply Rotation Transform to line at the origin.
-            var u1A = 0 + (u1 * cosA - v1 * sinA);
-            var v1A = 0 + (u1 * sinA + v1 * cosA);
-            var u2A = 0 + (u2 * cosA - v2 * sinA);
-            var v2A = 0 + (u2 * sinA + v2 * cosA);
+            var u1A = 0 + ((u1 * cosA) - (v1 * sinA));
+            var v1A = 0 + ((u1 * sinA) + (v1 * cosA));
+            var u2A = 0 + ((u2 * cosA) - (v2 * sinA));
+            var v2A = 0 + ((u2 * sinA) + (v2 * cosA));
 
             // Calculate the quadratic parameters.
-            var a = (u2A - u1A) * (u2A - u1A) / (rx * rx) + (v2A - v1A) * (v2A - v1A) / (ry * ry);
-            var b = 2d * u1A * (u2A - u1A) / (rx * rx) + 2d * v1A * (v2A - v1A) / (ry * ry);
-            var c = u1A * u1A / (rx * rx) + v1A * v1A / (ry * ry) - 1d;
+            var a = ((u2A - u1A) * (u2A - u1A) / (rx * rx)) + ((v2A - v1A) * (v2A - v1A) / (ry * ry));
+            var b = (2d * u1A * (u2A - u1A) / (rx * rx)) + (2d * v1A * (v2A - v1A) / (ry * ry));
+            var c = (u1A * u1A / (rx * rx)) + (v1A * v1A / (ry * ry)) - 1d;
 
             // Calculate the discriminant.
-            var discriminant = b * b - 4d * a * c;
+            var discriminant = (b * b) - (4d * a * c);
 
             if ((a <= epsilon) || (discriminant < 0))
             {
@@ -133,7 +133,7 @@ namespace InstrumentedLibrary
                 // Add the point if it is between the end points of the line segment.
                 if ((t >= 0d) && (t <= 1d))
                 {
-                    result.AppendPoint(new Point2D(u1 + (u2 - u1) * t + cx, v1 + (v2 - v1) * t + cy));
+                    result.AppendPoint(new Point2D(u1 + ((u2 - u1) * t) + cx, v1 + ((v2 - v1) * t) + cy));
                     result.State = IntersectionStates.Intersection;
                 }
 
@@ -147,13 +147,13 @@ namespace InstrumentedLibrary
                 // Add the points if they are between the end points of the line segment.
                 if ((t1 >= 0d) && (t1 <= 1d))
                 {
-                    result.AppendPoint(new Point2D(u1 + (u2 - u1) * t1 + cx, v1 + (v2 - v1) * t1 + cy));
+                    result.AppendPoint(new Point2D(u1 + ((u2 - u1) * t1) + cx, v1 + ((v2 - v1) * t1) + cy));
                     result.State = IntersectionStates.Intersection;
                 }
 
                 if ((t2 >= 0d) && (t2 <= 1d))
                 {
-                    result.AppendPoint(new Point2D(u1 + (u2 - u1) * t2 + cx, v1 + (v2 - v1) * t2 + cy));
+                    result.AppendPoint(new Point2D(u1 + ((u2 - u1) * t2) + cx, v1 + ((v2 - v1) * t2) + cy));
                     result.State = IntersectionStates.Intersection;
                 }
 

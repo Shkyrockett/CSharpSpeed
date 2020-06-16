@@ -75,7 +75,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SignedTriangleAreaVelcroPhysics(double aX, double aY, double bX, double bY, double cX, double cY)
         {
-            return aX * (bY - cY) + bX * (cY - aY) + cX * (aY - bY);
+            return (aX * (bY - cY)) + (bX * (cY - aY)) + (cX * (aY - bY));
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SignedTriangleAreaW8R(double aX, double aY, double bX, double bY, double cX, double cY)
         {
-            return (aX - cX) * (bY - cY) - (bX - cX) * (aY - cY);
+            return ((aX - cX) * (bY - cY)) - ((bX - cX) * (aY - cY));
         }
     }
 }

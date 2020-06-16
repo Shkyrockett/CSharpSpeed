@@ -106,7 +106,7 @@ namespace InstrumentedLibrary
             var c = DotProduct2Vector2DTests.DotProduct2D(diff.I, diff.J, mDiff.I, mDiff.J) - 1d;
 
             // Calculate the discriminant of the quadratic. The 4 is omitted.
-            var discriminant = b * b - a * c;
+            var discriminant = (b * b) - (a * c);
 
             // Check whether line segment is outside of the ellipse.
             if (discriminant < 0d)
@@ -129,10 +129,10 @@ namespace InstrumentedLibrary
             var v2 = -(ry * Sin(ea));
 
             // Find the points of the chord.
-            var sX = cx + (u1 * cosT + v1 * sinT);
-            var sY = cy + (u1 * sinT - v1 * cosT);
-            var eX = cx + (u2 * cosT + v2 * sinT);
-            var eY = cy + (u2 * sinT - v2 * cosT);
+            var sX = cx + ((u1 * cosT) + (v1 * sinT));
+            var sY = cy + ((u1 * sinT) - (v1 * cosT));
+            var eX = cx + ((u2 * cosT) + (v2 * sinT));
+            var eY = cy + ((u2 * sinT) - (v2 * cosT));
 
             if (discriminant > 0d)
             {
@@ -148,7 +148,7 @@ namespace InstrumentedLibrary
                 {
                     var p = InterpolateLinear2DTests.LinearInterpolate2D(t1, x0, y0, x1, y1);
                     // Find the determinant of the chord.
-                    var determinant = (sX - p.X) * (eY - p.Y) - (eX - p.X) * (sY - p.Y);
+                    var determinant = ((sX - p.X) * (eY - p.Y)) - ((eX - p.X) * (sY - p.Y));
 
                     // Check whether the point is on the side of the chord as the center.
                     if (0d <= t1 && t1 <= 1d && (Sign(determinant) != Sign(sweepAngle)))
@@ -158,7 +158,7 @@ namespace InstrumentedLibrary
 
                     p = InterpolateLinear2DTests.LinearInterpolate2D(t2, x0, y0, x1, y1);
                     // Find the determinant of the chord.
-                    determinant = (sX - p.X) * (eY - p.Y) - (eX - p.X) * (sY - p.Y);
+                    determinant = ((sX - p.X) * (eY - p.Y)) - ((eX - p.X) * (sY - p.Y));
                     if (0d <= t2 && t2 <= 1 && (Sign(determinant) != Sign(sweepAngle)))
                     {
                         result.AppendPoint(p);
@@ -174,7 +174,7 @@ namespace InstrumentedLibrary
                     var p = InterpolateLinear2DTests.LinearInterpolate2D(t, x0, y0, x1, y1);
 
                     // Find the determinant of the matrix representing the chord.
-                    var determinant = (sX - p.X) * (eY - p.Y) - (eX - p.X) * (sY - p.Y);
+                    var determinant = ((sX - p.X) * (eY - p.Y)) - ((eX - p.X) * (sY - p.Y));
 
                     // Add the point if it is on the sweep side of the chord.
                     if (Sign(determinant) != Sign(sweepAngle))

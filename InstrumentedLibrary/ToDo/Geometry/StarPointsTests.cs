@@ -82,8 +82,8 @@ namespace InstrumentedLibrary
             for (var i = 0; i < numPoints; i++)
             {
                 pts[i] = (
-                    cx + rx * Cos(theta),
-                    cy + ry * Sin(theta));
+                    cx + (rx * Cos(theta)),
+                    cy + (ry * Sin(theta)));
                 theta += dtheta;
             }
 
@@ -108,7 +108,7 @@ namespace InstrumentedLibrary
             var points = new List<(double X, double Y)>();
             for (var i = 0; i <= 2 * n; i++)
             {
-                var alpha = (2 * i + 2 - n % 4) / (2 * n) * PI;
+                var alpha = ((2 * i) + 2 - (n % 4)) / (2 * n) * PI;
                 var radius = 1 == i % 2 ? innerRadius : outerRadius;
 
                 (double X, double Y) point = (Cos(alpha) * radius, Sin(alpha) * radius);
@@ -173,9 +173,9 @@ namespace InstrumentedLibrary
                     //DrawStar(e.Graphics, cx, cy, pts1, skip, NumPoints);
 
                     // Draw the smaller version.
-                    theta = -PI / 2d + skip * 2d * PI / NumPoints;
-                    var x = (int)(cx + r3 * Cos(theta));
-                    var y = (int)(cy + r3 * Sin(theta));
+                    theta = (-PI / 2d) + (skip * 2d * PI / NumPoints);
+                    var x = (int)(cx + (r3 * Cos(theta)));
+                    var y = (int)(cy + (r3 * Sin(theta)));
 
                     //DrawStar(e.Graphics, x, y, pts2, skip, NumPoints);
                 }
@@ -219,7 +219,7 @@ namespace InstrumentedLibrary
 
             const double radius = 50;
             const double tooth_length = 10;
-            var x = bounds.Width / 2 - radius - tooth_length - 1;
+            var x = (bounds.Width / 2) - radius - tooth_length - 1;
             var y = bounds.Height / 3;
             //DrawGear(e.Graphics, Brushes.Black, Brushes.LightBlue, Pens.Blue, new Point2D(x, y),
             //    radius, tooth_length, 10, 5, true);
@@ -249,7 +249,7 @@ namespace InstrumentedLibrary
             var dtheta_degrees = dtheta * 180 / PI; // dtheta in degrees.
 
             const double chamfer = 2;
-            var tooth_width = radius * dtheta - chamfer;
+            var tooth_width = (radius * dtheta) - chamfer;
             var alpha = tooth_width / (radius + toothLength);
             var alpha_degrees = alpha * 180 / PI;
             var phi = (dtheta - alpha) / 2;

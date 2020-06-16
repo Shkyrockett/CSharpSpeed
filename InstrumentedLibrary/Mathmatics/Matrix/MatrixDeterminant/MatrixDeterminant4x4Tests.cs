@@ -182,17 +182,17 @@ namespace InstrumentedLibrary
             double i = m3x1, j = m3x2, k = m3x3, l = m3x4;
             double m = m4x1, n = m4x2, o = m4x3, p = m4x4;
 
-            var kp_lo = k * p - l * o;
-            var jp_ln = j * p - l * n;
-            var jo_kn = j * o - k * n;
-            var ip_lm = i * p - l * m;
-            var io_km = i * o - k * m;
-            var in_jm = i * n - j * m;
+            var kp_lo = (k * p) - (l * o);
+            var jp_ln = (j * p) - (l * n);
+            var jo_kn = (j * o) - (k * n);
+            var ip_lm = (i * p) - (l * m);
+            var io_km = (i * o) - (k * m);
+            var in_jm = (i * n) - (j * m);
 
-            return a * (f * kp_lo - g * jp_ln + h * jo_kn) -
-                   b * (e * kp_lo - g * ip_lm + h * io_km) +
-                   c * (e * jp_ln - f * ip_lm + h * in_jm) -
-                   d * (e * jo_kn - f * io_km + g * in_jm);
+            return (a * ((f * kp_lo) - (g * jp_ln) + (h * jo_kn))) -
+                   (b * ((e * kp_lo) - (g * ip_lm) + (h * io_km))) +
+                   (c * ((e * jp_ln) - (f * ip_lm) + (h * in_jm))) -
+                   (d * ((e * jo_kn) - (f * io_km) + (g * in_jm)));
         }
 
         /// <summary>

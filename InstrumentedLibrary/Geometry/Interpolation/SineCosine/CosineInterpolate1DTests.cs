@@ -68,7 +68,7 @@ namespace InstrumentedLibrary
         public static double CosineInterpolate1D1(double t, double v1, double v2)
         {
             var mu2 = (1d - Cos(t * PI)) / 2d;
-            return v1 * (1d - mu2) + v2 * mu2;
+            return (v1 * (1d - mu2)) + (v2 * mu2);
         }
     }
 }

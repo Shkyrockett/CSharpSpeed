@@ -73,8 +73,8 @@ namespace InstrumentedLibrary
         {
             var A = y2 - y3;
             var B = x3 - x2;
-            var C = A * x1 + B * y1 - (A * x2 + B * y2);
-            return C * C / (A * A + B * B);
+            var C = (A * x1) + (B * y1) - ((A * x2) + (B * y2));
+            return C * C / ((A * A) + (B * B));
         }
     }
 }

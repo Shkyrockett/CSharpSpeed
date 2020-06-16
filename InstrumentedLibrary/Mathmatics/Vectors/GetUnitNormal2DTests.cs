@@ -76,7 +76,7 @@ namespace InstrumentedLibrary
                 return (0d, 0d);
             }
 
-            var f = 1d / Sqrt(dx * dx + dy * dy);
+            var f = 1d / Sqrt((dx * dx) + (dy * dy));
             dx *= f;
             dy *= f;
 

@@ -80,12 +80,12 @@ namespace InstrumentedLibrary
             m0 += (v2 - v1) * (1d - bias) * (1d - tension) / 2d;
             var m1 = (v2 - v1) * (1d + bias) * (1d - tension) / 2d;
             m1 += (v3 - v2) * (1d - bias) * (1d - tension) / 2d;
-            var a0 = 2d * sCubed - 3d * sSquared + 1d;
-            var a1 = sCubed - 2d * sSquared + s;
+            var a0 = (2d * sCubed) - (3d * sSquared) + 1d;
+            var a1 = sCubed - (2d * sSquared) + s;
             var a2 = sCubed - sSquared;
-            var a3 = -2d * sCubed + 3d * sSquared;
+            var a3 = (-2d * sCubed) + (3d * sSquared);
 
-            return a0 * v1 + a1 * m0 + a2 * m1 + a3 * v2;
+            return (a0 * v1) + (a1 * m0) + (a2 * m1) + (a3 * v2);
         }
 
         /// <summary>
@@ -118,9 +118,9 @@ namespace InstrumentedLibrary
             }
             else
             {
-                result = s == 1d ? v2 : (2d * v1 - 2d * v2 + t2 + t1) * sCubed
-                   + (3d * v2 - 3d * v1 - 2d * t1 - t2) * sSquared
-                   + t1 * s
+                result = s == 1d ? v2 : (((2d * v1) - (2d * v2) + t2 + t1) * sCubed)
+                   + (((3d * v2) - (3d * v1) - (2d * t1) - t2) * sSquared)
+                   + (t1 * s)
                    + v1;
             }
 

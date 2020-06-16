@@ -78,9 +78,9 @@ namespace InstrumentedLibrary
         {
             var mu2 = (1d - Sin(t * PI)) / 2d;
             return (
-                x1 * (1d - mu2) + x2 * mu2,
-                y1 * (1d - mu2) + y2 * mu2,
-                z1 * (1d - mu2) + z2 * mu2);
+                (x1 * (1d - mu2)) + (x2 * mu2),
+                (y1 * (1d - mu2)) + (y2 * mu2),
+                (z1 * (1d - mu2)) + (z2 * mu2));
         }
     }
 }

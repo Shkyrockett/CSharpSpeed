@@ -131,8 +131,8 @@ namespace InstrumentedLibrary
         {
             var cosTheta = Cos(angle);
             var sinTheta = Sin(angle);
-            return (cosTheta * (x - cx) - sinTheta * (y - cy) + cx,
-                    sinTheta * (x - cx) + cosTheta * (y - cy) + cy);
+            return ((cosTheta * (x - cx)) - (sinTheta * (y - cy)) + cx,
+                    (sinTheta * (x - cx)) + (cosTheta * (y - cy)) + cy);
         }
 
         //// Return a rotation matrix to rotate around a point.

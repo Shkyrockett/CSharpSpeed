@@ -135,7 +135,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BezierLinear(double t, double a, double b)
         {
-            return (a * (1d - t)) + b * t;
+            return (a * (1d - t)) + (b * t);
         }
     }
 }

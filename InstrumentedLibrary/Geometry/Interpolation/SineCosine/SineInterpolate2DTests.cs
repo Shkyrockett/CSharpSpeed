@@ -73,7 +73,7 @@ namespace InstrumentedLibrary
         public static (double X, double Y) Sine1(double t, double x1, double y1, double x2, double y2)
         {
             var mu2 = (1d - Sin(t * PI)) / 2d;
-            return (x1 * (1d - mu2) + x2 * mu2, y1 * (1d - mu2) + y2 * mu2);
+            return ((x1 * (1d - mu2)) + (x2 * mu2), (y1 * (1d - mu2)) + (y2 * mu2));
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace InstrumentedLibrary
             //Single MU2 = (double)((1.0 - Cos(index * 180)) * 0.5);
             //return Y1 * (1.0 - MU2) + Y2 * MU2;
             var MU2 = (1d - Sin(index * 180d)) * 0.5d;
-            var ret = a * (1d - MU2) + (b * MU2);
+            var ret = (a * (1d - MU2)) + (b * MU2);
             return (ret.I, ret.J);
         }
     }

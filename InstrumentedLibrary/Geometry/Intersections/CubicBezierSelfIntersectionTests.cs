@@ -106,8 +106,8 @@ namespace InstrumentedLibrary
             var poly = new Polynomial(
                 2,
                 -3 * k,
-                3 * k * k + 2 * k * a + 2 * b,
-                -k * k * k - a * k * k - b * k);
+                (3 * k * k) + (2 * k * a) + (2 * b),
+                (-k * k * k) - (a * k * k) - (b * k));
 
             var r = poly.Roots().OrderByDescending(c => c).ToArray();
             if (r.Length != 3)
@@ -119,8 +119,8 @@ namespace InstrumentedLibrary
             {
                 var s = r[0];
                 return new Point2D(
-                    xCurve[0] * s * s * s + xCurve[1] * s * s + xCurve[2] * s + xCurve[3],
-                    yCurve[0] * s * s * s + yCurve[1] * s * s + yCurve[2] * s + yCurve[3]);
+                    (xCurve[0] * s * s * s) + (xCurve[1] * s * s) + (xCurve[2] * s) + xCurve[3],
+                    (yCurve[0] * s * s * s) + (yCurve[1] * s * s) + (yCurve[2] * s) + yCurve[3]);
             }
 
             return null;
@@ -160,8 +160,8 @@ namespace InstrumentedLibrary
 
             var poly = new double[]
             {
-                -k * k * k - a * k * k - b * k,
-                3 * k * k + 2 * k * a + 2 * b,
+                (-k * k * k) - (a * k * k) - (b * k),
+                (3 * k * k) + (2 * k * a) + (2 * b),
                 -3 * k,
                 2
             };

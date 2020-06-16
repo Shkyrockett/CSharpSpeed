@@ -85,14 +85,14 @@ namespace InstrumentedLibrary
             double epsilon = Epsilon)
         {
             //test for parallel case
-            var denom = (dY - cY) * (bX - aX) - (dX - cX) * (bY - aY);
+            var denom = ((dY - cY) * (bX - aX)) - ((dX - cX) * (bY - aY));
             if (Abs(denom) < epsilon)
             {
                 return new Intersection(IntersectionStates.NoIntersection);
             }
 
             //calculate segment parameter and ensure its within bounds
-            var t = ((bX - aX) * (aY - cY) - (bY - aY) * (aX - cX)) / denom;
+            var t = (((bX - aX) * (aY - cY)) - ((bY - aY) * (aX - cX))) / denom;
             if (t < 0d || t > 1d)
             {
                 return new Intersection(IntersectionStates.NoIntersection);
@@ -100,7 +100,7 @@ namespace InstrumentedLibrary
 
             //store actual intersection
             var result = new Intersection(IntersectionStates.Intersection);
-            result.AppendPoint(new Point2D(cX + (dX - cX) * t, cY + (dY - cY) * t));
+            result.AppendPoint(new Point2D(cX + ((dX - cX) * t), cY + ((dY - cY) * t)));
             return result;
 
         }
@@ -135,9 +135,9 @@ namespace InstrumentedLibrary
         {
             _ = epsilon;
             Intersection result;
-            var ua_t = (b2X - b1X) * (a1Y - b1Y) - (b2Y - b1Y) * (a1X - b1X);
-            var ub_t = (a2X - a1X) * (a1Y - b1Y) - (a2Y - a1Y) * (a1X - b1X);
-            var u_b = (b2Y - b1Y) * (a2X - a1X) - (b2X - b1X) * (a2Y - a1Y);
+            var ua_t = ((b2X - b1X) * (a1Y - b1Y)) - ((b2Y - b1Y) * (a1X - b1X));
+            var ub_t = ((a2X - a1X) * (a1Y - b1Y)) - ((a2Y - a1Y) * (a1X - b1X));
+            var u_b = ((b2Y - b1Y) * (a2X - a1X)) - ((b2X - b1X) * (a2Y - a1Y));
             if (u_b != 0)
             {
                 var ua = ua_t / u_b;
@@ -149,7 +149,7 @@ namespace InstrumentedLibrary
                     )
                 {
                     result = new Intersection(IntersectionStates.Intersection);
-                    result.AppendPoint(new Point2D(a1X + ua * (a2X - a1X), a1Y + ua * (a2Y - a1Y)));
+                    result.AppendPoint(new Point2D(a1X + (ua * (a2X - a1X)), a1Y + (ua * (a2Y - a1Y))));
                     //result.AppendPoint(new Point2D(b1X + ub * (b2X - b1X), b1Y + ub * (b2Y - b1Y)));
                 }
                 else
@@ -220,13 +220,13 @@ namespace InstrumentedLibrary
 
             // Find the index where the intersection point lies on the line.
             //var s = ((x0 - x2) * v1 + (y2 - y0) * u1) / -determinant;
-            var t = ((x2 - x0) * v2 + (y0 - y2) * u2) / determinant;
+            var t = (((x2 - x0) * v2) + ((y0 - y2) * u2)) / determinant;
 
             // Check whether the point is on the segment.
             if (t >= 0d && t <= 1d)
             {
                 result = new Intersection(IntersectionStates.Intersection);
-                result.AppendPoint(new Point2D(x0 + t * u1, y0 + t * v1));
+                result.AppendPoint(new Point2D(x0 + (t * u1), y0 + (t * v1)));
             }
 
             return result;

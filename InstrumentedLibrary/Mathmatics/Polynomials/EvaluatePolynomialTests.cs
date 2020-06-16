@@ -79,7 +79,7 @@ namespace InstrumentedLibrary
 
                 for (var i = degree; i >= 0; i--)
                 {
-                    result = result * x + coefficients[i];
+                    result = (result * x) + coefficients[i];
                 }
             }
 
@@ -110,7 +110,7 @@ namespace InstrumentedLibrary
             }
 
             return coefficients.Reverse().Aggregate(
-                    (accumulator, coefficient) => accumulator * x + coefficient);
+                    (accumulator, coefficient) => (accumulator * x) + coefficient);
         }
 
         /// <summary>

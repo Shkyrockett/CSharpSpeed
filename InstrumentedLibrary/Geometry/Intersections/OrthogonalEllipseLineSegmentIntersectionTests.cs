@@ -100,12 +100,12 @@ namespace InstrumentedLibrary
             var p2Y = y1 - cy;
 
             // Calculate the quadratic parameters.
-            var a = (p2X - p1X) * (p2X - p1X) / rx / rx + (p2Y - p1Y) * (p2Y - p1Y) / ry / ry;
-            var b = 2d * p1X * (p2X - p1X) / rx / rx + 2 * p1Y * (p2Y - p1Y) / ry / ry;
-            var c = p1X * p1X / rx / rx + p1Y * p1Y / ry / ry - 1d;
+            var a = ((p2X - p1X) * (p2X - p1X) / rx / rx) + ((p2Y - p1Y) * (p2Y - p1Y) / ry / ry);
+            var b = (2d * p1X * (p2X - p1X) / rx / rx) + (2 * p1Y * (p2Y - p1Y) / ry / ry);
+            var c = (p1X * p1X / rx / rx) + (p1Y * p1Y / ry / ry) - 1d;
 
             // Calculate the discriminant.
-            var discriminant = b * b - 4d * a * c;
+            var discriminant = (b * b) - (4d * a * c);
 
             if (discriminant == 0)
             {
@@ -114,8 +114,8 @@ namespace InstrumentedLibrary
 
                 // Return the point. If the point is on the segment set the bool to true.
                 return ((t >= 0d) && (t <= 1d),
-                        (p1X + (p2X - p1X) * t + cx,
-                        p1Y + (p2Y - p1Y) * t + cy),
+                        (p1X + ((p2X - p1X) * t) + cx,
+                        p1Y + ((p2Y - p1Y) * t) + cy),
                         false, null);
             }
             else if (discriminant > 0)
@@ -125,8 +125,8 @@ namespace InstrumentedLibrary
                 var t2 = 0.5d * (-b - Sqrt(discriminant)) / a;
 
                 // Return the points. If the points are on the segment set the bool to true.
-                return ((t1 >= 0d) && (t1 <= 1d), (p1X + (p2X - p1X) * t1 + cx, p1Y + (p2Y - p1Y) * t1 + cy),
-                        (t2 >= 0d) && (t2 <= 1d), (p1X + (p2X - p1X) * t2 + cx, p1Y + (p2Y - p1Y) * t2 + cy));
+                return ((t1 >= 0d) && (t1 <= 1d), (p1X + ((p2X - p1X) * t1) + cx, p1Y + ((p2Y - p1Y) * t1) + cy),
+                        (t2 >= 0d) && (t2 <= 1d), (p1X + ((p2X - p1X) * t2) + cx, p1Y + ((p2Y - p1Y) * t2) + cy));
             }
 
             // Return the points.
@@ -173,29 +173,29 @@ namespace InstrumentedLibrary
             if (x1 != x2)
             {
                 m = (y2 - y1) / (x2 - x1);
-                var cc = y1 - m * x1;
+                var cc = y1 - (m * x1);
 
                 // Non-vertical line case.
-                a = rY * rY + rX * rX * m * m;
-                b = 2d * rX * rX * cc * m - 2d * rX * rX * cY * m - 2d * cX * rY * rY;
-                c = rY * rY * cX * cX + rX * rX * cc * cc - 2 * rX * rX * cY * cc + rX * rX * cY * cY - rX * rX * rY * rY;
+                a = (rY * rY) + (rX * rX * m * m);
+                b = (2d * rX * rX * cc * m) - (2d * rX * rX * cY * m) - (2d * cX * rY * rY);
+                c = (rY * rY * cX * cX) + (rX * rX * cc * cc) - (2 * rX * rX * cY * cc) + (rX * rX * cY * cY) - (rX * rX * rY * rY);
             }
             else
             {
                 // vertical line case.
                 a = rX * rX;
                 b = -2d * cY * rX * rX;
-                c = -rX * rX * rY * rY + rY * rY * (x1 - cX) * (x1 - cX);
+                c = (-rX * rX * rY * rY) + (rY * rY * (x1 - cX) * (x1 - cX));
             }
 
-            var discriminant = b * b - 4d * a * c;
+            var discriminant = (b * b) - (4d * a * c);
 
             if (discriminant == 0)
             {
                 if (x1 != x2)
                 {
                     var t = 0.5d * -b / a;
-                    return ((t >= 0d) && (t <= 1d), (t, y1 + m * (t - x1)), false, null);
+                    return ((t >= 0d) && (t <= 1d), (t, y1 + (m * (t - x1))), false, null);
                 }
                 else
                 {
@@ -209,8 +209,8 @@ namespace InstrumentedLibrary
                 {
                     var t1 = (-b + Sqrt(discriminant)) / (2d * a);
                     var t2 = (-b - Sqrt(discriminant)) / (2d * a);
-                    return ((t1 >= 0d) && (t1 <= 1d), (t1, y1 + m * (t1 - x1)),
-                            (t2 >= 0d) && (t2 <= 1d), (t2, y1 + m * (t2 - x1)));
+                    return ((t1 >= 0d) && (t1 <= 1d), (t1, y1 + (m * (t1 - x1))),
+                            (t2 >= 0d) && (t2 <= 1d), (t2, y1 + (m * (t2 - x1))));
                 }
                 else
                 {
@@ -271,12 +271,12 @@ namespace InstrumentedLibrary
             var v2 = y1 - cy;
 
             // Calculate the quadratic parameters.
-            var a = (u2 - u1) * (u2 - u1) / (rx * rx) + (v2 - v1) * (v2 - v1) / (ry * ry);
-            var b = 2d * u1 * (u2 - u1) / (rx * rx) + 2d * v1 * (v2 - v1) / (ry * ry);
-            var c = u1 * u1 / (rx * rx) + v1 * v1 / (ry * ry) - 1d;
+            var a = ((u2 - u1) * (u2 - u1) / (rx * rx)) + ((v2 - v1) * (v2 - v1) / (ry * ry));
+            var b = (2d * u1 * (u2 - u1) / (rx * rx)) + (2d * v1 * (v2 - v1) / (ry * ry));
+            var c = (u1 * u1 / (rx * rx)) + (v1 * v1 / (ry * ry)) - 1d;
 
             // Calculate the discriminant.
-            var discriminant = b * b - 4d * a * c;
+            var discriminant = (b * b) - (4d * a * c);
 
             if ((a <= epsilon) || (discriminant < 0))
             {
@@ -290,7 +290,7 @@ namespace InstrumentedLibrary
                 // Add the points if it is between the end points of the line segment.
                 if ((t >= 0d) && (t <= 1d))
                 {
-                    result.AppendPoint(new Point2D(u1 + (u2 - u1) * t + cx, v1 + (v2 - v1) * t + cy));
+                    result.AppendPoint(new Point2D(u1 + ((u2 - u1) * t) + cx, v1 + ((v2 - v1) * t) + cy));
                     result.State = IntersectionStates.Intersection;
                 }
             }
@@ -303,13 +303,13 @@ namespace InstrumentedLibrary
                 // Add the points if they are between the end points of the line segment.
                 if ((t1 >= 0d) && (t1 <= 1d))
                 {
-                    result.AppendPoint(new Point2D(u1 + (u2 - u1) * t1 + cx, v1 + (v2 - v1) * t1 + cy));
+                    result.AppendPoint(new Point2D(u1 + ((u2 - u1) * t1) + cx, v1 + ((v2 - v1) * t1) + cy));
                     result.State = IntersectionStates.Intersection;
                 }
 
                 if ((t2 >= 0d) && (t2 <= 1d))
                 {
-                    result.AppendPoint(new Point2D(u1 + (u2 - u1) * t2 + cx, v1 + (v2 - v1) * t2 + cy));
+                    result.AppendPoint(new Point2D(u1 + ((u2 - u1) * t2) + cx, v1 + ((v2 - v1) * t2) + cy));
                     result.State = IntersectionStates.Intersection;
                 }
             }
@@ -356,7 +356,7 @@ namespace InstrumentedLibrary
             var a = DotProduct2Vector2DTests.DotProduct2D(dir.I, dir.J, mDir.I, mDir.J);
             var b = DotProduct2Vector2DTests.DotProduct2D(dir.I, dir.J, mDiff.I, mDiff.J);
             var c = DotProduct2Vector2DTests.DotProduct2D(diff.I, diff.J, mDiff.I, mDiff.J) - 1d;
-            var d = b * b - a * c;
+            var d = (b * b) - (a * c);
             Intersection result;
             if (d < 0)
             {

@@ -113,7 +113,7 @@ namespace InstrumentedLibrary
             }
 
             // Compute sine.
-            var sin = x < 0 ? 1.27323954 * x + 0.405284735 * x * x : 1.27323954 * x - 0.405284735 * x * x;
+            var sin = x < 0 ? (1.27323954 * x) + (0.405284735 * x * x) : (1.27323954 * x) - (0.405284735 * x * x);
 
             // Compute cosine: sin(x + PI/2) = cos(x).
             x += HalfPi;
@@ -122,7 +122,7 @@ namespace InstrumentedLibrary
                 x -= Tau;
             }
 
-            var cos = x < 0 ? 1.27323954 * x + 0.405284735 * x * x : 1.27323954 * x - 0.405284735 * x * x;
+            var cos = x < 0 ? (1.27323954 * x) + (0.405284735 * x * x) : (1.27323954 * x) - (0.405284735 * x * x);
 
             return (cos, sin);
         }
@@ -160,15 +160,15 @@ namespace InstrumentedLibrary
             var sin = 0d;
             if (x < 0)
             {
-                sin = 1.27323954 * x + 0.405284735 * x * x;
+                sin = (1.27323954 * x) + (0.405284735 * x * x);
 
-                sin = sin < 0 ? 0.225d * (sin * -sin - sin) + sin : 0.225d * (sin * sin - sin) + sin;
+                sin = sin < 0 ? (0.225d * ((sin * -sin) - sin)) + sin : (0.225d * ((sin * sin) - sin)) + sin;
             }
             else
             {
-                sin = 1.27323954d * x - 0.405284735d * x * x;
+                sin = (1.27323954d * x) - (0.405284735d * x * x);
 
-                sin = sin < 0 ? 0.225d * (sin * -sin - sin) + sin : 0.225d * (sin * sin - sin) + sin;
+                sin = sin < 0 ? (0.225d * ((sin * -sin) - sin)) + sin : (0.225d * ((sin * sin) - sin)) + sin;
             }
 
             // Compute cosine: sin(x + PI/2) = cos(x)
@@ -181,15 +181,15 @@ namespace InstrumentedLibrary
             var cos = 0d;
             if (x < 0)
             {
-                cos = 1.27323954d * x + 0.405284735d * x * x;
+                cos = (1.27323954d * x) + (0.405284735d * x * x);
 
-                cos = cos < 0 ? 0.225d * (cos * -cos - cos) + cos : 0.225d * (cos * cos - cos) + cos;
+                cos = cos < 0 ? (0.225d * ((cos * -cos) - cos)) + cos : (0.225d * ((cos * cos) - cos)) + cos;
             }
             else
             {
-                cos = 1.27323954d * x - 0.405284735d * x * x;
+                cos = (1.27323954d * x) - (0.405284735d * x * x);
 
-                cos = cos < 0d ? 0.225d * (cos * -cos - cos) + cos : 0.225d * (cos * cos - cos) + cos;
+                cos = cos < 0d ? (0.225d * ((cos * -cos) - cos)) + cos : (0.225d * ((cos * cos) - cos)) + cos;
             }
 
             return (cos, sin);

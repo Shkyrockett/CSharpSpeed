@@ -74,11 +74,11 @@ namespace InstrumentedLibrary
             var b = -2d * a * h;
             var c = (b * b / (4d * a)) + k;
             // Get the vertical components of the end points.
-            var y1 = x1 * (a * x1 + b) + c;
-            var y2 = x2 * (a * x2 + b) + c;
+            var y1 = (x1 * ((a * x1) + b)) + c;
+            var y2 = (x2 * ((a * x2) + b)) + c;
             // Find the intersection of the tangents at the end nodes to find the center node.
-            var cx = (x2 - x1) / 2d + x1;
-            var cy = (x2 - x1) / 2d * (2d * a * x1 + b) + y1;
+            var cx = ((x2 - x1) / 2d) + x1;
+            var cy = ((x2 - x1) / 2d * ((2d * a * x1) + b)) + y1;
             return (x1, y1, cx, cy, x2, y2);
         }
 
@@ -103,11 +103,11 @@ namespace InstrumentedLibrary
         public static (double ax, double ay, double bx, double by, double cx, double cy) VertexParabolaToQuadraticBezier2(double a, double h, double k, double x1, double x2)
         {
             // Get the vertical components of the end points.
-            var y1 = a * ((h * h) + (-2d * h * x1) + (x1 * x1)) + k;
-            var y2 = a * ((h * h) + (-2d * h * x2) + (x2 * x2)) + k;
+            var y1 = (a * ((h * h) + (-2d * h * x1) + (x1 * x1))) + k;
+            var y2 = (a * ((h * h) + (-2d * h * x2) + (x2 * x2))) + k;
             // Find the intersection of the tangents at the end nodes to find the center node.
             var cx = (x2 + x1) * 0.5;
-            var cy = a * ((h * x1) + (x1 * x2) - (h * x2) - (x1 * x1)) + y1;
+            var cy = (a * ((h * x1) + (x1 * x2) - (h * x2) - (x1 * x1))) + y1;
             return (x1, y1, cx, cy, x2, y2);
         }
     }

@@ -118,12 +118,12 @@ namespace InstrumentedLibrary
         public static Inclusions PointOnRectangleX(Rectangle2D rectangle, double X, double Y)
         {
             var point = (X, Y);
-            var top = Sqrt((rectangle.Right - rectangle.Left) * (rectangle.Right - rectangle.Left) + (rectangle.Top - rectangle.Top) * (rectangle.Top - rectangle.Top));
-            var right = Sqrt((rectangle.Right - rectangle.Right) * (rectangle.Right - rectangle.Right) + (rectangle.Bottom - rectangle.Top) * (rectangle.Bottom - rectangle.Top));
-            var tlp = (point.X - rectangle.Left) * (point.X - rectangle.Left) + (point.Y - rectangle.Top) * (point.Y - rectangle.Top);
-            var trp = (point.X - rectangle.Right) * (point.X - rectangle.Right) + (point.Y - rectangle.Top) * (point.Y - rectangle.Top);
-            var brp = (point.X - rectangle.Right) * (point.X - rectangle.Right) + (point.Y - rectangle.Bottom) * (point.Y - rectangle.Bottom);
-            var blp = (point.X - rectangle.Left) * (point.X - rectangle.Left) + (point.Y - rectangle.Bottom) * (point.Y - rectangle.Bottom);
+            var top = Sqrt(((rectangle.Right - rectangle.Left) * (rectangle.Right - rectangle.Left)) + ((rectangle.Top - rectangle.Top) * (rectangle.Top - rectangle.Top)));
+            var right = Sqrt(((rectangle.Right - rectangle.Right) * (rectangle.Right - rectangle.Right)) + ((rectangle.Bottom - rectangle.Top) * (rectangle.Bottom - rectangle.Top)));
+            var tlp = ((point.X - rectangle.Left) * (point.X - rectangle.Left)) + ((point.Y - rectangle.Top) * (point.Y - rectangle.Top));
+            var trp = ((point.X - rectangle.Right) * (point.X - rectangle.Right)) + ((point.Y - rectangle.Top) * (point.Y - rectangle.Top));
+            var brp = ((point.X - rectangle.Right) * (point.X - rectangle.Right)) + ((point.Y - rectangle.Bottom) * (point.Y - rectangle.Bottom));
+            var blp = ((point.X - rectangle.Left) * (point.X - rectangle.Left)) + ((point.Y - rectangle.Bottom) * (point.Y - rectangle.Bottom));
 
             if (Abs(top - Sqrt(tlp - trp)) < DoubleEpsilon
                 || Abs(right - Sqrt(trp - brp)) < DoubleEpsilon

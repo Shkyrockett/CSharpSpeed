@@ -87,7 +87,7 @@ namespace InstrumentedLibrary
         {
             _ = tension;
             _ = bias;
-            return (aX, aY, bX - (cX - aX) / 6d, bY - (cY - aY) / 6d, cX + (dX - bX) / 6d, cY + (dY - bY) / 6d, dX, dY);
+            return (aX, aY, bX - ((cX - aX) / 6d), bY - ((cY - aY) / 6d), cX + ((dX - bX) / 6d), cY + ((dY - bY) / 6d), dX, dY);
         }
     }
 }

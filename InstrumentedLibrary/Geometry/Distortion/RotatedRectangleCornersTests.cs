@@ -80,20 +80,20 @@ namespace InstrumentedLibrary
             var points = new List<(double X, double Y)>
             {
                 (
-                fulcrumX + (-width / 2d * xaxis.X + -height / 2d * xaxis.Y),
-                fulcrumY + (-width / 2d * yaxis.X + -height / 2d * yaxis.Y)
+                fulcrumX + ((-width / 2d * xaxis.X) + (-height / 2d * xaxis.Y)),
+                fulcrumY + ((-width / 2d * yaxis.X) + (-height / 2d * yaxis.Y))
                 ),
                 (
-                fulcrumX + (width / 2d * xaxis.X + -height / 2d * xaxis.Y),
-                fulcrumY + (width / 2d * yaxis.X + -height / 2d * yaxis.Y)
+                fulcrumX + ((width / 2d * xaxis.X) + (-height / 2d * xaxis.Y)),
+                fulcrumY + ((width / 2d * yaxis.X) + (-height / 2d * yaxis.Y))
                 ),
                 (
-                fulcrumX + (width / 2d * xaxis.X + height / 2d * xaxis.Y),
-                fulcrumY + (width / 2d * yaxis.X + height / 2d * yaxis.Y)
+                fulcrumX + ((width / 2d * xaxis.X) + (height / 2d * xaxis.Y)),
+                fulcrumY + ((width / 2d * yaxis.X) + (height / 2d * yaxis.Y))
                 ),
                 (
-                fulcrumX + (-width / 2d * xaxis.X + height / 2d * xaxis.Y),
-                fulcrumY + (-width / 2d * yaxis.X + height / 2d * yaxis.Y)
+                fulcrumX + ((-width / 2d * xaxis.X) + (height / 2d * xaxis.Y)),
+                fulcrumY + ((-width / 2d * yaxis.X) + (height / 2d * yaxis.Y))
                 )
             };
 

@@ -96,12 +96,12 @@ namespace InstrumentedLibrary
             var dy = lBY - lAY;
 
             // Calculate the quadratic parameters.
-            var a = dx * dx + dy * dy;
-            var b = 2 * (dx * (lAX - cX) + dy * (lAY - cY));
-            var c = (lAX - cX) * (lAX - cX) + (lAY - cY) * (lAY - cY) - r * r;
+            var a = (dx * dx) + (dy * dy);
+            var b = 2 * ((dx * (lAX - cX)) + (dy * (lAY - cY)));
+            var c = ((lAX - cX) * (lAX - cX)) + ((lAY - cY) * (lAY - cY)) - (r * r);
 
             // Calculate the discriminant.
-            var discriminant = b * b - 4d * a * c;
+            var discriminant = (b * b) - (4d * a * c);
 
             if ((a <= Epsilon) || (discriminant < 0))
             {
@@ -116,7 +116,7 @@ namespace InstrumentedLibrary
                 if ((t >= 0d) && (t <= 1d))
                 {
                     result = new Intersection(IntersectionStates.Intersection);
-                    result.AppendPoint(new Point2D(lAX + t * dx, lAY + t * dy));
+                    result.AppendPoint(new Point2D(lAX + (t * dx), lAY + (t * dy)));
                 }
             }
             else if (discriminant > 0)
@@ -129,12 +129,12 @@ namespace InstrumentedLibrary
                 result = new Intersection(IntersectionStates.Intersection);
                 if ((t1 >= 0d) && (t1 <= 1d))
                 {
-                    result.AppendPoint(new Point2D(lAX + t1 * dx, lAY + t1 * dy));
+                    result.AppendPoint(new Point2D(lAX + (t1 * dx), lAY + (t1 * dy)));
                 }
 
                 if ((t2 >= 0d) && (t2 <= 1d))
                 {
-                    result.AppendPoint(new Point2D(lAX + t2 * dx, lAY + t2 * dy));
+                    result.AppendPoint(new Point2D(lAX + (t2 * dx), lAY + (t2 * dy)));
                 }
             }
 
@@ -172,11 +172,11 @@ namespace InstrumentedLibrary
             _ = epsilon;
             Intersection result;
 
-            var a = (lBX - lAX) * (lBX - lAX) + (lBY - lAY) * (lBY - lAY);
-            var b = 2 * ((lBX - lAX) * (lAX - cX) + (lBY - lAY) * (lAY - cY));
-            var c = cX * cX + cY * cY + lAX * lAX + lAY * lAY - 2 * (cX * lAX + cY * lAY) - r * r;
+            var a = ((lBX - lAX) * (lBX - lAX)) + ((lBY - lAY) * (lBY - lAY));
+            var b = 2 * (((lBX - lAX) * (lAX - cX)) + ((lBY - lAY) * (lAY - cY)));
+            var c = (cX * cX) + (cY * cY) + (lAX * lAX) + (lAY * lAY) - (2 * ((cX * lAX) + (cY * lAY))) - (r * r);
 
-            var determinant = b * b - 4 * a * c;
+            var determinant = (b * b) - (4 * a * c);
             if (determinant < 0)
             {
                 result = new Intersection(IntersectionStates.Outside);

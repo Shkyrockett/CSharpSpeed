@@ -88,8 +88,8 @@ namespace InstrumentedLibrary
                 VPoints.Add(points[1]);
 
                 return (
-                    VPoints[0].X * index * index * index + VPoints[1].X * index * index * index + VPoints[2].X * index + VPoints[3].X,
-                    VPoints[0].Y * index * index * index + VPoints[1].Y * index * index * index + VPoints[2].Y * index + VPoints[3].Y
+                    (VPoints[0].X * index * index * index) + (VPoints[1].X * index * index * index) + (VPoints[2].X * index) + VPoints[3].X,
+                    (VPoints[0].Y * index * index * index) + (VPoints[1].Y * index * index * index) + (VPoints[2].Y * index) + VPoints[3].Y
                 );
             }
 
@@ -145,8 +145,8 @@ namespace InstrumentedLibrary
                     }
 
                     b = (
-                    b.X + points[k].X * blend,
-                    b.Y + points[k].Y * blend
+                    b.X + (points[k].X * blend),
+                    b.Y + (points[k].Y * blend)
                         );
                 }
             }
@@ -190,8 +190,8 @@ namespace InstrumentedLibrary
             }
 
             return (
-                VPoints[0].X * Index * Index * Index + VPoints[1].X * Index * Index * Index + VPoints[2].X * Index + VPoints[3].X,
-                VPoints[0].Y * Index * Index * Index + VPoints[1].Y * Index * Index * Index + VPoints[2].Y * Index + VPoints[3].Y
+                (VPoints[0].X * Index * Index * Index) + (VPoints[1].X * Index * Index * Index) + (VPoints[2].X * Index) + VPoints[3].X,
+                (VPoints[0].Y * Index * Index * Index) + (VPoints[1].Y * Index * Index * Index) + (VPoints[2].Y * Index) + VPoints[3].Y
             );
         }
     }

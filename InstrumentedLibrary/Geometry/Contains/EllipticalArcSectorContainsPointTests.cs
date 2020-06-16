@@ -129,8 +129,8 @@ namespace InstrumentedLibrary
                 return Inclusions.Outside;
             }
 
-            var endSinT = sweepSinT * startCosT + sweepCosT * startSinT;
-            var endCosT = sweepCosT * startCosT - sweepSinT * startSinT;
+            var endSinT = (sweepSinT * startCosT) + (sweepCosT * startSinT);
+            var endCosT = (sweepCosT * startCosT) - (sweepSinT * startSinT);
 
             // Find the start and end angles.
             var sa = EllipticalPolarVectorTests.EllipticalPolarVector(startCosT, startSinT, r1, r2);
@@ -143,13 +143,13 @@ namespace InstrumentedLibrary
             var v2 = -(r2 * ea.sinT);
 
             // Find the points of the chord.
-            var sX = cX + (u1 * cosT + v1 * sinT);
-            var sY = cY + (u1 * sinT - v1 * cosT);
-            var eX = cX + (u2 * cosT + v2 * sinT);
-            var eY = cY + (u2 * sinT - v2 * cosT);
+            var sX = cX + ((u1 * cosT) + (v1 * sinT));
+            var sY = cY + ((u1 * sinT) - (v1 * cosT));
+            var eX = cX + ((u2 * cosT) + (v2 * sinT));
+            var eY = cY + ((u2 * sinT) - (v2 * cosT));
 
             // Find the determinant of the chord.
-            var determinant = (sX - pX) * (eY - pY) - (eX - pX) * (sY - pY);
+            var determinant = ((sX - pX) * (eY - pY)) - ((eX - pX) * (sY - pY));
 
             // Check if the point is on the chord.
             if (Abs(determinant) <= epsilon)
@@ -170,8 +170,8 @@ namespace InstrumentedLibrary
             var v0 = pY - cY;
 
             // Apply the rotation transformation.
-            var a = u0 * cosT + v0 * sinT;
-            var b = u0 * sinT - v0 * cosT;
+            var a = (u0 * cosT) + (v0 * sinT);
+            var b = (u0 * sinT) - (v0 * cosT);
 
             // Normalize the radius.
             var normalizedRadius
@@ -265,13 +265,13 @@ namespace InstrumentedLibrary
             var v2 = -(r2 * Sin(ea));
 
             // Find the points of the chord.
-            var sX = cX + (u1 * cosT + v1 * sinT);
-            var sY = cY + (u1 * sinT - v1 * cosT);
-            var eX = cX + (u2 * cosT + v2 * sinT);
-            var eY = cY + (u2 * sinT - v2 * cosT);
+            var sX = cX + ((u1 * cosT) + (v1 * sinT));
+            var sY = cY + ((u1 * sinT) - (v1 * cosT));
+            var eX = cX + ((u2 * cosT) + (v2 * sinT));
+            var eY = cY + ((u2 * sinT) - (v2 * cosT));
 
             // Find the determinant of the chord.
-            var determinant = (sX - pX) * (eY - pY) - (eX - pX) * (sY - pY);
+            var determinant = ((sX - pX) * (eY - pY)) - ((eX - pX) * (sY - pY));
 
             // Check if the point is on the chord.
             if (Abs(determinant) <= epsilon)
@@ -292,8 +292,8 @@ namespace InstrumentedLibrary
             var v0 = pY - cY;
 
             // Apply the rotation transformation.
-            var a = u0 * cosT + v0 * sinT;
-            var b = u0 * sinT - v0 * cosT;
+            var a = (u0 * cosT) + (v0 * sinT);
+            var b = (u0 * sinT) - (v0 * cosT);
 
             // Normalize the radius.
             var normalizedRadius
@@ -384,8 +384,8 @@ namespace InstrumentedLibrary
                 return EllipseWithVectorAngleContainsPointTests.EllipseContainsPoint(cX, cY, r1, r2, sinT, cosT, pX, pY);
             }
 
-            var endSinT = sweepSinT * startCosT + sweepCosT * startSinT;
-            var endCosT = sweepCosT * startCosT - sweepSinT * startSinT;
+            var endSinT = (sweepSinT * startCosT) + (sweepCosT * startSinT);
+            var endCosT = (sweepCosT * startCosT) - (sweepSinT * startSinT);
 
             // Find the start and end angles.
             var sa = EllipticalPolarVectorTests.EllipticalPolarVector(startCosT, startSinT, r1, r2);
@@ -398,13 +398,13 @@ namespace InstrumentedLibrary
             var v2 = -(r2 * ea.sinT);
 
             // Find the points of the chord.
-            var sX = cX + (u1 * cosT + v1 * sinT);
-            var sY = cY + (u1 * sinT - v1 * cosT);
-            var eX = cX + (u2 * cosT + v2 * sinT);
-            var eY = cY + (u2 * sinT - v2 * cosT);
+            var sX = cX + ((u1 * cosT) + (v1 * sinT));
+            var sY = cY + ((u1 * sinT) - (v1 * cosT));
+            var eX = cX + ((u2 * cosT) + (v2 * sinT));
+            var eY = cY + ((u2 * sinT) - (v2 * cosT));
 
             // Find the determinant of the chord.
-            var determinant = (sX - pX) * (eY - pY) - (eX - pX) * (sY - pY);
+            var determinant = ((sX - pX) * (eY - pY)) - ((eX - pX) * (sY - pY));
 
             // Check whether the point is on the same side of the chord as the center.
             if (Sign(-determinant) == Sign(sweepSinT * sweepCosT))
@@ -417,8 +417,8 @@ namespace InstrumentedLibrary
             var v0 = pY - cY;
 
             // Apply the rotation transformation to the point at the origin.
-            var a = u0 * cosT + v0 * sinT;
-            var b = u0 * sinT - v0 * cosT;
+            var a = (u0 * cosT) + (v0 * sinT);
+            var b = (u0 * sinT) - (v0 * cosT);
 
             // Normalize the radius.
             var normalizedRadius
@@ -509,8 +509,8 @@ namespace InstrumentedLibrary
                 return EllipseWithVectorAngleContainsPointTests.EllipseContainsPoint(cX, cY, r1, r2, sinT, cosT, pX, pY);
             }
 
-            var endSinT = sweepSinT * startCosT + sweepCosT * startSinT;
-            var endCosT = sweepCosT * startCosT - sweepSinT * startSinT;
+            var endSinT = (sweepSinT * startCosT) + (sweepCosT * startSinT);
+            var endCosT = (sweepCosT * startCosT) - (sweepSinT * startSinT);
 
             // ToDo: Simplify out Atan2
             var startAngle = Atan2(startSinT, startCosT);
@@ -527,13 +527,13 @@ namespace InstrumentedLibrary
             var v2 = -(r2 * Sin(ea));
 
             // Find the points of the chord.
-            var sX = cX + (u1 * cosT + v1 * sinT);
-            var sY = cY + (u1 * sinT - v1 * cosT);
-            var eX = cX + (u2 * cosT + v2 * sinT);
-            var eY = cY + (u2 * sinT - v2 * cosT);
+            var sX = cX + ((u1 * cosT) + (v1 * sinT));
+            var sY = cY + ((u1 * sinT) - (v1 * cosT));
+            var eX = cX + ((u2 * cosT) + (v2 * sinT));
+            var eY = cY + ((u2 * sinT) - (v2 * cosT));
 
             // Find the determinant of the chord.
-            var determinant = (sX - pX) * (eY - pY) - (eX - pX) * (sY - pY);
+            var determinant = ((sX - pX) * (eY - pY)) - ((eX - pX) * (sY - pY));
 
             // Check whether the point is on the same side of the chord as the center.
             if (Sign(-determinant) == Sign(sweepSinT * sweepCosT))
@@ -546,8 +546,8 @@ namespace InstrumentedLibrary
             var v0 = pY - cY;
 
             // Apply the rotation transformation to the point at the origin.
-            var a = u0 * cosT + v0 * sinT;
-            var b = u0 * sinT - v0 * cosT;
+            var a = (u0 * cosT) + (v0 * sinT);
+            var b = (u0 * sinT) - (v0 * cosT);
 
             // Normalize the radius.
             var normalizedRadius

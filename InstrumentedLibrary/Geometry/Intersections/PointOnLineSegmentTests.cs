@@ -77,7 +77,7 @@ namespace InstrumentedLibrary
                 && (Abs(pointY - segmentBY) < DoubleEpsilon))
                 || (((pointX > segmentAX) == (pointX < segmentBX))
                 && ((pointY > segmentAY) == (pointY < segmentBY))
-                && (Abs((pointX - segmentAX) * (segmentBY - segmentAY) - (segmentBX - segmentAX) * (pointY - segmentAY)) < DoubleEpsilon));
+                && (Abs(((pointX - segmentAX) * (segmentBY - segmentAY)) - ((segmentBX - segmentAX) * (pointY - segmentAY))) < DoubleEpsilon));
         }
 
         /// <summary>

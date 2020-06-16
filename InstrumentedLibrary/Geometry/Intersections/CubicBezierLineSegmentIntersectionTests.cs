@@ -102,16 +102,16 @@ namespace InstrumentedLibrary
 
             var A = l1y - l0y;      //A=y2-y1
             var B = l0x - l1x;      //B=x1-x2
-            var C = l0x * (l0y - l1y) + l0y * (l1x - l0x);  //C=x1*(y1-y2)+y1*(x2-x1)
+            var C = (l0x * (l0y - l1y)) + (l0y * (l1x - l0x));  //C=x1*(y1-y2)+y1*(x2-x1)
 
             var xCoeff = CubicBezierBernsteinBasisTests.CubicBezierBernsteinBasis(p0x, p1x, p2x, p3x);
             var yCoeff = CubicBezierBernsteinBasisTests.CubicBezierBernsteinBasis(p0y, p1y, p2y, p3y);
 
             var r = CubicRootsTests.CubicRoots(
-                /* t^3 */ A * xCoeff.D + B * yCoeff.D,
-                /* t^2 */ A * xCoeff.C + B * yCoeff.C,
-                /* t^1 */ A * xCoeff.B + B * yCoeff.B,
-                /* 1 */ A * xCoeff.A + B * yCoeff.A + C
+                /* t^3 */ (A * xCoeff.D) + (B * yCoeff.D),
+                /* t^2 */ (A * xCoeff.C) + (B * yCoeff.C),
+                /* t^1 */ (A * xCoeff.B) + (B * yCoeff.B),
+                /* 1 */ (A * xCoeff.A) + (B * yCoeff.A) + C
                 );
 
             /*verify the roots are in bounds of the linear segment*/
@@ -119,8 +119,8 @@ namespace InstrumentedLibrary
             {
                 var t = r[i];
 
-                var x = xCoeff.D * t * t * t + xCoeff.C * t * t + xCoeff.B * t + xCoeff.A;
-                var y = yCoeff.D * t * t * t + yCoeff.C * t * t + yCoeff.B * t + yCoeff.A;
+                var x = (xCoeff.D * t * t * t) + (xCoeff.C * t * t) + (xCoeff.B * t) + xCoeff.A;
+                var y = (yCoeff.D * t * t * t) + (yCoeff.C * t * t) + (yCoeff.B * t) + yCoeff.A;
 
                 /*above is intersection point assuming infinitely long line segment,
                   make sure we are also in bounds of the line*/
@@ -201,7 +201,7 @@ namespace InstrumentedLibrary
             c1 = new Vector2D(c.I, c.J);
             c0 = new Vector2D(p1X, p1Y);
             n = new Vector2D(a1Y - a2Y, a2X - a1X);
-            cl = a1X * a2Y - a2X * a1Y;
+            cl = (a1X * a2Y) - (a2X * a1Y);
             var roots = CubicRootsTests.CubicRoots(
                 DotProduct2Vector2DTests.DotProduct2D(n.I, n.J, c3.I, c3.J),
                 DotProduct2Vector2DTests.DotProduct2D(n.I, n.J, c2.I, c2.J),
@@ -303,7 +303,7 @@ namespace InstrumentedLibrary
             c1 = new Vector2D(c.I, c.J);
             c0 = new Vector2D(p1X, p1Y);
             n = new Vector2D(a1Y - a2Y, a2X - a1X);
-            cl = a1X * a2Y - a2X * a1Y;
+            cl = (a1X * a2Y) - (a2X * a1Y);
             var roots = CubicRootsTests.CubicRoots(
                 DotProduct2Vector2DTests.DotProduct2D(n.I, n.J, c3.I, c3.J),
                 DotProduct2Vector2DTests.DotProduct2D(n.I, n.J, c2.I, c2.J),

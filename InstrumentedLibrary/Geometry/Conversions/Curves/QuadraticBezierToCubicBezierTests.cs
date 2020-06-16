@@ -73,8 +73,8 @@ namespace InstrumentedLibrary
             double cX, double cY)
         {
             return (aX, aY,
-                    aX + TwoThirds * (bX - aX), aY + TwoThirds * (bY - aY),
-                    cX + TwoThirds * (bX - cX), cY + TwoThirds * (bY - cY),
+                    aX + (TwoThirds * (bX - aX)), aY + (TwoThirds * (bY - aY)),
+                    cX + (TwoThirds * (bX - cX)), cY + (TwoThirds * (bY - cY)),
                     cX, cY);
         }
 

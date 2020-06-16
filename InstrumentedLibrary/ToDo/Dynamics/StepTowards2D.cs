@@ -22,7 +22,7 @@ namespace InstrumentedLibrary
             var deltaX = vectorDirection.I - vectorOrigin.I;
             var deltaY = vectorDirection.J - vectorOrigin.J;
 
-            var deltaLength = Sqrt(deltaX * deltaX + deltaY * deltaY);
+            var deltaLength = Sqrt((deltaX * deltaX) + (deltaY * deltaY));
             if (deltaLength == 0 || Abs(deltaLength) < length) return vectorDirection;
             var lengthRatio = length / deltaLength;
 
@@ -48,12 +48,12 @@ namespace InstrumentedLibrary
         public static Point2D MovePointTowards(Point2D a, Point2D b, double distance)
         {
             var vector = new Point2D(b.X - a.X, b.Y - a.Y);
-            var length = Sqrt(vector.X * vector.X + vector.Y * vector.Y);
+            var length = Sqrt((vector.X * vector.X) + (vector.Y * vector.Y));
             if (length == 0 || Abs(length) < distance) return b;
             var unitVector = new Point2D(vector.X / length, vector.Y / length);
             return new Point2D(
-                a.X + unitVector.X * distance,
-                a.Y + unitVector.Y * distance
+                a.X + (unitVector.X * distance),
+                a.Y + (unitVector.Y * distance)
                 );
         }
     }

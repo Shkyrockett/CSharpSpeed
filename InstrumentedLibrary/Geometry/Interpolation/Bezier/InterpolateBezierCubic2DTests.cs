@@ -267,8 +267,8 @@ namespace InstrumentedLibrary
         public static (double X, double Y) CubicBezierInterpolateGetPoint(double t, double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY)
         {
             return (
-                aX + (t * ((-aX * 3d) + (t * ((3d * aX) - aX * t)))) + (t * ((3d * bX) + (t * ((-6d * bX) + bX * 3d * t)))) + (t * t * (cX * 3d - cX * 3d * t)) + dX * t * t * t,
-                aY + (t * ((-aY * 3d) + (t * ((3d * aY) - aY * t)))) + (t * ((3d * bY) + (t * ((-6d * bY) + bY * 3d * t)))) + (t * t * (cY * 3d - cY * 3d * t)) + dY * t * t * t
+                aX + (t * ((-aX * 3d) + (t * ((3d * aX) - (aX * t))))) + (t * ((3d * bX) + (t * ((-6d * bX) + (bX * 3d * t))))) + (t * t * ((cX * 3d) - (cX * 3d * t))) + (dX * t * t * t),
+                aY + (t * ((-aY * 3d) + (t * ((3d * aY) - (aY * t))))) + (t * ((3d * bY) + (t * ((-6d * bY) + (bY * 3d * t))))) + (t * t * ((cY * 3d) - (cY * 3d * t))) + (dY * t * t * t)
                 );
         }
     }

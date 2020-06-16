@@ -73,8 +73,8 @@ namespace InstrumentedLibrary
             if (cosA > -1 && cosA < 0 || cosA > 0 && cosA < 1)
             {
                 var d = Sign(cosA);
-                return (d / Sqrt(1d + rx * rx * sinA * sinA / (ry * ry * cosA * cosA)),
-                        d * (rx * sinA / (ry * cosA * Sqrt(1 + rx * rx * sinA * sinA / (ry * ry * cosA * cosA)))));
+                return (d / Sqrt(1d + (rx * rx * sinA * sinA / (ry * ry * cosA * cosA))),
+                        d * (rx * sinA / (ry * cosA * Sqrt(1 + (rx * rx * sinA * sinA / (ry * ry * cosA * cosA))))));
             }
 
             return (cosA, sinA);

@@ -92,7 +92,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double FindParabolaAFromAPointAndVertex2(double x, double y, double h, double k)
         {
-            return x - h is 0d ? 0d : (y - k) / (h * h - 2 * h * x + x * x);
+            return x - h is 0d ? 0d : (y - k) / ((h * h) - (2 * h * x) + (x * x));
         }
     }
 }

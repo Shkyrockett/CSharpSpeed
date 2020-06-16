@@ -76,8 +76,8 @@ namespace InstrumentedLibrary
         {
             var a = (Abs(x2 - x1) / 2d) + closeDistance;
             var b = (Abs(y2 - y1) / 2d) + closeDistance;
-            var x = px - (x2 + x1) / 2d;
-            var y = py - (y2 + y1) / 2d;
+            var x = px - ((x2 + x1) / 2d);
+            var y = py - ((y2 + y1) / 2d);
             return (x * x / (a * a)) + (y * y / (b * b)) <= 1d;
         }
     }

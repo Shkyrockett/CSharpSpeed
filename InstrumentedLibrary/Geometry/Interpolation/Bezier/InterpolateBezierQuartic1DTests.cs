@@ -67,7 +67,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuarticBezierInterpolateGetValue(double t, double aV, double bV, double cV, double dV, double eV)
         {
-            return (aV * (1d - t) * (1d - t) * (1d - t) * (1d - t)) + 4d * bV * t * (1d - t) * (1d - t) * (1d - t) + 6d * cV * t * t * (1d - t) * (1d - t) + 4d * dV * t * t * t * (1d - t) + eV * t * t * t * t;
+            return (aV * (1d - t) * (1d - t) * (1d - t) * (1d - t)) + (4d * bV * t * (1d - t) * (1d - t) * (1d - t)) + (6d * cV * t * t * (1d - t) * (1d - t)) + (4d * dV * t * t * t * (1d - t)) + (eV * t * t * t * t);
         }
 
         /// <summary>

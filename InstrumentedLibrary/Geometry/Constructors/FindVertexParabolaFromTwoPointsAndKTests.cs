@@ -126,9 +126,9 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double a, double h, double k) FindVertexParabolaFromTwoPointsAndK3(double x1, double y1, double x2, double y2, double k)
         {
-            var a = 1d - (y2 - k) / (y1 - k);
-            var b = -2d * x2 + (2d * x1 * ((y2 - k) / (y1 - k)));
-            var c = x2 * x2​ - (x1 * x1 * ((y2 - k) / (y1 - k)));
+            var a = 1d - ((y2 - k) / (y1 - k));
+            var b = (-2d * x2) + (2d * x1 * ((y2 - k) / (y1 - k)));
+            var c = (x2 * x2​) - (x1 * x1 * ((y2 - k) / (y1 - k)));
             double h;
 
             // Find the roots.
@@ -188,9 +188,9 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double a, double h, double k) FindVertexParabolaFromTwoPointsAndK4(double x1, double y1, double x2, double y2, double k)
         {
-            var a = 1d - (y2 - k) / (y1 - k);
-            var b = -2d * x2 + (2d * x1 * ((y2 - k) / (y1 - k)));
-            var c = x2 * x2​ - (x1 * x1 * ((y2 - k) / (y1 - k)));
+            var a = 1d - ((y2 - k) / (y1 - k));
+            var b = (-2d * x2) + (2d * x1 * ((y2 - k) / (y1 - k)));
+            var c = (x2 * x2​) - (x1 * x1 * ((y2 - k) / (y1 - k)));
             double h;
 
             // Find the roots.

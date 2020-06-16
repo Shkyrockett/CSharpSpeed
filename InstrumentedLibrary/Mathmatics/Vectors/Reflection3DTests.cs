@@ -75,7 +75,7 @@ namespace InstrumentedLibrary
             double i2, double j2, double k2)
         {
             // if v2 has a right angle to vector, return -vector and stop
-            if (Math.Abs(Math.Abs(Angle3DTests.Angle(i1, j1, k1, i2, j2, k2)) - Math.PI / 2) < double.Epsilon)
+            if (Math.Abs(Math.Abs(Angle3DTests.Angle(i1, j1, k1, i2, j2, k2)) - (Math.PI / 2)) < double.Epsilon)
             {
                 return (-i1, -j1, -k1);
             }
@@ -83,9 +83,9 @@ namespace InstrumentedLibrary
             (var x, var y, var z) = Projection3DTests.Projection(i1, j1, k1, i2, j2, k2);
             var magnitude = VectorMagnitude3D.Magnitude(i1, j1, k1);
             return (
-                (2 * x - i1) * magnitude,
-                (2 * y - j1) * magnitude,
-                (2 * z - k1) * magnitude);
+                ((2 * x) - i1) * magnitude,
+                ((2 * y) - j1) * magnitude,
+                ((2 * z) - k1) * magnitude);
         }
     }
 }

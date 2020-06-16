@@ -94,14 +94,14 @@ namespace InstrumentedLibrary
             mX1 += (x3 - x2) * (1d - bias) * (1d - tension) * 0.5d;
             var mY1 = (y2 - y1) * (1d + bias) * (1d - tension) * 0.5d;
             mY1 += (y3 - y2) * (1d - bias) * (1d - tension) * 0.5d;
-            var a0 = 2d * mu3 - 3d * mu2 + 1d;
-            var a1 = mu3 - 2d * mu2 + index;
+            var a0 = (2d * mu3) - (3d * mu2) + 1d;
+            var a1 = mu3 - (2d * mu2) + index;
             var a2 = mu3 - mu2;
-            var a3 = -2d * mu3 + 3d * mu2;
+            var a3 = (-2d * mu3) + (3d * mu2);
 
             return (
-                a0 * x1 + a1 * mX0 + a2 * mX1 + a3 * x2,
-                a0 * y1 + a1 * mY0 + a2 * mY1 + a3 * y2);
+                (a0 * x1) + (a1 * mX0) + (a2 * mX1) + (a3 * x2),
+                (a0 * y1) + (a1 * mY0) + (a2 * mY1) + (a3 * y2));
         }
 
         /// <summary>
@@ -147,15 +147,15 @@ namespace InstrumentedLibrary
             //return (a0 * y1 + a1 * m0 + a2 * m1 + a3 * y2);
             var mu2 = index * index;
             var mu3 = mu2 * index;
-            var m0 = aTan - (a * (1d + bias * (1d - tension) * 0.5d));
+            var m0 = aTan - (a * (1d + (bias * (1d - tension) * 0.5d)));
             m0 += (b - (aTan * (1d - bias) * (1d - tension) * 0.5d));
-            var m1 = b - aTan * (1d + bias) * (1d - tension) * 0.5d;
-            m1 += (bTan - b * (1d - bias) * (1d - tension) * 0.5d);
-            var a0 = 2d * mu3 - 3d * mu2 + 1d;
-            var a1 = mu3 - 2d * mu2 + index;
+            var m1 = b - (aTan * (1d + bias) * (1d - tension) * 0.5d);
+            m1 += (bTan - (b * (1d - bias) * (1d - tension) * 0.5d));
+            var a0 = (2d * mu3) - (3d * mu2) + 1d;
+            var a1 = mu3 - (2d * mu2) + index;
             var a2 = mu3 - mu2;
-            var a3 = -2d * mu3 + 3d * mu2;
-            var result = aTan * a0 + (m0 * a1) + (m1 * a2) + (b * a3);
+            var a3 = (-2d * mu3) + (3d * mu2);
+            var result = (aTan * a0) + (m0 * a1) + (m1 * a2) + (b * a3);
             return (result.I, result.J);
         }
 
@@ -192,7 +192,7 @@ namespace InstrumentedLibrary
             var t2 = index * index;
             var t3 = t2 * index;
             var tb = (1d + bias) * ((1d - tension) / 2d);
-            var ret = aTan * ((2d * t3) - (3d * t2) + 1d) + (aTan - a + ((b - aTan) * (t3 - (2d * t2) + index)) + (b - aTan + ((bTan - b) * (t3 - t2))) * tb + (b * ((3d * t2) - (2d * t3))));
+            var ret = (aTan * ((2d * t3) - (3d * t2) + 1d)) + (aTan - a + ((b - aTan) * (t3 - (2d * t2) + index)) + ((b - aTan + ((bTan - b) * (t3 - t2))) * tb) + (b * ((3d * t2) - (2d * t3))));
             return (ret.I, ret.J);
         }
     }

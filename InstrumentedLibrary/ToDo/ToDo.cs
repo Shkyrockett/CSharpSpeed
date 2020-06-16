@@ -192,9 +192,9 @@ namespace InstrumentedLibrary
         {
             var sin_t = Sin(t);
             return new Point2D(16 * sin_t * sin_t * sin_t,
-                 13 * Cos(t)
-                - 5 * Cos(2 * t)
-                - 2 * Cos(3 * t)
+                 (13 * Cos(t))
+                - (5 * Cos(2 * t))
+                - (2 * Cos(3 * t))
                 - Cos(4 * t));
         }
 
@@ -256,8 +256,8 @@ namespace InstrumentedLibrary
             const int margin = 5;
             var device_rect = new Rectangle2D(
                 margin, margin,
-                width - 2 * margin,
-                height - 2 * margin);
+                width - (2 * margin),
+                height - (2 * margin));
 
             //// Map world to device coordinates without distortion.
             //// Flip vertically so Y increases downward.
@@ -304,8 +304,8 @@ namespace InstrumentedLibrary
             var device_aspect = device_rect.Width / device_rect.Height;
 
             // Adjust the world rectangle to maintain the aspect ratio.
-            var world_cx = world_rect.X + world_rect.Width / 2f;
-            var world_cy = world_rect.Y + world_rect.Height / 2f;
+            var world_cx = world_rect.X + (world_rect.Width / 2f);
+            var world_cy = world_rect.Y + (world_rect.Height / 2f);
             if (world_aspect > device_aspect)
             {
                 // The world coordinates are too short and width.
@@ -313,7 +313,7 @@ namespace InstrumentedLibrary
                 var world_height = world_rect.Width / device_aspect;
                 world_rect = new Rectangle2D(
                     world_rect.Left,
-                    world_cy - world_height / 2f,
+                    world_cy - (world_height / 2f),
                     world_rect.Width,
                     world_height);
             }
@@ -323,7 +323,7 @@ namespace InstrumentedLibrary
                 // Make them wider.
                 var world_width = device_aspect * world_rect.Height;
                 world_rect = new Rectangle2D(
-                    world_cx - world_width / 2f,
+                    world_cx - (world_width / 2f),
                     world_rect.Top,
                     world_width,
                     world_rect.Height);
@@ -667,13 +667,13 @@ namespace InstrumentedLibrary
             for (var i = 0; i < 2 * num_points; i += 2)
             {
                 pts[i] = new Point2D(
-                    (float)(cx + rx1 * Cos(theta)),
-                    (float)(cy + ry1 * Sin(theta)));
+                    (float)(cx + (rx1 * Cos(theta))),
+                    (float)(cy + (ry1 * Sin(theta))));
                 theta += dtheta;
 
                 pts[i + 1] = new Point2D(
-                    (float)(cx + rx2 * Cos(theta)),
-                    (float)(cy + ry2 * Sin(theta)));
+                    (float)(cx + (rx2 * Cos(theta))),
+                    (float)(cy + (ry2 * Sin(theta))));
                 theta += dtheta;
             }
 
@@ -965,8 +965,8 @@ namespace InstrumentedLibrary
             ellipse_point = new Point2D(ellipse.Width * Cos(phi), ellipse.Height * Sin(phi));
 
             // Apply the rotation transformation and translate to new center.
-            rect.Location = new Point2D(ellipse.Left + (ellipse_point.X * xaxis.X + ellipse_point.Y * xaxis.Y),
-                                       ellipse.Top + (ellipse_point.X * yaxis.X + ellipse_point.Y * yaxis.Y));
+            rect.Location = new Point2D(ellipse.Left + ((ellipse_point.X * xaxis.X) + (ellipse_point.Y * xaxis.Y)),
+                                       ellipse.Top + ((ellipse_point.X * yaxis.X) + (ellipse_point.Y * yaxis.Y)));
 
             //g.DrawRectangle(Pens.AntiqueWhite, (float)rect.X, (float)rect.Y, (float)rect.Width, (float)rect.Height);
         }

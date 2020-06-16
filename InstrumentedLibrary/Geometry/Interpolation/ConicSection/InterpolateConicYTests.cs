@@ -27,11 +27,11 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double G(double x, double a, double b, double c, double d, double e, double f, int rootSign)
         {
-            var result = b * x + e;
+            var result = (b * x) + e;
             result *= result;
-            result -= 4d * c * (a * x * x + d * x + f);
+            result -= 4d * c * ((a * x * x) + (d * x) + f);
             result = rootSign * Math.Sqrt(result);
-            result = -(b * x + e) + result;
+            result = -((b * x) + e) + result;
             result = result / 2d / c;
             return result;
         }
@@ -55,9 +55,9 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double GPrime(double x, double a, double b, double c, double d, double e, double f, int rootSign)
         {
-            var numerator = 2d * (b * x + e) * b - 4d * c * (2d * a * x + d);
-            var denominator = 2f * (float)Math.Sqrt((b * x + e) * (b * x + e) - 4d * c * (a * x * x + d * x + f));
-            var result = -b + rootSign * numerator / denominator;
+            var numerator = (2d * ((b * x) + e) * b) - (4d * c * ((2d * a * x) + d));
+            var denominator = 2f * (float)Math.Sqrt((((b * x) + e) * ((b * x) + e)) - (4d * c * ((a * x * x) + (d * x) + f)));
+            var result = -b + (rootSign * numerator / denominator);
             result = result / 2d / c;
 
             return result;

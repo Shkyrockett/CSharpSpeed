@@ -77,10 +77,10 @@ namespace InstrumentedLibrary
         {
             // Vector A->B
             var diffAB = (X: aX - bX, Y: aY - bY);
-            var det = aY * bX - aX * bY;
-            var dot = diffAB.X * pX + diffAB.Y * pY;
-            var val = (X: dot * diffAB.X + det * diffAB.Y, Y: dot * diffAB.Y - det * diffAB.X);
-            var magnitude = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
+            var det = (aY * bX) - (aX * bY);
+            var dot = (diffAB.X * pX) + (diffAB.Y * pY);
+            var val = (X: (dot * diffAB.X) + (det * diffAB.Y), Y: (dot * diffAB.Y) - (det * diffAB.X));
+            var magnitude = (diffAB.X * diffAB.X) + (diffAB.Y * diffAB.Y);
             var inverseDist = 1 / magnitude;
             return (val.X * inverseDist, val.Y * inverseDist);
         }
@@ -113,9 +113,9 @@ namespace InstrumentedLibrary
             var diffAP = (X: pX - aX, Y: pY - aY);
             // Vector A->B
             var diffAB = (X: bX - aX, Y: bY - aY);
-            var dotAB = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
+            var dotAB = (diffAB.X * diffAB.X) + (diffAB.Y * diffAB.Y);
             // The dot product of diffAP and diffAB
-            var dotABAP = diffAP.X * diffAB.X + diffAP.Y * diffAB.Y;
+            var dotABAP = (diffAP.X * diffAB.X) + (diffAP.Y * diffAB.Y);
             //  # The normalized "distance" from a to the closest point
             var dist = dotABAP / dotAB;
             if (dist < 0)
@@ -128,7 +128,7 @@ namespace InstrumentedLibrary
             }
             else
             {
-                return (aX + diffAB.X * dist, aY + diffAB.Y * dist);
+                return (aX + (diffAB.X * dist), aY + (diffAB.Y * dist));
             }
         }
 
@@ -160,12 +160,12 @@ namespace InstrumentedLibrary
             var diffAP = (X: pX - aX, Y: pY - aY);
             // Vector A->B
             var diffAB = (X: bX - aX, Y: bY - aY);
-            var dotAB = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
+            var dotAB = (diffAB.X * diffAB.X) + (diffAB.Y * diffAB.Y);
             // The dot product of diffAP and diffAB
-            var dotABAP = diffAP.X * diffAB.X + diffAP.Y * diffAB.Y;
+            var dotABAP = (diffAP.X * diffAB.X) + (diffAP.Y * diffAB.Y);
             // The normalized "distance" from a to the closest point
             var dist = dotABAP / dotAB;
-            return (aX + diffAB.X * dist, aY + diffAB.Y * dist);
+            return (aX + (diffAB.X * dist), aY + (diffAB.Y * dist));
         }
     }
 }

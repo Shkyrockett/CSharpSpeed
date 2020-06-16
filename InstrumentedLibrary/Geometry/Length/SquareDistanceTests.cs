@@ -66,7 +66,7 @@ namespace InstrumentedLibrary
             double x1, double y1,
             double x2, double y2)
         {
-            return (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
+            return ((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1));
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace InstrumentedLibrary
         {
             var x = x1 - x2;
             var y = y1 - y2;
-            return x * x + y * y;
+            return (x * x) + (y * y);
         }
     }
 }

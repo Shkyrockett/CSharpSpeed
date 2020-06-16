@@ -76,9 +76,9 @@ namespace InstrumentedLibrary
             var sin = Sin(rad);
             var cos = Cos(rad);
             return (
-                    (z1 * sin) + (x1 * cos) + (xOff * (1 - cos) - zOff * sin),
+                    (z1 * sin) + (x1 * cos) + ((xOff * (1 - cos)) - (zOff * sin)),
                     y1,
-                    (z1 * cos) - (x1 * sin) + (zOff * (1 - cos) + xOff * sin)
+                    (z1 * cos) - (x1 * sin) + ((zOff * (1 - cos)) + (xOff * sin))
                     );
         }
     }

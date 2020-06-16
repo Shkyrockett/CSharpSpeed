@@ -82,8 +82,8 @@ namespace InstrumentedLibrary
                 );
 
             var loc = new Point2D(
-                fulcrumX + (-width / 2d * cosAngle + -height / 2d * sinAngle),
-                fulcrumY + (-width / 2d * sinAngle + -height / 2d * cosAngle)
+                fulcrumX + ((-width / 2d * cosAngle) + (-height / 2d * sinAngle)),
+                fulcrumY + ((-width / 2d * sinAngle) + (-height / 2d * cosAngle))
                 );
 
             return new Rectangle2D(loc, size);

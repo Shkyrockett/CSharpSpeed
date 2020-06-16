@@ -88,9 +88,9 @@ namespace InstrumentedLibrary
             //  -1/6      1      1/6      0
             //    0      1/6      1     -1/6
             //    0       0       1       0
-            return (p[1].x, p[1].y, (-p[0].x + 6d * p[1].x + p[2].x) / 6d,
-                (-p[0].y + 6d * p[1].y + p[2].y) / 6d, (p[1].x + 6d * p[2].x - p[3].x) / 6d,
-                (p[1].y + 6d * p[2].y - p[3].y) / 6d,
+            return (p[1].x, p[1].y, (-p[0].x + (6d * p[1].x) + p[2].x) / 6d,
+                (-p[0].y + (6d * p[1].y) + p[2].y) / 6d, (p[1].x + (6d * p[2].x) - p[3].x) / 6d,
+                (p[1].y + (6d * p[2].y) - p[3].y) / 6d,
                 p[2].x, p[2].y);
         }
     }

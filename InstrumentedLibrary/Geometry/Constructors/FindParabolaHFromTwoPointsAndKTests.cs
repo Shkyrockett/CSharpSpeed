@@ -74,9 +74,9 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double a, double b) FindParabolaHFromTwoPointsAndK1(double x1, double y1, double x2, double y2, double k)
         {
-            var a = 1d - (y2 - k) / (y1 - k);
-            var b = -2d * x2 + (2d * x1 * ((y2 - k) / (y1 - k)));
-            var c = x2 * x2​ - (x1 * x1 * ((y2 - k) / (y1 - k)));
+            var a = 1d - ((y2 - k) / (y1 - k));
+            var b = (-2d * x2) + (2d * x1 * ((y2 - k) / (y1 - k)));
+            var c = (x2 * x2​) - (x1 * x1 * ((y2 - k) / (y1 - k)));
             var r = QuadraticRootsTests.QuadraticRoots(a, b, c);
             return (r[0], r.Count > 1 ? r[1] : r[0]);
         }
@@ -101,9 +101,9 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double a, double b) FindParabolaHFromTwoPointsAndK2(double x1, double y1, double x2, double y2, double k)
         {
-            var a = 1d - (y2 - k) / (y1 - k);
-            var b = -2d * x2 + (2d * x1 * ((y2 - k) / (y1 - k)));
-            var c = x2 * x2​ - (x1 * x1 * ((y2 - k) / (y1 - k)));
+            var a = 1d - ((y2 - k) / (y1 - k));
+            var b = (-2d * x2) + (2d * x1 * ((y2 - k) / (y1 - k)));
+            var c = (x2 * x2​) - (x1 * x1 * ((y2 - k) / (y1 - k)));
             if (a is 0d || (Abs(a) <= double.Epsilon))
             {
                 if (b is 0d || (Abs(b) <= double.Epsilon))
@@ -162,9 +162,9 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double a, double b) FindParabolaHFromTwoPointsAndK3(double x1, double y1, double x2, double y2, double k)
         {
-            var a = 1d - (y2 - k) / (y1 - k);
-            var b = -2d * x2 + (2d * x1 * ((y2 - k) / (y1 - k)));
-            var c = x2 * x2​ - (x1 * x1 * ((y2 - k) / (y1 - k)));
+            var a = 1d - ((y2 - k) / (y1 - k));
+            var b = (-2d * x2) + (2d * x1 * ((y2 - k) / (y1 - k)));
+            var c = (x2 * x2​) - (x1 * x1 * ((y2 - k) / (y1 - k)));
 
             // Find the roots.
             if (a is 0d)

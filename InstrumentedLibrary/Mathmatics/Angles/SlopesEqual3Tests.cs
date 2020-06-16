@@ -70,7 +70,7 @@ namespace InstrumentedLibrary
         public static bool SlopesEqual0(Point2D a, Point2D b, Point2D c, bool UseFullRange = false)
         {
             return UseFullRange ? BigInteger.Multiply((BigInteger)(a.Y - b.Y), (BigInteger)(b.X - c.X)) == BigInteger.Multiply((BigInteger)(a.X - b.X), (BigInteger)(b.Y - c.Y))
-                : (a.Y - b.Y) * (b.X - c.X) - (a.X - b.X) * (b.Y - c.Y) == 0;
+                : ((a.Y - b.Y) * (b.X - c.X)) - ((a.X - b.X) * (b.Y - c.Y)) == 0;
         }
     }
 }

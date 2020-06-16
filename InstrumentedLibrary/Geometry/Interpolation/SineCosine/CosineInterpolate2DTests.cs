@@ -74,8 +74,8 @@ namespace InstrumentedLibrary
         {
             var mu2 = (1d - Cos(t * PI)) * 0.5d;
             return (
-                (x1 * (1d - mu2)) + x2 * mu2,
-                (y1 * (1d - mu2)) + y2 * mu2);
+                (x1 * (1d - mu2)) + (x2 * mu2),
+                (y1 * (1d - mu2)) + (y2 * mu2));
         }
 
         /// <summary>

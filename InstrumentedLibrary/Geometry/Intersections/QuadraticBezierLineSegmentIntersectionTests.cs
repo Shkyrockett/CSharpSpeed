@@ -97,19 +97,19 @@ namespace InstrumentedLibrary
             var normal = new Point2D(a1Y - a2Y, a2X - a1X);
 
             // Q-coefficients
-            var c2 = new Point2D(p1X + p2X * -2 + p3X, p1Y + p2Y * -2 + p3Y);
-            var c1 = new Point2D(p1X * -2 + p2X * 2, p1Y * -2 + p2Y * 2);
+            var c2 = new Point2D(p1X + (p2X * -2) + p3X, p1Y + (p2Y * -2) + p3Y);
+            var c1 = new Point2D((p1X * -2) + (p2X * 2), (p1Y * -2) + (p2Y * 2));
             var c0 = new Point2D(p1X, p1Y);
 
             // Transform to line
-            var coefficient = a1X * a2Y - a2X * a1Y;
-            var a = normal.X * c2.X + normal.Y * c2.Y;
-            var b = (normal.X * c1.X + normal.Y * c1.Y) / a;
-            var c = (normal.X * c0.X + normal.Y * c0.Y + coefficient) / a;
+            var coefficient = (a1X * a2Y) - (a2X * a1Y);
+            var a = (normal.X * c2.X) + (normal.Y * c2.Y);
+            var b = ((normal.X * c1.X) + (normal.Y * c1.Y)) / a;
+            var c = ((normal.X * c0.X) + (normal.Y * c0.Y) + coefficient) / a;
 
             // solve the roots
             var roots = new List<double>();
-            var d = b * b - 4 * c;
+            var d = (b * b) - (4 * c);
             if (d > 0)
             {
                 var e = Sqrt(d);
@@ -201,7 +201,7 @@ namespace InstrumentedLibrary
             var c1 = a + b;
             var c0 = new Point2D(p1X, p1Y);
             var n = new Point2D(a1Y - a2Y, a2X - a1X);
-            var cl = a1X * a2Y - a2X * a1Y;
+            var cl = (a1X * a2Y) - (a2X * a1Y);
             var roots = QuadraticRootsTests.QuadraticRoots(
                 DotProduct2Vector2DTests.DotProduct2D(n.X, n.Y, c2.I, c2.J),
                 DotProduct2Vector2DTests.DotProduct2D(n.X, n.Y, c1.I, c1.J),
@@ -283,7 +283,7 @@ namespace InstrumentedLibrary
             var c1 = a + b;
             var c0 = new Point2D(p1X, p1Y);
             var n = new Point2D(a1Y - a2Y, a2X - a1X);
-            var cl = a1X * a2Y - a2X * a1Y;
+            var cl = (a1X * a2Y) - (a2X * a1Y);
             var roots = QuadraticRootsTests.QuadraticRoots(
                 DotProduct2Vector2DTests.DotProduct2D(n.X, n.Y, c2.I, c2.J),
                 DotProduct2Vector2DTests.DotProduct2D(n.X, n.Y, c1.I, c1.J),

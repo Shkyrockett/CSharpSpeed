@@ -72,9 +72,9 @@ namespace InstrumentedLibrary
             var dX = point.X - fulcrum.X;
             var dY = point.Y - fulcrum.Y;
             var theta = Atan2(dY, dX);
-            var radius = Sqrt(dX * dX + dY * dY);
-            var newX = fulcrum.X + (radius * Cos(theta + degree * radius));
-            var newY = fulcrum.Y + (radius * Sin(theta + degree * radius));
+            var radius = Sqrt((dX * dX) + (dY * dY));
+            var newX = fulcrum.X + (radius * Cos(theta + (degree * radius)));
+            var newY = fulcrum.Y + (radius * Sin(theta + (degree * radius)));
             return new Point2D(newX, newY);
         }
     }

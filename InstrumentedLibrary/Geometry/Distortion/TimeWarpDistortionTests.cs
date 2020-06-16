@@ -66,7 +66,7 @@ namespace InstrumentedLibrary
             var dX = point.X - fulcrum.X;
             var dY = point.Y - fulcrum.Y;
             var theta = Atan2(dY, dX); // Might this be simplified by finding the unit of the vector?
-            var radius = Sqrt(dX * dX + dY * dY);
+            var radius = Sqrt((dX * dX) + (dY * dY));
             var newRadius = Sqrt(radius) * factor;
             var newX = fulcrum.X + (newRadius * Cos(theta));
             var newY = fulcrum.Y + (newRadius * Sin(theta));

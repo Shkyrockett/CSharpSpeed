@@ -65,8 +65,8 @@ namespace InstrumentedLibrary
         public static Point2D Rotate0(Point2D point, Point2D fulcrum, Vector2D xAxis, Vector2D yAxis)
         {
             return new Point2D(
-                           fulcrum.X + ((point.X - fulcrum.X) * xAxis.I + (point.Y - fulcrum.Y) * xAxis.J),
-                           fulcrum.Y + ((point.X - fulcrum.X) * yAxis.I + (point.Y - fulcrum.Y) * yAxis.J));
+                           fulcrum.X + (((point.X - fulcrum.X) * xAxis.I) + ((point.Y - fulcrum.Y) * xAxis.J)),
+                           fulcrum.Y + (((point.X - fulcrum.X) * yAxis.I) + ((point.Y - fulcrum.Y) * yAxis.J)));
         }
     }
 }

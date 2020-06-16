@@ -91,18 +91,18 @@ namespace InstrumentedLibrary
             var tSquared = t * t;
             var tCubed = tSquared * t;
             return (
-                0.5d * (2d * x2
-                + (x3 - x1) * t
-                + (2d * x1 - 5d * x2 + 4d * x3 - x4) * tSquared
-                + (3d * x2 - x1 - 3d * x3 + x4) * tCubed),
-                0.5d * (2d * x2
-                + (y3 - y1) * t
-                + (2d * y1 - 5d * y2 + 4d * y3 - y4) * tSquared
-                + (3d * y2 - y1 - 3d * y3 + y4) * tCubed),
-                0.5d * (2d * z2
-                + (z3 - z1) * t
-                + (2d * z1 - 5d * z2 + 4d * z3 - z4) * tSquared
-                + (3d * z2 - z1 - 3d * z3 + z4) * tCubed));
+                0.5d * ((2d * x2)
+                + ((x3 - x1) * t)
+                + (((2d * x1) - (5d * x2) + (4d * x3) - x4) * tSquared)
+                + (((3d * x2) - x1 - (3d * x3) + x4) * tCubed)),
+                0.5d * ((2d * x2)
+                + ((y3 - y1) * t)
+                + (((2d * y1) - (5d * y2) + (4d * y3) - y4) * tSquared)
+                + (((3d * y2) - y1 - (3d * y3) + y4) * tCubed)),
+                0.5d * ((2d * z2)
+                + ((z3 - z1) * t)
+                + (((2d * z1) - (5d * z2) + (4d * z3) - z4) * tSquared)
+                + (((3d * z2) - z1 - (3d * z3) + z4) * tCubed)));
         }
 
         /// <summary>
@@ -135,20 +135,20 @@ namespace InstrumentedLibrary
         {
             var mu2 = t * t;
 
-            var aX0 = -0.5d * x0 + 1.5d * x1 - 1.5d * x2 + 0.5d * x3;
-            var aY0 = -0.5d * y0 + 1.5d * y1 - 1.5d * y2 + 0.5d * y3;
-            var aZ0 = -0.5d * z0 + 1.5d * z1 - 1.5d * z2 + 0.5d * z3;
-            var aX1 = x0 - 2.5d * x1 + 2d * x2 - 0.5d * x3;
-            var aY1 = y0 - 2.5d * y1 + 2d * y2 - 0.5d * y3;
-            var aZ1 = z0 - 2.5d * z1 + 2d * z2 - 0.5d * z3;
-            var aX2 = -0.5d * x0 + 0.5d * x2;
-            var aY2 = -0.5d * y0 + 0.5d * y2;
-            var aZ2 = -0.5d * z0 + 0.5d * z2;
+            var aX0 = (-0.5d * x0) + (1.5d * x1) - (1.5d * x2) + (0.5d * x3);
+            var aY0 = (-0.5d * y0) + (1.5d * y1) - (1.5d * y2) + (0.5d * y3);
+            var aZ0 = (-0.5d * z0) + (1.5d * z1) - (1.5d * z2) + (0.5d * z3);
+            var aX1 = x0 - (2.5d * x1) + (2d * x2) - (0.5d * x3);
+            var aY1 = y0 - (2.5d * y1) + (2d * y2) - (0.5d * y3);
+            var aZ1 = z0 - (2.5d * z1) + (2d * z2) - (0.5d * z3);
+            var aX2 = (-0.5d * x0) + (0.5d * x2);
+            var aY2 = (-0.5d * y0) + (0.5d * y2);
+            var aZ2 = (-0.5d * z0) + (0.5d * z2);
 
             return (
-                aX0 * t * mu2 + aX1 * mu2 + aX2 * t + x1,
-                aY0 * t * mu2 + aY1 * mu2 + aY2 * t + y1,
-                aZ0 * t * mu2 + aZ1 * mu2 + aZ2 * t + z1);
+                (aX0 * t * mu2) + (aX1 * mu2) + (aX2 * t) + x1,
+                (aY0 * t * mu2) + (aY1 * mu2) + (aY2 * t) + y1,
+                (aZ0 * t * mu2) + (aZ1 * mu2) + (aZ2 * t) + z1);
         }
     }
 }

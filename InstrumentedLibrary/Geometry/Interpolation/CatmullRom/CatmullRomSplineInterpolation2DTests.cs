@@ -89,14 +89,14 @@ namespace InstrumentedLibrary
             var tSquared = t * t;
             var tCubed = tSquared * t;
             return (
-                0.5d * (2d * p1X
-                + (-t0X + p2X) * t
-                + (2d * t0X - 5d * p1X + 4d * p2X - t3X) * tSquared
-                + (-t0X + 3d * p1X - 3d * p2X + t3X) * tCubed),
-                0.5d * (2d * p1Y
-                + (-t0Y + p2Y) * t
-                + (2d * t0Y - 5d * p1Y + 4d * p2Y - t3Y) * tSquared
-                + (-t0Y + 3d * p1Y - 3d * p2Y + t3Y) * tCubed));
+                0.5d * ((2d * p1X)
+                + ((-t0X + p2X) * t)
+                + (((2d * t0X) - (5d * p1X) + (4d * p2X) - t3X) * tSquared)
+                + ((-t0X + (3d * p1X) - (3d * p2X) + t3X) * tCubed)),
+                0.5d * ((2d * p1Y)
+                + ((-t0Y + p2Y) * t)
+                + (((2d * t0Y) - (5d * p1Y) + (4d * p2Y) - t3Y) * tSquared)
+                + ((-t0Y + (3d * p1Y) - (3d * p2Y) + t3Y) * tCubed)));
         }
 
         /// <summary>
@@ -125,16 +125,16 @@ namespace InstrumentedLibrary
         {
             var mu2 = t * t;
 
-            var aX0 = -0.5d * x0 + 1.5d * x1 - 1.5d * x2 + 0.5d * x3;
-            var aY0 = -0.5d * y0 + 1.5d * y1 - 1.5d * y2 + 0.5d * y3;
-            var aX1 = x0 - 2.5d * x1 + 2d * x2 - 0.5d * x3;
-            var aY1 = y0 - 2.5d * y1 + 2d * y2 - 0.5d * y3;
-            var aX2 = -0.5d * x0 + 0.5d * x2;
-            var aY2 = -0.5d * y0 + 0.5d * y2;
+            var aX0 = (-0.5d * x0) + (1.5d * x1) - (1.5d * x2) + (0.5d * x3);
+            var aY0 = (-0.5d * y0) + (1.5d * y1) - (1.5d * y2) + (0.5d * y3);
+            var aX1 = x0 - (2.5d * x1) + (2d * x2) - (0.5d * x3);
+            var aY1 = y0 - (2.5d * y1) + (2d * y2) - (0.5d * y3);
+            var aX2 = (-0.5d * x0) + (0.5d * x2);
+            var aY2 = (-0.5d * y0) + (0.5d * y2);
 
             return (
-                aX0 * t * mu2 + aX1 * mu2 + aX2 * t + x1,
-                aY0 * t * mu2 + aY1 * mu2 + aY2 * t + y1);
+                (aX0 * t * mu2) + (aX1 * mu2) + (aX2 * t) + x1,
+                (aY0 * t * mu2) + (aY1 * mu2) + (aY2 * t) + y1);
         }
     }
 }

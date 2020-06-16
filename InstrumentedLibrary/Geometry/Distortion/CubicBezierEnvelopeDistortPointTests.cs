@@ -216,28 +216,28 @@ namespace InstrumentedLibrary
 
             // Cubic interpolate the left anchor node.
             var leftAnchor = (
-                X: topLeft.X * reverseNormalCubed.Y + 3d * topLeftV.X * normal.Y * reverseNormalSquared.Y + 3d * bottomLeftV.X * normalSquared.Y * reverseNormal.Y + bottomLeft.X * normalCubed.Y,
-                Y: topLeft.Y * reverseNormalCubed.Y + 3d * topLeftV.Y * normal.Y * reverseNormalSquared.Y + 3d * bottomLeftV.Y * normalSquared.Y * reverseNormal.Y + bottomLeft.Y * normalCubed.Y
+                X: (topLeft.X * reverseNormalCubed.Y) + (3d * topLeftV.X * normal.Y * reverseNormalSquared.Y) + (3d * bottomLeftV.X * normalSquared.Y * reverseNormal.Y) + (bottomLeft.X * normalCubed.Y),
+                Y: (topLeft.Y * reverseNormalCubed.Y) + (3d * topLeftV.Y * normal.Y * reverseNormalSquared.Y) + (3d * bottomLeftV.Y * normalSquared.Y * reverseNormal.Y) + (bottomLeft.Y * normalCubed.Y)
                 );
             // Linear interpolate the left handle node.
             var leftHandle = (
-                X: topLeftH.X * reverseNormal.Y + bottomLeftH.X * normal.Y,
-                Y: topLeftH.Y * reverseNormal.Y + bottomLeftH.Y * normal.Y
+                X: (topLeftH.X * reverseNormal.Y) + (bottomLeftH.X * normal.Y),
+                Y: (topLeftH.Y * reverseNormal.Y) + (bottomLeftH.Y * normal.Y)
                 );
             // Linear interpolate the right handle node.
             var rightHandle = (
-                X: topRightH.X * reverseNormal.Y + bottomRightH.X * normal.Y,
-                Y: topRightH.Y * reverseNormal.Y + bottomRightH.Y * normal.Y
+                X: (topRightH.X * reverseNormal.Y) + (bottomRightH.X * normal.Y),
+                Y: (topRightH.Y * reverseNormal.Y) + (bottomRightH.Y * normal.Y)
                 );
             // Cubic interpolate the right anchor node.
             var rightAnchor = (
-                X: topRight.X * reverseNormalCubed.Y + 3d * topRightV.X * normal.Y * reverseNormalSquared.Y + 3d * bottomRightV.X * normalSquared.Y * reverseNormal.Y + bottomRight.X * normalCubed.Y,
-                Y: topRight.Y * reverseNormalCubed.Y + 3d * topRightV.Y * normal.Y * reverseNormalSquared.Y + 3d * bottomRightV.Y * normalSquared.Y * reverseNormal.Y + bottomRight.Y * normalCubed.Y
+                X: (topRight.X * reverseNormalCubed.Y) + (3d * topRightV.X * normal.Y * reverseNormalSquared.Y) + (3d * bottomRightV.X * normalSquared.Y * reverseNormal.Y) + (bottomRight.X * normalCubed.Y),
+                Y: (topRight.Y * reverseNormalCubed.Y) + (3d * topRightV.Y * normal.Y * reverseNormalSquared.Y) + (3d * bottomRightV.Y * normalSquared.Y * reverseNormal.Y) + (bottomRight.Y * normalCubed.Y)
                 );
             // Cubic interpolate the final result.
             return new Point2D(
-                x: leftAnchor.X * reverseNormalCubed.X + 3d * leftHandle.X * normal.X * reverseNormalSquared.X + 3d * rightHandle.X * normalSquared.X * reverseNormal.X + rightAnchor.X * normalCubed.X,
-                y: leftAnchor.Y * reverseNormalCubed.X + 3d * leftHandle.Y * normal.X * reverseNormalSquared.X + 3d * rightHandle.Y * normalSquared.X * reverseNormal.X + rightAnchor.Y * normalCubed.X
+                x: (leftAnchor.X * reverseNormalCubed.X) + (3d * leftHandle.X * normal.X * reverseNormalSquared.X) + (3d * rightHandle.X * normalSquared.X * reverseNormal.X) + (rightAnchor.X * normalCubed.X),
+                y: (leftAnchor.Y * reverseNormalCubed.X) + (3d * leftHandle.Y * normal.X * reverseNormalSquared.X) + (3d * rightHandle.Y * normalSquared.X * reverseNormal.X) + (rightAnchor.Y * normalCubed.X)
                 );
         }
 

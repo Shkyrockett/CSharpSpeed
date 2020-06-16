@@ -64,7 +64,7 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) LineSegmentCenter1(double x1, double y1, double x2, double y2)
         {
-            return (x1 + (x2 - x1) * 0.5d, y1 + (y2 - y1) * 0.5d);
+            return (x1 + ((x2 - x1) * 0.5d), y1 + ((y2 - y1) * 0.5d));
         }
 
         /// <summary>

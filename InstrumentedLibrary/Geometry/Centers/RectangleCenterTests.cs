@@ -61,8 +61,8 @@ namespace InstrumentedLibrary
         public static (double X, double Y) Center0(Rectangle2D rectangle)
         {
             return (
-                rectangle.Left + (rectangle.Right - rectangle.Left) * 0.5d,
-                rectangle.Top + (rectangle.Bottom - rectangle.Top) * 0.5d
+                rectangle.Left + ((rectangle.Right - rectangle.Left) * 0.5d),
+                rectangle.Top + ((rectangle.Bottom - rectangle.Top) * 0.5d)
                 );
         }
 

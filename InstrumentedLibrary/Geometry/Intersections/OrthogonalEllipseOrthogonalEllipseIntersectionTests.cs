@@ -153,30 +153,30 @@ namespace InstrumentedLibrary
             var MajorRadius1 = Max(a1, b1);
             var MajorRadius2 = Max(a2, b2);
 
-            var d = h2 * h2 - h1 * h1 - MajorRadius2 * MajorRadius2 - (k2 - k1) * (k2 - k1) + MajorRadius1 * MajorRadius1;
-            var a = (2d * h1 - 2d * h2) * (2d * h1 - 2d * h2) + 4d * (k2 - k1) * (k2 - k1);
-            var b = 2d * d * (2d * h1 - 2d * h2) - 8d * h2 * (k2 - k1) * (k2 - k1);
-            var C = 4d * h2 * h2 * (k2 - k1) * (k2 - k1) + d * d - 4d * (k2 - k1) * (k2 - k1) * MajorRadius2 * MajorRadius2;
-            var XA = (-b + Sqrt(b * b - 4d * a * C)) / (2d * a);
-            var XB = (-b - Sqrt(b * b - 4d * a * C)) / (2d * a);
-            var YA = Sqrt(MajorRadius1 * MajorRadius1 - (XA - h1) * (XA - h1)) + k1;
-            var YB = -Sqrt(MajorRadius1 * MajorRadius1 - (XA - h1) * (XA - h1)) + k1;
-            var YC = Sqrt(MajorRadius1 * MajorRadius1 - (XB - h1) * (XB - h1)) + k1;
-            var YD = -Sqrt(MajorRadius1 * MajorRadius1 - (XB - h1) * (XB - h1)) + k1;
+            var d = (h2 * h2) - (h1 * h1) - (MajorRadius2 * MajorRadius2) - ((k2 - k1) * (k2 - k1)) + (MajorRadius1 * MajorRadius1);
+            var a = (((2d * h1) - (2d * h2)) * ((2d * h1) - (2d * h2))) + (4d * (k2 - k1) * (k2 - k1));
+            var b = (2d * d * ((2d * h1) - (2d * h2))) - (8d * h2 * (k2 - k1) * (k2 - k1));
+            var C = (4d * h2 * h2 * (k2 - k1) * (k2 - k1)) + (d * d) - (4d * (k2 - k1) * (k2 - k1) * MajorRadius2 * MajorRadius2);
+            var XA = (-b + Sqrt((b * b) - (4d * a * C))) / (2d * a);
+            var XB = (-b - Sqrt((b * b) - (4d * a * C))) / (2d * a);
+            var YA = Sqrt((MajorRadius1 * MajorRadius1) - ((XA - h1) * (XA - h1))) + k1;
+            var YB = -Sqrt((MajorRadius1 * MajorRadius1) - ((XA - h1) * (XA - h1))) + k1;
+            var YC = Sqrt((MajorRadius1 * MajorRadius1) - ((XB - h1) * (XB - h1))) + k1;
+            var YD = -Sqrt((MajorRadius1 * MajorRadius1) - ((XB - h1) * (XB - h1))) + k1;
 
-            if (Abs(XA - h2 + (YB - k2) * (YB - k2) - MajorRadius2 * MajorRadius2) < Abs(XA - h2 + (YA - k2) * (YA - k2) - MajorRadius2 * MajorRadius2))
+            if (Abs(XA - h2 + ((YB - k2) * (YB - k2)) - (MajorRadius2 * MajorRadius2)) < Abs(XA - h2 + ((YA - k2) * (YA - k2)) - (MajorRadius2 * MajorRadius2)))
             {
                 YA = YB;
             }
 
-            if (Abs(XB - h2 + (YD - k2) * (YD - k2) - MajorRadius2 * MajorRadius2) < Abs(XB - h2 + (YC - k2) * (YC - k2) - MajorRadius2 * MajorRadius2))
+            if (Abs(XB - h2 + ((YD - k2) * (YD - k2)) - (MajorRadius2 * MajorRadius2)) < Abs(XB - h2 + ((YC - k2) * (YC - k2)) - (MajorRadius2 * MajorRadius2)))
             {
                 YC = YD;
             }
 
             if (Abs(k1 - k2) < epsilon)
             {
-                YC = 2 * k1 - YA;
+                YC = (2 * k1) - YA;
             }
 
             var result = new Intersection(IntersectionStates.NoIntersection);
@@ -491,9 +491,9 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double G1Prime(double x, double a, double b, double c, double d, double e, double f, double rootSign)
         {
-            var numerator = 2d * (b * x + e) * b - 4d * c * (2d * a * x + d);
-            var denominator = 2d * Sqrt((b * x + e) * (b * x + e) - 4d * c * (a * x * x + d * x + f));
-            var result = -b + rootSign * numerator / denominator;
+            var numerator = (2d * ((b * x) + e) * b) - (4d * c * ((2d * a * x) + d));
+            var denominator = 2d * Sqrt((((b * x) + e) * ((b * x) + e)) - (4d * c * ((a * x * x) + (d * x) + f)));
+            var result = -b + (rootSign * numerator / denominator);
             result = result / 2d / c;
             return result;
         }
@@ -876,11 +876,11 @@ namespace InstrumentedLibrary
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double G1(double x, double a, double b, double c, double d, double e, double f, double rootSign)
         {
-            var result = b * x + e;
+            var result = (b * x) + e;
             result *= result;
-            result -= 4d * c * (a * x * x + d * x + f);
+            result -= 4d * c * ((a * x * x) + (d * x) + f);
             result = rootSign * Sqrt(result);
-            result = -(b * x + e) + result;
+            result = -((b * x) + e) + result;
             result = result / 2d / c;
 
             return result;
@@ -987,10 +987,10 @@ namespace InstrumentedLibrary
                 if (IsNumberValidTests.IsNumberValid(slope))
                 {
                     var delta_x = Sqrt(
-                        tangent_length * tangent_length / (1d + slope * slope)) / 2d;
+                        tangent_length * tangent_length / (1d + (slope * slope))) / 2d;
                     TangentCenters.Add((TangentX, tangent_y));
-                    TangentP1.Add((TangentX - delta_x, tangent_y - slope * delta_x));
-                    TangentP2.Add((TangentX + delta_x, tangent_y + slope * delta_x));
+                    TangentP1.Add((TangentX - delta_x, tangent_y - (slope * delta_x)));
+                    TangentP2.Add((TangentX + delta_x, tangent_y + (slope * delta_x)));
                 }
             }
 
@@ -1005,10 +1005,10 @@ namespace InstrumentedLibrary
                     - G1Prime(TangentX, a2, b2, c2, d2, e2, f2, -1d);
                 if (IsNumberValidTests.IsNumberValid(slope))
                 {
-                    var delta_x = Sqrt(tangent_length * tangent_length / (1d + slope * slope)) / 2d;
+                    var delta_x = Sqrt(tangent_length * tangent_length / (1d + (slope * slope))) / 2d;
                     TangentCenters.Add((TangentX, tangent_y));
-                    TangentP1.Add((TangentX - delta_x, tangent_y - slope * delta_x));
-                    TangentP2.Add((TangentX + delta_x, tangent_y + slope * delta_x));
+                    TangentP1.Add((TangentX - delta_x, tangent_y - (slope * delta_x)));
+                    TangentP2.Add((TangentX + delta_x, tangent_y + (slope * delta_x)));
                 }
             }
 
@@ -1024,10 +1024,10 @@ namespace InstrumentedLibrary
                 if (IsNumberValidTests.IsNumberValid(slope))
                 {
                     var delta_x = Sqrt(
-                        tangent_length * tangent_length / (1d + slope * slope)) / 2d;
+                        tangent_length * tangent_length / (1d + (slope * slope))) / 2d;
                     TangentCenters.Add((TangentX, tangent_y));
-                    TangentP1.Add((TangentX - delta_x, tangent_y - slope * delta_x));
-                    TangentP2.Add((TangentX + delta_x, tangent_y + slope * delta_x));
+                    TangentP1.Add((TangentX - delta_x, tangent_y - (slope * delta_x)));
+                    TangentP2.Add((TangentX + delta_x, tangent_y + (slope * delta_x)));
                 }
             }
 
@@ -1043,10 +1043,10 @@ namespace InstrumentedLibrary
                 if (IsNumberValidTests.IsNumberValid(slope))
                 {
                     var delta_x = Sqrt(
-                        tangent_length * tangent_length / (1d + slope * slope)) / 2d;
+                        tangent_length * tangent_length / (1d + (slope * slope))) / 2d;
                     TangentCenters.Add((TangentX, tangent_y));
-                    TangentP1.Add((TangentX - delta_x, tangent_y - slope * delta_x));
-                    TangentP2.Add((TangentX + delta_x, tangent_y + slope * delta_x));
+                    TangentP1.Add((TangentX - delta_x, tangent_y - (slope * delta_x)));
+                    TangentP2.Add((TangentX + delta_x, tangent_y + (slope * delta_x)));
                 }
             }
 
@@ -1075,12 +1075,12 @@ namespace InstrumentedLibrary
             var c = 1d / rY / rY;
             var d = -2d * cX / rX / rX;
             var e = -2d * cY / rY / rY;
-            var f = cX * cX / rX / rX + cY * cY / rY / rY - 1d;
+            var f = (cX * cX / rX / rX) + (cY * cY / rY / rY) - 1d;
 
             // Verify the parameters.
             var rect = new Rectangle2D(cX - rX, cY - rY, rX * 2d, rY * 2d);
-            var xmid = rect.Left + rect.Width / 2d;
-            var ymid = rect.Top + rect.Height / 2d;
+            var xmid = rect.Left + (rect.Width / 2d);
+            var ymid = rect.Top + (rect.Height / 2d);
 
             //Console.WriteLine($"VerifyEquation ({x}, {y}) = {total}");
             var v = VerifyEquation(a, b, c, d, e, f, rect.Left, ymid, epsilon);
@@ -1119,7 +1119,7 @@ namespace InstrumentedLibrary
             double a, double b, double c, double d, double e, double f, double x, double y,
             double epsilon = Epsilon)
         {
-            var total = a * x * x + b * x * y + c * y * y + d * x + e * y + f;
+            var total = (a * x * x) + (b * x * y) + (c * y * y) + (d * x) + (e * y) + f;
             return (Abs(total) < epsilon, total);
         }
 

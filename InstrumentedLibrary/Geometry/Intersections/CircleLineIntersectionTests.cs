@@ -86,11 +86,11 @@ namespace InstrumentedLibrary
             var dx = lBX - lAX;
             var dy = lBY - lAY;
 
-            var A = dx * dx + dy * dy;
-            var B = 2d * (dx * (lAX - cX) + dy * (lAY - cY));
-            var C = (lAX - cX) * (lAX - cX) + (lAY - cY) * (lAY - cY) - radius * radius;
+            var A = (dx * dx) + (dy * dy);
+            var B = 2d * ((dx * (lAX - cX)) + (dy * (lAY - cY)));
+            var C = ((lAX - cX) * (lAX - cX)) + ((lAY - cY) * (lAY - cY)) - (radius * radius);
 
-            var det = B * B - 4d * A * C;
+            var det = (B * B) - (4d * A * C);
             if ((A <= epsilon) || (det < 0d))
             {
                 // No real solutions.
@@ -103,7 +103,7 @@ namespace InstrumentedLibrary
                 var t = -B / (2d * A);
                 //var intersection = new Intersection(IntersectionStates.Intersection);
                 //intersection.AppendPoint((lAX + t * dx, lAY + t * dy));
-                return new (double X, double Y)[] { (lAX + t * dx, lAY + t * dy) };
+                return new (double X, double Y)[] { (lAX + (t * dx), lAY + (t * dy)) };
                 //return intersection;
             }
             else
@@ -114,7 +114,7 @@ namespace InstrumentedLibrary
                 //intersection.AppendPoint((lAX + t1 * dx, lAY + t1 * dy));
                 var t2 = (-B - Sqrt(det)) / (2d * A);
                 //intersection.AppendPoint((lAX + t2 * dx, lAY + t2 * dy));
-                return new (double X, double Y)[] { (lAX + t1 * dx, lAY + t1 * dy), (lAX + t2 * dx, lAY + t2 * dy) };
+                return new (double X, double Y)[] { (lAX + (t1 * dx), lAY + (t1 * dy)), (lAX + (t2 * dx), lAY + (t2 * dy)) };
                 //return intersection;
             }
         }
@@ -156,12 +156,12 @@ namespace InstrumentedLibrary
             var dy = lBY - lAY;
 
             // Calculate the quadratic parameters.
-            var a = dx * dx + dy * dy;
-            var b = 2 * (dx * (lAX - cX) + dy * (lAY - cY));
-            var c = (lAX - cX) * (lAX - cX) + (lAY - cY) * (lAY - cY) - r * r;
+            var a = (dx * dx) + (dy * dy);
+            var b = 2 * ((dx * (lAX - cX)) + (dy * (lAY - cY)));
+            var c = ((lAX - cX) * (lAX - cX)) + ((lAY - cY) * (lAY - cY)) - (r * r);
 
             // Calculate the discriminant.
-            var discriminant = b * b - 4d * a * c;
+            var discriminant = (b * b) - (4d * a * c);
 
             if ((a <= Epsilon) || (discriminant < 0d))
             {
@@ -176,7 +176,7 @@ namespace InstrumentedLibrary
                 // Add the points.
                 //result = new Intersection(IntersectionStates.Intersection);
                 //result.AppendPoint(new Point2D(lAX + t * dx, lAY + t * dy));
-                return new (double X, double Y)[] { (lAX + t * dx, lAY + t * dy) };
+                return new (double X, double Y)[] { (lAX + (t * dx), lAY + (t * dy)) };
             }
             else if (discriminant > 0d)
             {
@@ -188,7 +188,7 @@ namespace InstrumentedLibrary
                 //result = new Intersection(IntersectionStates.Intersection);
                 //result.AppendPoint(new Point2D(lAX + t1 * dx, lAY + t1 * dy));
                 //result.AppendPoint(new Point2D(lAX + t2 * dx, lAY + t2 * dy));
-                return new (double X, double Y)[] { (lAX + t1 * dx, lAY + t1 * dy), (lAX + t2 * dx, lAY + t2 * dy) };
+                return new (double X, double Y)[] { (lAX + (t1 * dx), lAY + (t1 * dy)), (lAX + (t2 * dx), lAY + (t2 * dy)) };
             }
 
             //return result;

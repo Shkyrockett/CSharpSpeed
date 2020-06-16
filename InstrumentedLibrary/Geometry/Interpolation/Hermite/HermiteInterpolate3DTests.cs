@@ -106,15 +106,15 @@ namespace InstrumentedLibrary
             mY1 += (y3 - y2) * (1d - bias) * (1d - tension) / 2d;
             var mZ1 = (z2 - z1) * (1d + bias) * (1d - tension) / 2d;
             mZ1 += (z3 - z2) * (1d - bias) * (1d - tension) / 2d;
-            var a0 = 2d * mu3 - 3d * mu2 + 1d;
-            var a1 = mu3 - 2 * mu2 + mu;
+            var a0 = (2d * mu3) - (3d * mu2) + 1d;
+            var a1 = mu3 - (2 * mu2) + mu;
             var a2 = mu3 - mu2;
-            var a3 = -2d * mu3 + 3d * mu2;
+            var a3 = (-2d * mu3) + (3d * mu2);
 
             return (
-                a0 * x1 + a1 * mX0 + a2 * mX1 + a3 * x2,
-                a0 * y1 + a1 * mY0 + a2 * mY1 + a3 * y2,
-                a0 * z1 + a1 * mZ0 + a2 * mZ1 + a3 * z2);
+                (a0 * x1) + (a1 * mX0) + (a2 * mX1) + (a3 * x2),
+                (a0 * y1) + (a1 * mY0) + (a2 * mY1) + (a3 * y2),
+                (a0 * z1) + (a1 * mZ0) + (a2 * mZ1) + (a3 * z2));
         }
     }
 }

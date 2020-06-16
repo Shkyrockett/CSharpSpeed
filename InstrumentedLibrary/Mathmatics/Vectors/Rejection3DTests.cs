@@ -76,9 +76,9 @@ namespace InstrumentedLibrary
         {
             var magnitude = VectorMagnitude3D.Magnitude(x2, y2, z2);
             var dotProduct = DotProduct2Vector3DTests.DotProduct(x1, y1, z1, x2, y2, z2);
-            return (x1 - x2 * dotProduct / magnitude * magnitude,
-                    z1 - y2 * dotProduct / magnitude * magnitude,
-                    z1 - z2 * dotProduct / magnitude * magnitude);
+            return (x1 - (x2 * dotProduct / magnitude * magnitude),
+                    z1 - (y2 * dotProduct / magnitude * magnitude),
+                    z1 - (z2 * dotProduct / magnitude * magnitude));
         }
     }
 }

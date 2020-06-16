@@ -31,7 +31,7 @@ namespace InstrumentedLibrary
                 c: coefC,
                 d: -2d * coefA * h,
                 e: -2d * coefC * k,
-                f: coefA * h * h + coefC * k * k - a * a * b * b);
+                f: (coefA * h * h) + (coefC * k * k) - (a * a * b * b));
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace InstrumentedLibrary
             var c2 = 0d;
             var c3 = -2d * h / a2;
             var c4 = -2d * k / b2;
-            var c5 = h2 / a2 + k2 / b2 - 1d;
+            var c5 = (h2 / a2) + (k2 / b2) - 1d;
             return (c0, c1, c2, c3, c4, c5);
         }
     }

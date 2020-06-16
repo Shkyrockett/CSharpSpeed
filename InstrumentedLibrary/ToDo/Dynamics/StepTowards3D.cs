@@ -23,7 +23,7 @@ namespace InstrumentedLibrary
             var deltaY = vectorDirection.J - vectorOrigin.J;
             var deltaZ = vectorDirection.K - vectorOrigin.K;
 
-            var deltaLength = Sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
+            var deltaLength = Sqrt((deltaX * deltaX) + (deltaY * deltaY) + (deltaZ * deltaZ));
             if (deltaLength == 0 || Abs(deltaLength) < length) return vectorDirection;
             var lengthRatio = length / deltaLength;
 
@@ -51,13 +51,13 @@ namespace InstrumentedLibrary
         public static Point3D MovePointTowards(Point3D a, Point3D b, double distance)
         {
             var vector = new Vector3D(b.X - a.X, b.Y - a.Y, b.Z - a.Z);
-            var length = Sqrt(vector.I * vector.I + vector.J * vector.J + vector.K * vector.K);
+            var length = Sqrt((vector.I * vector.I) + (vector.J * vector.J) + (vector.K * vector.K));
             if (length == 0 || Abs(length) < distance) return b;
             var unitVector = new Vector3D(vector.I / length, vector.J / length, vector.K / length);
             return new Point3D(
-                a.X + unitVector.I * distance,
-                a.Y + unitVector.J * distance,
-                a.Z + unitVector.K * distance
+                a.X + (unitVector.I * distance),
+                a.Y + (unitVector.J * distance),
+                a.Z + (unitVector.K * distance)
                 );
         }
     }

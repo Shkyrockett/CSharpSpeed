@@ -81,8 +81,8 @@ namespace InstrumentedLibrary
         public static (double X, double Y) CubicBezierDerivative0(double t, double p0X, double p0Y, double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y)
         {
             return (
-                3d * Pow(1d - t, 2d) * (p1X - p0X) + 6d * (1d - t) * t * (p2X - p1X) + 3d * Pow(t, 2d) * (p3X - p2X),
-                3d * Pow(1d - t, 2d) * (p1Y - p0Y) + 6d * (1d - t) * t * (p2Y - p1Y) + 3d * Pow(t, 2d) * (p3Y - p2Y)
+                (3d * Pow(1d - t, 2d) * (p1X - p0X)) + (6d * (1d - t) * t * (p2X - p1X)) + (3d * Pow(t, 2d) * (p3X - p2X)),
+                (3d * Pow(1d - t, 2d) * (p1Y - p0Y)) + (6d * (1d - t) * t * (p2Y - p1Y)) + (3d * Pow(t, 2d) * (p3Y - p2Y))
                 );
         }
 
@@ -115,8 +115,8 @@ namespace InstrumentedLibrary
             var mu2 = t * t;
 
             return (
-                3d * mu12 * (p1X - p0X) + 6d * mu1 * t * (p2X - p1X) + 3d * mu2 * (p3X - p2X),
-                3d * mu12 * (p1Y - p0Y) + 6d * mu1 * t * (p2Y - p1Y) + 3d * mu2 * (p3Y - p2Y)
+                (3d * mu12 * (p1X - p0X)) + (6d * mu1 * t * (p2X - p1X)) + (3d * mu2 * (p3X - p2X)),
+                (3d * mu12 * (p1Y - p0Y)) + (6d * mu1 * t * (p2Y - p1Y)) + (3d * mu2 * (p3Y - p2Y))
                 );
         }
     }

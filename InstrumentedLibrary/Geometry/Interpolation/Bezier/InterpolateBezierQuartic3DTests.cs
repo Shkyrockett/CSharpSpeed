@@ -91,9 +91,9 @@ namespace InstrumentedLibrary
         public static (double X, double Y, double Z) QuarticBezierInterpolateGetPoint1(double t, double aX, double aY, double aZ, double bX, double bY, double bZ, double cX, double cY, double cZ, double dX, double dY, double dZ, double eX, double eY, double eZ)
         {
             return (
-                (aX * (1d - t) * (1d - t) * (1d - t) * (1d - t)) + 4d * bX * t * (1d - t) * (1d - t) * (1d - t) + 6d * cX * t * t * (1d - t) * (1d - t) + 4d * dX * t * t * t * (1d - t) + eX * t * t * t * t,
-                (aY * (1d - t) * (1d - t) * (1d - t) * (1d - t)) + 4d * bY * t * (1d - t) * (1d - t) * (1d - t) + 6d * cY * t * t * (1d - t) * (1d - t) + 4d * dY * t * t * t * (1d - t) + eY * t * t * t * t,
-                (aZ * (1d - t) * (1d - t) * (1d - t) * (1d - t)) + 4d * bZ * t * (1d - t) * (1d - t) * (1d - t) + 6d * cZ * t * t * (1d - t) * (1d - t) + 4d * dZ * t * t * t * (1d - t) + eZ * t * t * t * t
+                (aX * (1d - t) * (1d - t) * (1d - t) * (1d - t)) + (4d * bX * t * (1d - t) * (1d - t) * (1d - t)) + (6d * cX * t * t * (1d - t) * (1d - t)) + (4d * dX * t * t * t * (1d - t)) + (eX * t * t * t * t),
+                (aY * (1d - t) * (1d - t) * (1d - t) * (1d - t)) + (4d * bY * t * (1d - t) * (1d - t) * (1d - t)) + (6d * cY * t * t * (1d - t) * (1d - t)) + (4d * dY * t * t * t * (1d - t)) + (eY * t * t * t * t),
+                (aZ * (1d - t) * (1d - t) * (1d - t) * (1d - t)) + (4d * bZ * t * (1d - t) * (1d - t) * (1d - t)) + (6d * cZ * t * t * (1d - t) * (1d - t)) + (4d * dZ * t * t * t * (1d - t)) + (eZ * t * t * t * t)
                 );
         }
 

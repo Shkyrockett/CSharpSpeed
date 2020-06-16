@@ -71,7 +71,7 @@ namespace InstrumentedLibrary
 
             var dx = point.X - fulcrum.X;
             var dy = point.Y - fulcrum.Y;
-            var distanceSquared = dx * dx + dy * dy;
+            var distanceSquared = (dx * dx) + (dy * dy);
             var sx = point.X;
             var sy = point.Y;
             var distance = Sqrt(distanceSquared);
@@ -80,8 +80,8 @@ namespace InstrumentedLibrary
                 var r = distance;
                 var a = Atan2(dy, dx); // Might this be simplified by finding the unit of the vector?
                 var rn = Pow(r, strength) * distance;
-                var newX = rn * Cos(a) + fulcrum.X;
-                var newY = rn * Sin(a) + fulcrum.Y;
+                var newX = (rn * Cos(a)) + fulcrum.X;
+                var newY = (rn * Sin(a)) + fulcrum.Y;
                 sx += newX - point.X;
                 sy += newY - point.Y;
             }

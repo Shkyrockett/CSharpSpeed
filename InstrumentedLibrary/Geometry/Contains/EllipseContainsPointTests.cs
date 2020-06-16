@@ -89,8 +89,8 @@ namespace InstrumentedLibrary
             var u = pX - x;
             var v = pY - y;
 
-            var a = (cosT * u + sinT * v) * (cosT * u + sinT * v);
-            var b = (sinT * u - cosT * v) * (sinT * u - cosT * v);
+            var a = ((cosT * u) + (sinT * v)) * ((cosT * u) + (sinT * v));
+            var b = ((sinT * u) - (cosT * v)) * ((sinT * u) - (cosT * v));
 
             var d1Squared = 4d * rX * rX;
             var d2Squared = 4d * rY * rY;

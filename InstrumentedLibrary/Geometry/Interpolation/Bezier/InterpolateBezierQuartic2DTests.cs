@@ -81,8 +81,8 @@ namespace InstrumentedLibrary
         public static (double X, double Y) QuarticBezierInterpolateGetPoint1(double t, double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY, double eX, double eY)
         {
             return (
-                (aX * (1d - t) * (1d - t) * (1d - t) * (1d - t)) + 4d * bX * t * (1d - t) * (1d - t) * (1d - t) + 6d * cX * t * t * (1d - t) * (1d - t) + 4d * dX * t * t * t * (1d - t) + eX * t * t * t * t,
-                (aY * (1d - t) * (1d - t) * (1d - t) * (1d - t)) + 4d * bY * t * (1d - t) * (1d - t) * (1d - t) + 6d * cY * t * t * (1d - t) * (1d - t) + 4d * dY * t * t * t * (1d - t) + eY * t * t * t * t
+                (aX * (1d - t) * (1d - t) * (1d - t) * (1d - t)) + (4d * bX * t * (1d - t) * (1d - t) * (1d - t)) + (6d * cX * t * t * (1d - t) * (1d - t)) + (4d * dX * t * t * t * (1d - t)) + (eX * t * t * t * t),
+                (aY * (1d - t) * (1d - t) * (1d - t) * (1d - t)) + (4d * bY * t * (1d - t) * (1d - t) * (1d - t)) + (6d * cY * t * t * (1d - t) * (1d - t)) + (4d * dY * t * t * t * (1d - t)) + (eY * t * t * t * t)
                 );
         }
 

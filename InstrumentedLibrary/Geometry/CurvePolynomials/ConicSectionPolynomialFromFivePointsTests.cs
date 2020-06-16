@@ -73,7 +73,7 @@ namespace InstrumentedLibrary
                         var factor = -arr[r2, r] / arr[r, r];
                         for (var j = r; j <= cols; j++)
                         {
-                            arr[r2, j] = arr[r2, j] + factor * arr[r, j];
+                            arr[r2, j] = arr[r2, j] + (factor * arr[r, j]);
                         }
                     }
                 }

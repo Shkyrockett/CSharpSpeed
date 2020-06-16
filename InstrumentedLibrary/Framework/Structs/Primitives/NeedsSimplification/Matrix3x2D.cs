@@ -448,7 +448,7 @@ namespace InstrumentedLibrary
 
             matrix.SetMatrix(scaleX, 0,
                              0, scaleY,
-                             centerX - scaleX * centerX, centerY - scaleY * centerY,
+                             centerX - (scaleX * centerX), centerY - (scaleY * centerY),
                              MatriciesForms.Scaling | MatriciesForms.Translation);
 
             return matrix;
@@ -638,8 +638,8 @@ namespace InstrumentedLibrary
                 // Copy the matrix
                 matrix1 = matrix2;
 
-                matrix1.offsetX = (float)(offsetX * matrix2.m0x0 + offsetY * matrix2.m1x0 + matrix2.offsetX);
-                matrix1.offsetY = (float)(offsetX * matrix2.m0x1 + offsetY * matrix2.m1x1 + matrix2.offsetY);
+                matrix1.offsetX = (float)((offsetX * matrix2.m0x0) + (offsetY * matrix2.m1x0) + matrix2.offsetX);
+                matrix1.offsetY = (float)((offsetX * matrix2.m0x1) + (offsetY * matrix2.m1x1) + matrix2.offsetY);
 
                 if (type2 == MatriciesForms.Unknown)
                 {
@@ -689,8 +689,8 @@ namespace InstrumentedLibrary
                 case 51: // S|T * S|T
                     matrix1.m0x0 *= matrix2.m0x0;
                     matrix1.m1x1 *= matrix2.m1x1;
-                    matrix1.offsetX = matrix2.m0x0 * matrix1.offsetX + matrix2.offsetX;
-                    matrix1.offsetY = matrix2.m1x1 * matrix1.offsetY + matrix2.offsetY;
+                    matrix1.offsetX = (matrix2.m0x0 * matrix1.offsetX) + matrix2.offsetX;
+                    matrix1.offsetY = (matrix2.m1x1 * matrix1.offsetY) + matrix2.offsetY;
                     return;
                 case 36: // S * U
                 case 52: // S|T * U
@@ -698,14 +698,14 @@ namespace InstrumentedLibrary
                 case 67: // U * S|T
                 case 68: // U * U
                     matrix1 = new Matrix3x2D(
-                        matrix1.m0x0 * matrix2.m0x0 + matrix1.m0x1 * matrix2.m1x0,
-                        matrix1.m0x0 * matrix2.m0x1 + matrix1.m0x1 * matrix2.m1x1,
+                        (matrix1.m0x0 * matrix2.m0x0) + (matrix1.m0x1 * matrix2.m1x0),
+                        (matrix1.m0x0 * matrix2.m0x1) + (matrix1.m0x1 * matrix2.m1x1),
 
-                        matrix1.m1x0 * matrix2.m0x0 + matrix1.m1x1 * matrix2.m1x0,
-                        matrix1.m1x0 * matrix2.m0x1 + matrix1.m1x1 * matrix2.m1x1,
+                        (matrix1.m1x0 * matrix2.m0x0) + (matrix1.m1x1 * matrix2.m1x0),
+                        (matrix1.m1x0 * matrix2.m0x1) + (matrix1.m1x1 * matrix2.m1x1),
 
-                        matrix1.offsetX * matrix2.m0x0 + matrix1.offsetY * matrix2.m1x0 + matrix2.offsetX,
-                        matrix1.offsetX * matrix2.m0x1 + matrix1.offsetY * matrix2.m1x1 + matrix2.offsetY);
+                        (matrix1.offsetX * matrix2.m0x0) + (matrix1.offsetY * matrix2.m1x0) + matrix2.offsetX,
+                        (matrix1.offsetX * matrix2.m0x1) + (matrix1.offsetY * matrix2.m1x1) + matrix2.offsetY);
                     return;
             }
         }
@@ -764,8 +764,8 @@ namespace InstrumentedLibrary
                 // Copy the matrix
                 matrix1 = matrix2;
 
-                matrix1.offsetX = (float)(offsetX * matrix2.m0x0 + offsetY * matrix2.m1x0 + matrix2.offsetX);
-                matrix1.offsetY = (float)(offsetX * matrix2.m0x1 + offsetY * matrix2.m1x1 + matrix2.offsetY);
+                matrix1.offsetX = (float)((offsetX * matrix2.m0x0) + (offsetY * matrix2.m1x0) + matrix2.offsetX);
+                matrix1.offsetY = (float)((offsetX * matrix2.m0x1) + (offsetY * matrix2.m1x1) + matrix2.offsetY);
 
                 if (type2 == MatriciesForms.Unknown)
                 {
@@ -815,8 +815,8 @@ namespace InstrumentedLibrary
                 case 51: // S|T * S|T
                     matrix1.m0x0 *= matrix2.m0x0;
                     matrix1.m1x1 *= matrix2.m1x1;
-                    matrix1.offsetX = matrix2.m0x0 * matrix1.offsetX + matrix2.offsetX;
-                    matrix1.offsetY = matrix2.m1x1 * matrix1.offsetY + matrix2.offsetY;
+                    matrix1.offsetX = (matrix2.m0x0 * matrix1.offsetX) + matrix2.offsetX;
+                    matrix1.offsetY = (matrix2.m1x1 * matrix1.offsetY) + matrix2.offsetY;
                     return matrix1;
                 case 36: // S * U
                 case 52: // S|T * U
@@ -824,14 +824,14 @@ namespace InstrumentedLibrary
                 case 67: // U * S|T
                 case 68: // U * U
                     matrix1 = new Matrix3x2D(
-                        matrix1.m0x0 * matrix2.m0x0 + matrix1.m0x1 * matrix2.m1x0,
-                        matrix1.m0x0 * matrix2.m0x1 + matrix1.m0x1 * matrix2.m1x1,
+                        (matrix1.m0x0 * matrix2.m0x0) + (matrix1.m0x1 * matrix2.m1x0),
+                        (matrix1.m0x0 * matrix2.m0x1) + (matrix1.m0x1 * matrix2.m1x1),
 
-                        matrix1.m1x0 * matrix2.m0x0 + matrix1.m1x1 * matrix2.m1x0,
-                        matrix1.m1x0 * matrix2.m0x1 + matrix1.m1x1 * matrix2.m1x1,
+                        (matrix1.m1x0 * matrix2.m0x0) + (matrix1.m1x1 * matrix2.m1x0),
+                        (matrix1.m1x0 * matrix2.m0x1) + (matrix1.m1x1 * matrix2.m1x1),
 
-                        matrix1.offsetX * matrix2.m0x0 + matrix1.offsetY * matrix2.m1x0 + matrix2.offsetX,
-                        matrix1.offsetX * matrix2.m0x1 + matrix1.offsetY * matrix2.m1x1 + matrix2.offsetY);
+                        (matrix1.offsetX * matrix2.m0x0) + (matrix1.offsetY * matrix2.m1x0) + matrix2.offsetX,
+                        (matrix1.offsetX * matrix2.m0x1) + (matrix1.offsetY * matrix2.m1x1) + matrix2.offsetY);
                     return matrix1;
             }
 
@@ -864,8 +864,8 @@ namespace InstrumentedLibrary
                 //       \   m11*tx+m21*ty+ox     m12*tx + m22*ty + oy    1 /
                 //
 
-                matrix.offsetX += matrix.m0x0 * offsetX + matrix.m1x0 * offsetY;
-                matrix.offsetY += matrix.m0x1 * offsetX + matrix.m1x1 * offsetY;
+                matrix.offsetX += (matrix.m0x0 * offsetX) + (matrix.m1x0 * offsetY);
+                matrix.offsetY += (matrix.m0x1 * offsetX) + (matrix.m1x1 * offsetY);
 
                 // It just gained a translate if was a scale transform. Identity transform is handled above.
                 if (matrix.type != MatriciesForms.Unknown)
@@ -1148,8 +1148,8 @@ namespace InstrumentedLibrary
                                   -m0x1 * invdet,
                                   -m1x0 * invdet,
                                   m0x0 * invdet,
-                                  (m1x0 * offsetY - offsetX * m1x1) * invdet,
-                                  (offsetX * m0x1 - m0x0 * offsetY) * invdet,
+                                  ((m1x0 * offsetY) - (offsetX * m1x1)) * invdet,
+                                  ((offsetX * m0x1) - (m0x0 * offsetY)) * invdet,
                                   MatriciesForms.Unknown);
                     }
                     break;
@@ -1238,8 +1238,8 @@ namespace InstrumentedLibrary
                     y += offsetY;
                     break;
                 default:
-                    var xadd = y * m1x0 + offsetX;
-                    var yadd = x * m0x1 + offsetY;
+                    var xadd = (y * m1x0) + offsetX;
+                    var yadd = (x * m0x1) + offsetY;
                     x *= m0x0;
                     x += xadd;
                     y *= m1x1;
@@ -1274,8 +1274,8 @@ namespace InstrumentedLibrary
                     point.Y += offsetY;
                     break;
                 default:
-                    var xadd = point.Y * m1x0 + offsetX;
-                    var yadd = point.X * m0x1 + offsetY;
+                    var xadd = (point.Y * m1x0) + offsetX;
+                    var yadd = (point.X * m0x1) + offsetY;
                     point.X *= m0x0;
                     point.X += xadd;
                     point.Y *= m1x1;

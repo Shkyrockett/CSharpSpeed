@@ -133,13 +133,13 @@ namespace InstrumentedLibrary
             var c23y2 = c23.J * c23.J;
 
             var roots = new Polynomial(
-                -2 * c12.I * c12.J * c22.I * c23.J - 2 * c12.I * c12.J * c22.J * c23.I + 2 * c12y2 * c22.I * c23.I + 2 * c12x2 * c22.J * c23.J,
-                -2 * c12.I * c12.J * c23.I * c23.J + c12x2 * c23y2 + c12y2 * c23x2,
-                -2 * c12.I * c21.I * c12.J * c23.J - 2 * c12.I * c12.J * c21.J * c23.I - 2 * c12.I * c12.J * c22.I * c22.J + 2 * c21.I * c12y2 * c23.I + c12y2 * c22x2 + c12x2 * (2 * c21.J * c23.J + c22y2),
-                2 * c10.I * c12.I * c12.J * c23.J + 2 * c10.J * c12.I * c12.J * c23.I + c11.I * c11.J * c12.I * c23.J + c11.I * c11.J * c12.J * c23.I - 2 * c20.I * c12.I * c12.J * c23.J - 2 * c12.I * c20.J * c12.J * c23.I - 2 * c12.I * c21.I * c12.J * c22.J - 2 * c12.I * c12.J * c21.J * c22.I - 2 * c10.I * c12y2 * c23.I - 2 * c10.J * c12x2 * c23.J + 2 * c20.I * c12y2 * c23.I + 2 * c21.I * c12y2 * c22.I - c11y2 * c12.I * c23.I - c11x2 * c12.J * c23.J + c12x2 * (2 * c20.J * c23.J + 2 * c21.J * c22.J),
-                2 * c10.I * c12.I * c12.J * c22.J + 2 * c10.J * c12.I * c12.J * c22.I + c11.I * c11.J * c12.I * c22.J + c11.I * c11.J * c12.J * c22.I - 2 * c20.I * c12.I * c12.J * c22.J - 2 * c12.I * c20.J * c12.J * c22.I - 2 * c12.I * c21.I * c12.J * c21.J - 2 * c10.I * c12y2 * c22.I - 2 * c10.J * c12x2 * c22.J + 2 * c20.I * c12y2 * c22.I - c11y2 * c12.I * c22.I - c11x2 * c12.J * c22.J + c21x2 * c12y2 + c12x2 * (2 * c20.J * c22.J + c21y2),
-                2 * c10.I * c12.I * c12.J * c21.J + 2 * c10.J * c12.I * c21.I * c12.J + c11.I * c11.J * c12.I * c21.J + c11.I * c11.J * c21.I * c12.J - 2 * c20.I * c12.I * c12.J * c21.J - 2 * c12.I * c20.J * c21.I * c12.J - 2 * c10.I * c21.I * c12y2 - 2 * c10.J * c12x2 * c21.J + 2 * c20.I * c21.I * c12y2 - c11y2 * c12.I * c21.I - c11x2 * c12.J * c21.J + 2 * c12x2 * c20.J * c21.J,
-                -2 * c10.I * c10.J * c12.I * c12.J - c10.I * c11.I * c11.J * c12.J - c10.J * c11.I * c11.J * c12.I + 2 * c10.I * c12.I * c20.J * c12.J + 2 * c10.J * c20.I * c12.I * c12.J + c11.I * c20.I * c11.J * c12.J + c11.I * c11.J * c12.I * c20.J - 2 * c20.I * c12.I * c20.J * c12.J - 2 * c10.I * c20.I * c12y2 + c10.I * c11y2 * c12.I + c10.J * c11x2 * c12.J - 2 * c10.J * c12x2 * c20.J - c20.I * c11y2 * c12.I - c11x2 * c20.J * c12.J + c10x2 * c12y2 + c10y2 * c12x2 + c20x2 * c12y2 + c12x2 * c20y2
+                (-2 * c12.I * c12.J * c22.I * c23.J) - (2 * c12.I * c12.J * c22.J * c23.I) + (2 * c12y2 * c22.I * c23.I) + (2 * c12x2 * c22.J * c23.J),
+                (-2 * c12.I * c12.J * c23.I * c23.J) + (c12x2 * c23y2) + (c12y2 * c23x2),
+                (-2 * c12.I * c21.I * c12.J * c23.J) - (2 * c12.I * c12.J * c21.J * c23.I) - (2 * c12.I * c12.J * c22.I * c22.J) + (2 * c21.I * c12y2 * c23.I) + (c12y2 * c22x2) + (c12x2 * ((2 * c21.J * c23.J) + c22y2)),
+                (2 * c10.I * c12.I * c12.J * c23.J) + (2 * c10.J * c12.I * c12.J * c23.I) + (c11.I * c11.J * c12.I * c23.J) + (c11.I * c11.J * c12.J * c23.I) - (2 * c20.I * c12.I * c12.J * c23.J) - (2 * c12.I * c20.J * c12.J * c23.I) - (2 * c12.I * c21.I * c12.J * c22.J) - (2 * c12.I * c12.J * c21.J * c22.I) - (2 * c10.I * c12y2 * c23.I) - (2 * c10.J * c12x2 * c23.J) + (2 * c20.I * c12y2 * c23.I) + (2 * c21.I * c12y2 * c22.I) - (c11y2 * c12.I * c23.I) - (c11x2 * c12.J * c23.J) + (c12x2 * ((2 * c20.J * c23.J) + (2 * c21.J * c22.J))),
+                (2 * c10.I * c12.I * c12.J * c22.J) + (2 * c10.J * c12.I * c12.J * c22.I) + (c11.I * c11.J * c12.I * c22.J) + (c11.I * c11.J * c12.J * c22.I) - (2 * c20.I * c12.I * c12.J * c22.J) - (2 * c12.I * c20.J * c12.J * c22.I) - (2 * c12.I * c21.I * c12.J * c21.J) - (2 * c10.I * c12y2 * c22.I) - (2 * c10.J * c12x2 * c22.J) + (2 * c20.I * c12y2 * c22.I) - (c11y2 * c12.I * c22.I) - (c11x2 * c12.J * c22.J) + (c21x2 * c12y2) + (c12x2 * ((2 * c20.J * c22.J) + c21y2)),
+                (2 * c10.I * c12.I * c12.J * c21.J) + (2 * c10.J * c12.I * c21.I * c12.J) + (c11.I * c11.J * c12.I * c21.J) + (c11.I * c11.J * c21.I * c12.J) - (2 * c20.I * c12.I * c12.J * c21.J) - (2 * c12.I * c20.J * c21.I * c12.J) - (2 * c10.I * c21.I * c12y2) - (2 * c10.J * c12x2 * c21.J) + (2 * c20.I * c21.I * c12y2) - (c11y2 * c12.I * c21.I) - (c11x2 * c12.J * c21.J) + (2 * c12x2 * c20.J * c21.J),
+                (-2 * c10.I * c10.J * c12.I * c12.J) - (c10.I * c11.I * c11.J * c12.J) - (c10.J * c11.I * c11.J * c12.I) + (2 * c10.I * c12.I * c20.J * c12.J) + (2 * c10.J * c20.I * c12.I * c12.J) + (c11.I * c20.I * c11.J * c12.J) + (c11.I * c11.J * c12.I * c20.J) - (2 * c20.I * c12.I * c20.J * c12.J) - (2 * c10.I * c20.I * c12y2) + (c10.I * c11y2 * c12.I) + (c10.J * c11x2 * c12.J) - (2 * c10.J * c12x2 * c20.J) - (c20.I * c11y2 * c12.I) - (c11x2 * c20.J * c12.J) + (c10x2 * c12y2) + (c10y2 * c12x2) + (c20x2 * c12y2) + (c12x2 * c20y2)
                 ).RootsInInterval();
 
             var result = new Intersection(IntersectionStates.NoIntersection);
@@ -150,12 +150,12 @@ namespace InstrumentedLibrary
                 var xRoots = QuadraticRootsTests.QuadraticRoots(
                     c12.I,
                     c11.I,
-                    c10.I - c20.I - s * c21.I - s * s * c22.I - s * s * s * c23.I,
+                    c10.I - c20.I - (s * c21.I) - (s * s * c22.I) - (s * s * s * c23.I),
                     epsilon);
                 var yRoots = QuadraticRootsTests.QuadraticRoots(
                     c12.J,
                     c11.J,
-                    c10.J - c20.J - s * c21.J - s * s * c22.J - s * s * s * c23.J,
+                    c10.J - c20.J - (s * c21.J) - (s * s * c22.J) - (s * s * s * c23.J),
                     epsilon);
                 if (xRoots.Count > 0 && yRoots.Count > 0)
                 {
@@ -168,7 +168,7 @@ namespace InstrumentedLibrary
                             {
                                 if (Abs(xRoot - yRoots[k]) < epsilon)
                                 {
-                                    result.Items.Add((Point2D)c23 * s * s * s + (c22 * s * s + (c21 * s + c20)));
+                                    result.Items.Add(((Point2D)c23 * s * s * s) + ((c22 * s * s) + ((c21 * s) + c20)));
                                     goto checkRoots;
                                 }
                             }
@@ -223,10 +223,10 @@ namespace InstrumentedLibrary
 
             // ToDo: Break early if the AABB bounding box of the curve does not intersect.
 
-            var c12 = new Vector2D(a1X - a2X * 2 + a3X, a1Y - a2Y * 2 + a3Y);
+            var c12 = new Vector2D(a1X - (a2X * 2) + a3X, a1Y - (a2Y * 2) + a3Y);
             var c11 = new Vector2D(2 * (a2X - a1X), 2 * (a2Y - a1Y));
-            var c23 = new Vector2D(b4X - b3X * 3 + b2X * 3 - b1X * 1, b4Y - b3Y * 3 + b2Y * 3 - b1Y * 1);
-            var c22 = new Vector2D(3 * (b3X - b2X * 2 + b1X), 3 * (b3Y - b2Y * 2 + b1Y));
+            var c23 = new Vector2D(b4X - (b3X * 3) + (b2X * 3) - (b1X * 1), b4Y - (b3Y * 3) + (b2Y * 3) - (b1Y * 1));
+            var c22 = new Vector2D(3 * (b3X - (b2X * 2) + b1X), 3 * (b3Y - (b2Y * 2) + b1Y));
             var c21 = new Vector2D(3 * (b2X - b1X), 3 * (b2Y - b1Y));
 
             var c10x2 = a1X * a1X;
@@ -246,18 +246,18 @@ namespace InstrumentedLibrary
             var c23y2 = c23.J * c23.J;
 
             var roots = new Polynomial(
-                /* t^0 */ -2 * c12.I * c12.J * c22.I * c23.J - 2 * c12.I * c12.J * c22.J * c23.I + 2 * c12y2 * c22.I * c23.I + 2 * c12x2 * c22.J * c23.J,
-                /* t^1 */ -2 * c12.I * c12.J * c23.I * c23.J + c12x2 * c23y2 + c12y2 * c23x2,
-                /* t^2 */ -2 * c12.I * c21.I * c12.J * c23.J - 2 * c12.I * c12.J * c21.J * c23.I - 2 * c12.I * c12.J * c22.I * c22.J + 2 * c21.I * c12y2 * c23.I + c12y2 * c22x2 + c12x2 * (2 * c21.J * c23.J + c22y2),
-                /* t^3 */ 2 * a1X * c12.I * c12.J * c23.J + 2 * a1Y * c12.I * c12.J * c23.I + c11.I * c11.J * c12.I * c23.J + c11.I * c11.J * c12.J * c23.I - 2 * b1X * c12.I * c12.J * c23.J - 2 * c12.I * b1Y * c12.J * c23.I - 2 * c12.I * c21.I * c12.J * c22.J - 2 * c12.I * c12.J * c21.J * c22.I - 2 * a1X * c12y2 * c23.I - 2 * a1Y * c12x2 * c23.J + 2 * b1X * c12y2 * c23.I + 2 * c21.I * c12y2 * c22.I - c11y2 * c12.I * c23.I - c11x2 * c12.J * c23.J + c12x2 * (2 * b1Y * c23.J + 2 * c21.J * c22.J),
-                /* t^4 */ 2 * a1X * c12.I * c12.J * c22.J + 2 * a1Y * c12.I * c12.J * c22.I + c11.I * c11.J * c12.I * c22.J + c11.I * c11.J * c12.J * c22.I - 2 * b1X * c12.I * c12.J * c22.J - 2 * c12.I * b1Y * c12.J * c22.I - 2 * c12.I * c21.I * c12.J * c21.J - 2 * a1X * c12y2 * c22.I - 2 * a1Y * c12x2 * c22.J + 2 * b1X * c12y2 * c22.I - c11y2 * c12.I * c22.I - c11x2 * c12.J * c22.J + c21x2 * c12y2 + c12x2 * (2 * b1Y * c22.J + c21y2),
-                /* t^5 */ 2 * a1X * c12.I * c12.J * c21.J + 2 * a1Y * c12.I * c21.I * c12.J + c11.I * c11.J * c12.I * c21.J + c11.I * c11.J * c21.I * c12.J - 2 * b1X * c12.I * c12.J * c21.J - 2 * c12.I * b1Y * c21.I * c12.J - 2 * a1X * c21.I * c12y2 - 2 * a1Y * c12x2 * c21.J + 2 * b1X * c21.I * c12y2 - c11y2 * c12.I * c21.I - c11x2 * c12.J * c21.J + 2 * c12x2 * b1Y * c21.J,
-                /* t^6 */ -2 * a1X * a1Y * c12.I * c12.J - a1X * c11.I * c11.J * c12.J - a1Y * c11.I * c11.J * c12.I + 2 * a1X * c12.I * b1Y * c12.J + 2 * a1Y * b1X * c12.I * c12.J + c11.I * b1X * c11.J * c12.J + c11.I * c11.J * c12.I * b1Y - 2 * b1X * c12.I * b1Y * c12.J - 2 * a1X * b1X * c12y2 + a1X * c11y2 * c12.I + a1Y * c11x2 * c12.J - 2 * a1Y * c12x2 * b1Y - b1X * c11y2 * c12.I - c11x2 * b1Y * c12.J + c10x2 * c12y2 + c10y2 * c12x2 + c20x2 * c12y2 + c12x2 * c20y2
+                /* t^0 */ (-2 * c12.I * c12.J * c22.I * c23.J) - (2 * c12.I * c12.J * c22.J * c23.I) + (2 * c12y2 * c22.I * c23.I) + (2 * c12x2 * c22.J * c23.J),
+                /* t^1 */ (-2 * c12.I * c12.J * c23.I * c23.J) + (c12x2 * c23y2) + (c12y2 * c23x2),
+                /* t^2 */ (-2 * c12.I * c21.I * c12.J * c23.J) - (2 * c12.I * c12.J * c21.J * c23.I) - (2 * c12.I * c12.J * c22.I * c22.J) + (2 * c21.I * c12y2 * c23.I) + (c12y2 * c22x2) + (c12x2 * ((2 * c21.J * c23.J) + c22y2)),
+                /* t^3 */ (2 * a1X * c12.I * c12.J * c23.J) + (2 * a1Y * c12.I * c12.J * c23.I) + (c11.I * c11.J * c12.I * c23.J) + (c11.I * c11.J * c12.J * c23.I) - (2 * b1X * c12.I * c12.J * c23.J) - (2 * c12.I * b1Y * c12.J * c23.I) - (2 * c12.I * c21.I * c12.J * c22.J) - (2 * c12.I * c12.J * c21.J * c22.I) - (2 * a1X * c12y2 * c23.I) - (2 * a1Y * c12x2 * c23.J) + (2 * b1X * c12y2 * c23.I) + (2 * c21.I * c12y2 * c22.I) - (c11y2 * c12.I * c23.I) - (c11x2 * c12.J * c23.J) + (c12x2 * ((2 * b1Y * c23.J) + (2 * c21.J * c22.J))),
+                /* t^4 */ (2 * a1X * c12.I * c12.J * c22.J) + (2 * a1Y * c12.I * c12.J * c22.I) + (c11.I * c11.J * c12.I * c22.J) + (c11.I * c11.J * c12.J * c22.I) - (2 * b1X * c12.I * c12.J * c22.J) - (2 * c12.I * b1Y * c12.J * c22.I) - (2 * c12.I * c21.I * c12.J * c21.J) - (2 * a1X * c12y2 * c22.I) - (2 * a1Y * c12x2 * c22.J) + (2 * b1X * c12y2 * c22.I) - (c11y2 * c12.I * c22.I) - (c11x2 * c12.J * c22.J) + (c21x2 * c12y2) + (c12x2 * ((2 * b1Y * c22.J) + c21y2)),
+                /* t^5 */ (2 * a1X * c12.I * c12.J * c21.J) + (2 * a1Y * c12.I * c21.I * c12.J) + (c11.I * c11.J * c12.I * c21.J) + (c11.I * c11.J * c21.I * c12.J) - (2 * b1X * c12.I * c12.J * c21.J) - (2 * c12.I * b1Y * c21.I * c12.J) - (2 * a1X * c21.I * c12y2) - (2 * a1Y * c12x2 * c21.J) + (2 * b1X * c21.I * c12y2) - (c11y2 * c12.I * c21.I) - (c11x2 * c12.J * c21.J) + (2 * c12x2 * b1Y * c21.J),
+                /* t^6 */ (-2 * a1X * a1Y * c12.I * c12.J) - (a1X * c11.I * c11.J * c12.J) - (a1Y * c11.I * c11.J * c12.I) + (2 * a1X * c12.I * b1Y * c12.J) + (2 * a1Y * b1X * c12.I * c12.J) + (c11.I * b1X * c11.J * c12.J) + (c11.I * c11.J * c12.I * b1Y) - (2 * b1X * c12.I * b1Y * c12.J) - (2 * a1X * b1X * c12y2) + (a1X * c11y2 * c12.I) + (a1Y * c11x2 * c12.J) - (2 * a1Y * c12x2 * b1Y) - (b1X * c11y2 * c12.I) - (c11x2 * b1Y * c12.J) + (c10x2 * c12y2) + (c10y2 * c12x2) + (c20x2 * c12y2) + (c12x2 * c20y2)
                 ).RootsInInterval(0, 1);
 
             foreach (var s in roots)
             {
-                var point = new Point2D(c23.I * s * s * s + c22.I * s * s + c21.I * s + b1X, c23.J * s * s * s + c22.J * s * s + c21.J * s + b1Y);
+                var point = new Point2D((c23.I * s * s * s) + (c22.I * s * s) + (c21.I * s) + b1X, (c23.J * s * s * s) + (c22.J * s * s) + (c21.J * s) + b1Y);
                 var xRoots = QuadraticRootsTests.QuadraticRoots(
                     /* c */ c12.I,
                     /* t^1 */ c11.I,

@@ -45,7 +45,7 @@ namespace InstrumentedLibrary
             var length = Sqrt(vector * vector);
             if (Abs(length) < distance) return b;
             var unitVector = vector / length;
-            return a + unitVector * distance;
+            return a + (unitVector * distance);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace InstrumentedLibrary
         {
             var delta = to - from;
             // If the delta between from and to values is 0, then you are already there. Otherwise, calculate the next step.
-            return (delta == 0 || Abs(delta) < distance) ? to : from + delta / Abs(delta) * distance;
+            return (delta == 0 || Abs(delta) < distance) ? to : from + (delta / Abs(delta) * distance);
         }
     }
 }

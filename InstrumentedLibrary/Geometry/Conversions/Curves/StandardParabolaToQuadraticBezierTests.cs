@@ -71,11 +71,11 @@ namespace InstrumentedLibrary
         public static (double ax, double ay, double bx, double by, double cx, double cy) StandardParabolaToQuadraticBezier1(double a, double b, double c, double x1, double x2)
         {
             // Get the vertical components of the end points.
-            var y1 = x1 * (a * x1 + b) + c;
-            var y2 = x2 * (a * x2 + b) + c;
+            var y1 = (x1 * ((a * x1) + b)) + c;
+            var y2 = (x2 * ((a * x2) + b)) + c;
             // Find the intersection of the tangents at the end nodes to find the center node.
-            var cx = (x2 - x1) / 2d + x1;
-            var cy = (x2 - x1) / 2d * (2d * a * x1 + b) + y1;
+            var cx = ((x2 - x1) / 2d) + x1;
+            var cy = ((x2 - x1) / 2d * ((2d * a * x1) + b)) + y1;
             return (x1, y1, cx, cy, x2, y2);
         }
 

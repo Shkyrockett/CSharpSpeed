@@ -160,8 +160,8 @@ namespace InstrumentedLibrary
                 else
                 {
                     var temp2 = (luminance <= 0.5d) ? luminance * (1d + saturation) : luminance + saturation - (luminance * saturation);
-                    var temp1 = 2d * luminance - temp2;
-                    var t3 = new double[] { hue + 1d / 3d, hue, hue - 1d / 3d };
+                    var temp1 = (2d * luminance) - temp2;
+                    var t3 = new double[] { hue + (1d / 3d), hue, hue - (1d / 3d) };
                     var clr = new double[] { 0, 0, 0 };
                     for (var i = 0; i < 3; i++)
                     {
@@ -177,7 +177,7 @@ namespace InstrumentedLibrary
 
                         if (6d * t3[i] < 1d)
                         {
-                            clr[i] = temp1 + (temp2 - temp1) * t3[i] * 6d;
+                            clr[i] = temp1 + ((temp2 - temp1) * t3[i] * 6d);
                         }
                         else if (2d * t3[i] < 1d)
                         {
@@ -185,7 +185,7 @@ namespace InstrumentedLibrary
                         }
                         else if (3d * t3[i] < 2d)
                         {
-                            clr[i] = temp1 + (temp2 - temp1) * ((2d / 3d) - t3[i]) * 6d;
+                            clr[i] = temp1 + ((temp2 - temp1) * ((2d / 3d) - t3[i]) * 6d);
                         }
                         else
                         {
