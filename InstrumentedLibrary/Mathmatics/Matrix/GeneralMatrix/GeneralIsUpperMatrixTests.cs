@@ -82,7 +82,7 @@ namespace InstrumentedLibrary
         [Description("Determines whether a matrix is a upper matrix.")]
         [Acknowledgment("https://github.com/SarahFrem/AutoRegressive_model_cs/blob/master/Matrix.cs#L199")]
         [SourceCodeLocationProvider]
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsUpperMatrix1(double[,] matrix)
         {

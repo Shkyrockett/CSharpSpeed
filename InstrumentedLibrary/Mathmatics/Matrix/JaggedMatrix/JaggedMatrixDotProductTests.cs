@@ -17,7 +17,7 @@ namespace InstrumentedLibrary
     //[DisplayName("Dot product of Matrix.")]
     //[Description("Finds the dot product of a Matrix.")]
     //[SourceCodeLocationProvider]
-    public static class GeneralMatrixDotProductTests
+    public static class JaggedMatrixDotProductTests
     {
         /// <summary>
         /// Dots the product.
@@ -27,7 +27,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static double DotProduct(double[,] a, double[,] b)
+        public static double DotProduct(double[][] a, double[][] b)
             => DotProduct1(a, b);
 
         /// <summary>
@@ -42,12 +42,12 @@ namespace InstrumentedLibrary
         //[SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double DotProduct1(double[,] a, double[,] b)
+        public static double DotProduct1(double[][] a, double[][] b)
         {
-            var rowsA = a?.GetLength(0);
-            var colsA = a?.GetLength(1);
-            var rowsB = b?.GetLength(0);
-            var colsB = b?.GetLength(1);
+            var rowsA = a?.Length;
+            var colsA = a[0]?.Length;
+            var rowsB = b?.Length;
+            var colsB = b[0]?.Length;
 
             if (rowsA != rowsB || colsA != colsB) throw new Exception();
 
@@ -56,7 +56,7 @@ namespace InstrumentedLibrary
             {
                 for (var j = 0; j < colsA; j++)
                 {
-                    result += a[i, j] * b[i, j];
+                    result += a[i][j] * b[i][j];
                 }
             }
 

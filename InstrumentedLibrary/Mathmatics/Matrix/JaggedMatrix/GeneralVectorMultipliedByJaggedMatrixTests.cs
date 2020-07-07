@@ -17,7 +17,7 @@ namespace InstrumentedLibrary
     //[DisplayName("Multiply Vector by Matrix.")]
     //[Description("Multiplies a Vector by a Matrix.")]
     //[SourceCodeLocationProvider]
-    public static class GeneralVectorMultipliedByGeneralMatrixTests
+    public static class GeneralVectorMultipliedByJaggedMatrixTests
     {
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -27,7 +27,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static double[] Multiply(double[] multiplicand, double[,] multiplier)
+        public static double[] Multiply(double[] multiplicand, double[][] multiplier)
             => Multiply1(multiplicand, multiplier);
 
         /// <summary>
@@ -46,15 +46,15 @@ namespace InstrumentedLibrary
         //[SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double[] Multiply1(double[] multiplicand, double[,] multiplier)
+        public static double[] Multiply1(double[] multiplicand, double[][] multiplier)
         {
             var multiplicandRows = 1;
             var multiplicandCols = multiplicand.Length;
-            var multiplierRows = multiplier.GetLength(0);
+            var multiplierRows = multiplier.Length;
 
             if (multiplicandCols != multiplierRows) throw new Exception("Columns of multiplicand must be the same length as the rows of multiplier.");
 
-            var multiplierCols = multiplier.GetLength(1);
+            var multiplierCols = multiplier[0].Length;
 
             var result = new double[multiplicandCols];
             for (var i = 0; i < multiplicandRows; i++)
@@ -64,7 +64,7 @@ namespace InstrumentedLibrary
                     result[j] = 0;
                     for (var k = 0; k < multiplicandCols; k++)
                     {
-                        result[j] += multiplicand[i] * multiplier[k, j];
+                        result[j] += multiplicand[i] * multiplier[k][j];
                     }
                 }
             }

@@ -17,7 +17,7 @@ namespace InstrumentedLibrary
     //[DisplayName("Subtract Matrix.")]
     //[Description("Subtracts one Matrix from another Matrix.")]
     //[SourceCodeLocationProvider]
-    public static class GeneralMatrixSubtractTests
+    public static class JaggedMatrixSubtractTests
     {
         /// <summary>
         /// Subtracts the specified minuend.
@@ -27,7 +27,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static double[,] Subtract(double[,] minuend, double[,] subtrahend)
+        public static double[][] Subtract(double[][] minuend, double[][] subtrahend)
             => Subtract1(minuend, subtrahend);
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace InstrumentedLibrary
         //[SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double[,] Subtract1(double[,] minuend, double[,] subtrahend)
+        public static double[][] Subtract1(double[][] minuend, double[][] subtrahend)
         {
             if (minuend is null)
             {
@@ -57,15 +57,16 @@ namespace InstrumentedLibrary
                 throw new ArgumentNullException(nameof(subtrahend));
             }
 
-            var rows = minuend.GetLength(0);
-            var cols = minuend.GetLength(1);
+            var rows = minuend.Length;
+            var cols = minuend[0].Length;
 
-            var result = new double[rows, cols];
+            var result = new double[rows][];
             for (var i = 0; i < rows; i++)
             {
+                result[i] = new double[cols];
                 for (var j = 0; j < cols; j++)
                 {
-                    result[i, j] = minuend[i, j] - subtrahend[i, j];
+                    result[i][j] = minuend[i][j] - subtrahend[i][j];
                 }
             }
 

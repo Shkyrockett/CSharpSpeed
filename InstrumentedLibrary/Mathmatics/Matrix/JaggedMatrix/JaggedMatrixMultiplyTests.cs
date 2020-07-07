@@ -17,7 +17,7 @@ namespace InstrumentedLibrary
     //[DisplayName("Multiply Matrix.")]
     //[Description("Multiplies two matrices.")]
     //[SourceCodeLocationProvider]
-    public static class GeneralMatrixMultiplyTests
+    public static class JaggedMatrixMultiplyTests
     {
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -27,7 +27,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static double[,] Multiply(double[,] multiplicand, double[,] multiplier)
+        public static double[][] Multiply(double[][] multiplicand, double[][] multiplier)
             => Multiply1(multiplicand, multiplier);
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace InstrumentedLibrary
         //[SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double[,] Multiply1(double[,] multiplicand, double[,] multiplier)
+        public static double[][] Multiply1(double[][] multiplicand, double[][] multiplier)
         {
             if (multiplicand is null)
             {
@@ -58,23 +58,24 @@ namespace InstrumentedLibrary
                 throw new ArgumentNullException(nameof(multiplier));
             }
 
-            var multiplicandRows = multiplicand.GetLength(0);
-            var multiplicandCols = multiplicand.GetLength(1);
-            var multiplierRows = multiplier.GetLength(0);
+            var multiplicandRows = multiplicand.Length;
+            var multiplicandCols = multiplicand[0].Length;
+            var multiplierRows = multiplier.Length;
 
             if (multiplicandCols != multiplierRows) throw new Exception("Columns of multiplicand must be the same length as the rows of multiplier.");
 
-            var multiplierCols = multiplier.GetLength(1);
+            var multiplierCols = multiplier[0].Length;
 
-            var result = new double[multiplicandRows, multiplicandCols];
+            var result = new double[multiplicandRows][];
             for (var i = 0; i < multiplicandRows; i++)
             {
+                result[i] = new double[multiplicandCols];
                 for (var j = 0; j < multiplierCols; j++)
                 {
-                    result[i, j] = 0;
+                    result[i][j] = 0;
                     for (var k = 0; k < multiplicandCols; k++)
                     {
-                        result[i, j] += multiplicand[i, j] * multiplier[i, j];
+                        result[i][j] += multiplicand[i][j] * multiplier[i][j];
                     }
                 }
             }
@@ -98,25 +99,26 @@ namespace InstrumentedLibrary
         //[SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double[,] Multiply2(double[,] multiplicand, double[,] multiplier)
+        public static double[][] Multiply2(double[][] multiplicand, double[][] multiplier)
         {
-            var multiplicandRows = multiplicand.GetLength(0);
-            var multiplicandCols = multiplicand.GetLength(1);
-            var multiplierRows = multiplier.GetLength(0);
+            var multiplicandRows = multiplicand.Length;
+            var multiplicandCols = multiplicand[0].Length;
+            var multiplierRows = multiplier.Length;
 
             if (multiplicandCols != multiplierRows) throw new Exception("Columns of multiplicand must be the same length as the rows of multiplier.");
 
-            var multiplierCols = multiplier.GetLength(1);
+            var multiplierCols = multiplier[0].Length;
 
-            var result = new double[multiplicandRows, multiplierCols];
+            var result = new double[multiplicandRows][];
             for (var i = 0; i < multiplicandRows; i++)
             {
+                result[i] = new double[multiplierCols];
                 for (var j = 0; j < multiplierCols; j++)
                 {
-                    result[i, j] = 0;
+                    result[i][j] = 0;
                     for (var k = 0; k < multiplicandCols; k++)
                     {
-                        result[i, j] += multiplicand[i, k] * multiplier[k, j];
+                        result[i][j] += multiplicand[i][k] * multiplier[k][j];
                     }
                 }
             }

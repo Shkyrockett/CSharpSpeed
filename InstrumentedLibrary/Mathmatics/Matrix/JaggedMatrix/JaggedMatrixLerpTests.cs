@@ -17,7 +17,7 @@ namespace InstrumentedLibrary
     //[DisplayName("Lerp Matrix.")]
     //[Description("Linearly interpolates between two Matrices.")]
     //[SourceCodeLocationProvider]
-    public static class GeneralMatrixLerpTests
+    public static class JaggedMatrixLerpTests
     {
         /// <summary>
         /// Lerps the specified a.
@@ -28,7 +28,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static double[,] Lerp(double[,] a, double[,] b, double amount)
+        public static double[][] Lerp(double[][] a, double[][] b, double amount)
             => Lerp1(a, b, amount);
 
         /// <summary>
@@ -44,20 +44,21 @@ namespace InstrumentedLibrary
         //[SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double[,] Lerp1(double[,] a, double[,] b, double amount)
+        public static double[][] Lerp1(double[][] a, double[][] b, double amount)
         {
-            var aRows = a.GetLength(0);
-            var bRows = b.GetLength(0);
-            var aCols = a.GetLength(1);
-            var bCols = b.GetLength(1);
+            var aRows = a.Length;
+            var bRows = b.Length;
+            var aCols = a[0].Length;
+            var bCols = b[0].Length;
             if (aRows != bRows || aCols != bCols) throw new Exception();
 
-            var results = new double[aRows, bRows];
+            var results = new double[aRows][];
             for (var i = 0; i < aRows; i++)
             {
+                results[i] = new double[bRows];
                 for (var j = 0; j < aCols; j++)
                 {
-                    results[i, j] = a[i, j] + ((b[i, j] - a[i, j]) * amount);
+                    results[i][j] = a[i][j] + ((b[i][j] - a[i][j]) * amount);
                 }
             }
 

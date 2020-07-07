@@ -64,6 +64,126 @@ namespace InstrumentedLibrary
             => Cofactor1(matrix);
 
         /// <summary>
+        /// Adjoint the specified matrix.
+        /// </summary>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns></returns>
+        [DisplayName("Matrix Adjoint")]
+        [Description("Adjoint a matrix.")]
+        [SourceCodeLocationProvider]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[,] Cofactor0(double[,] matrix)
+        {
+            switch (matrix?.GetLength(0))
+            {
+                case null: return null;
+                case 2:
+                    {
+                        var (
+                            r1c1, r1c2,
+                            r2c1, r2c2
+                            ) = MatrixCofactor2x2Tests.Cofactor(
+                            matrix[0, 0], matrix[0, 1],
+                            matrix[1, 0], matrix[1, 1]);
+                        return new double[,]
+                        {
+                            { r1c1, r1c2 },
+                            { r2c1, r2c2 }
+                        };
+                    }
+                case 3:
+                    {
+                        var (
+                            m1x1, m1x2, m1x3,
+                            m2x1, m2x2, m2x3,
+                            m3x1, m3x2, m3x3
+                            ) = MatrixCofactor3x3Tests.Cofactor(
+                            matrix[0, 0], matrix[0, 1], matrix[0, 2],
+                            matrix[1, 0], matrix[1, 1], matrix[1, 2],
+                            matrix[2, 0], matrix[2, 1], matrix[2, 2]);
+                        return new double[,]
+                        {
+                            { m1x1, m1x2, m1x3 },
+                            { m2x1, m2x2, m2x3 },
+                            { m3x1, m3x2, m3x3 }
+                        };
+                    }
+                case 4:
+                    {
+                        var (
+                            m1x1, m1x2, m1x3, m1x4,
+                            m2x1, m2x2, m2x3, m2x4,
+                            m3x1, m3x2, m3x3, m3x4,
+                            m4x1, m4x2, m4x3, m4x4
+                            ) = MatrixCofactor4x4Tests.Cofactor(
+                            matrix[0, 0], matrix[0, 1], matrix[0, 2], matrix[0, 3],
+                            matrix[1, 0], matrix[1, 1], matrix[1, 2], matrix[1, 3],
+                            matrix[2, 0], matrix[2, 1], matrix[2, 2], matrix[2, 3],
+                            matrix[3, 0], matrix[3, 1], matrix[3, 2], matrix[3, 3]);
+                        return new double[,]
+                        {
+                            { m1x1, m1x2, m1x3, m1x4 },
+                            { m2x1, m2x2, m2x3, m2x4 },
+                            { m3x1, m3x2, m3x3, m3x4 },
+                            { m4x1, m4x2, m4x3, m4x4 }
+                        };
+                    }
+                case 5:
+                    {
+                        var (
+                            m1x1, m1x2, m1x3, m1x4, m1x5,
+                            m2x1, m2x2, m2x3, m2x4, m2x5,
+                            m3x1, m3x2, m3x3, m3x4, m3x5,
+                            m4x1, m4x2, m4x3, m4x4, m4x5,
+                            m5x1, m5x2, m5x3, m5x4, m5x5
+                            ) = MatrixCofactor5x5Tests.Cofactor(
+                            matrix[0, 0], matrix[0, 1], matrix[0, 2], matrix[0, 3], matrix[0, 4],
+                            matrix[1, 0], matrix[1, 1], matrix[1, 2], matrix[1, 3], matrix[1, 4],
+                            matrix[2, 0], matrix[2, 1], matrix[2, 2], matrix[2, 3], matrix[2, 4],
+                            matrix[3, 0], matrix[3, 1], matrix[3, 2], matrix[3, 3], matrix[3, 4],
+                            matrix[4, 0], matrix[4, 1], matrix[4, 2], matrix[4, 3], matrix[4, 4]);
+                        return new double[,]
+                        {
+                            { m1x1, m1x2, m1x3, m1x4, m1x5 },
+                            { m2x1, m2x2, m2x3, m2x4, m2x5 },
+                            { m3x1, m3x2, m3x3, m3x4, m3x5 },
+                            { m4x1, m4x2, m4x3, m4x4, m4x5 },
+                            { m5x1, m5x2, m5x3, m5x4, m5x5 }
+                        };
+                    }
+                case 6:
+                    {
+                        var (
+                            m1x1, m1x2, m1x3, m1x4, m1x5, m1x6,
+                            m2x1, m2x2, m2x3, m2x4, m2x5, m2x6,
+                            m3x1, m3x2, m3x3, m3x4, m3x5, m3x6,
+                            m4x1, m4x2, m4x3, m4x4, m4x5, m4x6,
+                            m5x1, m5x2, m5x3, m5x4, m5x5, m5x6,
+                            m6x1, m6x2, m6x3, m6x4, m6x5, m6x6
+                            ) = MatrixCofactor6x6Tests.Cofactor(
+                            matrix[0, 0], matrix[0, 1], matrix[0, 2], matrix[0, 3], matrix[0, 4], matrix[0, 5],
+                            matrix[1, 0], matrix[1, 1], matrix[1, 2], matrix[1, 3], matrix[1, 4], matrix[1, 5],
+                            matrix[2, 0], matrix[2, 1], matrix[2, 2], matrix[2, 3], matrix[2, 4], matrix[2, 5],
+                            matrix[3, 0], matrix[3, 1], matrix[3, 2], matrix[3, 3], matrix[3, 4], matrix[3, 5],
+                            matrix[4, 0], matrix[4, 1], matrix[4, 2], matrix[4, 3], matrix[4, 4], matrix[4, 5],
+                            matrix[5, 0], matrix[5, 1], matrix[5, 2], matrix[5, 3], matrix[5, 4], matrix[5, 5]);
+                        return new double[,]
+                        {
+                            { m1x1, m1x2, m1x3, m1x4, m1x5, m1x6 },
+                            { m2x1, m2x2, m2x3, m2x4, m2x5, m2x6 },
+                            { m3x1, m3x2, m3x3, m3x4, m3x5, m3x6 },
+                            { m4x1, m4x2, m4x3, m4x4, m4x5, m4x6 },
+                            { m5x1, m5x2, m5x3, m5x4, m5x5, m5x6 },
+                            { m6x1, m6x2, m6x3, m6x4, m6x5, m6x6 }
+                        };
+                    }
+                default:
+                    return Cofactor(matrix);
+            }
+        }
+
+        /// <summary>
         /// Cofactors the specified a.
         /// </summary>
         /// <param name="matrix">a.</param>
@@ -76,8 +196,8 @@ namespace InstrumentedLibrary
         //[Description("Cofactor a matrix.")]
         //[Acknowledgment("https://www.geeksforgeeks.org/determinant-of-a-matrix/", "https://www.geeksforgeeks.org/adjoint-inverse-matrix/")]
         //[SourceCodeLocationProvider]
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double[,] Cofactor1(double[,] matrix)
         {
             if (matrix is null)

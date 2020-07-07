@@ -17,7 +17,7 @@ namespace InstrumentedLibrary
     //[DisplayName("Cofactor Matrix.")]
     //[Description("Finds the Cofactor of a Matrix.")]
     //[SourceCodeLocationProvider]
-    public static class GeneralMatrixSparseCofactorTests
+    public static class JaggedMatrixSparseCofactorTests
     {
         /// <summary>
         /// Cofactors the specified matrix.
@@ -28,7 +28,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static double[,] Cofactor(double[,] matrix, int p, int q)
+        public static double[][] Cofactor(double[][] matrix, int p, int q)
             => Cofactor1(matrix, p, q);
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace InstrumentedLibrary
         //[SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double[,] Cofactor1(double[,] matrix, int p, int q)
+        public static double[][] Cofactor1(double[][] matrix, int p, int q)
         {
             if (matrix is null)
             {
@@ -57,20 +57,21 @@ namespace InstrumentedLibrary
 
             var i = 0;
             var j = 0;
-            var rows = matrix.GetLength(0);
-            var cols = matrix.GetLength(1);
-            var temp = new double[rows, cols];
+            var rows = matrix.Length;
+            var cols = matrix[0].Length;
+            var temp = new double[rows][];
 
             // Looping for each element of the matrix 
             for (var row = 0; row < rows; row++)
             {
+                temp[row] = new double[cols];
                 for (var col = 0; col < cols; col++)
                 {
                     // Copying into temporary matrix only those element 
                     // which are not in given row and column 
                     if (row != p && col != q)
                     {
-                        temp[i, j++] = matrix[row, col];
+                        temp[i][j++] = matrix[row][col];
 
                         // Row is filled, so increase row index and 
                         // reset col index 

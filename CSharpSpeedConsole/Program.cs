@@ -49,8 +49,24 @@ namespace CSharpSpeedConsole
         /// <param name="args">The args.</param>
         private static void Main(string[] args)
         {
-            _ = args;
-            foreach (var testSetClass in TestReflectionHelper.GetTypesWithHelpAttribute(typeof(SourceCodeLocationProviderAttribute)))
+            List<Type> types = null;
+            if (args is not null)
+            {
+                types = new List<Type>();
+                foreach (var arg in args)
+                {
+                    foreach (var type in TestReflectionHelper.GetTypesWithHelpAttributeByName(arg, typeof(SourceCodeLocationProviderAttribute)))
+                    {
+                        types.Add(type);
+                    }
+                }
+            }
+            if (types is null || !types.Any())
+            {
+                types = TestReflectionHelper.GetTypesWithHelpAttribute(typeof(SourceCodeLocationProviderAttribute)).ToList();
+            }
+
+            foreach (var testSetClass in types)
             {
                 var testSet = HelperExtensions.ListStaticFactoryConstructorsList(testSetClass, typeof(List<SpeedTester>));
                 var tests = new List<SpeedTester>();
@@ -162,8 +178,9 @@ namespace CSharpSpeedConsole
             foreach (var test in tests)
             {
                 // Run test cases.
+                Console.WriteLine($"Processing: {Path.GetFileNameWithoutExtension(test.FileName)}");
                 test.RunTest();
-                Console.WriteLine($"Processing: {Path.GetFileNameWithoutExtension(test.FileName)}.{test.Method.Name}");
+                Console.WriteLine($"   Processed: {Path.GetFileNameWithoutExtension(test.FileName)}.{test.Method.Name}");
                 var resultSet = test.ToResultsString();
                 foreach (var result in resultSet)
                 {
@@ -171,6 +188,7 @@ namespace CSharpSpeedConsole
                     {
                         results.Add(result.Key, new List<string>());
                     }
+
                     results[result.Key].Add(result.Value);
                 }
             }
@@ -256,6 +274,7 @@ namespace CSharpSpeedConsole
             {
                 sb.Append("Processor unknown");
             }
+
             return sb.ToString();
         }
 
@@ -281,6 +300,7 @@ namespace CSharpSpeedConsole
             {
                 sb.Append("Memory unknown");
             }
+
             return sb.ToString();
         }
 
@@ -303,6 +323,7 @@ namespace CSharpSpeedConsole
                     return $"{number / (ulong)Math.Pow(1024ul, i)} {suffixes[i]}";
                 }
             }
+
             return number.ToString(provider ?? CultureInfo.CurrentCulture);
         }
         #endregion Helper Methods

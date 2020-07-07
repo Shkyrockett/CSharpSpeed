@@ -14,10 +14,10 @@ namespace InstrumentedLibrary
     /// <summary>
     /// 
     /// </summary>
-    //[DisplayName("Multiply Vector by Matrix.")]
-    //[Description("Multiplies a Vector by a Matrix.")]
+    //[DisplayName("Multiply Matrix by Vector.")]
+    //[Description("Multiplies a matrix by a Vector.")]
     //[SourceCodeLocationProvider]
-    public static class GeneralVectorMultipliedByGeneralMatrixTests
+    public static class JaggedMatrixMultipliedByGeneralVectorTests
     {
         /// <summary>
         /// Multiplies the specified multiplicand.
@@ -27,7 +27,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static double[] Multiply(double[] multiplicand, double[,] multiplier)
+        public static double[] Multiply(double[][] multiplicand, double[] multiplier)
             => Multiply1(multiplicand, multiplier);
 
         /// <summary>
@@ -40,31 +40,31 @@ namespace InstrumentedLibrary
         /// <acknowledgment>
         /// https://www.geeksforgeeks.org/different-operation-matrices/
         /// </acknowledgment>
-        //[DisplayName("Multiply Vector by Matrix.")]
-        //[Description("Multiplies a Vector by a Matrix.")]
+        //[DisplayName("Multiply Matrix by Vector.")]
+        //[Description("Multiplies a matrix by a Vector.")]
         //[Acknowledgment("https://www.geeksforgeeks.org/different-operation-matrices/")]
         //[SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double[] Multiply1(double[] multiplicand, double[,] multiplier)
+        public static double[] Multiply1(double[][] multiplicand, double[] multiplier)
         {
-            var multiplicandRows = 1;
-            var multiplicandCols = multiplicand.Length;
-            var multiplierRows = multiplier.GetLength(0);
+            var multiplicandRows = multiplicand.Length;
+            var multiplicandCols = multiplicand[0].Length;
+            var multiplierRows = multiplier.Length;
 
             if (multiplicandCols != multiplierRows) throw new Exception("Columns of multiplicand must be the same length as the rows of multiplier.");
 
             var multiplierCols = multiplier.GetLength(1);
 
-            var result = new double[multiplicandCols];
+            var result = new double[multiplicandRows];
             for (var i = 0; i < multiplicandRows; i++)
             {
                 for (var j = 0; j < multiplierCols; j++)
                 {
-                    result[j] = 0;
+                    result[i] = 0;
                     for (var k = 0; k < multiplicandCols; k++)
                     {
-                        result[j] += multiplicand[i] * multiplier[k, j];
+                        result[i] += multiplicand[i][k] * multiplier[j];
                     }
                 }
             }

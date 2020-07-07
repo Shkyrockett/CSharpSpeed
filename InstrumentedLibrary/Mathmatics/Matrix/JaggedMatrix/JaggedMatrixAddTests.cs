@@ -17,7 +17,7 @@ namespace InstrumentedLibrary
     //[DisplayName("Add matrix.")]
     //[Description("Adds Two matrices together.")]
     //[SourceCodeLocationProvider]
-    public static class GeneralMatrixAddTests
+    public static class JaggedMatrixAddTests
     {
         /// <summary>
         /// Adds the specified augend.
@@ -27,7 +27,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static double[,] Add(double[,] augend, double[,] addend)
+        public static double[][] Add(double[][] augend, double[][] addend)
             => Add1(augend, addend);
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace InstrumentedLibrary
         //[SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double[,] Add1(double[,] augend, double[,] addend)
+        public static double[][] Add1(double[][] augend, double[][] addend)
         {
             if (augend is null)
             {
@@ -57,15 +57,16 @@ namespace InstrumentedLibrary
                 throw new ArgumentNullException(nameof(addend));
             }
 
-            var rows = augend.GetLength(0);
-            var cols = augend.GetLength(1);
+            var rows = (augend?.Length).Value;
+            var cols = (augend[0]?.Length).Value;
 
-            var result = new double[rows, cols];
+            var result = new double[rows][];
             for (var i = 0; i < rows; i++)
             {
+                result[i] = new double[cols];
                 for (var j = 0; j < cols; j++)
                 {
-                    result[i, j] = augend[i, j] + addend[i, j];
+                    result[i][j] = augend[i][j] + addend[i][j];
                 }
             }
 

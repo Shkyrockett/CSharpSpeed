@@ -17,7 +17,7 @@ namespace InstrumentedLibrary
     //[DisplayName("Truncate Matrix.")]
     //[Description("Truncates a Matrix.")]
     //[SourceCodeLocationProvider]
-    public static class GeneralTruncateMatrixTests
+    public static class JaggedTruncateMatrixTests
     {
         /// <summary>
         /// Truncates the specified matrix.
@@ -30,7 +30,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static double[,] Truncate(double[,] matrix, int rowStart, int rowEnd, int columnStart, int columnEnd)
+        public static double[][] Truncate(double[][] matrix, int rowStart, int rowEnd, int columnStart, int columnEnd)
             => Truncate1(matrix, rowStart, rowEnd, columnStart, columnEnd);
 
         /// <summary>
@@ -51,10 +51,10 @@ namespace InstrumentedLibrary
         //[SourceCodeLocationProvider]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double[,] Truncate1(double[,] matrix, int rowStart, int rowEnd, int columnStart, int columnEnd)
+        public static double[][] Truncate1(double[][] matrix, int rowStart, int rowEnd, int columnStart, int columnEnd)
         {
-            var rows = matrix.GetLength(0);
-            var cols = matrix.GetLength(1);
+            var rows = matrix.Length;
+            var cols = matrix[0].Length;
 
             var minimumIndex = rowStart == 0 || rowEnd == 0 || columnStart == 0 || columnEnd == 0;
             var coherenceIndex = rowEnd < rowStart || columnEnd < columnStart;
@@ -62,16 +62,17 @@ namespace InstrumentedLibrary
 
             if (minimumIndex || coherenceIndex || boundIndex)
             {
-                return new double[1, 1];
+                return new double[1][] { new double[1] };
             }
 
-            var result = new double[rowEnd - rowStart + 1, columnEnd - columnStart + 1];
+            var result = new double[rowEnd - rowStart + 1][];
 
             for (var i = rowStart - 1; i < rowEnd; i++)
             {
+                result[i] = new double[columnEnd - columnStart + 1];
                 for (var j = columnStart - 1; j < columnEnd; j++)
                 {
-                    result[i - rowStart + 1, j - columnStart + 1] = matrix[i, j];
+                    result[i - rowStart + 1][j - columnStart + 1] = matrix[i][j];
                 }
             }
 

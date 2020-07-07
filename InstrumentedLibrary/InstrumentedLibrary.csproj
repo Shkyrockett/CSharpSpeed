@@ -9,7 +9,7 @@
     <OutputPath>..\Builds\</OutputPath>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <Authors>Shkyrockett</Authors>
-    <Copyright>Copyright © 2016 - 2019 Shkyrockett</Copyright>
+    <Copyright>Copyright © 2016 - 2020 Shkyrockett</Copyright>
     <RepositoryUrl>https://github.com/Shkyrockett/CSharpSpeed</RepositoryUrl>
     <Description>A library of methods to profile their speed.</Description>
     <TieredCompilation>true</TieredCompilation>
@@ -24,6 +24,7 @@
 
   <PropertyGroup>
     <DefineConstants Condition="$(TargetFramework.StartsWith('netcoreapp'))">$(DefineConstants);HAS_INTRINSICS</DefineConstants>
+    <DefineConstants Condition="$(TargetFramework.StartsWith('net5'))">$(DefineConstants);HAS_INTRINSICS</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
