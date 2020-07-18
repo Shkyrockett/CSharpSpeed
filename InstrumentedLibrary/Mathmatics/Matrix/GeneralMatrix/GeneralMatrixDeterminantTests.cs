@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
     public static class GeneralMatrixDeterminantTests
     {
         /// <summary>
-        /// Tests the harness.
+        /// Tests the harness. See: https://www.dcode.fr/matrix-determinant
         /// </summary>
         /// <returns>
         /// The <see cref="List{T}" />.
@@ -28,23 +28,37 @@ namespace InstrumentedLibrary
         [DisplayName(nameof(JaggedMatrixCofactorTests))]
         public static List<SpeedTester> TestHarness()
         {
-            var trials = 10000;
+            var trials = 1000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { MatrixTestCases.Matrix2x2Elevens2DArray }, new TestCaseResults(description: "Matrix2x2 Elevens Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix2x2Incremental2DArray }, new TestCaseResults(description: "Matrix2x2 Incremental Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix2x2Identity2DArray }, new TestCaseResults(description: "Matrix2x2 Identity Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix3x3Elevens2DArray }, new TestCaseResults(description: "Matrix3x3 Elevens Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix3x3Incremental2DArray }, new TestCaseResults(description: "Matrix3x3 Incremental Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix3x3Identity2DArray }, new TestCaseResults(description: "Matrix3x3 Identity Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix4x4Elevens2DArray }, new TestCaseResults(description: "Matrix4x4 Elevens Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix4x4Incremental2DArray }, new TestCaseResults(description: "Matrix4x4 Incremental Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix4x4Identity2DArray }, new TestCaseResults(description: "Matrix4x4 Identity Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix5x5Elevens2DArray }, new TestCaseResults(description: "Matrix5x5 Elevens Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix5x5Incremental2DArray }, new TestCaseResults(description: "Matrix5x5 Incremental Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix5x5Identity2DArray }, new TestCaseResults(description: "Matrix5x5 Identity Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix6x6Elevens2DArray }, new TestCaseResults(description: "Matrix6x6 Elevens Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix6x6Incremental2DArray }, new TestCaseResults(description: "Matrix6x6 Incremental Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix6x6Identity2DArray }, new TestCaseResults(description: "Matrix6x6 Identity Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.MatrixScalarElevens2DArray }, new TestCaseResults(description: "Matrix1x1 Elevens", trials: trials, expectedReturnValue: 11d, epsilon: double.Epsilon) },
+                
+                //{ new object[] { MatrixTestCases.Matrix2x2Elevens2DArray }, new TestCaseResults(description: "Matrix2x2 Elevens", trials: trials, expectedReturnValue: -10d, epsilon: double.Epsilon) },
+                //{ new object[] { MatrixTestCases.Matrix2x2Incremental2DArray }, new TestCaseResults(description: "Matrix2x2 Incremental", trials: trials, expectedReturnValue: -2d, epsilon: double.Epsilon) },
+                //{ new object[] { MatrixTestCases.Matrix2x2Identity2DArray }, new TestCaseResults(description: "Matrix2x2 Identity", trials: trials, expectedReturnValue: 1d, epsilon: double.Epsilon) },
+                //{ new object[] { MatrixTestCases.Matrix3x3Elevens2DArray }, new TestCaseResults(description: "Matrix3x3 Elevens", trials: trials, expectedReturnValue: 0d, epsilon: double.Epsilon) },
+                //{ new object[] { MatrixTestCases.Matrix3x3Incremental2DArray }, new TestCaseResults(description: "Matrix3x3 Incremental", trials: trials, expectedReturnValue: 0d, epsilon: double.Epsilon) },
+                //{ new object[] { MatrixTestCases.Matrix3x3Identity2DArray }, new TestCaseResults(description: "Matrix3x3 Identity", trials: trials, expectedReturnValue: 1d, epsilon: double.Epsilon) },
+                //{ new object[] { MatrixTestCases.Matrix4x4Elevens2DArray }, new TestCaseResults(description: "Matrix4x4 Elevens", trials: trials, expectedReturnValue: 0d, epsilon: double.Epsilon) },
+                //{ new object[] { MatrixTestCases.Matrix4x4Incremental2DArray }, new TestCaseResults(description: "Matrix4x4 Incremental", trials: trials, expectedReturnValue: 0d, epsilon: double.Epsilon) },
+                //{ new object[] { MatrixTestCases.Matrix4x4Identity2DArray }, new TestCaseResults(description: "Matrix4x4 Identity", trials: trials, expectedReturnValue: 1d, epsilon: double.Epsilon) },
+                //{ new object[] { MatrixTestCases.Matrix5x5Elevens2DArray }, new TestCaseResults(description: "Matrix5x5 Elevens", trials: trials, expectedReturnValue: 0d, epsilon: double.Epsilon) },
+                //{ new object[] { MatrixTestCases.Matrix5x5Incremental2DArray }, new TestCaseResults(description: "Matrix5x5 Incremental", trials: trials, expectedReturnValue: 0d, epsilon: double.Epsilon) },
+                //{ new object[] { MatrixTestCases.Matrix5x5Identity2DArray }, new TestCaseResults(description: "Matrix5x5 Identity", trials: trials, expectedReturnValue: 1d, epsilon: double.Epsilon) },
+                //{ new object[] { MatrixTestCases.Matrix6x6Elevens2DArray }, new TestCaseResults(description: "Matrix6x6 Elevens", trials: trials, expectedReturnValue: 0d, epsilon: double.Epsilon) },
+                //{ new object[] { MatrixTestCases.Matrix6x6Incremental2DArray }, new TestCaseResults(description: "Matrix6x6 Incremental", trials: trials, expectedReturnValue: 0d, epsilon: double.Epsilon) },
+                //{ new object[] { MatrixTestCases.Matrix6x6Identity2DArray }, new TestCaseResults(description: "Matrix6x6 Identity", trials: trials, expectedReturnValue: 1d, epsilon: double.Epsilon) },
+            
+                { new object[] { MatrixTestCases.MatrixScalarIdentity2DArray }, new TestCaseResults(description: "Matrix1x1 Identity", trials: trials, expectedReturnValue: 1d, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.BezierLinear2x2Array }, new TestCaseResults(description: "Bezier Matrix2x2", trials: trials, expectedReturnValue: 1d, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.BezierQuadratic3x3Array }, new TestCaseResults(description: "Bezier Matrix3x3", trials: trials, expectedReturnValue: 2d, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.BezierCubic4x4Array }, new TestCaseResults(description: "Bezier Matrix4x4", trials: trials, expectedReturnValue: 9d, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.BezierQuartic5x5Array }, new TestCaseResults(description: "Bezier Matrix5x5", trials: trials, expectedReturnValue: 96d, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.BezierQuintic6x6Array }, new TestCaseResults(description: "Bezier Matrix6x6", trials: trials, expectedReturnValue: 2500d, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.BezierSextic7x7Array }, new TestCaseResults(description: "Bezier Matrix7x7", trials: trials, expectedReturnValue: 162000d, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.BezierSeptic8x8Array }, new TestCaseResults(description: "Bezier Matrix8x8", trials: trials, expectedReturnValue: 26471025d, epsilon: double.Epsilon) },
+                //{ new object[] { MatrixTestCases.BezierOctic9x9Array }, new TestCaseResults(description: "Bezier Matrix9x9", trials: trials, expectedReturnValue: 11014635520d, epsilon: double.Epsilon) },
+                //{ new object[] { MatrixTestCases.BezierNonic10x10Array }, new TestCaseResults(description: "Bezier Matrix10x10", trials: trials, expectedReturnValue: 11759522374656d, epsilon: double.Epsilon) },
+                //{ new object[] { MatrixTestCases.BezierDecic11x11Array }, new TestCaseResults(description: "Bezier Matrix11x11", trials: trials, expectedReturnValue: 32406091200000000d, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();
@@ -81,9 +95,13 @@ namespace InstrumentedLibrary
             switch (matrix?.GetLength(0))
             {
                 case null: return 0;
+                case 1:
+                    {
+                        return matrix[0, 0];
+                    }
                 case 2:
                     {
-                        return  MatrixDeterminant2x2Tests.Determinant(
+                        return MatrixDeterminant2x2Tests.Determinant(
                             matrix[0, 0], matrix[0, 1],
                             matrix[1, 0], matrix[1, 1]);
                     }
@@ -135,14 +153,16 @@ namespace InstrumentedLibrary
         /// https://www.geeksforgeeks.org/determinant-of-a-matrix/
         /// https://www.geeksforgeeks.org/adjoint-inverse-matrix/
         /// </acknowledgment>
-        [DisplayName("Determinant of Matrix.")]
-        [Description("Finds the Determinant of a Matrix.")]
-        [Acknowledgment("https://www.geeksforgeeks.org/determinant-of-a-matrix/", "https://www.geeksforgeeks.org/adjoint-inverse-matrix/")]
-        [SourceCodeLocationProvider]
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //[DisplayName("Determinant of Matrix.")]
+        //[Description("Finds the Determinant of a Matrix.")]
+        //[Acknowledgment("https://www.geeksforgeeks.org/determinant-of-a-matrix/", "https://www.geeksforgeeks.org/adjoint-inverse-matrix/")]
+        //[SourceCodeLocationProvider]
+        //[DebuggerStepThrough]
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Determinant1(double[,] matrix)
         {
+            // This method is broken. It does not provide the correct values for anything over 2 rows.
+
             if (matrix is null)
             {
                 throw new ArgumentNullException(nameof(matrix));
@@ -173,7 +193,7 @@ namespace InstrumentedLibrary
                 var temp = GeneralMatrixSparseCofactorTests.Cofactor(matrix, 0, f);
                 result += sign * matrix[0, f] * Determinant(temp);
 
-                // terms are to be added with alternate sign 
+                // Terms are to be added with alternate sign 
                 sign = -sign;
             }
 
@@ -192,23 +212,28 @@ namespace InstrumentedLibrary
         [Description("Finds the Determinant of a Matrix.")]
         [Acknowledgment("https://www.answers.com/Q/Determinant_of_matrix_in_java")]
         [SourceCodeLocationProvider]
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Determinant2(double[,] matrix)
         //{
         //    var result = 0d;
-        //    if (matrix.GetLength(0) == 2)
+        //    var rows = matrix.GetLength(0);
+        //    var cols = matrix.GetLength(1);
+        //    if (rows == 1)
         //    {
-        //        result = matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0];
-        //        return result;
+        //        return matrix[0, 0];
         //    }
-        //    for (var i = 0; i < matrix.GetLength(1); i++)
+        //    else if (rows == 2)
         //    {
-        //        var temp = new double[matrix.Length - 1, matrix.GetLength(1) - 1];
-        //        for (var j = 1; j < matrix.Length; j++)
+        //        return matrix[0, 0] * matrix[1, 1] - matrix[0, 1] * matrix[1, 0];
+        //    }
+        //    for (var i = 0; i < cols; i++)
+        //    {
+        //        var temp = new double[rows - 1, cols - 1];
+        //        for (var j = 1; j < rows; j++)
         //        {
         //            Array.Copy(matrix, 0, temp[j - 1], 0, i);
-        //            Array.Copy(matrix, i + 1, temp[j - 1], i, matrix.GetLength(1) - i - 1);
+        //            Array.Copy(matrix, i + 1, temp[j - 1], i, cols - i - 1);
         //        }
 
         //        result += matrix[0, i] * Math.Pow(-1, i) * Determinant(temp);
@@ -216,7 +241,7 @@ namespace InstrumentedLibrary
 
         //    return result;
         //}
-        => JaggedMatrixDeterminantTests.Determinant(matrix.ToJaggedArray()); // Convert to jagged array until the above code can be fixed.
+        => JaggedMatrixDeterminantTests.Determinant(matrix.ToJaggedArray()); // Convert to jagged array until the above copy code can be understood and fixed.
 
         /// <summary>
         /// Optimized version of Determinant, that only uses double[,]
@@ -229,7 +254,7 @@ namespace InstrumentedLibrary
         [Description("Finds the Determinant of a Matrix.")]
         [Acknowledgment("https://github.com/PigDogBay/MpdbSharedLibrary/blob/master/MpdbSharedLibrary/Maths/Matrix.cs")]
         [SourceCodeLocationProvider]
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static double Determinant3(double[,] array) => Determinant3(array, 1);
 
@@ -246,18 +271,25 @@ namespace InstrumentedLibrary
         /// </acknowledgment>
         private static double Determinant3(double[,] array, double scalar = 1)
         {
-            var length = array.GetLength(0);
-            if (length == 2)
+            var rows = array.GetLength(0);
+            if (rows == 1)
+            {
+                return array[0, 0];
+            }
+            else if (rows == 2)
             {
                 return (array[0, 0] * array[1, 1] - array[0, 1] * array[1, 0]) * scalar * scalar;
             }
+
             double det = 0;
-            // get minors and recurse down
-            for (var i = 0; i < length; i++)
+
+            // Get minors and recurse down
+            for (var i = 0; i < rows; i++)
             {
-                // get the minor
+                // Get the minor
                 var minor = GeneralGetMatrixMinorTests.GetMinor(array, i, 0);
-                // find correct sign
+
+                // Find correct sign
                 if (i % 2 == 0)
                 {
                     det += Determinant3(minor, scalar) * array[0, i] * scalar;
@@ -267,6 +299,7 @@ namespace InstrumentedLibrary
                     det -= Determinant3(minor, scalar) * array[0, i] * scalar;
                 }
             }
+
             return det;
         }
     }

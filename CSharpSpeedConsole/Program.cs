@@ -175,10 +175,16 @@ namespace CSharpSpeedConsole
 
             // Build up the results dictionary to be entered into the table.
             var results = new Dictionary<object[], List<string>>();
+            var cases = string.Empty;
             foreach (var test in tests)
             {
                 // Run test cases.
-                Console.WriteLine($"Processing: {Path.GetFileNameWithoutExtension(test.FileName)}");
+                if (cases != Path.GetFileNameWithoutExtension(test.FileName))
+                {
+                    cases = Path.GetFileNameWithoutExtension(test.FileName);
+                    Console.WriteLine($"Processing: {cases}");
+                }
+
                 test.RunTest();
                 Console.WriteLine($"   Processed: {Path.GetFileNameWithoutExtension(test.FileName)}.{test.Method.Name}");
                 var resultSet = test.ToResultsString();

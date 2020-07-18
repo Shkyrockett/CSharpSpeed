@@ -17,7 +17,7 @@ namespace InstrumentedLibrary
     public static class GeneralMatrixCofactorTests
     {
         /// <summary>
-        /// Tests the harness.
+        /// Tests the harness. See: https://www.dcode.fr/cofactor-matrix
         /// </summary>
         /// <returns>
         /// The <see cref="List{T}" />.
@@ -27,21 +27,23 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { MatrixTestCases.Matrix2x2Elevens2DArray }, new TestCaseResults(description: "Matrix2x2 Elevens Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix2x2Incremental2DArray }, new TestCaseResults(description: "Matrix2x2 Incremental Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix2x2Identity2DArray }, new TestCaseResults(description: "Matrix2x2 Identity Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix3x3Elevens2DArray }, new TestCaseResults(description: "Matrix3x3 Elevens Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix3x3Incremental2DArray }, new TestCaseResults(description: "Matrix3x3 Incremental Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix3x3Identity2DArray }, new TestCaseResults(description: "Matrix3x3 Identity Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix4x4Elevens2DArray }, new TestCaseResults(description: "Matrix4x4 Elevens Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix4x4Incremental2DArray }, new TestCaseResults(description: "Matrix4x4 Incremental Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix4x4Identity2DArray }, new TestCaseResults(description: "Matrix4x4 Identity Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix5x5Elevens2DArray }, new TestCaseResults(description: "Matrix5x5 Elevens Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix5x5Incremental2DArray }, new TestCaseResults(description: "Matrix5x5 Incremental Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix5x5Identity2DArray }, new TestCaseResults(description: "Matrix5x5 Identity Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix6x6Elevens2DArray }, new TestCaseResults(description: "Matrix6x6 Elevens Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix6x6Incremental2DArray }, new TestCaseResults(description: "Matrix6x6 Incremental Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix6x6Identity2DArray }, new TestCaseResults(description: "Matrix6x6 Identity Tuple", trials: trials, expectedReturnValue:-2d, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.MatrixScalarIdentity2DArray }, new TestCaseResults(description: "Matrix2x2Scalor", trials: trials, expectedReturnValue: new double[,] { {1d} }, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.MatrixScalarElevens2DArray }, new TestCaseResults(description: "Matrix2x2Scalor", trials: trials, expectedReturnValue: new double[,] { {1d} }, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.Matrix2x2Elevens2DArray }, new TestCaseResults(description: "Matrix2x2 Elevens", trials: trials, expectedReturnValue: new double[,] { { 22d, -12d}, { -12d, 11d} }, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.Matrix2x2Incremental2DArray }, new TestCaseResults(description: "Matrix2x2 Incremental", trials: trials, expectedReturnValue: new double[,] { { 4d, -3d}, { -2d, 1d} }, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.Matrix2x2Identity2DArray }, new TestCaseResults(description: "Matrix2x2 Identity", trials: trials, expectedReturnValue: new double[,] { { 1d, 0d}, { 0d, 1d} }, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.Matrix3x3Elevens2DArray }, new TestCaseResults(description: "Matrix3x3 Elevens", trials: trials, expectedReturnValue: new double[,] { { -10d, 20d, -10d}, { 20d, -40d, 20d}, { -10d, 20d, -10d} }, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.Matrix3x3Incremental2DArray }, new TestCaseResults(description: "Matrix3x3 Incremental", trials: trials, expectedReturnValue: new double[,] { { -3d, 6d, -3d}, { 6d, -12d, 6d}, { -3d, 6d, -3d} }, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.Matrix3x3Identity2DArray }, new TestCaseResults(description: "Matrix3x3 Identity", trials: trials, expectedReturnValue: new double[,] { { 1d, 0d, 0d}, { 0d, 1d, 0d}, { 0d, 0d, 1d} }, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.Matrix4x4Elevens2DArray }, new TestCaseResults(description: "Matrix4x4 Elevens", trials: trials, expectedReturnValue: new double[,] { { 0d, -0d, 0d, -0d}, { -0d, 0d, -0d, 0d}, { 0d, -0d, 0d, -0d}, { -0d, 0d, -0d, 0d} }, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.Matrix4x4Incremental2DArray }, new TestCaseResults(description: "Matrix4x4 Incremental", trials: trials, expectedReturnValue: new double[,] { { 0d, -0d, 0d, -0d}, { -0d, 0d, -0d, 0d}, { 0d, -0d, 0d, -0d}, { -0d, 0d, -0d, 0d} }, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.Matrix4x4Identity2DArray }, new TestCaseResults(description: "Matrix4x4 Identity", trials: trials, expectedReturnValue: new double[,] { { 1d, 0d, 0d, 0d}, { 0d, 1d, 0d, 0d}, { 0d, 0d, 1d, 0d}, { 0d, 0d, 0d, 1d} }, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.Matrix5x5Elevens2DArray }, new TestCaseResults(description: "Matrix5x5 Elevens", trials: trials, expectedReturnValue: new double[,] { { 0d, -0d, 0d, -0d, 0d}, { -0d, 0d, -0d, 0d, -0d}, { 0d, -0d, 0d, -0d, 0d}, { -0d, 0d, -0d, 0d, -0d}, { 0d, -0d, 0d, -0d, 0d} }, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.Matrix5x5Incremental2DArray }, new TestCaseResults(description: "Matrix5x5 Incremental", trials: trials, expectedReturnValue: new double[,] { { 0d, -0d, 0d, -0d, 0d}, { -0d, 0d, -0d, 0d, -0d}, { 0d, -0d, 0d, -0d, 0d}, { -0d, 0d, -0d, 0d, -0d}, { 0d, -0d, 0d, -0d, 0d} }, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.Matrix5x5Identity2DArray }, new TestCaseResults(description: "Matrix5x5 Identity", trials: trials, expectedReturnValue: new double[,] { { 1d, 0d, 0d,-0d, 0d}, { 0d, 1d, 0d, 0d, 0d}, { 0d, 0d, 1d, 0d, 0d}, { 0d, 0d, 0d, 1d, 0d}, { 0d, 0d, 0d, 0d, 1d} }, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.Matrix6x6Elevens2DArray }, new TestCaseResults(description: "Matrix6x6 Elevens", trials: trials, expectedReturnValue: new double[,] { { 0d, -0d, 0d, -0d, 0d, -0d}, { -0d, 0d, -0d, 0d, -0d, 0d}, { 0d, -0d, 0d, -0d, 0d, -0d}, { -0d, 0d, -0d, 0d, -0d, 0d}, { 0d, -0d, 0d, -0d, 0d, -0d}, { -0d, 0d, -0d, 0d, -0d, 0d} }, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.Matrix6x6Incremental2DArray }, new TestCaseResults(description: "Matrix6x6 Incremental", trials: trials, expectedReturnValue: new double[,] { { 0d, -0d, 0d, -0d, 0d, -0d}, { -0d, 0d, -0d, 0d, -0d, 0d}, { 0d, -0d, 0d, -0d, 0d, -0d}, { -0d, 0d, -0d, 0d, -0d, 0d}, { 0d, -0d, 0d, -0d, 0d, -0d}, { -0d, 0d, -0d, 0d, -0d, 0d} }, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.Matrix6x6Identity2DArray }, new TestCaseResults(description: "Matrix6x6 Identity", trials: trials, expectedReturnValue: new double[,] { { 1d, 0d, 0d, 0d, 0d, 0d}, { 0d, 1d, 0d, 0d, 0d, 0d}, { 0d, 0d, 1d, 0d, 0d, 0d}, { 0d, 0d, 0d, 1d, 0d, 0d}, { 0d, 0d, 0d, 0d, 1d, 0d}, { 0d, 0d, 0d, 0d, 0d, 1d} }, epsilon: double.Epsilon) },
             };
 
             var results = new List<SpeedTester>();

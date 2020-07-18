@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
     public static class GeneralMatrixAdjointTests
     {
         /// <summary>
-        /// Tests the harness.
+        /// Tests the harness. Use: https://www.dcode.fr/adjoint-matrix
         /// </summary>
         /// <returns>
         /// The <see cref="List{T}" />.
@@ -30,9 +30,9 @@ namespace InstrumentedLibrary
         {
             var trials = 10000;
             var tests = new Dictionary<object[], TestCaseResults> {
-                { new object[] { MatrixTestCases.MatrixScalarIdentity2DArray }, new TestCaseResults(description: "Matrix2x2Scalor", trials: trials, expectedReturnValue: new double[,] { {0d} }, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.MatrixScalarElevens2DArray }, new TestCaseResults(description: "Matrix2x2Scalor", trials: trials, expectedReturnValue: new double[,] { {0d} }, epsilon: double.Epsilon) },
-                { new object[] { MatrixTestCases.Matrix2x2Elevens2DArray }, new TestCaseResults(description: "Matrix2x2 Elevens Array", trials: trials, expectedReturnValue: new double[,] { { 0d, -0d}, { -0d, 0d} }, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.MatrixScalarIdentity2DArray }, new TestCaseResults(description: "Matrix2x2Scalor", trials: trials, expectedReturnValue: new double[,] { {1d} }, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.MatrixScalarElevens2DArray }, new TestCaseResults(description: "Matrix2x2Scalor", trials: trials, expectedReturnValue: new double[,] { {1d} }, epsilon: double.Epsilon) },
+                { new object[] { MatrixTestCases.Matrix2x2Elevens2DArray }, new TestCaseResults(description: "Matrix2x2 Elevens Array", trials: trials, expectedReturnValue: new double[,] { { 22d, -12d}, { -21d, 11d} }, epsilon: double.Epsilon) },
                 { new object[] { MatrixTestCases.Matrix2x2Incremental2DArray }, new TestCaseResults(description: "Matrix2x2 Incremental Array", trials: trials, expectedReturnValue: new double[,] { { 0d, -0d}, { -0d, 0d} }, epsilon: double.Epsilon) },
                 { new object[] { MatrixTestCases.Matrix2x2Identity2DArray }, new TestCaseResults(description: "Matrix2x2 Identity Array", trials: trials, expectedReturnValue: new double[,] { { 0d, -0d}, { -0d, 0d} }, epsilon: double.Epsilon) },
                 { new object[] { MatrixTestCases.Matrix3x3Elevens2DArray }, new TestCaseResults(description: "Matrix3x3 Elevens Array", trials: trials, expectedReturnValue: new double[,] { { -10d, 20d, -10d}, { 20d, -40d, 20d}, { -10d, 20d, -10d} }, epsilon: double.Epsilon) },
@@ -83,6 +83,8 @@ namespace InstrumentedLibrary
             switch (matrix?.GetLength(0))
             {
                 case null: return null;
+                case 1:
+                    return new double[,] { { 1d } };
                 case 2:
                     {
                         var (
@@ -258,7 +260,13 @@ namespace InstrumentedLibrary
             {
                 throw new InvalidOperationException("Matrix must have the same number of rows and columns for the adjoint to be calculated");
             }
-            // create array to hold the adjoint elements
+
+            if (rows == 1)
+            {
+                return new double[1, 1] { { 1d } };
+            }
+
+            // Create array to hold the adjoint elements
             var tmpArray = new double[cols, rows];
             for (var y = 0; y < rows; y++)
             {
@@ -267,7 +275,8 @@ namespace InstrumentedLibrary
                     tmpArray[y, x] = GeneralMatrixSparseCofactorCellTests.CoFactor(matrix, x, y);
                 }
             }
-            // ignore the scalar, as the CoFactor() will take of that
+
+            // Ignore the scalar, as the CoFactor() will take of that
             return tmpArray;
         }
     }

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CSharpSpeedConsoleNetCore": {
+      "commandName": "Project"//,
+      //"commandLineArgs": "\"InstrumentedLibrary.MultiDimentional2DArrayToJaggedArrayTests\""
+    }
+  }
+}

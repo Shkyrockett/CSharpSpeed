@@ -139,7 +139,13 @@ namespace InstrumentedLibrary
             {
                 throw new InvalidOperationException("Matrix must have the same number of rows and columns for the adjoint to be calculated");
             }
-            // create array to hold the adjoint elements
+
+            if (rows == 1)
+            {
+                return new double[][] { new double[] { 1d } };
+            }
+            
+            // Create array to hold the adjoint elements
             var tmpArray = new double[cols][];
             for (var y = 0; y < rows; y++)
             {
@@ -149,7 +155,8 @@ namespace InstrumentedLibrary
                     tmpArray[y][x] = JaggedMatrixSparseCofactorCellTests.CoFactor(matrix, x, y);
                 }
             }
-            // ignore the scalar, as the CoFactor() will take of that
+
+            // Ignore the scalar, as the CoFactor() will take of that
             return tmpArray;
         }
     }

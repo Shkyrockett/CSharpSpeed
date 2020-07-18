@@ -20,7 +20,7 @@ namespace InstrumentedLibrary
     public static class GeneralMatrixInverseTests
     {
         /// <summary>
-        /// Tests the harness.
+        /// Tests the harness. See: https://www.dcode.fr/matrix-inverse
         /// </summary>
         /// <returns>
         /// The <see cref="List{T}" />.
@@ -88,7 +88,7 @@ namespace InstrumentedLibrary
                             r2c1, r2c2
                             ) = MatrixInvert2x2Tests.Inverse(
                             matrix[0, 0], matrix[0, 1],
-                            matrix[1, 0], matrix[1, 1]);
+                            matrix[1, 0], matrix[1, 1]).Value;
                         return new double[,]
                         {
                             { r1c1, r1c2 },

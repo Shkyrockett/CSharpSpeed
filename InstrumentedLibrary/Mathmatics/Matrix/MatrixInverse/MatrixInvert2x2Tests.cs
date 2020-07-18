@@ -53,7 +53,7 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [Signature]
-        public static (double m1x1, double m1x2, double m2x1, double m2x2) Inverse(double m1x1, double m1x2, double m2x1, double m2x2)
+        public static (double m1x1, double m1x2, double m2x1, double m2x2)? Inverse(double m1x1, double m1x2, double m2x1, double m2x2)
             => InverseMatrix(
                  m1x1, m1x2,
                  m2x1, m2x2);
@@ -80,7 +80,7 @@ namespace InstrumentedLibrary
         public static (
             double m1x1, double m1x2,
             double m2x1, double m2x2
-            ) InverseMatrix(
+            )? InverseMatrix(
             double m1x1, double m1x2,
             double m2x1, double m2x2)
         {

@@ -7,6 +7,9 @@ using static System.Math;
 
 namespace InstrumentedLibrary
 {
+    /// <summary>
+    /// 
+    /// </summary>
     internal static class ToDo
     {
         #region Cubic Bézier Get T
@@ -886,9 +889,11 @@ namespace InstrumentedLibrary
         /// <summary>
         /// https://blogs.msdn.microsoft.com/oldnewthing/20190301-00/?p=101065
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <returns>
+        ///   <see langword="true" /> if [is every component greater than or equal] [the specified x]; otherwise, <see langword="false" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsEveryComponentGreaterThanOrEqual(uint x, uint y)
@@ -901,9 +906,11 @@ namespace InstrumentedLibrary
         /// <summary>
         /// https://blogs.msdn.microsoft.com/oldnewthing/20190301-00/?p=101065
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <returns>
+        ///   <see langword="true" /> if [is every component greater than or equal1] [the specified x]; otherwise, <see langword="false" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsEveryComponentGreaterThanOrEqual1(uint x, uint y)
@@ -926,9 +933,11 @@ namespace InstrumentedLibrary
         /// <summary>
         /// https://blogs.msdn.microsoft.com/oldnewthing/20190301-00/?p=101065
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <returns>
+        ///   <see langword="true" /> if [is every component greater than or equal2] [the specified x]; otherwise, <see langword="false" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsEveryComponentGreaterThanOrEqual2(uint x, uint y)

@@ -204,14 +204,14 @@ namespace CSharpSpeed
                 sbyte b => $"{b}",
                 byte b => $"{b}",
                 int i => $"{i}",
-                uint i => $"{i}U",
-                short s => $"{s}S",
-                ushort s => $"{s}US",
-                long l => $"{l}L",
-                ulong l => $"{l}UL",
-                float f => $"{f.ToString("R", CultureInfo.InvariantCulture)}F",
-                double d => $"{d.ToString("R", CultureInfo.InvariantCulture)}D",
-                decimal d => $"{d.ToString("R", CultureInfo.InvariantCulture)}M",
+                uint i => $"{i}u",
+                short s => $"{s}s",
+                ushort s => $"{s}us",
+                long l => $"{l}l",
+                ulong l => $"{l}ul",
+                float f => float.IsNaN(f) ? "NaN" : float.IsNegativeInfinity(f) ? "-∞" : float.IsInfinity(f) ? "∞" : $"{f.ToString("R", CultureInfo.InvariantCulture)}f",
+                double d => double.IsNaN(d) ? "NaN" : double.IsNegativeInfinity(d) ? "-∞" : double.IsInfinity(d) ? "∞" : $"{d.ToString("R", CultureInfo.InvariantCulture)}d",
+                decimal d => $"{d.ToString("R", CultureInfo.InvariantCulture)}m",
                 Complex c => $"{c.ToString("R", CultureInfo.InvariantCulture)}",
                 IPrintable i => i.ToString("R", CultureInfo.InvariantCulture),
                 ValueTuple<float, float> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)})",
@@ -230,8 +230,56 @@ namespace CSharpSpeed
                 ValueTuple<double, double, double, double, double, double, double, ValueTuple<double>> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)}, {ObjectValueToString(t.Item7)}, {ObjectValueToString(t.Item8)})",
                 ValueTuple<float, float, float, float, float, float, float, ValueTuple<float, float>> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)}, {ObjectValueToString(t.Item7)}, {ObjectValueToString(t.Item8)}, {ObjectValueToString(t.Item9)})",
                 ValueTuple<double, double, double, double, double, double, double, ValueTuple<double, double>> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)}, {ObjectValueToString(t.Item7)}, {ObjectValueToString(t.Item8)}, {ObjectValueToString(t.Item9)})",
-                float[] l => $"float\\[\\] {{ {string.Join(", ", l.Select(x => $"{ObjectValueToString(x)}"))} }}",
-                double[] l => $"double\\[\\] {{ {string.Join(", ", l.Select(x => $"{ObjectValueToString(x)}"))} }}",
+                ValueTuple<float[], float[]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)})",
+                ValueTuple<double[], double[]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)})",
+                ValueTuple<float[], float[], float[]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)})",
+                ValueTuple<double[], double[], double[]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)})",
+                ValueTuple<float[], float[], float[], float[]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)})",
+                ValueTuple<double[], double[], double[], double[]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)})",
+                ValueTuple<float[], float[], float[], float[], float[]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)})",
+                ValueTuple<double[], double[], double[], double[], double[]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)})",
+                ValueTuple<float[], float[], float[], float[], float[], float[]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)})",
+                ValueTuple<double[], double[], double[], double[], double[], double[]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)})",
+                ValueTuple<float[], float[], float[], float[], float[], float[], float[]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)}, {ObjectValueToString(t.Item7)})",
+                ValueTuple<double[], double[], double[], double[], double[], double[], double[]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)}, {ObjectValueToString(t.Item7)})",
+                ValueTuple<float[], float[], float[], float[], float[], float[], float[], ValueTuple<float[]>> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)}, {ObjectValueToString(t.Item7)}, {ObjectValueToString(t.Item8)})",
+                ValueTuple<double[], double[], double[], double[], double[], double[], double[], ValueTuple<double[]>> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)}, {ObjectValueToString(t.Item7)}, {ObjectValueToString(t.Item8)})",
+                ValueTuple<float[], float[], float[], float[], float[], float[], float[], ValueTuple<float[], float[]>> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)}, {ObjectValueToString(t.Item7)}, {ObjectValueToString(t.Item8)}, {ObjectValueToString(t.Item9)})",
+                ValueTuple<double[], double[], double[], double[], double[], double[], double[], ValueTuple<double[], double[]>> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)}, {ObjectValueToString(t.Item7)}, {ObjectValueToString(t.Item8)}, {ObjectValueToString(t.Item9)})",
+                ValueTuple<float[,], float[,]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)})",
+                ValueTuple<double[,], double[,]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)})",
+                ValueTuple<float[,], float[,], float[,]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)})",
+                ValueTuple<double[,], double[,], double[,]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)})",
+                ValueTuple<float[,], float[,], float[,], float[,]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)})",
+                ValueTuple<double[,], double[,], double[,], double[,]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)})",
+                ValueTuple<float[,], float[,], float[,], float[,], float[,]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)})",
+                ValueTuple<double[,], double[,], double[,], double[,], double[,]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)})",
+                ValueTuple<float[,], float[,], float[,], float[,], float[,], float[,]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)})",
+                ValueTuple<double[,], double[,], double[,], double[,], double[,], double[,]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)})",
+                ValueTuple<float[], float[], float[], float[], float[], float[], float[,]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)}, {ObjectValueToString(t.Item7)})",
+                ValueTuple<double[,], double[,], double[,], double[,], double[,], double[,], double[,]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)}, {ObjectValueToString(t.Item7)})",
+                ValueTuple<float[,], float[,], float[,], float[,], float[,], float[,], float[,], ValueTuple<float[,]>> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)}, {ObjectValueToString(t.Item7)}, {ObjectValueToString(t.Item8)})",
+                ValueTuple<double[,], double[,], double[,], double[,], double[,], double[,], double[,], ValueTuple<double[,]>> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)}, {ObjectValueToString(t.Item7)}, {ObjectValueToString(t.Item8)})",
+                ValueTuple<float[,], float[,], float[,], float[,], float[,], float[,], float[,], ValueTuple<float[,], float[,]>> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)}, {ObjectValueToString(t.Item7)}, {ObjectValueToString(t.Item8)}, {ObjectValueToString(t.Item9)})",
+                ValueTuple<double[,], double[,], double[,], double[,], double[,], double[,], double[,], ValueTuple<double[,], double[,]>> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)}, {ObjectValueToString(t.Item7)}, {ObjectValueToString(t.Item8)}, {ObjectValueToString(t.Item9)})",
+                ValueTuple<float[][], float[][]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)})",
+                ValueTuple<double[][], double[][]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)})",
+                ValueTuple<float[][], float[][], float[][]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)})",
+                ValueTuple<double[][], double[][], double[][]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)})",
+                ValueTuple<float[][], float[][], float[][], float[][]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)})",
+                ValueTuple<double[][], double[][], double[][], double[][]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)})",
+                ValueTuple<float[][], float[][], float[][], float[][], float[][]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)})",
+                ValueTuple<double[][], double[][], double[][], double[][], double[][]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)})",
+                ValueTuple<float[][], float[][], float[][], float[][], float[][], float[][]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)})",
+                ValueTuple<double[][], double[][], double[][], double[][], double[][], double[][]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)})",
+                ValueTuple<float[][], float[][], float[][], float[][], float[][], float[][], float[][]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)}, {ObjectValueToString(t.Item7)})",
+                ValueTuple<double[][], double[][], double[][], double[][], double[][], double[][], double[][]> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)}, {ObjectValueToString(t.Item7)})",
+                ValueTuple<float[][], float[][], float[][], float[][], float[][], float[][], float[][], ValueTuple<float[][]>> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)}, {ObjectValueToString(t.Item7)}, {ObjectValueToString(t.Item8)})",
+                ValueTuple<double[][], double[][], double[][], double[][], double[][], double[][], double[][], ValueTuple<double[][]>> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)}, {ObjectValueToString(t.Item7)}, {ObjectValueToString(t.Item8)})",
+                ValueTuple<float[][], float[][], float[][], float[][], float[][], float[][], float[][], ValueTuple<float[][], float[][]>> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)}, {ObjectValueToString(t.Item7)}, {ObjectValueToString(t.Item8)}, {ObjectValueToString(t.Item9)})",
+                ValueTuple<double[][], double[][], double[][], double[][], double[][], double[][], double[][], ValueTuple<double[][], double[][]>> t => $"({ObjectValueToString(t.Item1)}, {ObjectValueToString(t.Item2)}, {ObjectValueToString(t.Item3)}, {ObjectValueToString(t.Item4)}, {ObjectValueToString(t.Item5)}, {ObjectValueToString(t.Item6)}, {ObjectValueToString(t.Item7)}, {ObjectValueToString(t.Item8)}, {ObjectValueToString(t.Item9)})",
+                float[] l => $"new float\\[\\] {{ {string.Join(", ", l.Select(x => $"{ObjectValueToString(x)}"))} }}",
+                double[] l => $"new double\\[\\] {{ {string.Join(", ", l.Select(x => $"{ObjectValueToString(x)}"))} }}",
                 (float, float)[] v => $"(float, float)\\[\\] {{ { string.Join(", ", v.Select(o => ObjectValueToString(o)))} }}",
                 (double, double)[] v => $"(double, double)\\[\\] {{ { string.Join(", ", v.Select(o => ObjectValueToString(o)))} }}",
                 (float, float, float)[] v => $"(float, float, float)\\[\\] {{ { string.Join(", ", v.Select(o => ObjectValueToString(o)))} }}",
@@ -284,10 +332,10 @@ namespace CSharpSpeed
                 IList<(double, double, double, double, double, double, double, double)> v => $"IList\\<(double, double, double, double, double, double, double, double)\\> {{ { string.Join(", ", v.Select(o => ObjectValueToString(o)))} }}",
                 IList<(float, float, float, float, float, float, float, float, float)> v => $"IList\\<(float, float, float, float, float, float, float, float, float)\\> {{ { string.Join(", ", v.Select(o => ObjectValueToString(o)))} }}",
                 IList<(double, double, double, double, double, double, double, double, double)> v => $"IList\\<(double, double, double, double, double, double, double, double, double)\\> {{ { string.Join(", ", v.Select(o => ObjectValueToString(o)))} }}",
-                float[,] v => $"float\\[,\\] {{ { string.Join(", ", v.ToJaggedArray().Select(o => ObjectValueToString(o)))} }}",
-                double[,] v => $"double\\[,\\] {{ { string.Join(", ", v.ToJaggedArray().Select(o => ObjectValueToString(o)))} }}",
-                float[][] v => $"float\\[\\]\\[\\] {{ { string.Join(", ", v.Select(o => ObjectValueToString(o)))} }}",
-                double[][] v => $"double\\[\\]\\[\\] {{ { string.Join(", ", v.Select(o => ObjectValueToString(o)))} }}",
+                float[,] v => $"new float\\[,\\] {{ { string.Join(", ", v.ToJaggedArray().Select(o => ObjectValueToString(o)))} }}",
+                double[,] v => $"new double\\[,\\] {{ { string.Join(", ", v.ToJaggedArray().Select(o => ObjectValueToString(o)))} }}",
+                float[][] v => $"new float\\[\\]\\[\\] {{ { string.Join(", ", v.Select(o => ObjectValueToString(o)))} }}",
+                double[][] v => $"new double\\[\\]\\[\\] {{ { string.Join(", ", v.Select(o => ObjectValueToString(o)))} }}",
                 (float, float)[][] v => $"(float, float)\\[\\]\\[\\] {{ { string.Join(", ", v.Select(o => ObjectValueToString(o)))} }}",
                 (double, double)[][] v => $"(double, double)\\[\\]\\[\\] {{ { string.Join(", ", v.Select(o => ObjectValueToString(o)))} }}",
                 (float, float, float)[][] v => $"(float, float, float)\\[\\]\\[\\] {{ { string.Join(", ", v.Select(o => ObjectValueToString(o)))} }}",
@@ -444,11 +492,11 @@ namespace CSharpSpeed
                                 }
                                 else
                                 {
-                                    foreach (var i in l)
+                                    for (var i = 0; i < l.GetLength(0); i++)
                                     {
-                                        foreach (var j in k)
+                                        for (var j = 0; j < l.GetLength(1); j++)
                                         {
-                                            if (i != j)
+                                            if (l[i, j] != k[i, j])
                                             {
                                                 equivalency = notEqual;
                                                 break;
@@ -457,6 +505,27 @@ namespace CSharpSpeed
                                     }
                                 }
                                 break;
+                            //case double[][] k:
+                            //    equivalency = equal;
+                            //    if (l.GetLength(0) != k.Length || l.GetLength(1) != k[0].Length)
+                            //    {
+                            //        equivalency = notEqual;
+                            //    }
+                            //    else
+                            //    {
+                            //        for (var i = 0; i < l.GetLength(0); i++)
+                            //        {
+                            //            for (var j = 0; j < l.GetLength(1); j++)
+                            //            {
+                            //                if (l[i, j] != k[i][j])
+                            //                {
+                            //                    equivalency = notEqual;
+                            //                    break;
+                            //                }
+                            //            }
+                            //        }
+                            //    }
+                            //    break;
                             default:
                                 equivalency = Equals(testcase.Value.ReturnValue, testcase.Value.ExpectedReturnValue) ? equal : notEqual;
                                 break;
@@ -469,17 +538,17 @@ namespace CSharpSpeed
                         {
                             case double[][] k:
                                 equivalency = equal;
-                                if (l.Length != k.Length)
+                                if (l.Length != k.Length || l[0].Length != k[0].Length)
                                 {
                                     equivalency = notEqual;
                                 }
                                 else
                                 {
-                                    foreach (var i in l)
+                                    for (var i = 0; i < l.Length; i++)
                                     {
-                                        foreach (var j in k)
+                                        for (var j = 0; j < l.Length; j++)
                                         {
-                                            if (i != j)
+                                            if (l[i][j] != k[i][j])
                                             {
                                                 equivalency = notEqual;
                                                 break;
@@ -488,6 +557,27 @@ namespace CSharpSpeed
                                     }
                                 }
                                 break;
+                            //case double[,] k:
+                            //    equivalency = equal;
+                            //    if (l.Length != k.GetLength(0) || l[0].Length != k.GetLength(1))
+                            //    {
+                            //        equivalency = notEqual;
+                            //    }
+                            //    else
+                            //    {
+                            //        for (var i = 0; i < k.GetLength(0); i++)
+                            //        {
+                            //            for (var j = 0; j < k.GetLength(1); j++)
+                            //            {
+                            //                if (l[i][j] != k[i, j])
+                            //                {
+                            //                    equivalency = notEqual;
+                            //                    break;
+                            //                }
+                            //            }
+                            //        }
+                            //    }
+                            //    break;
                             default:
                                 equivalency = Equals(testcase.Value.ReturnValue, testcase.Value.ExpectedReturnValue) ? equal : notEqual;
                                 break;

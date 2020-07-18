@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,41 +10,8 @@ namespace InstrumentedLibrary
     /// <summary>
     /// 
     /// </summary>
-    public static class MultiDimentionalArrayToJaggedArrayTests
+    public static class MultiDimentional3DArrayToJaggedArrayTests
     {
-        /// <summary>
-        /// Converts to jagged array.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="twoDimensionalArray">The two dimensional array.</param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// https://stackoverflow.com/a/25995025
-        /// </acknowledgment>
-        public static T[][] ToJaggedArray<T>(this T[,] twoDimensionalArray)
-        {
-            var rowsFirstIndex = twoDimensionalArray.GetLowerBound(0);
-            var rowsLastIndex = twoDimensionalArray.GetUpperBound(0);
-            var numberOfRows = rowsLastIndex + 1;
-
-            var columnsFirstIndex = twoDimensionalArray.GetLowerBound(1);
-            var columnsLastIndex = twoDimensionalArray.GetUpperBound(1);
-            var numberOfColumns = columnsLastIndex + 1;
-
-            var jaggedArray = new T[numberOfRows][];
-            for (var i = rowsFirstIndex; i <= rowsLastIndex; i++)
-            {
-                jaggedArray[i] = new T[numberOfColumns];
-
-                for (var j = columnsFirstIndex; j <= columnsLastIndex; j++)
-                {
-                    jaggedArray[i][j] = twoDimensionalArray[i, j];
-                }
-            }
-
-            return jaggedArray;
-        }
-
         /// <summary>
         /// Converts to jagged array.
         /// </summary>

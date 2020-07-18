@@ -143,19 +143,18 @@ namespace InstrumentedLibrary
             {
                 return matrix[0][0];
             }
-            if (rows == 2)
+            else if (rows == 2)
             {
-                result = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
-                return result;
+                return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
             }
             for (var i = 0; i < cols; i++)
             {
                 var temp = new double[rows - 1][];
                 for (var j = 1; j < rows; j++)
                 {
-                    temp[j - 1] = new double[matrix[j].Length - 1];
+                    temp[j - 1] = new double[cols - 1];
                     Array.Copy(matrix[j], 0, temp[j - 1], 0, i);
-                    Array.Copy(matrix[j], i + 1, temp[j - 1], i, matrix[j].Length - i - 1);
+                    Array.Copy(matrix[j], i + 1, temp[j - 1], i, cols - i - 1);
                 }
 
                 result += matrix[0][i] * Math.Pow(-1, i) * Determinant(temp);
@@ -193,7 +192,11 @@ namespace InstrumentedLibrary
         private static double Determinant2(double[][] array, double scalar = 1)
         {
             var length = array.GetLength(0);
-            if (length == 2)
+            if (length == 1)
+            {
+                return array[0][0];
+            }
+            else if (length == 2)
             {
                 return (array[0][0] * array[1][1] - array[0][1] * array[1][0]) * scalar * scalar;
             }

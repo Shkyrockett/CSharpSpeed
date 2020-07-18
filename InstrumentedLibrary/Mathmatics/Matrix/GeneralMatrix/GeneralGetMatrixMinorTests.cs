@@ -17,28 +17,32 @@ namespace InstrumentedLibrary
         /// <returns></returns>
         public static double[,] GetMinor(double[,] array, int xPos, int yPos)
         {
-            var length = array.GetLength(0);
-            //get the minor
-            var minor = new double[length - 1, length - 1];
+            var rows = array.GetLength(0);
+            var cols = array.GetLength(1);
+
+            // Get the minor
+            var minor = new double[rows - 1, cols - 1];
             var mY = 0;
-            for (var y = 0; y < length; y++)
+            for (var i = 0; i < rows; i++)
             {
-                if (y == yPos)
+                if (i == yPos)
                 {
-                    // skip this one
+                    // Skip this one
                     continue;
                 }
                 var mX = 0;
-                for (var x = 0; x < length; x++)
+                for (var j = 0; j < cols; j++)
                 {
-                    if (x == xPos)
+                    if (j == xPos)
                     {
-                        //skip this one
+                        // Skip this one
                         continue;
                     }
-                    minor[mY, mX] = array[y, x];
+
+                    minor[mY, mX] = array[i, j];
                     mX++;
                 }
+
                 mY++;
             }
             return minor;
